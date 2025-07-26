@@ -1,0 +1,44 @@
+import { toast } from "react-toastify";
+import axios from "axios";
+import TypeParams from "@/components/dashboard/products/tables/tableProducts/types/typeParams";
+
+interface ResponseAxios {
+  data: {
+    status: number;
+    response: { data: { error: string } };
+    message: string;
+  };
+}
+const toastDelete = async (
+  id: number,
+  fetchProducts: (params?: TypeParams) => void,
+  newPage: number
+) => {
+  try {
+    await toast.promise(
+      axios.delete(`http://localhost:3000/api/products/${id}`),
+      {
+        pending: "Eliminando Producto",
+        success: {
+          render() {
+            return "Producto Eliminado";
+          },
+        },
+        error: {
+          render({ data }: ResponseAxios) {
+            if (data.response.data.error) {
+              return data.response.data.error;
+            } else {
+              return data.message;
+            }
+          },
+        },
+      }
+    );
+    fetchProducts({ page: newPage });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default toastDelete;

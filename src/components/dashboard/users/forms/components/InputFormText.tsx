@@ -1,0 +1,63 @@
+import {
+  FieldError,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from "react-hook-form";
+import MessageError from "./messageError";
+import TypeUser from "@/app/api/users/type/typeUser";
+import { ReactNode } from "react";
+
+export default function InputFormText({
+  label,
+  error,
+  placeholder,
+  register,
+  nameField,
+  options,
+  type,
+  iconStart,
+  iconEnd,
+}: {
+  iconStart?: ReactNode;
+  iconEnd?: ReactNode;
+  label: string;
+  error: FieldError | undefined;
+  placeholder?: string;
+  register: UseFormRegister<TypeUser>;
+  nameField: Path<TypeUser>;
+  options?: RegisterOptions<TypeUser>;
+  type?: string;
+}) {
+  return (
+    <label
+      className={`font-roboto  ${error ? "text-red-500" : "text-gray-700"}`}
+    >
+      {label}:
+      <div
+        className={`border-1 flex items-center mt-2 px-3 py-2 gap-2 text-foreground   w-full rounded-sm  ${
+          error ? "!border-red-500" : "!border-gray-700 focus:!border-primary "
+        }`}
+      >
+        {iconStart && (
+          <span className={`text-gray-700 ${error && "text-red-500"}`}>
+            {iconStart}
+          </span>
+        )}
+        <input
+          className="w-full bg-transparent autofill:bg-transparent outline-none"
+          autoComplete="off"
+          type={type}
+          placeholder={placeholder}
+          {...register(nameField, options)}
+        />
+        {iconEnd && (
+          <span className={`text-gray-700 ${error && "text-red-500"}`}>
+            {iconEnd}
+          </span>
+        )}
+      </div>
+      <MessageError error={error} />
+    </label>
+  );
+}
