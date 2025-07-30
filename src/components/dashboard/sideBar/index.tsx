@@ -1,13 +1,12 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { sideBarMenu, sideBarMenuSecond } from "./data/sideBarMenu";
 import axios from "axios";
 
 const SideBarNav = () => {
   const pathname = usePathname();
   const links = pathname.split("/");
-  const router = useRouter();
 
   const logoutUser = async () => {
     try {

@@ -1,3 +1,4 @@
+'use client'
 import { useForm } from "react-hook-form";
 import { IoSearchOutline } from "react-icons/io5";
 import getProducts from "@/fetchs/products/getProducts";
@@ -23,7 +24,7 @@ export default function SearchProduct() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex gap-3 group items-center border-1 border-gray-400 px-4 rounded-[50rem] "
+      className={`flex gap-3 group items-center border-1  border-gray-400 px-4 rounded-[50rem] `}
     >
       <button
         type="submit"

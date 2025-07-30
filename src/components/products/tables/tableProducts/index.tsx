@@ -1,6 +1,6 @@
 "use client";
 import "../css/table.css";
-import SkeletonTable from "@/components/skeleton/skeletonTable";
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import NotHaveProducts from "./components/notHaveProducts";
 import { useProductsContext } from "./hooks/hooksTable";
 import ReactTable from "./components/reactTable";

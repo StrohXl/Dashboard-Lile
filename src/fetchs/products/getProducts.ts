@@ -2,9 +2,13 @@ import TypeParams from "@/components/dashboard/products/tables/tableProducts/typ
 import axios from "axios";
 
 const getProducts = async (params?: TypeParams) => {
+  const token = localStorage.getItem("myTokenLile");
   try {
     const { data } = await axios.get("http://localhost:3000/api/products", {
       params,
+      headers: {
+        "xm-lile-token": token,
+      },
     });
     return data && data;
   } catch (error) {

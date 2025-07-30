@@ -1,6 +1,6 @@
 "use client";
 import getProductId from "@/fetchs/products/getProductId";
-import FormProduct from "@/components/dashboard/products/forms/formProduct";
+import FormProduct from "@/components/products/forms/formProduct";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ export default function ProductId() {
   };
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [id]);
   return (
     <>
       <div className="flex mb-6 items-center gap-12">

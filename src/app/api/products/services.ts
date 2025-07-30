@@ -23,6 +23,12 @@ export async function getProducts({ page }: { page: number }) {
 export async function getProductId(id: number) {
   try {
     const productId = await prisma.products.findUnique({ where: { id } });
+    if (!productId) {
+      return NextResponse.json(
+        { error: "Producto no encontrado" },
+        { status: 404 }
+      );
+    }
     return NextResponse.json(productId);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

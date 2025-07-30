@@ -9,6 +9,7 @@ import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function FormLogin() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,14 +25,15 @@ export default function FormLogin() {
       setLoading(true);
       await axios.post("http://localhost:3000/api/login", data);
       setError("");
+      toast.success("Iniciando Sesión");
       setTimeout(() => router.push("/dashboard"), 1000);
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) {
         setError(error.response?.data);
       }
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

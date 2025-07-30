@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { deleteProductId, getProductId, updateProductId } from "../services";
 import TypeProduct from "../type/typeProducts";
 
@@ -10,25 +10,39 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
+  const cookie = request.cookies.get("myToken");
+  if (!cookie) {
+    return NextResponse.json("Solicitud no permitida", { status: 400 });
+  }
+  
   const { id } = await params;
   return await getProductId(Number(id));
 }
 
 export async function DELETE(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
+  const cookie = request.cookies.get("myToken");
+  if (!cookie) {
+    return NextResponse.json("Solicitud no permitida", { status: 400 });
+  }
   const { id } = await params;
 
   return await deleteProductId(Number(id));
 }
 
 export async function PUT(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
+  const cookie = request.cookies.get("myToken");
+  if (!cookie) {
+    return NextResponse.json("Solicitud no permitida", { status: 400 });
+  }
+
   const { id } = await params;
-  const body: TypeProduct = await req.json();
+  const body: TypeProduct = await request.json();
   body.price = Number(body.price);
   body.stock = Number(body.stock);
 

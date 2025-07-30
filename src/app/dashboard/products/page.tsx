@@ -1,9 +1,8 @@
-"use client";
-import SearchProduct from "@/components/dashboard/products/forms/searchProduct";
-import TableProducts from "@/components/dashboard/products/tables/tableProducts";
-import { HooksTableProvider } from "@/components/dashboard/products/tables/tableProducts/hooks/hooksTable";
+import SearchProduct from "@/components/products/forms/searchProduct";
+import TableProducts from "@/components/products/tables/tableProducts";
+import { HooksTableProvider } from "@/components/products/tables/tableProducts/hooks/hooksTable";
 import Link from "next/link";
-import { TiPlus } from "react-icons/ti";
+import { HiArchiveBoxArrowDown } from "react-icons/hi2";
 
 export default function Products() {
   return (
@@ -16,8 +15,8 @@ export default function Products() {
           <div className="flex items-center gap-6">
             <SearchProduct />
             <Link className="btn-primary" href="/dashboard/products/create">
-              Agregar Producto
-              <TiPlus size={20} />
+              Agregar
+              <HiArchiveBoxArrowDown size={20} />
             </Link>
           </div>
         </div>

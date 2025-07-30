@@ -16,7 +16,7 @@ export default function InputFormNumber({
   defaultValue,
   options,
 }: {
-  defaultValue?:number,
+  defaultValue?: number;
   label: string;
   error: FieldError | undefined;
   placeholder?: string;
@@ -31,6 +31,7 @@ export default function InputFormNumber({
       {label}:
       <input
         type="number"
+        step="any"
         placeholder={placeholder}
         defaultValue={defaultValue}
         className={`border-1 mt-2 text-foreground   w-full rounded-sm py-2 px-3 outline-none ${

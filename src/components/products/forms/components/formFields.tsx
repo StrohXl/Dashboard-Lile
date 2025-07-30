@@ -1,6 +1,6 @@
 import TypeProduct from "@/app/api/products/type/typeProducts";
-import InputFormNumber from "@/components/dashboard/products/forms/components/inputFormNumber";
-import InputFormText from "@/components/dashboard/products/forms/components/InputFormText";
+import InputFormNumber from "@/components/products/forms/components/inputFormNumber";
+import InputFormText from "@/components/products/forms/components/InputFormText";
 import {
   FieldErrors,
   UseFormHandleSubmit,

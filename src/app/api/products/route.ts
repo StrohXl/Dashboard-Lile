@@ -1,7 +1,11 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createProduct, getProductName, getProducts } from "./services";
 
 export async function GET(request: NextRequest) {
+  const cookie = request.cookies.get("myToken");
+  if (!cookie) {
+    return NextResponse.json("Solicitud no permitida", { status: 400 });
+  }
   const searchParams = request.nextUrl.searchParams;
   const name = searchParams.get("name");
   const page = searchParams.get("page");
@@ -13,6 +17,11 @@ export async function GET(request: NextRequest) {
   }
 }
 export async function POST(request: NextRequest) {
+  const cookie = request.cookies.get("myToken");
+  if (!cookie) {
+    return NextResponse.json("Solicitud no permitida", { status: 400 });
+  }
+
   const body = await request.json();
   body.price = Number(body.price);
   body.stock = Number(body.stock);
