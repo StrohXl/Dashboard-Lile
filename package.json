@@ -14,7 +14,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@hookform/error-message": "^2.0.1",
-    "@prisma/client": "^6.11.1",
+    "@prisma/client": "^6.13.0",
     "@prisma/extension-accelerate": "^2.0.2",
     "@table-library/react-table-library": "^4.1.15",
     "axios": "^1.10.0",
@@ -41,7 +41,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
-    "prisma": "^6.11.1",
+    "prisma": "^6.13.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
     "typescript": "^5"

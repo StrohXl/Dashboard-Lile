@@ -14,8 +14,9 @@ CREATE TABLE "Products" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL DEFAULT '',
-    "price" INTEGER NOT NULL DEFAULT 0,
+    "price" DECIMAL(65,30) NOT NULL DEFAULT 0,
     "stock" INTEGER NOT NULL DEFAULT 0,
+    "nuevo_valor" TEXT NOT NULL DEFAULT '',
     "createdAT" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAT" TIMESTAMP(3) NOT NULL,
 

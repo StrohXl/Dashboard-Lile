@@ -15,9 +15,11 @@ export default function InputFormNumber({
   nameField,
   defaultValue,
   options,
+  step
 }: {
   defaultValue?: number;
   label: string;
+  step?: string;
   error: FieldError | undefined;
   placeholder?: string;
   register: UseFormRegister<TypeProduct>;
@@ -31,7 +33,7 @@ export default function InputFormNumber({
       {label}:
       <input
         type="number"
-        step="any"
+        step={step}
         placeholder={placeholder}
         defaultValue={defaultValue}
         className={`border-1 mt-2 text-foreground   w-full rounded-sm py-2 px-3 outline-none ${

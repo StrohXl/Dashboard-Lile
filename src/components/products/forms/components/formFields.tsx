@@ -14,7 +14,6 @@ interface FormFieldsProps {
   errors: FieldErrors<TypeProduct>;
   disabled: boolean;
   data: TypeProduct | undefined;
-
 }
 
 export default function FormFields({
@@ -61,16 +60,21 @@ export default function FormFields({
           nameField="price"
           register={register}
           placeholder="1"
-          defaultValue={1}
+          step="any"
+          defaultValue={0}
           options={{
             required: "Este campo es requerido",
+            min: {
+              value: 0.1,
+              message: "La cantidad debe de ser  minimo 0.1",
+            },
           }}
         />
         <InputFormNumber
           error={errors.stock}
-          label="Cantidad" 
+          label="Cantidad"
           nameField="stock"
-          defaultValue={1}
+          defaultValue={0}
           register={register}
           placeholder="1"
           options={{
@@ -87,7 +91,7 @@ export default function FormFields({
         disabled={disabled}
         className="btn-primary mt-3 !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
       >
-        {data? 'Guardar cambios':'Crear'}
+        {data ? "Guardar cambios" : "Crear"}
       </button>
     </form>
   );
