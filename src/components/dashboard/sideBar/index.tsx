@@ -10,7 +10,7 @@ const SideBarNav = () => {
 
   const logoutUser = async () => {
     try {
-      await axios.get("http://localhost:3000/api/logout");
+      await axios.get("/api/logout");
       window.location.href = "/";
     } catch (error) {
       console.log(error);
