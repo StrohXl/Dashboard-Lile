@@ -3,22 +3,36 @@ import { Tooltip } from "react-tooltip";
 import { usePathname } from "next/navigation";
 import SideBarNav from "@/components/dashboard/sideBar";
 import { sideBarMenu } from "@/components/dashboard/sideBar/data/sideBarMenu";
+import { useState } from "react";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [open, setOpen] = useState<boolean>(true);
+  const [showLogo, setShowLogo] = useState<boolean>(true);
   return (
     <div
       className="flex p-6 gap-6 "
       style={{ minHeight: "calc(100dvh - 48px)" }}
     >
-      <div className="w-full md:w-64">
+      <div
+        className={`w-full transition-all duration-300 ${
+          open ? "md:w-64" : "md:w-[70px]"
+        } `}
+      >
         <div
-          className="fixed w-full md:w-64"
+          className={`fixed w-full transition-all duration-300 ${
+            open ? "md:w-64" : "md:w-[70px]"
+          }`}
           style={{ height: "calc(100dvh - 48px)" }}
         >
-          <SideBarNav />
+          <SideBarNav
+            showLogo={showLogo}
+            setShowLogo={setShowLogo}
+            open={open}
+            setOpen={setOpen}
+          />
         </div>
       </div>
-      <div style={{ width: "calc(100% - 256px - 24px)" }}>
+      <div className="transition-all duration-300" style={{ width: `calc(100% - ${open ? "256px" : "70px"} - 24px)` }}>
         {sideBarMenu.map((item, index) => {
           if (item.link === pathname) {
             return (

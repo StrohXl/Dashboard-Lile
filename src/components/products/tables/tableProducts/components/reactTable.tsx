@@ -37,8 +37,7 @@ export default function ReactTable() {
   const theme = useTheme([
     materialTheme,
     {
-      Table: `grid-template-columns: auto 200px 1fr 150px 150px 150px 250px 250px 100px !important;
-        `,
+      Table: `grid-template-columns: auto 200px 1fr 150px 150px 150px 250px 250px 100px !important;`,
     },
   ]);
   const nodes = { nodes: data ? data.products : [] };

@@ -24,12 +24,6 @@
   --font-open_sans: var(--font-open_sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 .btn-primary {
   width: fit-content;
   background: var(--color-primary);
