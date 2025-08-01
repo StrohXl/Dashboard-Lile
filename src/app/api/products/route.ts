@@ -24,7 +24,6 @@ export async function GET(request: NextRequest) {
 }
 export async function POST(request: NextRequest) {
   const token = await validToken(request);
-  console.log(token)
   if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
