@@ -16,7 +16,7 @@ const toastDelete = async (
 ) => {
   try {
     await toast.promise(
-      axios.delete(`http://localhost:3000/api/products/${id}`),
+      axios.delete(`/api/products/${id}`),
       {
         pending: "Eliminando Producto",
         success: {

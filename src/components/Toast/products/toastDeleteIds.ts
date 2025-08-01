@@ -20,7 +20,7 @@ const toastDeleteIds = async ({
 }) => {
   try {
     await toast.promise(
-      axios.post(`http://localhost:3000/api/products/delete-batch`, ids),
+      axios.post(`/api/products/delete-batch`, ids),
       {
         pending: "Eliminando Productos",
         success: {

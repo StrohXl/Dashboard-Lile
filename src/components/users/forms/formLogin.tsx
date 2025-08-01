@@ -24,7 +24,7 @@ export default function FormLogin() {
   const onSubmit = async (data: TypeUser) => {
     try {
       setLoading(true);
-      await axios.post("http://localhost:3000/api/login", data);
+      await axios.post("/api/login", data);
       setError("");
       toast.success("Iniciando Sesión");
       setTimeout(() => router.push("/dashboard"), 1000);

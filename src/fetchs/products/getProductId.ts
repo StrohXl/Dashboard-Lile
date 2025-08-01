@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 const getProductId = async (id: number) => {
   try {
     const { data } = await axios.get(
-      `http://localhost:3000/api/products/${id}`
+      `/api/products/${id}`
     );
     return data;
   } catch (error) {
