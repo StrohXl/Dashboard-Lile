@@ -38,6 +38,7 @@ export async function loginUser(body: TypeUser) {
         {
           exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 1,
           email: body.email,
+          id: findUser.id,
         },
         key || ""
       );
@@ -48,7 +49,7 @@ export async function loginUser(body: TypeUser) {
         path: "/",
       });
 
-      return NextResponse.json('Usuario encontrado', {
+      return NextResponse.json("Usuario encontrado", {
         headers: {
           "Set-Cookie": serialized,
         },

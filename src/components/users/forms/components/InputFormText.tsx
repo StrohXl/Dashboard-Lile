@@ -35,9 +35,13 @@ export default function InputFormText({
     >
       {label}:
       <div
-        className={`border-1 flex items-center mt-2 px-3 py-2 gap-2 text-foreground   w-full rounded-sm  ${
-          error ? "!border-red-500" : "!border-gray-700 focus:!border-primary "
-        }`}
+        className={`border-1
+           ${
+             error
+               ? "!border-red-500"
+               : "border-gray-700"
+           }
+          focus-within:border-primary flex items-center mt-2 px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
       >
         {iconStart && (
           <span className={`text-gray-700 ${error && "text-red-500"}`}>

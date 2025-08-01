@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Prisma, PrismaClient } from "@prisma/client";
 import TypeProduct from "./type/typeProducts";
 import validInputs from "./utils/validInputs";
+import jwt from "jsonwebtoken";
 import { ZodError } from "zod";
 const prisma = new PrismaClient();
 
@@ -65,7 +66,7 @@ export async function getProductName({
   }
 }
 
-export async function createProduct(body: TypeProduct) {
+export async function createProduct(body: TypeProduct, id: number) {
   const result = validInputs(body);
   if (result instanceof ZodError) {
     console.log(result.issues);
@@ -74,7 +75,7 @@ export async function createProduct(body: TypeProduct) {
   const { name, description, price, stock } = body;
   try {
     await prisma.products.create({
-      data: { name, description, stock, price },
+      data: { name, description, stock, price, userId: id },
     });
     return NextResponse.json({ message: "Producto  Creado" });
   } catch (error) {
@@ -165,5 +166,31 @@ export async function deleteProducts(products: number[]) {
       }
     }
     return NextResponse.json({ error: "Error" }, { status: 500 });
+  }
+}
+
+export async function validToken(request: NextRequest) {
+  const token = request.cookies.get("myToken");
+  const key = process.env.JWT_KEY || "";
+  if (!token) {
+    return false;
+  }
+  try {
+    const { id } = jwt.verify(token.value, key) as { id: number };
+    const blackListToken = await prisma.blackListToken.findUnique({
+      where: {
+        id,
+        token: token.value,
+      },
+    });
+    if (blackListToken) {
+      return false;
+    }
+    else{
+      return id;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
   }
 }

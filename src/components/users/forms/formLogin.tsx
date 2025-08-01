@@ -6,7 +6,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { TbLock } from "react-icons/tb";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -17,6 +17,7 @@ export default function FormLogin() {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm<TypeUser>();
   const router = useRouter();
@@ -35,6 +36,9 @@ export default function FormLogin() {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    setFocus("email");
+  }, [setFocus]);
 
   return (
     <form

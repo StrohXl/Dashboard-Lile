@@ -1,4 +1,4 @@
-import TypeProducts from "@/components/dashboard/products/tables/tableProducts/types/typeProducts";
+import TypeProducts from "@/components/products/tables/tableProducts/types/typeProducts";
 
 export type TypeData = {
   products: TypeProducts[];

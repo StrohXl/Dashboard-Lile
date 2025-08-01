@@ -1,5 +1,6 @@
-import TypeParams from "@/components/dashboard/products/tables/tableProducts/types/typeParams";
+import TypeParams from "@/components/products/tables/tableProducts/types/typeParams";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const getProducts = async (params?: TypeParams) => {
   const token = localStorage.getItem("myTokenLile");
@@ -13,6 +14,8 @@ const getProducts = async (params?: TypeParams) => {
     return data && data;
   } catch (error) {
     console.log(error);
+    toast.error('Error: no se pudieron encontrar productos')
+    return { products: [], pages: 0 };
   }
 };
 
