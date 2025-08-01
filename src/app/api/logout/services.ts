@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt, { JsonWebTokenError } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { Prisma, PrismaClient } from "@prisma/client";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 

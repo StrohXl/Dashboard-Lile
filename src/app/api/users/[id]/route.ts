@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { deleteUserId, getUserId, updateUserId } from "../services";
+import { getUserId } from "../services";
 
 type Params = {
   id: string;
@@ -13,7 +13,7 @@ export async function GET(
   return await getUserId(Number(id));
 }
 
-export async function DELETE(
+/* export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
@@ -21,12 +21,14 @@ export async function DELETE(
 
   return await deleteUserId(Number(id));
 }
-
+*/
+/*
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
   const { id } = await params;
-  const body = await request.json()
+  const body = await request.json();
   return await updateUserId(body, Number(id));
 }
+  */
