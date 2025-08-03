@@ -28,11 +28,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
 
-  const cookie = request.cookies.get("myToken");
-  if (!cookie) {
-    return NextResponse.json("Solicitud no permitida", { status: 400 });
-  }
-
   const body = await request.json();
   body.price = Number(body.price);
   body.stock = Number(body.stock);

@@ -33,8 +33,7 @@ model Products {
   updatedAT DateTime @updatedAt
   User      User?    @relation(fields: [userId], references: [id])
   userId    Int?
-  buysId    Int?
-  Buys      Buys?    @relation(fields: [buysId], references: [id])
+  Buys      Buys[]
 }
 
 model BlackListToken {

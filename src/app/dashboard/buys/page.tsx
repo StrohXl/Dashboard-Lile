@@ -4,13 +4,13 @@ import { HooksTableProvider } from "@/components/products/tables/tableProducts/h
 import Link from "next/link";
 import { HiArchiveBoxArrowDown } from "react-icons/hi2";
 
-export default function Products() {
+export default function Buys() {
   return (
     <HooksTableProvider>
       <section className="container-table overflow-hidden relative">
         <div className="flex justify-between items-centerF mb-6 ">
           <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
-            Lista de Productos
+            Lista de Compras
           </h4>
           <div className="flex items-center gap-6">
             <SearchProduct />

@@ -68,10 +68,12 @@ export async function getProductName({
 
 export async function createProduct(body: TypeProduct, id: number) {
   const result = validInputs(body);
+  
   if (result instanceof ZodError) {
     console.log(result.issues);
     return NextResponse.json(result.issues, { status: 400 });
   }
+
   const { name, price, stock } = body;
   try {
     await prisma.products.create({
