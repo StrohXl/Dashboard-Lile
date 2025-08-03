@@ -21,7 +21,6 @@ model User {
   updatedAT      DateTime         @updatedAt
   blackListToken BlackListToken[]
   products       Products[]
-  buys           Buys[]
 }
 
 model Products {
@@ -34,7 +33,6 @@ model Products {
   updatedAT   DateTime @updatedAt
   User        User?    @relation(fields: [userId], references: [id])
   userId      Int?
-  Buys        Buys?    @relation(fields: [buysId], references: [id])
   buysId      Int?
 }
 
@@ -45,11 +43,4 @@ model BlackListToken {
   userId Int
 }
 
-model Buys {
-  id        Int        @id @default(autoincrement())
-  products  Products[]
-  createdAT DateTime   @default(now())
-  updatedAT DateTime   @updatedAt
-  User      User?      @relation(fields: [userId], references: [id])
-  userId    Int?
-}
+
