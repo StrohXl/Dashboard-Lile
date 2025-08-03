@@ -11,6 +11,6 @@ export default function routerResetProducts({
   router: AppRouterInstance;
   reset: UseFormReset<TypeProduct>;
 }) {
-  reset({ name: "", description: "", price: 0, stock: 0 });
+  reset({ name: "", price: 0, stock: 0 });
   router.push(link);
 }

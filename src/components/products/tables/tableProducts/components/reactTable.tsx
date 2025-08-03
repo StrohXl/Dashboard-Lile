@@ -70,11 +70,13 @@ export default function ReactTable() {
           </Header>
           <Body>
             {tableList.map((item: TypeProducts) => (
-              <Row item={item} onClick={() => handleExpand(item.id)}>
+              <Row
+                key={item.id}
+                item={item}
+                onClick={() => handleExpand(item.id)}
+              >
                 <CellSelect item={item} />
-                <Cell>
-                  {item.name}
-                </Cell>
+                <Cell>{item.name}</Cell>
                 <Cell>{item.price}</Cell>
                 <Cell>{pyDolar && item.price * pyDolar} Bs</Cell>
                 <Cell>{item.stock}</Cell>
