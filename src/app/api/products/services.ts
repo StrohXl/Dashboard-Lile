@@ -72,10 +72,10 @@ export async function createProduct(body: TypeProduct, id: number) {
     console.log(result.issues);
     return NextResponse.json(result.issues, { status: 400 });
   }
-  const { name, description, price, stock } = body;
+  const { name, price, stock } = body;
   try {
     await prisma.products.create({
-      data: { name, description, stock, price, userId: id },
+      data: { name, stock, price, userId: id },
     });
     return NextResponse.json({ message: "Producto  Creado" });
   } catch (error) {
@@ -118,12 +118,11 @@ export async function updateProductId(body: TypeProduct, id: number) {
     console.log(result.issues);
     return NextResponse.json(result.issues, { status: 400 });
   }
-  const { name, description, price, stock } = body;
+  const { name, price, stock } = body;
   try {
     const productUpdate = await prisma.products.update({
       data: {
         name,
-        description,
         price,
         stock,
       },

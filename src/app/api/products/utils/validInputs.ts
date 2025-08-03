@@ -3,7 +3,6 @@ import { z, ZodError } from "zod";
 
 const ProductSchema = z.object({
   name: z.string().min(3).nonempty(),
-  description: z.string().optional(),
   price: z.number().min(0).positive(),
   stock: z.number().min(1).positive(),
 });

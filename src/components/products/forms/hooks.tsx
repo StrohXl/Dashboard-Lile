@@ -18,7 +18,6 @@ export default function HooksForm({
     if (data) {
       reset({
         name: data.name,
-        description: data.description,
         price: data.price,
         stock: data.stock,
       });
