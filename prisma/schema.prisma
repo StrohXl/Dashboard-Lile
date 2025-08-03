@@ -26,7 +26,6 @@ model User {
 model Products {
   id          Int      @id @default(autoincrement())
   name        String   @unique
-  description String   @default("")
   price       Decimal  @default(0)
   stock       Int      @default(0)
   createdAT   DateTime @default(now())
