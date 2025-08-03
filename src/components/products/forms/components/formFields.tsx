@@ -26,7 +26,7 @@ export default function FormFields({
 }: FormFieldsProps) {
   return (
     <form
-      className="flex flex-col gap-4 max-w-lg mt-12 !px-5 container-table"
+      className="flex flex-col gap-4 max-w-sm mt-12 !px-5 container-table"
       onSubmit={handleSubmit(onSubmit)}
     >
       <h4 className="mb-2 font-open_sans text-gray-800 font-semibold text-2xl">
@@ -45,14 +45,6 @@ export default function FormFields({
           },
         }}
       />
-      <label className={`font-roboto`}>
-        Descripcion del Producto
-        <textarea
-          placeholder="Description del Producto"
-          className="border-1 mt-2  !border-gray-400 w-full min-h-28 rounded-sm py-2 px-3 outline-none focus:border-primary  "
-          {...register("description")}
-        />
-      </label>
       <div className="grid grid-cols-2 gap-4">
         <InputFormNumber
           error={errors.price}

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Table,
   Header,
@@ -19,9 +19,19 @@ import { Action, State } from "@table-library/react-table-library/types/common";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/material-ui";
 import ContainerActions from "./containerActions";
+import React, { useState } from "react";
 
 export default function ReactTable() {
   const { data, pyDolar, setSelects } = useProductsContext();
+  const [ids, setIds] = useState<number[]>([]);
+
+  const handleExpand = (idItem: number) => {
+    if (ids.includes(idItem)) {
+      setIds(ids.filter((id) => id !== idItem));
+    } else {
+      setIds(ids.concat(idItem));
+    }
+  };
 
   const select = useRowSelect(
     { nodes: data.products },
@@ -37,7 +47,7 @@ export default function ReactTable() {
   const theme = useTheme([
     materialTheme,
     {
-      Table: `grid-template-columns: auto 200px 1fr 150px 150px 150px 250px 250px 100px !important;`,
+      Table: `grid-template-columns: auto 1fr 150px 150px 150px 250px 250px 100px !important;`,
     },
   ]);
   const nodes = { nodes: data ? data.products : [] };
@@ -50,7 +60,6 @@ export default function ReactTable() {
             <HeaderRow>
               <HeaderCellSelect />
               <HeaderCell>Producto</HeaderCell>
-              <HeaderCell>Descripcion</HeaderCell>
               <HeaderCell>Precio en $</HeaderCell>
               <HeaderCell>Precio en Bs</HeaderCell>
               <HeaderCell>Existentes</HeaderCell>
@@ -61,10 +70,11 @@ export default function ReactTable() {
           </Header>
           <Body>
             {tableList.map((item: TypeProducts) => (
-              <Row key={item.id} item={item}>
+              <Row item={item} onClick={() => handleExpand(item.id)}>
                 <CellSelect item={item} />
-                <Cell>{item.name}</Cell>
-                <Cell>{item.description}</Cell>
+                <Cell>
+                  {item.name}
+                </Cell>
                 <Cell>{item.price}</Cell>
                 <Cell>{pyDolar && item.price * pyDolar} Bs</Cell>
                 <Cell>{item.stock}</Cell>
