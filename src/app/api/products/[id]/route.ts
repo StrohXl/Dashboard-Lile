@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { deleteProductId, getProductId, updateProductId } from "../services";
+import {
+  deleteProductId,
+  getProductId,
+  updateProductId,
+  validToken,
+} from "../services";
 import TypeProduct from "../type/typeProducts";
 
 type Params = {
@@ -10,11 +15,11 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
-  const cookie = request.cookies.get("myToken");
-  if (!cookie) {
+  const token = await validToken(request);
+  if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
-  
+
   const { id } = await params;
   return await getProductId(Number(id));
 }
@@ -23,8 +28,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
-  const cookie = request.cookies.get("myToken");
-  if (!cookie) {
+  const token = await validToken(request);
+  if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
@@ -36,8 +41,8 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
-  const cookie = request.cookies.get("myToken");
-  if (!cookie) {
+  const token = await validToken(request);
+  if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
 
