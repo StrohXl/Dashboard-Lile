@@ -16,7 +16,7 @@ export default function TableBuys() {
     if (data.data.length != 0) {
       return (
         <>
-          <div className="h-[270px]">
+          <div className="h-[290px]">
             <ReactTableBuys />
           </div>
           <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
