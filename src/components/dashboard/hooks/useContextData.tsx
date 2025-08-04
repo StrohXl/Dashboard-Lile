@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   createContext,
   ReactNode,
@@ -7,11 +7,11 @@ import {
   useState,
 } from "react";
 import getPyDolar from "@/fetchs/pydolar/getPyDolar";
-import getProducts from "@/fetchs/products/getProducts";
 import { TypeData } from "@/types/data";
+import getData from "@/fetchs/data/getData";
 import TypeParams from "@/types/typeParams";
 
-export type ProductsContextType = {
+export type DataContextType = {
   data: TypeData;
   setData: (val: TypeData) => void;
   pyDolar: number;
@@ -23,32 +23,37 @@ export type ProductsContextType = {
   setPage: (val: number) => void;
   page: number;
   setLoading: (val: boolean) => void;
-  fetchProducts: (params?: TypeParams) => void;
+  fetchData: (params?: TypeParams) => void;
 };
 
-const ProductsContext = createContext<ProductsContextType | undefined>(
-  undefined
-);
+const UseDataContext = createContext<DataContextType | undefined>(undefined);
 
-export function HooksTableProvider({ children }: { children: ReactNode }) {
+export function HookDataContext({
+  apiUrl,
+  children,
+}: {
+  apiUrl: string;
+  children: ReactNode;
+}) {
   const [page, setPage] = useState<number>(1);
   const [selects, setSelects] = useState<number[]>([]);
   const [data, setData] = useState<TypeData>({
-    products: [],
+    data: [],
     pages: 0,
   });
   const [pyDolar, setPyDolar] = useState<number>(0);
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const fetchProducts = async (params?: TypeParams) => {
-    const data = await getProducts(params);
+  const fetchData = async (params?: TypeParams) => {
+    const data = await getData(apiUrl, params);
+    console.log(data);
     setData(data);
   };
 
-  const loadingFecthProducts = async (params?: TypeParams) => {
+  const loadingFecthData = async (params?: TypeParams) => {
     setLoading(true);
-    await fetchProducts(params);
+    await fetchData(params);
     setLoading(false);
   };
 
@@ -60,12 +65,12 @@ export function HooksTableProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    loadingFecthProducts();
+    loadingFecthData();
     fetchPyDolar();
   }, []);
 
   return (
-    <ProductsContext.Provider
+    <UseDataContext.Provider
       value={{
         page,
         setPage,
@@ -78,20 +83,18 @@ export function HooksTableProvider({ children }: { children: ReactNode }) {
         setData,
         setDisabled,
         setLoading,
-        fetchProducts,
+        fetchData,
       }}
     >
       {children}
-    </ProductsContext.Provider>
+    </UseDataContext.Provider>
   );
 }
 
-export function useProductsContext() {
-  const context = useContext(ProductsContext);
+export function useDataContext() {
+  const context = useContext(UseDataContext);
   if (!context) {
-    throw new Error(
-      "useProductsContext debe usarse dentro de ProductsProvider"
-    );
+    throw new Error("useDataContext debe usarse dentro de UseDataContext");
   }
   return context;
 }

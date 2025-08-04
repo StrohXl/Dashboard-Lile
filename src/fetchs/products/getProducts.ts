@@ -1,15 +1,11 @@
-import TypeParams from "@/components/products/tables/tableProducts/types/typeParams";
+import TypeParams from "@/types/typeParams";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const getProducts = async (params?: TypeParams) => {
-  const token = localStorage.getItem("myTokenLile");
   try {
     const { data } = await axios.get("/api/products", {
       params,
-      headers: {
-        "xm-lile-token": token,
-      },
     });
     return data && data;
   } catch (error) {
