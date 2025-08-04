@@ -1,20 +1,52 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import TypeProduct from "../products/type/typeProducts";
-import { createProduct, getProductId } from "../products/services";
-import { connect } from "http2";
 import validInputs from "../products/utils/validInputs";
 import { ZodError } from "zod";
 
 const prisma = new PrismaClient();
 
+const elementsPerPage = 10;
+
 export async function getBuys(request: NextRequest) {
-  const buys = await prisma.buys.findMany({
-    include: {
-      products: true,
-    },
-  });
-  return NextResponse.json(buys);
+  const searchParams = request.nextUrl.searchParams;
+  const page = searchParams.get("page");
+
+  try {
+    const buys = await prisma.buys.findMany({
+      include: {
+        products: true,
+      },
+      skip: page ? (Number(page) - 1) * elementsPerPage : 0,
+      take: elementsPerPage,
+      orderBy: { id: "desc" },
+    });
+    const counts = await prisma.buys.count();
+    let pages = counts / elementsPerPage;
+    pages = Math.ceil(pages);
+    return NextResponse.json({ data: buys, pages });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(error, { status: 500 });
+  }
+}
+
+export async function getBuyById(id: number) {
+  try {
+    const buy = await prisma.buys.findUnique({
+      where: { id: id },
+      include: { products: true },
+    });
+    return NextResponse.json(buy);
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json("La compra no existe", { status: 404 });
+      }
+    }
+    return NextResponse.json(error, { status: 500 });
+  }
 }
 
 export async function createBuy(body: TypeProduct[], id: number) {
@@ -66,6 +98,34 @@ export async function createBuy(body: TypeProduct[], id: number) {
             status: 404,
           }
         );
+      }
+    }
+    return NextResponse.json(error, { status: 500 });
+  }
+}
+
+export async function deleteBuyById(id: number) {
+  try {
+    await prisma.buys.delete({ where: { id } });
+    return NextResponse.json("Compra Eliminada");
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json("La compra no existe", { status: 404 });
+      }
+    }
+    return NextResponse.json(error, { status: 500 });
+  }
+}
+
+export async function deleteBuys(ids: number[]) {
+  try {
+    await prisma.buys.deleteMany({ where: { id: { in: ids } } });
+    return NextResponse.json("Compras Eliminadas");
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json("La compra no existe", { status: 404 });
       }
     }
     return NextResponse.json(error, { status: 500 });
