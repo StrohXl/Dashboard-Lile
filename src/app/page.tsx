@@ -1,4 +1,4 @@
-import FormLogin from "@/components/users/forms/formLogin";
+import FormLogin from "@/components/login/forms/formLogin";
 import Image from "next/image";
 
 export default function Home() {

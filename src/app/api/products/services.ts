@@ -26,7 +26,7 @@ export async function getProductId(id: number) {
     const productId = await prisma.products.findUnique({ where: { id } });
     if (!productId) {
       return NextResponse.json(
-        { error: "Producto no encontrado" },
+        "El Producto no existe",
         { status: 404 }
       );
     }
@@ -68,7 +68,7 @@ export async function getProductName({
 
 export async function createProduct(body: TypeProduct, id: number) {
   const result = validInputs(body);
-  
+
   if (result instanceof ZodError) {
     console.log(result.issues);
     return NextResponse.json(result.issues, { status: 400 });
@@ -84,10 +84,9 @@ export async function createProduct(body: TypeProduct, id: number) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       console.log(error);
       if (error.code === "P2002") {
-        return NextResponse.json(
-          { error: "Un producto ya tiene ese nombre" },
-          { status: 400 }
-        );
+        return NextResponse.json("Un producto ya tiene ese nombre", {
+          status: 400,
+        });
       }
     } else {
       return NextResponse.json(error, { status: 500 });
@@ -107,10 +106,10 @@ export async function deleteProductId(id: number) {
           { status: 404 }
         );
       } else {
-        return NextResponse.json({ error: "Error" }, { status: 500 });
+        return NextResponse.json("Error", { status: 500 });
       }
     }
-    return NextResponse.json({ error: "Error" }, { status: 500 });
+    return NextResponse.json("Error", { status: 500 });
   }
 }
 
@@ -134,19 +133,24 @@ export async function updateProductId(body: TypeProduct, id: number) {
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {
-        return NextResponse.json(
-          { error: "El Producto no pudo ser encontrado" },
-          { status: 404 }
-        );
+        return NextResponse.json("El Producto no existe", { status: 404 });
       } else {
       }
     }
-    return NextResponse.json({ error: "Error" }, { status: 500 });
+    return NextResponse.json("Error", { status: 500 });
   }
 }
 
 export async function deleteProducts(products: number[]) {
   try {
+    for (let index = 0; index < products.length; index++) {
+      const product = await prisma.products.findUnique({
+        where: { id: products[index] },
+      });
+      if (!product) {
+        return NextResponse.json("El Producto no existe", { status: 404 });
+      }
+    }
     await prisma.products.deleteMany({
       where: {
         id: {
@@ -156,17 +160,13 @@ export async function deleteProducts(products: number[]) {
     });
     return NextResponse.json({ message: "Productos Eliminados" });
   } catch (error) {
+    console.log(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {
-        return NextResponse.json(
-          { error: "El Producto no pudo ser encontrado" },
-          { status: 404 }
-        );
-      } else {
-        return NextResponse.json({ error: "Error" }, { status: 500 });
+        return NextResponse.json("El Producto no existe", { status: 404 });
       }
     }
-    return NextResponse.json({ error: "Error" }, { status: 500 });
+    return NextResponse.json("Error", { status: 500 });
   }
 }
 
@@ -186,8 +186,7 @@ export async function validToken(request: NextRequest) {
     });
     if (blackListToken) {
       return false;
-    }
-    else{
+    } else {
       return id;
     }
   } catch (error) {

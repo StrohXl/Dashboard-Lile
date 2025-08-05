@@ -4,11 +4,11 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
-import MessageError from "./messageError";
-import TypeUser from "@/app/api/users/type/typeUser";
 import { ReactNode } from "react";
+import MessageError from "@/components/dashboard/forms/components/messageError";
+import TypeUser from "@/app/api/users/type/typeUser";
 
-export default function InputFormText({
+export default function InputFormLogin({
   label,
   error,
   placeholder,
@@ -16,9 +16,13 @@ export default function InputFormText({
   nameField,
   options,
   type,
+  defaultValue,
   iconStart,
   iconEnd,
+  step,
 }: {
+  step?: string;
+  defaultValue?: string | number;
   iconStart?: ReactNode;
   iconEnd?: ReactNode;
   label: string;
@@ -36,11 +40,7 @@ export default function InputFormText({
       {label}:
       <div
         className={`border-1
-           ${
-             error
-               ? "!border-red-500"
-               : "border-gray-700"
-           }
+           ${error ? "!border-red-500" : "border-gray-700"}
           focus-within:border-primary flex items-center mt-2 px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
       >
         {iconStart && (
@@ -52,6 +52,8 @@ export default function InputFormText({
           className="w-full bg-transparent autofill:bg-transparent outline-none"
           autoComplete="off"
           type={type}
+          step={step}
+          defaultValue={defaultValue}
           placeholder={placeholder}
           {...register(nameField, options)}
         />

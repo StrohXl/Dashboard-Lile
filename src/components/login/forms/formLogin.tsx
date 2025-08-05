@@ -1,7 +1,6 @@
 "use client";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import TypeUser from "@/app/api/users/type/typeUser";
-import InputFormText from "./components/InputFormText";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { TbLock } from "react-icons/tb";
 import { useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import InputFormLogin from "./components/inputFormLogin";
 
 export default function FormLogin() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,7 +49,7 @@ export default function FormLogin() {
         <FaUser size={40} className="" />
         <h2 className="font-open_sans font-semibold text-3xl">Login</h2>
       </div>
-      <InputFormText
+      <InputFormLogin
         iconStart={<MdOutlineMailOutline size={20} />}
         error={errors.email}
         label="Correo Electronico"
@@ -63,7 +63,7 @@ export default function FormLogin() {
           },
         }}
       />
-      <InputFormText
+      <InputFormLogin
         error={errors.password}
         label="Contraseña"
         iconStart={<TbLock size={20} />}

@@ -14,15 +14,14 @@ export default function ContainerActions({ id }: { id: number }) {
       id,
       "/products",
       fetchData,
-      data && data.products.length - 1 == 0 ? 1 : page
+      data && data.data.length - 1 == 0 ? 1 : page
     );
     setDisabled(false);
-    setPage(data && data.products.length - 1 == 0 ? 1 : page);
+    setPage(data && data.data.length - 1 == 0 ? 1 : page);
   };
 
   return (
     <div className="flex gap-3 items-center overflow-hidden">
-        
       <Link
         href={"/dashboard/products/" + id}
         className="text-gray-500 transition-colors duration-300 hover:text-primary cursor-pointer"

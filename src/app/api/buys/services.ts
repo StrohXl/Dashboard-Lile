@@ -93,7 +93,7 @@ export async function createBuy(body: TypeProduct[], id: number) {
       }
       if (error.code === "P2025") {
         return NextResponse.json(
-          "Uno de los productos seleccinados no existe",
+          "Uno de los productos no existe",
           {
             status: 404,
           }
@@ -120,9 +120,18 @@ export async function deleteBuyById(id: number) {
 
 export async function deleteBuys(ids: number[]) {
   try {
+    for (let index = 0; index < ids.length; index++) {
+      const product = await prisma.buys.findUnique({
+        where: { id: ids[index] },
+      });
+      if (!product) {
+        return NextResponse.json("La compra no existe", { status: 404 });
+      }
+    }
     await prisma.buys.deleteMany({ where: { id: { in: ids } } });
     return NextResponse.json("Compras Eliminadas");
   } catch (error) {
+    console.log(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {
         return NextResponse.json("La compra no existe", { status: 404 });

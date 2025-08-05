@@ -8,7 +8,6 @@ import {
   HeaderCell,
   Cell,
 } from "@table-library/react-table-library/table";
-import { useProductsContext } from "../hooks/hooksTable";
 import TypeProducts from "../types/typeProducts";
 import {
   HeaderCellSelect,
@@ -18,11 +17,12 @@ import {
 import { Action, State } from "@table-library/react-table-library/types/common";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/material-ui";
-import ContainerActions from "./containerActions";
 import React, { useState } from "react";
+import ContainerActions from "@/components/dashboard/tables/components/containerActions";
+import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 
 export default function ReactTable() {
-  const { data, pyDolar, setSelects } = useProductsContext();
+  const { data, pyDolar, setSelects } = useDataContext();
   const [ids, setIds] = useState<number[]>([]);
 
   const handleExpand = (idItem: number) => {
@@ -34,7 +34,7 @@ export default function ReactTable() {
   };
 
   const select = useRowSelect(
-    { nodes: data.products },
+    { nodes: data.data },
     {
       onChange: onSelectChange,
     }
@@ -50,10 +50,15 @@ export default function ReactTable() {
       Table: `grid-template-columns: auto 1fr 150px 150px 150px 250px 250px 100px !important;`,
     },
   ]);
-  const nodes = { nodes: data ? data.products : [] };
+  const nodes = { nodes: data ? data.data : [] };
 
   return (
-    <Table data={nodes} select={select} theme={theme}>
+    <Table
+      layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
+      data={nodes}
+      select={select}
+      theme={theme}
+    >
       {(tableList: TypeProducts[]) => (
         <>
           <Header>

@@ -5,7 +5,7 @@ import TypeParams from "@/types/typeParams";
 interface ResponseAxios {
   data: {
     status: number;
-    response: { data: { error: string } };
+    response: { data: string };
     message: string;
   };
 }
@@ -26,8 +26,8 @@ const toastDeleteData = async (
       },
       error: {
         render({ data }: ResponseAxios) {
-          if (data.response.data.error) {
-            return data.response.data.error;
+          if (data.response.data) {
+            return data.response.data;
           } else {
             return data.message;
           }

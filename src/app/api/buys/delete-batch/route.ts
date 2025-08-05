@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { deleteProducts, validToken } from "../services";
+import { validToken } from "../../products/services";
+import { deleteBuys } from "../services";
 
 export async function POST(request: NextRequest) {
   const token = validToken(request);
@@ -7,5 +8,5 @@ export async function POST(request: NextRequest) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const body = await request.json();
-  return await deleteProducts(body);
+  return await deleteBuys(body);
 }

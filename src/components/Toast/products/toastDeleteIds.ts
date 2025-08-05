@@ -1,11 +1,11 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import TypeParams from "@/components/products/tables/tableProducts/types/typeParams";
+import TypeParams from "@/types/typeParams";
 
 interface ResponseAxios {
   data: {
     status: number;
-    response: { data: { error: string } };
+    response: { data: string };
     message: string;
   };
 }
@@ -19,26 +19,23 @@ const toastDeleteIds = async ({
   fetchProducts: (params?: TypeParams) => void;
 }) => {
   try {
-    await toast.promise(
-      axios.post(`/api/products/delete-batch`, ids),
-      {
-        pending: "Eliminando Productos",
-        success: {
-          render() {
-            return "Productos Eliminado";
-          },
+    await toast.promise(axios.post(`/api/products/delete-batch`, ids), {
+      pending: "Eliminando Productos",
+      success: {
+        render() {
+          return "Productos Eliminado";
         },
-        error: {
-          render({ data }: ResponseAxios) {
-            if (data.response.data.error) {
-              return data.response.data.error;
-            } else {
-              return data.message;
-            }
-          },
+      },
+      error: {
+        render({ data }: ResponseAxios) {
+          if (data.response.data) {
+            return data.response.data;
+          } else {
+            return data.message;
+          }
         },
-      }
-    );
+      },
+    });
     fetchProducts();
     const input = document.getElementsByTagName("input")[1];
     if (input) {

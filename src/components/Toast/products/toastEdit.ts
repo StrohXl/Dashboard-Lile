@@ -5,7 +5,7 @@ import TypeProduct from "@/app/api/products/type/typeProducts";
 interface ResponseAxios {
   data: {
     status: number;
-    response: { data: { error: string } };
+    response: { data: string };
     message: string;
   };
 }
@@ -26,10 +26,10 @@ const toastEditProduct = async ({
       success: "Producto Editado",
       error: {
         render({ data }: ResponseAxios) {
-          if (data.response.data.error) {
-            return data.response.data.error;
+          if (data.response.data) {
+            return data.response.data;
           } else {
-            return data.response.data.error;
+            return data.message;
           }
         },
       },
