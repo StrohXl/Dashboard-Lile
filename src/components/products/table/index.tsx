@@ -1,37 +1,37 @@
-"use client";
 import "@/components/dashboard/tables/css/table.css";
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import NotHaveProducts from "./components/notHaveProducts";
 import ReactTableProducts from "./components/reactTableProducts";
 import Pagination from "@/components/dashboard/tables/components/pagination";
 import DeleteSelects from "@/components/dashboard/tables/components/deleteSelects";
-import { useDataContext } from "@/components/dashboard/hooks/useContextData";
+import getData from "@/fetchs/data/getData";
+import TypeParams from "@/types/typeParams";
+import getPyDolar from "@/fetchs/pydolar/getPyDolar";
+import { HookDataContext } from "@/components/dashboard/hooks/useContextData";
 
-export default function TableProducts() {
-  const { data, loading } = useDataContext();
+export default async function TableProducts({
+  params,
+}: {
+  params: TypeParams;
+}) {
+  const data = await getData({ url: "/products", params });
+  const pyDollar = await getPyDolar();
 
-  if (loading) {
-    return <SkeletonTable />;
+  if (data.data.length != 0) {
+    return (
+      <HookDataContext>
+        <ReactTableProducts data={data} pyDollar={pyDollar} />
+        <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
+          <div>
+            <DeleteSelects data={data} apiUrl="/products" />
+          </div>
+          <div className="flex justify-center">
+            <Pagination data={data} />
+          </div>
+          <div></div>
+        </div>
+      </HookDataContext>
+    );
   } else {
-    if (data.data.length != 0) {
-      return (
-        <>
-          <div className="h-[380px]" >
-            <ReactTableProducts />
-          </div>
-          <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
-            <div>
-              <DeleteSelects />
-            </div>
-            <div className="flex justify-center">
-              <Pagination />
-            </div>
-            <div></div>
-          </div>
-        </>
-      );
-    } else {
-      return <NotHaveProducts />;
-    }
+    return <NotHaveProducts />;
   }
 }

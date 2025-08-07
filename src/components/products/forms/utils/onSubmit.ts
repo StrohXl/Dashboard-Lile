@@ -5,6 +5,7 @@ import { UseFormReset } from "react-hook-form";
 import routerResetProducts from "./routerPush";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ParamValue } from "next/dist/server/request/params";
+import { TypeProductPriceBs } from "../formProduct";
 
 const onSubmit = async ({
   body,
@@ -15,8 +16,8 @@ const onSubmit = async ({
   id,
 }: {
   id: ParamValue;
-  reset: UseFormReset<TypeProduct>;
-  body: TypeProduct;
+  reset: UseFormReset<TypeProductPriceBs>;
+  body: TypeProductPriceBs;
   data: TypeProduct | undefined;
   setDisabled: (value: boolean) => void;
   router: AppRouterInstance;

@@ -1,12 +1,5 @@
-import {
-  FieldError,
-  Path,
-  RegisterOptions,
-  UseFormRegister,
-} from "react-hook-form";
-import { HTMLInputTypeAttribute, ReactNode } from "react";
 import MessageError from "@/components/dashboard/forms/components/messageError";
-import { TypeProductPriceBs } from "../formProduct";
+import { InputFormBuyType } from "../types";
 
 export default function InputFormProduct({
   label,
@@ -21,20 +14,7 @@ export default function InputFormProduct({
   iconEnd,
   step,
   disabled,
-}: {
-  step?: string;
-  disabled?: boolean;
-  defaultValue?: string | number;
-  iconStart?: ReactNode;
-  iconEnd?: ReactNode;
-  label: string;
-  error: FieldError | undefined;
-  placeholder?: string;
-  register: UseFormRegister<TypeProductPriceBs>;
-  nameField: Path<TypeProductPriceBs>;
-  options?: RegisterOptions<TypeProductPriceBs>;
-  type?: HTMLInputTypeAttribute;
-}) {
+}: InputFormBuyType) {
   return (
     <label
       className={`font-roboto  ${error ? "text-red-500" : "text-gray-700"}`}

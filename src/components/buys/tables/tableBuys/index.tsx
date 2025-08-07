@@ -1,37 +1,33 @@
-"use client";
 import "@/components/dashboard/tables/css/table.css";
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import NotHaveBuys from "./components/notHaveBuys";
-import { useDataContext } from "@/components/dashboard/hooks/useContextData";
+import { HookDataContext } from "@/components/dashboard/hooks/useContextData";
 import ReactTableBuys from "./components/reactTable";
 import Pagination from "@/components/dashboard/tables/components/pagination";
+import getData from "@/fetchs/data/getData";
+import TypeParams from "@/types/typeParams";
 import DeleteSelects from "@/components/dashboard/tables/components/deleteSelects";
 
-export default function TableBuys() {
-  const { data, loading } = useDataContext();
+export default async function TableBuys({ params }: { params?: TypeParams }) {
+  const buys = await getData({ url: "/buys", params });
 
-  if (loading) {
-    return <SkeletonTable />;
+  if (buys.data.length != 0) {
+    return (
+      <HookDataContext>
+        <div className="h-[290px]">
+          <ReactTableBuys data={buys} pyDollar={1} />
+        </div>
+        <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
+          <div>
+            <DeleteSelects apiUrl="/buys" data={buys} />
+          </div>
+          <div className="flex justify-center">
+            <Pagination data={buys} />
+          </div>
+          <div></div>
+        </div>
+      </HookDataContext>
+    );
   } else {
-    if (data.data.length != 0) {
-      return (
-        <>
-          <div className="h-[290px]">
-            <ReactTableBuys />
-          </div>
-          <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
-            <div>
-              <DeleteSelects />
-            </div>
-            <div className="flex justify-center">
-              <Pagination />
-            </div>
-            <div></div>
-          </div>
-        </>
-      );
-    } else {
-      return <NotHaveBuys />;
-    }
+    return <NotHaveBuys />;
   }
 }

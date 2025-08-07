@@ -1,89 +1,31 @@
 "use client";
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import getPyDolar from "@/fetchs/pydolar/getPyDolar";
-import { TypeData } from "@/types/data";
-import getData from "@/fetchs/data/getData";
-import TypeParams from "@/types/typeParams";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 export type DataContextType = {
-  data: TypeData;
-  setData: (val: TypeData) => void;
-  pyDolar: number;
   disabled: boolean;
   setDisabled: (val: boolean) => void;
-  loading: boolean;
   selects: number[];
-  setSelects: (page: number[]) => void;
-  setPage: (val: number) => void;
-  page: number;
-  setLoading: (val: boolean) => void;
-  fetchData: (params?: TypeParams) => void;
+  setSelects: (val: number[]) => void;
+  ids: number[];
+  setIds: (val: number[]) => void;
 };
 
 const UseDataContext = createContext<DataContextType | undefined>(undefined);
 
-export function HookDataContext({
-  apiUrl,
-  children,
-}: {
-  apiUrl: string;
-  children: ReactNode;
-}) {
-  const [page, setPage] = useState<number>(1);
-  const [selects, setSelects] = useState<number[]>([]);
-  const [data, setData] = useState<TypeData>({
-    data: [],
-    pages: 0,
-  });
-  const [pyDolar, setPyDolar] = useState<number>(0);
+export function HookDataContext({ children }: { children: ReactNode }) {
   const [disabled, setDisabled] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const fetchData = async (params?: TypeParams) => {
-    const data = await getData(apiUrl, params);
-    console.log(data);
-    setData(data);
-  };
-
-  const loadingFecthData = async (params?: TypeParams) => {
-    setLoading(true);
-    await fetchData(params);
-    setLoading(false);
-  };
-
-  const fetchPyDolar = async () => {
-    const res = await getPyDolar();
-    if (typeof res == "number") {
-      setPyDolar(res);
-    }
-  };
-
-  useEffect(() => {
-    loadingFecthData();
-    fetchPyDolar();
-  }, []);
+  const [selects, setSelects] = useState<number[]>([]);
+  const [ids, setIds] = useState<number[]>([]);
 
   return (
     <UseDataContext.Provider
       value={{
-        page,
-        setPage,
+        disabled,
         selects,
         setSelects,
-        data,
-        loading,
-        disabled,
-        pyDolar,
-        setData,
         setDisabled,
-        setLoading,
-        fetchData,
+        ids,
+        setIds,
       }}
     >
       {children}

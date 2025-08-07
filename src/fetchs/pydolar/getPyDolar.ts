@@ -8,7 +8,7 @@ type PyDolar = {
   };
 };
 
-const getPyDolar = async (): Promise<number | undefined> => {
+const getPyDollar = async (): Promise<number | undefined> => {
   try {
     const { data }: { data: PyDolar | undefined } = await axios.get(
       "https://pydolarve.org/api/v2/tipo-cambio"
@@ -18,4 +18,4 @@ const getPyDolar = async (): Promise<number | undefined> => {
     console.log(error);
   }
 };
-export default getPyDolar;
+export default getPyDollar;

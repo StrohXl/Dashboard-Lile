@@ -1,5 +1,6 @@
 type TypeParams = {
-  name?: string;
-  page?: number;
+  name: string;
+  page: string;
+  deleteId: string;
 };
 export default TypeParams;

@@ -35,11 +35,14 @@ const SideBarNav = ({
       setShowLogo(!showLogo);
     } else {
       setTimeout(() => setShowLogo(!showLogo), 200);
+      document.cookie = `openSideBar=false;path=/`;
     }
+    document.cookie = `openSideBar=${!open};path=/`;
   };
   const closeSideBar = () => {
     setOpen(false);
     setShowLogo(false);
+    document.cookie = `openSideBar=false;path=/`;
   };
 
   return (

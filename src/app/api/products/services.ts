@@ -1,34 +1,55 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import TypeProduct from "./type/typeProducts";
 import validInputs from "./utils/validInputs";
 import jwt from "jsonwebtoken";
 import { ZodError } from "zod";
-const prisma = new PrismaClient();
+import prisma from "@/libs/prisma";
 
 const elementsPerPage = 10;
 
-export async function getProducts({ page }: { page: number }) {
-  const products = await prisma.products.findMany({
-    orderBy: { id: "desc" },
-    skip: page == 0 ? page : (page - 1) * elementsPerPage,
-    take: elementsPerPage,
-  });
-  const counts = await prisma.products.count();
-  let pages = counts / elementsPerPage;
-  pages = Math.ceil(pages);
+export async function getProducts({
+  page,
+  name,
+}: {
+  name: string | null;
+  page: number;
+}) {
+  try {
+    const products = await prisma.products.findMany({
+      orderBy: { id: "desc" },
+      skip: page == 0 ? page : (page - 1) * elementsPerPage,
+      take: elementsPerPage,
+      where: {
+        name: {
+          contains: name ?? "",
+        },
+      },
+      cacheStrategy: {
+        ttl: 5,
+      },
+    });
+    const counts = await prisma.products.count();
+    let pages = counts / elementsPerPage;
+    pages = Math.ceil(pages);
 
-  return NextResponse.json({ products: products, pages: pages });
+    return NextResponse.json({ data: products, pages: pages });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json("Error", { status: 500 });
+  }
 }
 
 export async function getProductId(id: number) {
   try {
-    const productId = await prisma.products.findUnique({ where: { id } });
+    const productId = await prisma.products.findUnique({
+      where: { id },
+      cacheStrategy: {
+        ttl: 5,
+      },
+    });
     if (!productId) {
-      return NextResponse.json(
-        "El Producto no existe",
-        { status: 404 }
-      );
+      return NextResponse.json("El Producto no existe", { status: 404 });
     }
     return NextResponse.json(productId);
   } catch (error) {
@@ -36,33 +57,6 @@ export async function getProductId(id: number) {
       console.log(error);
       return NextResponse.json({ message: error.message }, { status: 500 });
     }
-  }
-}
-
-export async function getProductName({
-  name,
-  page,
-}: {
-  name: string;
-  page: number;
-}) {
-  try {
-    const products = await prisma.products.findMany({
-      where: {
-        name: {
-          contains: name,
-        },
-      },
-      skip: page == 0 ? page : (page - 1) * elementsPerPage,
-      take: elementsPerPage,
-    });
-    const counts = await prisma.products.count();
-    let pages = counts / elementsPerPage;
-    pages = Math.ceil(pages);
-
-    return NextResponse.json({ products, pages: pages });
-  } catch (error) {
-    return NextResponse.json(error, { status: 400 });
   }
 }
 

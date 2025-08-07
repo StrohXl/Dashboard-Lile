@@ -13,18 +13,25 @@ import {
   HeaderCellSelect,
   CellSelect,
   useRowSelect,
+  SelectClickTypes,
 } from "@table-library/react-table-library/select";
 import { Action, State } from "@table-library/react-table-library/types/common";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/material-ui";
-import React, { useState } from "react";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
+import { TypeData } from "@/types/data";
 
-export default function ReactTable() {
-  const { data, pyDolar, setSelects } = useDataContext();
-  const [ids, setIds] = useState<number[]>([]);
+export default function ReactTable({
+  pyDollar,
+  data,
+}: {
+  data: TypeData;
+  pyDollar: number | undefined;
+}) {
+  const { setSelects, ids, setIds } = useDataContext();
 
+  
   const handleExpand = (idItem: number) => {
     if (ids.includes(idItem)) {
       setIds(ids.filter((id) => id !== idItem));
@@ -37,6 +44,9 @@ export default function ReactTable() {
     { nodes: data.data },
     {
       onChange: onSelectChange,
+    },
+    {
+      clickType: SelectClickTypes.ButtonClick,
     }
   );
 
@@ -47,7 +57,13 @@ export default function ReactTable() {
   const theme = useTheme([
     materialTheme,
     {
-      Table: `grid-template-columns: auto 1fr 150px 150px 150px 250px 250px 100px !important;`,
+      Table: `grid-template-columns: auto 1fr 150px 150px 150px 200px 200px 100px !important;`,
+      BaseCell: `
+      &:nth-of-type(8){
+      border-left: 1px solid #f0f0f0;
+      right:0px;
+      }`,
+      BaseRow: ``,
     },
   ]);
   const nodes = { nodes: data ? data.data : [] };
@@ -70,7 +86,7 @@ export default function ReactTable() {
               <HeaderCell>Existentes</HeaderCell>
               <HeaderCell>Fecha de Creacion</HeaderCell>
               <HeaderCell>Fecha de Actualizacion</HeaderCell>
-              <HeaderCell>Acciones</HeaderCell>
+              <HeaderCell pinRight>Acciones</HeaderCell>
             </HeaderRow>
           </Header>
           <Body>
@@ -83,7 +99,7 @@ export default function ReactTable() {
                 <CellSelect item={item} />
                 <Cell>{item.name}</Cell>
                 <Cell>{item.price}</Cell>
-                <Cell>{pyDolar && item.price * pyDolar} Bs</Cell>
+                <Cell>{pyDollar && item.price * pyDollar} Bs</Cell>
                 <Cell>{item.stock}</Cell>
                 <Cell>
                   {new Date(item.createdAT).toLocaleDateString("es-ES")}
@@ -91,8 +107,12 @@ export default function ReactTable() {
                 <Cell>
                   {new Date(item.updatedAT).toLocaleDateString("es-ES")}
                 </Cell>
-                <Cell>
-                  <ContainerActions id={item.id} />
+                <Cell pinRight>
+                  <ContainerActions
+                    data={data}
+                    apiUrl="/products"
+                    id={item.id}
+                  />
                 </Cell>
               </Row>
             ))}

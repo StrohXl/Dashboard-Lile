@@ -1,53 +1,65 @@
 "use client";
+import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { IoSearchOutline } from "react-icons/io5";
-import { useDataContext } from "@/components/dashboard/hooks/useContextData";
-import getData from "@/fetchs/data/getData";
-
-type TypeProductSearch = {
-  name: string;
-};
-
+import { useState } from "react";
 export default function SearchData({
-  apiUrl,
   placeholderInput,
 }: {
-  apiUrl: string;
   placeholderInput: string;
 }) {
-  const { setData } = useDataContext();
-  
-  const { register, handleSubmit } = useForm<TypeProductSearch>();
-  let time: ReturnType<typeof setTimeout>;
+  const [inputName, setInputName] = useState<string>("");
+  const { register, reset } = useForm<{ name: string }>();
 
-  const onSubmit = async (body: TypeProductSearch) => {
+  let time: ReturnType<typeof setTimeout>;
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
+  const name = searchParams.get("name");
+
+  const onSubmit = async (search: string) => {
+    setInputName(search);
+    const params = new URLSearchParams(searchParams);
     clearTimeout(time);
     time = setTimeout(async () => {
-      const data = await getData(apiUrl, body);
-      setData(data);
+      if (search) {
+        params.set("name", search);
+      } else {
+        params.delete("name");
+      }
+      replace(`${pathname}?${params.toString()}`);
     }, 300);
+  };
+
+  const resetInput = () => {
+    setInputName("");
+    reset({ name: "" });
+    onSubmit("");
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={`flex gap-3 group items-center border-1  border-gray-400 px-4 rounded-[50rem] `}
+      className={`grid grid-cols-[20px_150px_20px] gap-3 group items-center border-1  border-gray-400 px-4 rounded-[50rem] `}
     >
-      <button
-        type="submit"
-        className="cursor-pointer transition-colors focus:group- duration-300 hover:text-primary "
-      >
+      <div className="">
         <IoSearchOutline size={20} />
-      </button>
+      </div>
       <input
+        {...register("name")}
         type="text"
         className="outline-none py-2 "
+        defaultValue={name || ""}
         placeholder={placeholderInput}
-        {...register("name")}
-        onChange={({ target }) =>
-          onSubmit({ name: target.value.toLocaleLowerCase() })
-        }
+        onChange={({ target }) => onSubmit(target.value.toLocaleLowerCase())}
       />
+      {inputName !== "" && (
+        <div
+          onClick={resetInput}
+          className="cursor-pointer transition-colors focus:group- duration-300 hover:text-primary "
+        >
+          <IoCloseOutline size={20} />
+        </div>
+      )}
     </form>
   );
 }

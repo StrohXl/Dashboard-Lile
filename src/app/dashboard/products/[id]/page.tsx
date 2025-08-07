@@ -1,27 +1,11 @@
-"use client";
-import getProductId from "@/fetchs/products/getProductId";
 import FormProduct from "@/components/products/forms/formProduct";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
+import getPyDollar from "@/fetchs/pydolar/getPyDolar";
 
-type Inputs = {
-  name: string;
-  price: number;
-  stock: number;
-  description: string;
-};
 export default function ProductId() {
-  const { id } = useParams();
-  const [product, setProduct] = useState<Inputs | undefined>();
-  const getProduct = async () => {
-    const data = await getProductId(Number(id));
-    setProduct(data);
-  };
-  useEffect(() => {
-    getProduct();
-  }, [id]);
+  const pyDollar = getPyDollar();
+
   return (
     <>
       <div className="flex mb-6 items-center gap-12">
@@ -36,7 +20,7 @@ export default function ProductId() {
         </Link>
       </div>
       <section>
-        <FormProduct data={product} />
+        <FormProduct pyDollar={pyDollar} />
       </section>
     </>
   );

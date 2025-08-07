@@ -18,14 +18,19 @@ import { Action, State } from "@table-library/react-table-library/types/common";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/material-ui";
 import { FaChevronDown } from "react-icons/fa";
-import React, { useState } from "react";
-import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { TableBuysType } from "../typeTableBuys";
+import { TypeData } from "@/types/data";
+import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 
-export default function ReactTableBuys() {
-  const { data, pyDolar, setSelects } = useDataContext();
-  const [ids, setIds] = useState<number[]>([]);
+export default function ReactTableBuys({
+  data,
+  pyDollar,
+}: {
+  data: TypeData;
+  pyDollar: number;
+}) {
+  const { ids, setIds, setSelects } = useDataContext();
 
   const handleExpand = (idItem: number) => {
     if (ids.includes(idItem)) {
@@ -54,6 +59,12 @@ export default function ReactTableBuys() {
     materialTheme,
     {
       Table: `grid-template-columns: auto  auto 250px 1fr 200px 200px 100px !important;`,
+      BaseCell: `
+      &:nth-of-type(7){
+      right:0px;
+      border-left:1px solid #f0f0f0;
+      }
+      `,
     },
   ]);
   const nodes = { nodes: data ? data.data : [] };
@@ -75,7 +86,7 @@ export default function ReactTableBuys() {
               <HeaderCell>Productos</HeaderCell>
               <HeaderCell>Precio Total en $</HeaderCell>
               <HeaderCell>Precio Total en Bs</HeaderCell>
-              <HeaderCell>Acciones</HeaderCell>
+              <HeaderCell pinRight>Acciones</HeaderCell>
             </HeaderRow>
           </Header>
           <Body>
@@ -130,11 +141,11 @@ export default function ReactTableBuys() {
                   {item.products.reduce(
                     (total, item) => total + item.price * item.stock,
                     0
-                  ) * pyDolar}
+                  ) * pyDollar}
                   Bs
                 </Cell>
-                <Cell>
-                  <ContainerActions id={item.id} />
+                <Cell pinRight>
+                  <ContainerActions data={data} apiUrl="/buys" id={item.id} />
                 </Cell>
               </Row>
             ))}

@@ -1,10 +1,9 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import TypeProduct from "../products/type/typeProducts";
 import validInputs from "../products/utils/validInputs";
 import { ZodError } from "zod";
-
-const prisma = new PrismaClient();
+import prisma from "@/libs/prisma";
+import BuyType from "./type";
 
 const elementsPerPage = 10;
 
@@ -20,6 +19,7 @@ export async function getBuys(request: NextRequest) {
       skip: page ? (Number(page) - 1) * elementsPerPage : 0,
       take: elementsPerPage,
       orderBy: { id: "desc" },
+      cacheStrategy: { ttl: 2 },
     });
     const counts = await prisma.buys.count();
     let pages = counts / elementsPerPage;
@@ -49,7 +49,7 @@ export async function getBuyById(id: number) {
   }
 }
 
-export async function createBuy(body: TypeProduct[], id: number) {
+export async function createBuy(body: BuyType, id: number) {
   for (let index = 0; index < body.length; index++) {
     const result = validInputs(body[index]);
     if (result instanceof ZodError) {
@@ -92,12 +92,9 @@ export async function createBuy(body: TypeProduct[], id: number) {
         });
       }
       if (error.code === "P2025") {
-        return NextResponse.json(
-          "Uno de los productos no existe",
-          {
-            status: 404,
-          }
-        );
+        return NextResponse.json("Uno de los productos no existe", {
+          status: 404,
+        });
       }
     }
     return NextResponse.json(error, { status: 500 });
@@ -121,10 +118,10 @@ export async function deleteBuyById(id: number) {
 export async function deleteBuys(ids: number[]) {
   try {
     for (let index = 0; index < ids.length; index++) {
-      const product = await prisma.buys.findUnique({
+      const buy = await prisma.buys.findUnique({
         where: { id: ids[index] },
       });
-      if (!product) {
+      if (!buy) {
         return NextResponse.json("La compra no existe", { status: 404 });
       }
     }
