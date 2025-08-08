@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import validInputs from "../products/utils/validInputs";
 import { ZodError } from "zod";
 import prisma from "@/libs/prisma";
-import BuyType from "./type";
+import { BuyType } from "./type";
 
 const elementsPerPage = 10;
 

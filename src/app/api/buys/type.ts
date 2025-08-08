@@ -1,5 +1,8 @@
 import TypeProduct from "../products/type/typeProducts";
 
-type BuyType = TypeProduct[];
+export type BuyType = TypeProduct[];
 
-export default BuyType
+export type DataBuyType = {
+  data: BuyType;
+  pages: number;
+};

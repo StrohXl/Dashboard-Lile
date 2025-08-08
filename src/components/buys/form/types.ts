@@ -1,11 +1,14 @@
-import BuyType from "@/app/api/buys/type";
+import TypeProduct from "@/app/api/products/type/typeProducts";
 import { HTMLInputTypeAttribute, ReactNode } from "react";
-import {
-  FieldError,
-  Path,
-  RegisterOptions,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
+
+type TypeProductNew = TypeProduct & {
+  type?: "create" | "select";
+};
+
+export type FormBuyType = {
+  products: TypeProductNew[];
+};
 
 export type InputFormBuyType = {
   step?: string;
@@ -16,8 +19,14 @@ export type InputFormBuyType = {
   label: string;
   error: FieldError | undefined;
   placeholder?: string;
-  register: UseFormRegister<BuyType>;
-  nameField: Path<BuyType>;
-  options?: RegisterOptions<BuyType>;
+  register: UseFormRegister<FormBuyType>;
+  nameField:
+    | "products"
+    | `products.${number}`
+    | `products.${number}.id`
+    | `products.${number}.name`
+    | `products.${number}.price`
+    | `products.${number}.stock`;
+  options?: RegisterOptions<FormBuyType>;
   type?: HTMLInputTypeAttribute;
 };

@@ -4,7 +4,6 @@ import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import Link from "next/link";
 import { Suspense } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
-const apiUrl = "/buys";
 
 export default async function Buys({
   searchParams,
@@ -20,7 +19,7 @@ export default async function Buys({
           Lista de Compras
         </h4>
         <div className="flex items-center gap-6">
-          <SearchData apiUrl={apiUrl} placeholderInput="Buscar Compra..." />
+          <SearchData placeholderInput="Buscar Compra..." />
           <Link className="btn-primary" href="/dashboard/buys/create">
             Agregar
             <MdAddShoppingCart size={20} />

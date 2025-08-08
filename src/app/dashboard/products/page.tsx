@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { HiArchiveBoxArrowDown } from "react-icons/hi2";
 
-const apiUrl = "/products";
 
 export default async function Products({
   searchParams,
@@ -23,7 +22,7 @@ export default async function Products({
           Lista de Productos
         </h4>
         <div className="flex items-center gap-6">
-          <SearchData apiUrl={apiUrl} placeholderInput="Buscar Productos..." />
+          <SearchData placeholderInput="Buscar Productos..." />
           <Link className="btn-primary" href="/dashboard/products/create">
             Agregar
             <HiArchiveBoxArrowDown size={20} />
