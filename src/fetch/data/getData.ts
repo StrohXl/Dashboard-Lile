@@ -1,4 +1,4 @@
-'use server'
+"use server";
 import TypeParams from "@/types/typeParams";
 import axios from "axios";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
@@ -17,12 +17,19 @@ const getData = async ({
 
   // Obtener url de dominio
   const node_env = process.env.NODE_ENV || "";
-  const siteUrl =
-    node_env === "development"
-      ? process.env.URL_DEV || ""
-      : ((await headers()).get("host") as string);
+  let siteUrl = "";
 
-      
+  if (node_env === "development") {
+    siteUrl = process.env.URL_DEV || "http://localhost:3000";
+  } else {
+    // En producción, asegúrate de incluir el protocolo
+    const host = (await headers()).get("host") as string;
+    siteUrl = `https://${host}`; // Asume HTTPS en producción
+    const protocol =
+      (await headers()).get("x-forwarded-proto") === "https" ? "https" : "http";
+    siteUrl = `${protocol}://${host}`;
+  }
+
   try {
     const { data } = await axios.get(`${siteUrl}/api${url}`, {
       params,

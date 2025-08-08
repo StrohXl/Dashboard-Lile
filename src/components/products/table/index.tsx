@@ -3,9 +3,9 @@ import NotHaveProducts from "./components/notHaveProducts";
 import ReactTableProducts from "./components/reactTableProducts";
 import Pagination from "@/components/dashboard/tables/components/pagination";
 import DeleteSelects from "@/components/dashboard/tables/components/deleteSelects";
-import getData from "@/fetchs/data/getData";
+import getData from "@/fetch/data/getData";
 import TypeParams from "@/types/typeParams";
-import getPyDolar from "@/fetchs/pydolar/getPyDolar";
+import getPyDolar from "@/fetch/pydolar/getPyDolar";
 import { HookDataContext } from "@/components/dashboard/hooks/useContextData";
 
 export default async function TableProducts({

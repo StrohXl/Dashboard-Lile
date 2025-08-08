@@ -5,7 +5,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { ParamValue } from "next/dist/server/request/params";
 import { UseFormReset } from "react-hook-form";
 import { ProductPriceBsType } from "./formProduct";
-import getProductId from "@/fetchs/products/getProductId";
+import getProductId from "@/fetch/products/getProductId";
 
 export const onSubmit = async ({
   body,

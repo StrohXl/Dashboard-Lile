@@ -3,7 +3,7 @@ import NotHaveBuys from "./components/notHaveBuys";
 import { HookDataContext } from "@/components/dashboard/hooks/useContextData";
 import ReactTableBuys from "./components/reactTable";
 import Pagination from "@/components/dashboard/tables/components/pagination";
-import getData from "@/fetchs/data/getData";
+import getData from "@/fetch/data/getData";
 import TypeParams from "@/types/typeParams";
 import DeleteSelects from "@/components/dashboard/tables/components/deleteSelects";
 

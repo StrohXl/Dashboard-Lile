@@ -1,6 +1,6 @@
 import SkeletonFormProduct from "@/components/products/forms/components/skeletonFormProduct";
 import FormProduct from "@/components/products/forms/formProduct";
-import getPyDollar from "@/fetchs/pydolar/getPyDolar";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
 import { FaChevronLeft } from "react-icons/fa6";

@@ -1,7 +1,7 @@
 import FormProduct from "@/components/products/forms/formProduct";
 import Link from "next/link";
 import { FaChevronLeft } from "react-icons/fa6";
-import getPyDollar from "@/fetchs/pydolar/getPyDolar";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 
 export default function ProductId() {
   const pyDollar = getPyDollar();

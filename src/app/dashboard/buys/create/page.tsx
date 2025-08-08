@@ -1,6 +1,6 @@
 import SkeletonFormBuy from "@/components/buys/form/components/skeletonFormBuy";
 import FormBuy from "@/components/buys/form/formBuys";
-import getData from "@/fetchs/data/getData";
+import getData from "@/fetch/data/getData";
 import Link from "next/link";
 import { Suspense } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
