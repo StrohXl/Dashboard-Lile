@@ -15,7 +15,7 @@ export default function ReactTableBuys({
   data: TypeData;
   pyDollar: number | undefined;
 }) {
-  const { ids, setIds, setSelects, selects } = useDataContext();
+  const { setSelects } = useDataContext();
 
   const select = functionSelects({ data, setSelects });
 
@@ -33,14 +33,7 @@ export default function ReactTableBuys({
       {(tableList: TableBuysType[]) => (
         <>
           <TableHeaderBuy />
-          <TableBodyBuy
-            data={data}
-            ids={ids}
-            pyDollar={pyDollar}
-            selects={selects}
-            setIds={setIds}
-            tableList={tableList}
-          />
+          <TableBodyBuy data={data} pyDollar={pyDollar} tableList={tableList} />
         </>
       )}
     </Table>

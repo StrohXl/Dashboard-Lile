@@ -5,22 +5,19 @@ import { TableBuysType } from "../types";
 import { FaChevronDown } from "react-icons/fa6";
 import { handleExpand } from "../utils";
 import { TypeData } from "@/types/data";
+import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 
 function TableBodyBuy({
   tableList,
-  ids,
-  setIds,
-  selects,
   pyDollar,
   data,
 }: {
   tableList: TableBuysType[];
-  ids: number[];
-  setIds: (value: number[]) => void;
-  selects: number[];
   pyDollar: number | undefined;
   data: TypeData;
 }) {
+  const { ids, setIds, selects } = useDataContext();
+
   return (
     <Body>
       {tableList.map((item: TableBuysType) => (
