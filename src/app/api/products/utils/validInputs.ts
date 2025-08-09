@@ -2,6 +2,7 @@ import TypeProduct from "../type/typeProducts";
 import { z, ZodError } from "zod";
 
 const ProductSchema = z.object({
+  id: z.number(),
   name: z.string().min(3).nonempty(),
   price: z.number().min(0).positive(),
   stock: z.number().min(1).positive(),

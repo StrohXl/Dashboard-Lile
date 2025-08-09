@@ -2,6 +2,7 @@ import { LuDollarSign } from "react-icons/lu";
 import InputFormBuy from "./inputFormBuy";
 import { HiArchiveBox } from "react-icons/hi2";
 import { removeField } from "../utils";
+import { IoClose } from "react-icons/io5";
 import NotHaveProducts from "./notHaveProducts";
 import {
   FieldArrayWithId,
@@ -24,14 +25,16 @@ export default function BodyFormBuy({
 }) {
   return (
     <div
-      className={`container-fields gap-4 flex flex-col  ${
-        fields.length > 0 && "mb-4"
-      }`}
+      className={`container-fields gap-4 flex flex-col`}
     >
       {fields.map((item, index) => (
         <div
           key={item.id}
-          className="grid border-b-1 pb-8 border-gray-400 grid-cols-[1fr_25%_25%_20px] items-center gap-4"
+          className={`grid ${
+            fields.length > 0 &&
+            index != fields.length - 1 &&
+            "pb-8 border-b-1 !border-gray-500"
+          }  grid-cols-[1fr_25%_25%_42px] items-center gap-4`}
         >
           <input type="hidden" {...register(`products.${index}.id`)} />
           <InputFormBuy
@@ -39,6 +42,7 @@ export default function BodyFormBuy({
             label="Nombre del Producto"
             nameField={`products.${index}.name`}
             disabled={item.type !== "create"}
+            placeholder="Nombre del Producto"
             type="text"
             options={{
               required: {
@@ -76,7 +80,6 @@ export default function BodyFormBuy({
             label="Cantidad"
             nameField={`products.${index}.stock`}
             type="number"
-            step="any"
             iconEnd={<HiArchiveBox />}
             options={{
               required: {
@@ -84,13 +87,20 @@ export default function BodyFormBuy({
                 message: "Este campo es requerido",
               },
               min: {
-                value: 0.1,
-                message: "Precio minimo 0.1",
+                value: 1,
+                message: "Cantidad minima  de 1",
               },
             }}
             error={errors.products && errors.products[index]?.stock}
           />
-          <button onClick={() => removeField({ index, remove })}>x</button>
+          <div className="mt-auto  flex items-center justify-center h-[42px]">
+            <button
+              className="flex transition-colors cursor-pointer duration-300 hover:bg-primary p-1 bg-gray-500 text-white rounded-lg items-center justify-center"
+              onClick={() => removeField({ index, remove })}
+            >
+              <IoClose size={20} />
+            </button>
+          </div>
         </div>
       ))}
       <NotHaveProducts errors={errors} />

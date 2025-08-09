@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client/edge";
 import TypeProduct from "./type/typeProducts";
 import validInputs from "./utils/validInputs";
 import jwt from "jsonwebtoken";

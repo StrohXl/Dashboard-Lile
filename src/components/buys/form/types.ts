@@ -2,7 +2,7 @@ import TypeProduct from "@/app/api/products/type/typeProducts";
 import { HTMLInputTypeAttribute, ReactNode } from "react";
 import { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
 
-type TypeProductNew = TypeProduct & {
+export type TypeProductNew = TypeProduct & {
   type?: "create" | "select";
 };
 

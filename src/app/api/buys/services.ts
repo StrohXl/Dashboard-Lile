@@ -1,9 +1,9 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client/edge";
 import { NextRequest, NextResponse } from "next/server";
 import validInputs from "../products/utils/validInputs";
 import { ZodError } from "zod";
 import prisma from "@/libs/prisma";
-import { BuyType } from "./type";
+import { TypeProductNew } from "@/components/buys/form/types";
 
 const elementsPerPage = 10;
 
@@ -49,7 +49,8 @@ export async function getBuyById(id: number) {
   }
 }
 
-export async function createBuy(body: BuyType, id: number) {
+export async function createBuy(body: TypeProductNew[], id: number) {
+  console.log(body)
   for (let index = 0; index < body.length; index++) {
     const result = validInputs(body[index]);
     if (result instanceof ZodError) {
@@ -57,10 +58,11 @@ export async function createBuy(body: BuyType, id: number) {
       return NextResponse.json(result.issues, { status: 400 });
     }
   }
-
-  const productsConnect = body.filter((item) => item.id);
-  const productsCreate = body.filter((item) => !item.id);
-
+  const productsConnect = body.filter((item) => item.id !== 0);
+  const productsCreate = body.filter((item) => item.id == 0);
+  productsCreate.forEach(item=>{
+    delete item.id
+  })
   try {
     await prisma.buys.create({
       data: {
@@ -76,10 +78,14 @@ export async function createBuy(body: BuyType, id: number) {
     for (let index = 0; index < productsConnect.length; index++) {
       await prisma.products.update({
         where: { id: productsConnect[index].id },
-        data: productsConnect[index],
+        data: {
+          price: productsConnect[index].price,
+          stock: {
+            increment: Number(productsConnect[index].stock),
+          },
+        },
       });
     }
-
     return NextResponse.json(
       `Productos ${productsConnect ? "Actualizados" : "Creados"}`
     );

@@ -5,6 +5,9 @@ import {
   UseFieldArrayRemove,
 } from "react-hook-form";
 import TypeProduct from "@/app/api/products/type/typeProducts";
+import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 type DataProductType = {
   data: TypeProduct[];
@@ -26,8 +29,8 @@ export const changeSelect = ({
     prepend({
       id: product.id,
       name: product.name,
-      price: 0,
-      stock: 0,
+      price: 0.1,
+      stock: 1,
     });
   }
 };
@@ -41,7 +44,7 @@ export const appendField = ({
     id: 0,
     name: "",
     price: 0.1,
-    stock: 0.1,
+    stock: 1,
     type: "create",
   });
 };
@@ -56,6 +59,38 @@ export const removeField = ({
   remove(index);
 };
 
-export const onSubmit = (body: FieldValues) => {
-  console.log(body);
+export const onSubmit = async ({
+  body,
+  setDisabled,
+  router,
+}: {
+  body: FormBuyType;
+  setDisabled: (value: boolean) => void;
+  router: AppRouterInstance;
+}) => {
+  setDisabled(true);
+
+  body.products.forEach((item) => {
+    delete item.type;
+    item.price = 1;
+    item.stock = 1;
+  });
+
+  try {
+    await toast.promise(axios.post("/api/buys", body.products), {
+      pending: "Creando compra...",
+      success: "Compra creada",
+      error: {
+        render: (error) => {
+          console.log(error);
+          if (error.data instanceof AxiosError) {
+            return `${error.data.response?.data}`;
+          }
+          return `Error`;
+        },
+      },
+    });
+    router.push("/dashboard/buys");
+  } catch (error) {}
+  setDisabled(false);
 };

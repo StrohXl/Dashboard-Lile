@@ -1,4 +1,4 @@
-import TableBuys from "@/components/buys/tables/tableBuys";
+import TableBuys from "@/components/buys/table/tableBuy";
 import SearchData from "@/components/dashboard/forms/searchData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import Link from "next/link";
