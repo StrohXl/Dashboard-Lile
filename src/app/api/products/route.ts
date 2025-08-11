@@ -11,10 +11,11 @@ export async function GET(request: NextRequest) {
   }
 
   const searchParams = request.nextUrl.searchParams;
+  const all = searchParams.get("all") ?? "false";
   const name = searchParams.get("name");
   const page = searchParams.get("page");
 
-  return await getProducts({ name, page: Number(page) });
+  return await getProducts({ name, page: Number(page), all });
 }
 export async function POST(request: NextRequest) {
   const token = await validToken(request);

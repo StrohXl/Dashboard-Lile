@@ -16,7 +16,7 @@ function TableBodyBuy({
   pyDollar: number | undefined;
   data: TypeData;
 }) {
-  const { ids, setIds, selects } = useDataContext();
+  const { ids, setIds } = useDataContext();
 
   return (
     <Body>
@@ -24,7 +24,7 @@ function TableBodyBuy({
         <Row key={item.id} item={item}>
           <CellSelect item={item} />
           <Cell>
-            {item.products.map(
+            {item.list_products.map(
               (producto, index) =>
                 index > 0 &&
                 index < 2 && (
@@ -48,24 +48,15 @@ function TableBodyBuy({
           <Cell>
             <ul>
               <li>
-                <div className={`grid grid-cols-[70%_1fr] pb-1`}>
-                  <div
-                    className={`${
-                      selects.includes(item.id) && "text-black "
-                    } font-semibold`}
-                  >
-                    Producto
-                  </div>
-                  <div
-                    className={`${
-                      selects.includes(item.id) && "text-black "
-                    } font-semibold`}
-                  >
-                    Cantidad
-                  </div>
+                <div
+                  className={`grid grid-cols-[130px_100px_100px] gap-2 pb-1`}
+                >
+                  <div className={`font-semibold`}>Producto</div>
+                  <div className={`font-semibold`}>Cantidad</div>
+                  <div className={`font-semibold`}>Precio</div>
                 </div>
               </li>
-              {item.products.map((product, index) => (
+              {item.list_products.map((product, index) => (
                 <li
                   key={product.id}
                   className={`${
@@ -73,33 +64,26 @@ function TableBodyBuy({
                   }`}
                 >
                   <div
-                    className={`grid grid-cols-[70%_1fr]  ${
+                    className={`grid grid-cols-[130px_100px_100px] gap-2  ${
                       item.products.length > 0 &&
                       ids.includes(item.id) &&
                       index !== item.products.length - 1 &&
                       "pb-2"
                     }`}
                   >
-                    <div>{product.name}</div>
+                    <div>
+                      <p className="truncate">{product.name}</p>
+                    </div>
                     <div>{product.stock}</div>
+                    <div>{product.price}$</div>
                   </div>
                 </li>
               ))}
             </ul>
           </Cell>
+          <Cell>{item.total_price}$</Cell>
           <Cell>
-            {item.products.reduce(
-              (total, item) => total + item.price * item.stock,
-              0
-            )}
-            $
-          </Cell>
-          <Cell>
-            {pyDollar &&
-              item.products.reduce(
-                (total, item) => total + item.price * item.stock,
-                0
-              ) * pyDollar}
+            {pyDollar && (item.total_price * pyDollar).toFixed(2)}
             Bs
           </Cell>
           <Cell pinRight>

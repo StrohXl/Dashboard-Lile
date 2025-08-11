@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { HiArchiveBoxArrowDown } from "react-icons/hi2";
 
-
 export default async function Products({
   searchParams,
 }: {
@@ -29,7 +28,7 @@ export default async function Products({
           </Link>
         </div>
       </div>
-      <Suspense key={name + deleteId + page} fallback={<SkeletonTable />}>
+      <Suspense key={name ?? "" + deleteId + page} fallback={<SkeletonTable />}>
         <TableProducts params={params} />
       </Suspense>
     </section>

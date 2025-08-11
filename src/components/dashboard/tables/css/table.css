@@ -15,6 +15,12 @@ table tbody {
 }
 table {
   input {
-    accent-color: var(--color-primary)  !important; /* Fondo verde */
+    accent-color: var(--color-primary) !important; /* Fondo verde */
+  }
+}
+table tbody {
+  .row-select-single-selected,
+  .row-select-selected {
+    font-weight: initial  !important;
   }
 }

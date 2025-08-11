@@ -1,21 +1,44 @@
 "use client";
+import { onSelectChange } from "@/components/buys/table/utils";
+import { TypeData } from "@/types/data";
 import { createContext, ReactNode, useContext, useState } from "react";
-
+import {
+  useRowSelect,
+  SelectClickTypes,
+  Select,
+} from "@table-library/react-table-library/select";
 export type DataContextType = {
   disabled: boolean;
   setDisabled: (val: boolean) => void;
   selects: number[];
   setSelects: (val: number[]) => void;
   ids: number[];
+  select: Select<never>;
   setIds: (val: number[]) => void;
 };
 
 const UseDataContext = createContext<DataContextType | undefined>(undefined);
 
-export function HookDataContext({ children }: { children: ReactNode }) {
+export function HookDataContext({
+  children,
+  data,
+}: {
+  children: ReactNode;
+  data: TypeData;
+}) {
   const [disabled, setDisabled] = useState(false);
   const [selects, setSelects] = useState<number[]>([]);
   const [ids, setIds] = useState<number[]>([]);
+
+  const select = useRowSelect(
+    { nodes: data.data },
+    {
+      onChange: (action, state) => onSelectChange({ setSelects, state }),
+    },
+    {
+      clickType: SelectClickTypes.ButtonClick,
+    }
+  );
 
   return (
     <UseDataContext.Provider
@@ -23,6 +46,7 @@ export function HookDataContext({ children }: { children: ReactNode }) {
         disabled,
         selects,
         setSelects,
+        select,
         setDisabled,
         ids,
         setIds,

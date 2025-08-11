@@ -1,8 +1,9 @@
 import { FormBuyType } from "./types";
 import {
-  FieldValues,
   UseFieldArrayPrepend,
   UseFieldArrayRemove,
+  UseFormGetValues,
+  UseFormSetValue,
 } from "react-hook-form";
 import TypeProduct from "@/app/api/products/type/typeProducts";
 import axios, { AxiosError } from "axios";
@@ -18,10 +19,12 @@ export const changeSelect = ({
   products,
   prepend,
   value,
+  pyDollar,
 }: {
   value: number;
   products: DataProductType;
   prepend: UseFieldArrayPrepend<FormBuyType>;
+  pyDollar: number | undefined;
 }) => {
   const product = products.data.find((item) => item.id === value);
 
@@ -31,14 +34,19 @@ export const changeSelect = ({
       name: product.name,
       price: 0.1,
       stock: 1,
+      markup: 0.3,
+      priceBs: pyDollar ? 0.1 * pyDollar : 1,
+      sellingPrice: pyDollar ? 0.1 * pyDollar * 1 : 1,
     });
   }
 };
 
 export const appendField = ({
   prepend,
+  pyDollar,
 }: {
   prepend: UseFieldArrayPrepend<FormBuyType>;
+  pyDollar: number | undefined;
 }) => {
   prepend({
     id: 0,
@@ -46,6 +54,9 @@ export const appendField = ({
     price: 0.1,
     stock: 1,
     type: "create",
+    markup: 0.3,
+    priceBs: pyDollar ? 0.1 * pyDollar : 1,
+    sellingPrice: pyDollar ? 0.1 * pyDollar * 1 : 1,
   });
 };
 
@@ -69,28 +80,92 @@ export const onSubmit = async ({
   router: AppRouterInstance;
 }) => {
   setDisabled(true);
-
+  const newBody: {
+    id?: number;
+    name: string;
+    price: number;
+    stock: number;
+    sellingPrice: number;
+  }[] = [];
   body.products.forEach((item) => {
-    delete item.type;
-    item.price = 1;
-    item.stock = 1;
+    newBody.push({
+      id: item.id,
+      name: item.name,
+      price: Number(item.price / item.stock),
+      stock: Number(item.stock),
+      sellingPrice: Number(item.sellingPrice),
+    });
   });
 
-  try {
-    await toast.promise(axios.post("/api/buys", body.products), {
-      pending: "Creando compra...",
-      success: "Compra creada",
-      error: {
-        render: (error) => {
-          console.log(error);
-          if (error.data instanceof AxiosError) {
-            return `${error.data.response?.data}`;
-          }
-          return `Error`;
-        },
+  await toast.promise(axios.post("/api/buys", newBody), {
+    pending: "Creando compra...",
+    success: "Compra creada",
+    error: {
+      render: (error) => {
+        console.log(error);
+        if (error.data instanceof AxiosError) {
+          return `${error.data.response?.data}`;
+        }
+        return `Error`;
       },
-    });
-    router.push("/dashboard/buys");
-  } catch (error) {}
+    },
+  });
+  router.push("/dashboard/buys");
   setDisabled(false);
+};
+
+export const changeSellingPrice = ({
+  index,
+  getValues,
+  setValue,
+}: {
+  index: number;
+  getValues: UseFormGetValues<FormBuyType>;
+  setValue: UseFormSetValue<FormBuyType>;
+}) => {
+  const price = getValues(`products.${index}.price`);
+  const stock = getValues(`products.${index}.stock`);
+  const priceIndividual = price / stock;
+  const markup = getValues(`products.${index}.markup`);
+  const sellingPrice = priceIndividual * markup + priceIndividual;
+  setValue(
+    `products.${index}.sellingPrice`,
+    parseFloat(sellingPrice.toFixed(2))
+  );
+};
+
+export const updatePrice = ({
+  index,
+  value,
+  getValues,
+  pyDollar,
+  setValue,
+}: {
+  index: number;
+  value: number;
+  setValue: UseFormSetValue<FormBuyType>;
+  pyDollar: number | undefined;
+  getValues: UseFormGetValues<FormBuyType>;
+}) => {
+  const price = pyDollar ? value / pyDollar : 1;
+  setValue(`products.${index}.price`, price);
+  changeSellingPrice({ index, getValues, setValue });
+};
+
+export const updatePriceBs = ({
+  index,
+  value,
+  getValues,
+  pyDollar,
+  setValue,
+}: {
+  index: number;
+  value: number;
+  setValue: UseFormSetValue<FormBuyType>;
+  pyDollar: number | undefined;
+  getValues: UseFormGetValues<FormBuyType>;
+}) => {
+  const priceBs = pyDollar ? value * pyDollar : 1;
+  setValue(`products.${index}.priceBs`, parseFloat(priceBs.toFixed(2)));
+  changeSellingPrice({ index, getValues, setValue });
 };

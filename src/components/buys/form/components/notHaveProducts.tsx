@@ -8,7 +8,7 @@ export default function NotHaveProducts({
   errors: FieldErrors<FormBuyType>;
 }) {
   return (
-    <div>
+    <>
       {errors?.products?.root?.message && (
         <div className="flex flex-col items-center justify-center">
           <MdOutlineRemoveShoppingCart size={80} className="text-gray-500" />
@@ -17,6 +17,6 @@ export default function NotHaveProducts({
           </h4>
         </div>
       )}
-    </div>
+    </>
   );
 }

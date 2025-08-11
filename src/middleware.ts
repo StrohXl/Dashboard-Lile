@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const url = request.nextUrl.pathname;
-  const cookies = request.cookies;
-  const token = cookies.get("myToken");
+  const token = request.cookies.get("myToken");
   if (!token && url !== "/") {
     return NextResponse.redirect(new URL("/", request.url));
   }

@@ -6,6 +6,7 @@ const ProductSchema = z.object({
   name: z.string().min(3).nonempty(),
   price: z.number().min(0).positive(),
   stock: z.number().min(1).positive(),
+  sellingPrice: z.optional(z.number().min(1).positive()),
 });
 
 type TypeZodProduct = z.infer<typeof ProductSchema>;

@@ -64,17 +64,7 @@ const SideBarNav = ({
                   }`}
                   href={item.link}
                 >
-                  {!showLogo ? (
-                    <span
-                      data-tooltip-id="my-tooltip"
-                      data-tooltip-content={item.title}
-                      data-tooltip-place="right"
-                    >
-                      <Icon size={30} />
-                    </span>
-                  ) : (
-                    <Icon size={30} />
-                  )}
+                <Icon size={30} />
                   {showLogo && item.title}
                 </Link>
               </li>
@@ -89,17 +79,7 @@ const SideBarNav = ({
                   className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 cursor-pointer hover:text-primary-ligth text-gray-600 text-lg `}
                   onClick={() => item.link === "/" && logoutUser()}
                 >
-                  {!showLogo ? (
-                    <span
-                      data-tooltip-id="my-tooltip"
-                      data-tooltip-content={item.title}
-                      data-tooltip-place="right"
-                    >
-                      <Icon size={30} />
-                    </span>
-                  ) : (
-                    <Icon size={30} />
-                  )}
+                <Icon size={30} />
                   {showLogo && item.title}
                 </span>
               </li>

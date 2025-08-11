@@ -29,9 +29,7 @@
   background: var(--color-primary);
   padding: 7px 20px;
   font-family: var(--font-roboto);
-  font-weight: 500;
   border-radius: 5px;
-  font-size: 18px;
   color: #fff;
   display: flex;
   align-items: center;
@@ -39,8 +37,26 @@
   transition-duration: 300ms;
   transition-property: color background;
   &:hover {
-    background: var(--color-primary-ligth);
+    background: var(--color-gray-700);
     cursor: pointer;
+  }
+}
+.btn-outlined-primary {
+  width: fit-content;
+  padding: 7px 20px;
+  font-family: var(--font-roboto);
+  border-radius: 5px;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition-duration: 300ms;
+  border: 1px solid var(--color-primary);
+  transition-property: color background;
+  &:hover {
+    background: var(--color-primary);
+    cursor: pointer;
+    color: white;
   }
 }
 .container-table{

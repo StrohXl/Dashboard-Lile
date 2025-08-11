@@ -3,7 +3,6 @@ import { Table } from "@table-library/react-table-library/table";
 import { TableBuysType } from "../types";
 import { TypeData } from "@/types/data";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
-import { functionSelects } from "../utils";
 import { ThemeMaterialBuy } from "../themeBuy";
 import TableHeaderBuy from "./TableHeaderBuy";
 import TableBodyBuy from "./TableBodyBuy";
@@ -15,9 +14,7 @@ export default function ReactTableBuys({
   data: TypeData;
   pyDollar: number | undefined;
 }) {
-  const { setSelects } = useDataContext();
-
-  const select = functionSelects({ data, setSelects });
+  const { select } = useDataContext();
 
   const nodes = { nodes: data ? data.data : [] };
 

@@ -1,5 +1,5 @@
 import { DataBuyType } from "@/app/api/buys/type";
-import SelectFormBuy from "./selectFormBuy";
+import SelectFormBuy from "./selectProductsFormBuy";
 import { appendField, changeSelect } from "../utils";
 import { UseFieldArrayPrepend } from "react-hook-form";
 import { FormBuyType } from "../types";
@@ -7,8 +7,10 @@ import { FormBuyType } from "../types";
 export default function HeadFormBuy({
   products,
   prepend,
+  pyDollar,
 }: {
   products: DataBuyType;
+  pyDollar: number | undefined;
   prepend: UseFieldArrayPrepend<FormBuyType>;
 }) {
   return (
@@ -20,13 +22,21 @@ export default function HeadFormBuy({
         {products.data.length > 0 && (
           <SelectFormBuy
             changeSelect={(value) =>
-              changeSelect({ products, prepend, value: Number(value) })
+              changeSelect({
+                products,
+                prepend,
+                value: Number(value),
+                pyDollar,
+              })
             }
             options={products.data}
           />
         )}
-        <button className="" onClick={() => appendField({ prepend })}>
-          Crear Producto
+        <button
+          className="btn-outlined-primary"
+          onClick={() => appendField({ prepend, pyDollar })}
+        >
+          Agregar Producto
         </button>
       </div>
     </div>

@@ -14,7 +14,7 @@ export default async function TableBuys({ params }: { params?: TypeParams }) {
 
   if (buys.data.length != 0) {
     return (
-      <HookDataContext>
+      <HookDataContext data={buys}>
         <ReactTableBuys data={buys} pyDollar={pyDollar} />
         <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
           <div>

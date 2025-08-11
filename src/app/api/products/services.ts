@@ -11,22 +11,25 @@ const elementsPerPage = 10;
 export async function getProducts({
   page,
   name,
+  all,
 }: {
   name: string | null;
   page: number;
+  all: string;
 }) {
   try {
     const products = await prisma.products.findMany({
       orderBy: { id: "desc" },
-      skip: page == 0 ? page : (page - 1) * elementsPerPage,
-      take: elementsPerPage,
+      skip:
+        all == "false" ? (page == 0 ? page : (page - 1) * elementsPerPage) : undefined,
+      take: all == "false" ? elementsPerPage : undefined,
       where: {
         name: {
           contains: name ?? "",
         },
       },
       cacheStrategy: {
-        ttl: 5,
+        ttl: 3,
       },
     });
     const counts = await prisma.products.count();
@@ -45,7 +48,7 @@ export async function getProductId(id: number) {
     const productId = await prisma.products.findUnique({
       where: { id },
       cacheStrategy: {
-        ttl: 5,
+        ttl: 3,
       },
     });
     if (!productId) {
@@ -167,24 +170,23 @@ export async function deleteProducts(products: number[]) {
 export async function validToken(request: NextRequest) {
   const token = request.cookies.get("myToken");
   const key = process.env.JWT_KEY || "";
-  if (!token) {
-    return false;
-  }
-  try {
-    const { id } = jwt.verify(token.value, key) as { id: number };
-    const blackListToken = await prisma.blackListToken.findUnique({
-      where: {
-        id,
-        token: token.value,
-      },
-    });
-    if (blackListToken) {
+  if (token) {
+    try {
+      const { id } = jwt.verify(token.value, key) as { id: number };
+      const blackListToken = await prisma.blackListToken.findUnique({
+        where: {
+          id,
+          token: token.value,
+        },
+      });
+      if (blackListToken) {
+        return false;
+      } else {
+        return id;
+      }
+    } catch (error) {
+      console.log(error);
       return false;
-    } else {
-      return id;
     }
-  } catch (error) {
-    console.log(error);
-    return false;
   }
 }

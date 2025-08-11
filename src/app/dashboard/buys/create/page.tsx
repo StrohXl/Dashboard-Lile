@@ -1,6 +1,7 @@
 import SkeletonFormBuy from "@/components/buys/form/components/skeletonFormBuy";
 import FormBuy from "@/components/buys/form/formBuys";
 import getData from "@/fetch/data/getData";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
@@ -8,7 +9,11 @@ import { FaChevronLeft } from "react-icons/fa6";
 export default function CreateBuy() {
   const data = getData({
     url: "/products",
+    params: {
+      all: true,
+    },
   });
+  const pyDollar = getPyDollar();
   return (
     <>
       <div className="flex mb-6 items-center gap-12">
@@ -24,7 +29,7 @@ export default function CreateBuy() {
       </div>
       <section>
         <Suspense fallback={<SkeletonFormBuy />}>
-          <FormBuy data={data} />
+          <FormBuy pyDollar={pyDollar} data={data} />
         </Suspense>
       </section>
     </>
