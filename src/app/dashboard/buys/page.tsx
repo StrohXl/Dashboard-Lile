@@ -19,7 +19,6 @@ export default async function Buys({
           Lista de Compras
         </h4>
         <div className="flex items-center gap-6">
-          <SearchData placeholderInput="Buscar Compra..." />
           <Link className="btn-primary" href="/dashboard/buys/create">
             Agregar
             <MdAddShoppingCart size={20} />
