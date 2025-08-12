@@ -195,8 +195,8 @@ export default function BodyFormBuy({
                   message: "Este campo es requerido",
                 },
                 min: {
-                  value: 1,
-                  message: "Cantidad minima  de 1",
+                  value: 0.1,
+                  message: "Cantidad minima  de 0.1",
                 },
               }}
               error={errors.products && errors.products[index]?.sellingPrice}

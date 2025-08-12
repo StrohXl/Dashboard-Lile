@@ -67,7 +67,6 @@ export async function createBuy(body: TypeProductNew[], id: number) {
   const { productsConnect, productsCreate } = createBodyBuy(body);
   const listProducts = createListProducts(body);
   const totalPrice = getTotalPrice(body);
-  console.log(totalPrice);
   try {
     await prisma.buys.create({
       data: {
@@ -79,7 +78,7 @@ export async function createBuy(body: TypeProductNew[], id: number) {
         list_products: {
           create: listProducts,
         },
-        total_price: 100,
+        total_price: totalPrice,
       },
       include: { products: true },
     });
@@ -155,7 +154,6 @@ const createListProducts = (body: TypeProductNew[]): ListProductsType[] => {
       selling_price: item.sellingPrice,
     });
   });
-  console.log(body);
   console.log(list_products);
   return list_products;
 };
@@ -198,7 +196,8 @@ const updateProducts = async (productsConnect: TypeProduct[]) => {
 
 const getTotalPrice = (body: TypeProductNew[]) => {
   const priceTotal = body.reduce(
-    (accumulator, item) => accumulator + item.price,
+    (accumulator, item) =>
+      accumulator + Number((item.price * item.stock).toFixed(2)),
     0
   );
   return priceTotal;

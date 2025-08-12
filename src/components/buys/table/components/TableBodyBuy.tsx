@@ -3,9 +3,9 @@ import ContainerActions from "@/components/dashboard/tables/components/container
 import { CellSelect } from "@table-library/react-table-library/select";
 import { TableBuysType } from "../types";
 import { FaChevronDown } from "react-icons/fa6";
-import { handleExpand } from "../utils";
 import { TypeData } from "@/types/data";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
+import { handleExpand } from "@/components/dashboard/tables/utils";
 
 function TableBodyBuy({
   tableList,

@@ -45,7 +45,6 @@ export async function loginUser(body: TypeUser) {
       const serialized = serialize("myToken", token, {
         httpOnly: true,
         sameSite: "strict",
-        maxAge: 1000 * 60 * 60 * 24 * 1,
         path: "/",
       });
 

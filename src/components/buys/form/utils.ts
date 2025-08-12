@@ -35,8 +35,8 @@ export const changeSelect = ({
       price: 0.1,
       stock: 1,
       markup: 0.3,
-      priceBs: pyDollar ? 0.1 * pyDollar : 1,
-      sellingPrice: pyDollar ? 0.1 * pyDollar * 1 : 1,
+      priceBs: pyDollar ? Number((0.1 * 0.3 + 0.1 * pyDollar).toFixed(2)) : 1,
+      sellingPrice: 0.1 * 1 * 0.3 + 0.1,
     });
   }
 };
@@ -55,8 +55,8 @@ export const appendField = ({
     stock: 1,
     type: "create",
     markup: 0.3,
-    priceBs: pyDollar ? 0.1 * pyDollar : 1,
-    sellingPrice: pyDollar ? 0.1 * pyDollar * 1 : 1,
+    priceBs: pyDollar ? Number((0.1 * 0.3 + 0.1 * pyDollar).toFixed(2)) : 1,
+    sellingPrice: 0.1 * 1 * 0.3 + 0.1,
   });
 };
 
@@ -96,21 +96,24 @@ export const onSubmit = async ({
       sellingPrice: Number(item.sellingPrice),
     });
   });
-
-  await toast.promise(axios.post("/api/buys", newBody), {
-    pending: "Creando compra...",
-    success: "Compra creada",
-    error: {
-      render: (error) => {
-        console.log(error);
-        if (error.data instanceof AxiosError) {
-          return `${error.data.response?.data}`;
-        }
-        return `Error`;
+  try {
+    await toast.promise(axios.post("/api/buys", newBody), {
+      pending: "Creando compra...",
+      success: "Compra creada",
+      error: {
+        render: (error) => {
+          console.log(error);
+          if (error.data instanceof AxiosError) {
+            return `${error.data.response?.data}`;
+          }
+          return `Error`;
+        },
       },
-    },
-  });
-  router.push("/dashboard/buys");
+    });
+    router.push("/dashboard/buys");
+  } catch (error) {
+    console.log(error)
+  }
   setDisabled(false);
 };
 
