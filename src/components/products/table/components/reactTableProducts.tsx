@@ -5,7 +5,7 @@ import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 import { TypeData } from "@/types/data";
 import TableHeaderProducts from "./tableHeaderProducts";
 import TableBodyProducts from "./tableBodyProducts";
-import ThemeTableProducts from "./theme";
+import ThemeTableProducts from "../theme";
 
 export default function ReactTable({
   pyDollar,
