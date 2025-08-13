@@ -5,7 +5,9 @@
   --foreground: #171717;
   --color-primary: #be4499;
   --color-primary-dark: #a4327e;
-  --color-primary-ligth: #df87cc;
+  --color-primary-ligth: #df87cc78;
+  --heigth-dynamic: calc(100dvh - 48px) 
+
 }
 #my-tooltip{
   z-index: 100;
@@ -14,7 +16,11 @@
   font-family: var(--font-roboto);
   font-weight: 500 !important;
 }
+#tv-attr-logo{
+  display: none !important;
+}
 @theme inline {
+  --heigth-dynamic: var(--heigth-dynamic);
   --color-primary: var(--color-primary);
   --color-primary-dark: var(--color-primary-dark);
   --color-primary-ligth: var(--color-primary-ligth);
@@ -22,6 +28,8 @@
   --color-foreground: var(--foreground);
   --font-roboto: var(--font-roboto);
   --font-open_sans: var(--font-open_sans);
+  --width-sidebar-open: calc(100% - 256px - 24px); 
+  --width-sidebar-close: calc(100% - 70px - 24px);
 }
 
 .btn-primary {

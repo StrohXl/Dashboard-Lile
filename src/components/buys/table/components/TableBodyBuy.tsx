@@ -75,7 +75,7 @@ function TableBodyBuy({
                       <p className="truncate">{product.name}</p>
                     </div>
                     <div>{product.stock}</div>
-                    <div>{product.price}$</div>
+                    <div>{Number(product.price).toFixed(2)}$</div>
                   </div>
                 </li>
               ))}
@@ -87,7 +87,12 @@ function TableBodyBuy({
             Bs
           </Cell>
           <Cell pinRight>
-            <ContainerActions data={data} apiUrl="/buys" id={item.id} />
+            <ContainerActions
+              includeActions={{ delete: true }}
+              data={data}
+              apiUrl="/buys"
+              id={item.id}
+            />
           </Cell>
         </Row>
       ))}

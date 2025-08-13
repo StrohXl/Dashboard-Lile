@@ -9,8 +9,9 @@ import {
 
 export type TypeProductNew = {
   type?: "create" | "select";
-  priceBs: number;
   sellingPrice: number;
+  buyType: "individual" | "group";
+  moneyType: "dollar" | "bs";
   markup: number;
   id?: number;
   name: string;
@@ -50,13 +51,14 @@ export type SelectFormBuyType = {
   error: FieldError | undefined;
   label: string;
   iconStart?: ReactNode;
+  pyDollar: number;
   iconEnd?: ReactNode;
   placeholder?: string;
   setValue: UseFormSetValue<FormBuyType>;
   index: number;
   getValues: UseFormGetValues<FormBuyType>;
   selectOptions: {
-    value: number;
+    value: number | string;
     title: string;
   }[];
   nameField:
@@ -65,7 +67,8 @@ export type SelectFormBuyType = {
     | `products.${number}.id`
     | `products.${number}.name`
     | `products.${number}.price`
-    | `products.${number}.priceBs`
+    | `products.${number}.buyType`
+    | `products.${number}.moneyType`
     | `products.${number}.sellingPrice`
     | `products.${number}.markup`
     | `products.${number}.stock`;

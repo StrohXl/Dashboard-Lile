@@ -15,20 +15,16 @@ export default function LayoutDashboard({
   const [open, setOpen] = useState<boolean>(openSideBar);
   const [showLogo, setShowLogo] = useState<boolean>(openSideBar);
   return (
-    <div
-      className="flex p-6 gap-6 "
-      style={{ minHeight: "calc(100dvh - 48px)" }}
-    >
+    <div className="flex p-6 gap-6 flex-col md:flex-row min-h-dvh">
       <div
-        className={`w-full transition-all duration-300 ${
+        className={`w-full h-auto transition-all duration-300 ${
           open ? "md:w-64" : "md:w-[70px]"
         } `}
       >
         <div
-          className={`fixed w-full transition-all duration-300 ${
+          className={`fixed md:h-(--heigth-dynamic) w-full transition-all duration-300 ${
             open ? "md:w-64" : "md:w-[70px]"
           }`}
-          style={{ height: "calc(100dvh - 48px)" }}
         >
           <SideBarNav
             showLogo={showLogo}
@@ -39,8 +35,9 @@ export default function LayoutDashboard({
         </div>
       </div>
       <div
-        className="transition-all duration-300"
-        style={{ width: `calc(100% - ${open ? "256px" : "70px"} - 24px)` }}
+        className={`transition-all duration-300 w-full ${
+          open ? "md:w-(--width-sidebar-open)" : "md:w-(--width-sidebar-close)"
+        }`}
       >
         {sideBarMenu.map((item, index) => {
           if (item.link === pathname) {

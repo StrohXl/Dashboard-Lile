@@ -10,10 +10,12 @@ export default function ContainerActions({
   id,
   apiUrl,
   data,
+  includeActions,
 }: {
   data: TypeData;
   id: number;
   apiUrl: "/buys" | "/products";
+  includeActions: { delete?: boolean; edit?: boolean };
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -34,20 +36,24 @@ export default function ContainerActions({
   };
 
   return (
-    <div className="flex gap-3 items-center overflow-hidden">
-      <Link
-        href={`/dashboard${apiUrl}/` + id}
-        className="text-gray-500 transition-colors duration-300 hover:text-primary cursor-pointer"
-      >
-        <AiFillEdit size={25} />
-      </Link>
-      <button
-        onClick={() => deleteData(id)}
-        className="text-gray-500 disabled:opacity-50 disabled:!cursor-not-allowed transition-colors duration-300 hover:text-primary cursor-pointer"
-        disabled={disabled}
-      >
-        <MdDelete size={25} />
-      </button>
+    <div className="flex justify-center gap-2 items-center overflow-hidden">
+      {includeActions.edit && (
+        <Link
+          href={`/dashboard${apiUrl}/` + id}
+          className="text-gray-500 p-1 border-1 border-gray-500 rounded-[5px] hover:text-primary hover:border-primary transition-colors duration-300 cursor-pointer"
+        >
+          <AiFillEdit size={20} />
+        </Link>
+      )}
+      {includeActions.delete && (
+        <button
+          onClick={() => deleteData(id)}
+          className="disabled:opacity-50 disabled:!cursor-not-allowed transition-colors duration-300 text-gray-500 p-1 border-1 border-gray-500 rounded-[5px] hover:text-primary hover:border-primary cursor-pointer"
+          disabled={disabled}
+        >
+          <MdDelete size={20} />
+        </button>
+      )}
     </div>
   );
 }

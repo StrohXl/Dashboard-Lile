@@ -35,7 +35,8 @@ export const changeSelect = ({
       price: 0.1,
       stock: 1,
       markup: 0.3,
-      priceBs: pyDollar ? Number((0.1 * 0.3 + 0.1 * pyDollar).toFixed(2)) : 1,
+      moneyType: "dollar",
+      buyType: "individual",
       sellingPrice: 0.1 * 1 * 0.3 + 0.1,
     });
   }
@@ -53,9 +54,10 @@ export const appendField = ({
     name: "",
     price: 0.1,
     stock: 1,
+    moneyType: "dollar",
+    buyType: "individual",
     type: "create",
     markup: 0.3,
-    priceBs: pyDollar ? Number((0.1 * 0.3 + 0.1 * pyDollar).toFixed(2)) : 1,
     sellingPrice: 0.1 * 1 * 0.3 + 0.1,
   });
 };
@@ -88,14 +90,16 @@ export const onSubmit = async ({
     sellingPrice: number;
   }[] = [];
   body.products.forEach((item) => {
+    const price = item.sellingPrice / (item.markup + 1);
     newBody.push({
       id: item.id,
       name: item.name,
-      price: Number(item.price / item.stock),
+      price: Number(price),
       stock: Number(item.stock),
       sellingPrice: Number(item.sellingPrice),
     });
   });
+  console.log(newBody);
   try {
     await toast.promise(axios.post("/api/buys", newBody), {
       pending: "Creando compra...",
@@ -112,7 +116,7 @@ export const onSubmit = async ({
     });
     router.push("/dashboard/buys");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
   setDisabled(false);
 };
@@ -121,54 +125,37 @@ export const changeSellingPrice = ({
   index,
   getValues,
   setValue,
+  pyDollar,
 }: {
   index: number;
+  pyDollar: number;
   getValues: UseFormGetValues<FormBuyType>;
   setValue: UseFormSetValue<FormBuyType>;
 }) => {
-  const price = getValues(`products.${index}.price`);
-  const stock = getValues(`products.${index}.stock`);
-  const priceIndividual = price / stock;
-  const markup = getValues(`products.${index}.markup`);
+  const moneyType = getValues(`products.${index}.moneyType`);
+  const priceFormat = getValues(`products.${index}.buyType`);
+  const stock = Number(getValues(`products.${index}.stock`));
+  const markup = Number(getValues(`products.${index}.markup`));
+  const inputPrice = Number(getValues(`products.${index}.price`));
+
+  const price = moneyType == "dollar" ? inputPrice : inputPrice / pyDollar;
+
+  const priceIndividual = priceFormat == "individual" ? price : price / stock;
+
   const sellingPrice = priceIndividual * markup + priceIndividual;
+  console.log({
+    moneyType,
+    priceFormat,
+    stock,
+    markup,
+    inputPrice,
+    price,
+    priceIndividual,
+    sellingPrice,
+  });
+
   setValue(
     `products.${index}.sellingPrice`,
     parseFloat(sellingPrice.toFixed(2))
   );
-};
-
-export const updatePrice = ({
-  index,
-  value,
-  getValues,
-  pyDollar,
-  setValue,
-}: {
-  index: number;
-  value: number;
-  setValue: UseFormSetValue<FormBuyType>;
-  pyDollar: number | undefined;
-  getValues: UseFormGetValues<FormBuyType>;
-}) => {
-  const price = pyDollar ? value / pyDollar : 1;
-  setValue(`products.${index}.price`, price);
-  changeSellingPrice({ index, getValues, setValue });
-};
-
-export const updatePriceBs = ({
-  index,
-  value,
-  getValues,
-  pyDollar,
-  setValue,
-}: {
-  index: number;
-  value: number;
-  setValue: UseFormSetValue<FormBuyType>;
-  pyDollar: number | undefined;
-  getValues: UseFormGetValues<FormBuyType>;
-}) => {
-  const priceBs = pyDollar ? value * pyDollar : 1;
-  setValue(`products.${index}.priceBs`, parseFloat(priceBs.toFixed(2)));
-  changeSellingPrice({ index, getValues, setValue });
 };

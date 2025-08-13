@@ -35,11 +35,11 @@ export default function FormBuy({
   });
 
   const products = use(data);
-  const dollar = use(pyDollar);
+  const dollar = use(pyDollar) ?? 1;
 
   return (
     <form
-      className="flex flex-col  gap-4 w-full max-w-[1113px] mt-12 !px-5 container-table"
+      className="flex flex-col  gap-4 w-full max-w-[1000px] mt-12 !px-5 container-table"
       onSubmit={handleSubmit((body) => onSubmit({ body, setDisabled, router }))}
     >
       <HeadFormBuy pyDollar={dollar} products={products} prepend={prepend} />

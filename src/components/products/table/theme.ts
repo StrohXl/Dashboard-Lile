@@ -6,7 +6,7 @@ export default function ThemeTableProducts() {
   const theme = useTheme([
     materialTheme,
     {
-      Table: `grid-template-columns: auto 1fr 150px 150px 150px 200px 200px 100px !important;`,
+      Table: `grid-template-columns: auto 1fr 150px 150px 150px 200px 200px 120px !important;`,
       BaseCell: `
       &:nth-of-type(8){
       border-left: 1px solid #f0f0f0;

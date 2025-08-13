@@ -3,7 +3,7 @@ import { Table } from "@table-library/react-table-library/table";
 import { TableBuysType } from "../types";
 import { TypeData } from "@/types/data";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
-import { ThemeMaterialBuy } from "../themeBuy";
+import { ThemeMaterialBuy } from "../theme";
 import TableHeaderBuy from "./TableHeaderBuy";
 import TableBodyBuy from "./TableBodyBuy";
 

@@ -1,5 +1,6 @@
 import MessageError from "@/components/dashboard/forms/components/messageError";
 import { SelectFormBuyType } from "../types";
+import { changeSellingPrice } from "../utils";
 
 function SelectFormBuy({
   error,
@@ -9,21 +10,8 @@ function SelectFormBuy({
   nameField,
   options,
   register,
-  setValue,
-  getValues,
-  index,
   selectOptions,
 }: SelectFormBuyType) {
-  
-  const changeSellingPrice = (markup: number) => {
-    const price = getValues(`products.${index}.price`);
-    const stock = getValues(`products.${index}.stock`);
-    const priceIndividual = price / stock;
-    const sellingPrice = priceIndividual * markup + priceIndividual;
-
-    setValue(`products.${index}.sellingPrice`, sellingPrice);
-  };
-
   return (
     <label
       className={`font-roboto relative  ${
@@ -44,7 +32,6 @@ function SelectFormBuy({
         <select
           className="w-full bg-transparent autofill:bg-transparent outline-none"
           {...register(nameField, options)}
-          onChange={(item) => changeSellingPrice(Number(item.target.value))}
         >
           {selectOptions.map((item) => (
             <option key={item.value} value={item.value}>

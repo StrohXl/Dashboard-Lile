@@ -33,7 +33,12 @@ function TableBodyProducts({
           <Cell>{new Date(item.createdAT).toLocaleDateString("es-ES")}</Cell>
           <Cell>{new Date(item.updatedAT).toLocaleDateString("es-ES")}</Cell>
           <Cell pinRight>
-            <ContainerActions data={data} apiUrl="/products" id={item.id} />
+            <ContainerActions
+              includeActions={{ delete: true, edit: true }}
+              data={data}
+              apiUrl="/products"
+              id={item.id}
+            />
           </Cell>
         </Row>
       ))}

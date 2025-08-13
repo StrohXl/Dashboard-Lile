@@ -22,7 +22,7 @@ const SideBarNav = ({
   const links = pathname.split("/");
 
   return (
-    <div className="bg-white p-3 h-full rounded-2xl">
+    <div className="bg-white p-3 h-full rounded-2xl hidden md:block">
       <div className="logo  h-10 flex items-center justify-between gap-3 mt-6 px-2">
         {showLogo && (
           <>

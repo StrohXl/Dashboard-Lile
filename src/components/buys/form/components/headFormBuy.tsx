@@ -10,7 +10,7 @@ export default function HeadFormBuy({
   pyDollar,
 }: {
   products: DataBuyType;
-  pyDollar: number | undefined;
+  pyDollar: number;
   prepend: UseFieldArrayPrepend<FormBuyType>;
 }) {
   return (

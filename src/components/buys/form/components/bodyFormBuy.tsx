@@ -1,13 +1,8 @@
+import { MdDelete } from "react-icons/md";
 import { LuDollarSign } from "react-icons/lu";
 import InputFormBuy from "./inputFormBuy";
 import { HiArchiveBox } from "react-icons/hi2";
-import {
-  changeSellingPrice,
-  removeField,
-  updatePrice,
-  updatePriceBs,
-} from "../utils";
-import { IoClose } from "react-icons/io5";
+import { changeSellingPrice, removeField } from "../utils";
 import NotHaveProducts from "./notHaveProducts";
 import {
   FieldArrayWithId,
@@ -19,6 +14,7 @@ import {
 } from "react-hook-form";
 import { FormBuyType } from "../types";
 import SelectFormBuy from "./selectFormBuy";
+import SelectMoneyType from "./selectMoneyType";
 
 export default function BodyFormBuy({
   fields,
@@ -35,7 +31,7 @@ export default function BodyFormBuy({
   remove: UseFieldArrayRemove;
   getValues: UseFormGetValues<FormBuyType>;
   setValue: UseFormSetValue<FormBuyType>;
-  pyDollar: number | undefined;
+  pyDollar: number;
 }) {
   return (
     <div
@@ -52,8 +48,6 @@ export default function BodyFormBuy({
             "pb-8 border-b-1   !border-gray-500"
           }  md:grid-cols-[1fr_1fr_42px]
           lg:md:grid-cols-[1fr_1fr_1fr_42px]
-           xl:grid-cols-[250px_120px_130px_130px_170px_135px_42px]
-          
           items-center gap-4`}
         >
           <input type="hidden" {...register(`products.${index}.id`)} />
@@ -78,7 +72,58 @@ export default function BodyFormBuy({
               error={errors.products && errors.products[index]?.name}
             />
           </div>
-          <div className="md:col-start-2 container-stock">
+          <div className="md:col-start-2 lg:col-start-2 ">
+            <SelectFormBuy
+              pyDollar={pyDollar}
+              selectOptions={[
+                { title: "Individual", value: "individual" },
+                { title: "Grupo", value: "group" },
+              ]}
+              index={index}
+              getValues={getValues}
+              setValue={setValue}
+              register={register}
+              options={{
+                onChange: () =>
+                  changeSellingPrice({ getValues, index, pyDollar, setValue }),
+              }}
+              label="Formato de precio"
+              nameField={`products.${index}.buyType`}
+              error={errors.products && errors.products[index]?.markup}
+            />
+          </div>
+          <div className="md:col-start-1 container-price lg:col-start-3 ">
+            <InputFormBuy
+              register={register}
+              label="Precio de compra"
+              nameField={`products.${index}.price`}
+              type="number"
+              step="any"
+              iconEnd={
+                <SelectMoneyType
+                  getValues={getValues}
+                  index={index}
+                  pyDollar={pyDollar}
+                  register={register}
+                  setValue={setValue}
+                />
+              }
+              options={{
+                required: {
+                  value: true,
+                  message: "Este campo es requerido",
+                },
+                min: {
+                  value: 0.1,
+                  message: "Precio minimo 0.1",
+                },
+                onChange: () =>
+                  changeSellingPrice({ getValues, index, pyDollar, setValue }),
+              }}
+              error={errors.products && errors.products[index]?.price}
+            />
+          </div>
+          <div className="md:col-start-2 container-stock lg:col-start-1">
             <InputFormBuy
               register={register}
               label="Cantidad"
@@ -99,70 +144,13 @@ export default function BodyFormBuy({
                     index,
                     getValues,
                     setValue,
+                    pyDollar,
                   }),
               }}
               error={errors.products && errors.products[index]?.stock}
             />
           </div>
-          <div className="md:col-start-1 container-price lg:col-start-3">
-            <InputFormBuy
-              register={register}
-              label="Precio en $"
-              nameField={`products.${index}.price`}
-              type="number"
-              step="any"
-              iconEnd={<LuDollarSign />}
-              options={{
-                required: {
-                  value: true,
-                  message: "Este campo es requerido",
-                },
-                min: {
-                  value: 0.1,
-                  message: "Precio minimo 0.1",
-                },
-                onChange: (item) =>
-                  updatePriceBs({
-                    index,
-                    value: item.target.value,
-                    getValues,
-                    pyDollar,
-                    setValue,
-                  }),
-              }}
-              error={errors.products && errors.products[index]?.price}
-            />
-          </div>
-          <div className="md:col-start-2  lg:col-start-1 container-price-bs xl:col-auto">
-            <InputFormBuy
-              register={register}
-              label="Precio en Bs"
-              nameField={`products.${index}.priceBs`}
-              type="number"
-              step="any"
-              iconEnd={<span>Bs</span>}
-              options={{
-                required: {
-                  value: true,
-                  message: "Este campo es requerido",
-                },
-                min: {
-                  value: 0.1,
-                  message: "Precio minimo 0.1",
-                },
-                onChange: (item) =>
-                  updatePrice({
-                    index,
-                    value: item.target.value,
-                    getValues,
-                    pyDollar,
-                    setValue,
-                  }),
-              }}
-              error={errors.products && errors.products[index]?.priceBs}
-            />
-          </div>
-          <div className="md:col-start-1 lg:col-start-2 container-markup xl:col-auto">
+          <div className="md:col-start-1 lg:col-start-2 container-markup ">
             <SelectFormBuy
               selectOptions={[
                 { title: "25%", value: 0.25 },
@@ -179,9 +167,14 @@ export default function BodyFormBuy({
               label="Margen de Ganancia"
               nameField={`products.${index}.markup`}
               error={errors.products && errors.products[index]?.markup}
+              options={{
+                onChange: () =>
+                  changeSellingPrice({ getValues, index, pyDollar, setValue }),
+              }}
+              pyDollar={pyDollar}
             />
           </div>
-          <div className="container-selli-price md:col-start-2 lg:col-start-3 xl:col-auto">
+          <div className="container-selli-price md:col-start-2 lg:col-start-3 ">
             <InputFormBuy
               register={register}
               label="Precio de Venta"
@@ -202,13 +195,13 @@ export default function BodyFormBuy({
               error={errors.products && errors.products[index]?.sellingPrice}
             />
           </div>
-          <div className="md:col-start-3 xl:mt-auto justify-center lg:col-start-4 md:row-start-1 md:row-end-4 lg:row-end-3   xl:col-auto xl:row-auto  flex items-center">
+          <div className="md:col-start-3 justify-center lg:col-start-4 md:row-start-1 md:row-end-4 lg:row-end-3  flex items-center">
             <div className="mt-auto  flex items-center justify-center h-[42px]">
               <button
-                className="flex transition-colors cursor-pointer duration-300 hover:bg-primary p-1 bg-gray-500 text-white rounded-lg items-center justify-center"
+                className="transition-colors cursor-pointer duration-300 hover:text-primary hover:border-primary p-1 border-1 border-gray-500 text-gray-500 rounded-md "
                 onClick={() => removeField({ index, remove })}
               >
-                <IoClose size={20} />
+                <MdDelete size={20} />
               </button>
             </div>
           </div>
