@@ -1,8 +1,8 @@
-import { z, ZodError } from "zod";
+import { optional, z, ZodError } from "zod";
 import { Product } from "../models";
 
 const ProductSchema = z.object({
-  id: z.number(),
+  id: optional(z.number().positive()),
   name: z.string().min(3).nonempty(),
   price: z.number().min(0).positive(),
   stock: z.number().min(1).positive(),

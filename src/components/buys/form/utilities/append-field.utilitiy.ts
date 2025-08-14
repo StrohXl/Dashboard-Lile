@@ -16,5 +16,6 @@ export const appendField = ({
     type: "create",
     markup: 0.3,
     sellingPrice: 0.1 * 1 * 0.3 + 0.1,
+    
   });
 };

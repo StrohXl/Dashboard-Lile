@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { deleteProducts, validToken } from "../services";
+import { deleteProducts } from "../services";
+import { tokenValidator } from "@/app/validators/token.validator";
 
 export async function POST(request: NextRequest) {
-  const token = validToken(request);
+  const token = tokenValidator(request);
   if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }

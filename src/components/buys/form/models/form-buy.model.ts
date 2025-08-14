@@ -1,13 +1,13 @@
-import { Product } from "@/app/api/products/models";
-
-interface Products extends Product {
-  type: "create" | "select";
-  sellingPrice: number;
-  buyType: "individual" | "group";
-  moneyType: "dollar" | "bs";
-  markup: number;
-}
-
 export interface FormBuy {
-  products: Products[];
+  products: {
+    id: number;
+    name: string;
+    price: number;
+    stock: number;
+    type: "create" | "select";
+    sellingPrice: number;
+    buyType: "individual" | "group";
+    moneyType: "dollar" | "bs";
+    markup: number;
+  }[];
 }

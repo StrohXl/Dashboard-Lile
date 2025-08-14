@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import axios from "axios";
 import { ParamValue } from "next/dist/server/request/params";
-import TypeProduct from "@/app/api/products/models/product.model";
+import { CreateProduct } from "@/app/api/products/models";
 interface ResponseAxios {
   data: {
     status: number;
@@ -15,7 +15,7 @@ const toastEditProduct = async ({
   changeDisabled,
   id,
 }: {
-  body: TypeProduct;
+  body: CreateProduct;
   routerPush: (ruta: string) => void;
   changeDisabled: () => void;
   id: ParamValue;

@@ -1,10 +1,10 @@
-import TypeProduct from "@/app/api/products/models/product.model";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UseFormReset, UseFormSetValue, UseFormWatch } from "react-hook-form";
-import { ProductPriceBsType } from "./formProduct";
-import { getProduct } from "./utils";
+import { Product } from "@/app/api/products/models";
+import { getProduct } from "./services";
+import { FormProduct } from "./models/form-product.model";
 
 export default function HooksForm({
   watch,
@@ -12,14 +12,14 @@ export default function HooksForm({
   setValue,
   reset,
 }: {
-  reset: UseFormReset<ProductPriceBsType>;
+  reset: UseFormReset<FormProduct>;
   dollar: number | undefined;
-  setValue: UseFormSetValue<ProductPriceBsType>;
-  watch: UseFormWatch<ProductPriceBsType>;
+  setValue: UseFormSetValue<FormProduct>;
+  watch: UseFormWatch<FormProduct>;
 }) {
   const { id } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
-  const [product, setProduct] = useState<TypeProduct | undefined>();
+  const [product, setProduct] = useState<Product | undefined>();
   const [disabled, setDisabled] = useState(false);
   const router = useRouter();
 

@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { validToken } from "../products/services";
 import { getBuys, createBuy } from "./services";
+import { tokenValidator } from "@/app/validators/token.validator";
 
 const elementsPerPage = 10;
 
 export async function GET(request: NextRequest) {
-  const token = await validToken(request);
+  const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const token = await validToken(request);
+  const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }

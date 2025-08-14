@@ -1,8 +1,8 @@
 import prisma from "@/libs/prisma";
-import { Product } from "../models";
+import { CreateProduct } from "../models";
 import { NextResponse } from "next/server";
 
-export const updateProducts = async (products: Product[]) => {
+export const updateProducts = async (products: CreateProduct[]) => {
   for (let index = 0; index < products.length; index++) {
     try {
       await prisma.products.update({

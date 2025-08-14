@@ -1,5 +1,5 @@
 import prisma from "@/libs/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 
 export async function deleteProductById(id: number) {

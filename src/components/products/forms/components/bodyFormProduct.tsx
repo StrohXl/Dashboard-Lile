@@ -1,14 +1,14 @@
 import { LuDollarSign } from "react-icons/lu";
 import InputFormProduct from "./inputFormProduct";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { ProductPriceBsType } from "../formProduct";
+import { FormProduct } from "../models/form-product.model";
 
 export default function BodyFormProduct({
   errors,
   register,
 }: {
-  errors: FieldErrors<ProductPriceBsType>;
-  register: UseFormRegister<ProductPriceBsType>;
+  errors: FieldErrors<FormProduct>;
+  register: UseFormRegister<FormProduct>;
 }) {
   return (
     <div className="body-form flex flex-col gap-4">

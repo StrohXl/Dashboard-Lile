@@ -1,11 +1,11 @@
 "use client";
 import { Table } from "@table-library/react-table-library/table";
-import TypeProducts from "../types/typeProducts";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 import { TypeData } from "@/types/data";
 import TableHeaderProducts from "./tableHeaderProducts";
 import TableBodyProducts from "./tableBodyProducts";
 import ThemeTableProducts from "../theme";
+import { Product } from "@/app/api/products/models";
 
 export default function ReactTable({
   pyDollar,
@@ -25,7 +25,7 @@ export default function ReactTable({
       select={select}
       theme={theme}
     >
-      {(tableList: TypeProducts[]) => (
+      {(tableList: Product[]) => (
         <>
           <TableHeaderProducts />
           <TableBodyProducts

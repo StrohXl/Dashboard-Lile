@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../libs/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client/edge";
 
 export async function getUser() {
   const users = await prisma.user.findMany({ omit: { password: true } });

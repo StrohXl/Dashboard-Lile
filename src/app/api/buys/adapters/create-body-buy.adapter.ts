@@ -1,8 +1,8 @@
 import { ListProduct } from "../../list-products/models";
-import { CreateProduct, Product } from "../../products/models";
+import { CreateProduct } from "../../products/models";
 
 export const createBodyBuy = (body: ListProduct[]) => {
-  const productsConnect: Product[] = [];
+  const productsConnect: CreateProduct[] = [];
   const productsCreate: CreateProduct[] = [];
   body.forEach((item) => {
     if (item.id !== 0) {

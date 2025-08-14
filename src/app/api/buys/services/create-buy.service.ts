@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { ListProduct } from "../../list-products/models";
 import { ZodError } from "zod";
 import prisma from "@/libs/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client/edge";
 import { updateProducts } from "../../products/services";
 import { createBodyBuy } from "../adapters";
 import { createListProduct } from "../../list-products/adapters";

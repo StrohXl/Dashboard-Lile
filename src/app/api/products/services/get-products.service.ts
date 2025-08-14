@@ -13,7 +13,6 @@ export async function getProducts({
   elementsPerPage: number;
 }) {
   try {
-    const start = performance.now();
     const products = await prisma.products.findMany({
       orderBy: { id: "desc" },
       skip:
@@ -36,7 +35,6 @@ export async function getProducts({
     const counts = await prisma.products.count();
     let pages = counts / elementsPerPage;
     pages = Math.ceil(pages);
-    const end = performance.now();
     return NextResponse.json({ data: products, pages: pages });
   } catch (error) {
     console.log(error);

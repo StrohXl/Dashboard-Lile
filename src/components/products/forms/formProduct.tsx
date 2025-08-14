@@ -1,15 +1,11 @@
 "use client";
 import { useForm } from "react-hook-form";
-import TypeProduct from "@/app/api/products/models/product.model";
 import HooksForm from "./hooks";
-import { onSubmit } from "./utils";
 import { use } from "react";
 import SkeletonFormProduct from "./components/skeletonFormProduct";
 import BodyFormProduct from "./components/bodyFormProduct";
-
-export type ProductPriceBsType = TypeProduct & {
-  priceBs: number;
-};
+import { onSubmit } from "./services/on-submit-product.service";
+import type { FormProduct } from "./models/form-product.model";
 
 export default function FormProduct({
   pyDollar,
@@ -27,7 +23,7 @@ export default function FormProduct({
     reset,
     watch,
     formState: { errors },
-  } = useForm<ProductPriceBsType>();
+  } = useForm<FormProduct>();
 
   // Variables de estado
   const { disabled, id, loading, product, router, setDisabled } = HooksForm({

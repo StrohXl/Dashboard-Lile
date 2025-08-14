@@ -1,10 +1,10 @@
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
-import TypeProducts from "../types/typeProducts";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { CellSelect } from "@table-library/react-table-library/select";
 import { TypeData } from "@/types/data";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 import { handleExpand } from "@/components/dashboard/tables/utils";
+import { Product } from "@/app/api/products/models";
 
 function TableBodyProducts({
   tableList,
@@ -12,14 +12,14 @@ function TableBodyProducts({
   data,
 }: {
   pyDollar: number | undefined;
-  tableList: TypeProducts[];
+  tableList: Product[];
   data: TypeData;
 }) {
   const { ids, setIds } = useDataContext();
 
   return (
     <Body>
-      {tableList.map((item: TypeProducts) => (
+      {tableList.map((item: Product) => (
         <Row
           key={item.id}
           item={item}

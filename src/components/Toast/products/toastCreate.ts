@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import TypeProduct from "@/app/api/products/models/product.model";
+import { CreateProduct } from "@/app/api/products/models";
 interface ResponseAxios {
   data: {
     status: number;
@@ -13,7 +13,7 @@ const toastCreateProduct = async ({
   routerPush,
   changeDisabled,
 }: {
-  body: TypeProduct;
+  body: CreateProduct;
   routerPush: (ruta: string) => void;
   changeDisabled: () => void;
 }) => {

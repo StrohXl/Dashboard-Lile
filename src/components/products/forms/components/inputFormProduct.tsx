@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 import { HTMLInputTypeAttribute, ReactNode } from "react";
 import MessageError from "@/components/dashboard/forms/components/messageError";
-import { ProductPriceBsType } from "../formProduct";
+import { FormProduct } from "../models/form-product.model";
 
 export default function InputFormProduct({
   label,
@@ -30,9 +30,9 @@ export default function InputFormProduct({
   label: string;
   error: FieldError | undefined;
   placeholder?: string;
-  register: UseFormRegister<ProductPriceBsType>;
-  nameField: Path<ProductPriceBsType>;
-  options?: RegisterOptions<ProductPriceBsType>;
+  register: UseFormRegister<FormProduct>;
+  nameField: Path<FormProduct>;
+  options?: RegisterOptions<FormProduct>;
   type?: HTMLInputTypeAttribute;
 }) {
   return (
