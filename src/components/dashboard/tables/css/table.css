@@ -3,14 +3,8 @@ table tbody {
   .row-select-selected {
     background-color: var(--color-primary-ligth) !important;
     font-weight: 600 !important;
-    color: #fff;
-    a,
-    button {
-      color: #fff;
-      &:hover {
-        color: var(--color-gray-700);
-      }
-    }
+    color: #222;
+
   }
 }
 table {

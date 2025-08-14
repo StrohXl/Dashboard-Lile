@@ -1,4 +1,4 @@
-import TypeProduct from "@/app/api/products/type/typeProducts";
+import TypeProduct from "@/app/api/products/models/product.model";
 import toastCreateProduct from "@/components/Toast/products/toastCreate";
 import toastEditProduct from "@/components/Toast/products/toastEdit";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";

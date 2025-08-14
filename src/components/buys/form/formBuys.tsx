@@ -1,18 +1,18 @@
 "use client";
 import { useForm, useFieldArray } from "react-hook-form";
 import { use } from "react";
-import { FormBuyType } from "./types";
-import { onSubmit } from "./utils";
 import BodyFormBuy from "./components/bodyFormBuy";
-import { DataBuyType } from "@/app/api/buys/type";
 import HeadFormBuy from "./components/headFormBuy";
 import { HookFormBuy } from "./hooks";
+import { onSubmit } from "./services/onSubmitBuy";
+import { DataProduct } from "@/app/api/products/models";
+import type { FormBuy } from "./models";
 
 export default function FormBuy({
   data,
   pyDollar,
 }: {
-  data: Promise<DataBuyType>;
+  data: Promise<DataProduct>;
   pyDollar: Promise<number | undefined>;
 }) {
   const { disabled, setDisabled, router } = HookFormBuy();
@@ -24,7 +24,7 @@ export default function FormBuy({
     control,
     setValue,
     getValues,
-  } = useForm<FormBuyType>();
+  } = useForm<FormBuy>();
 
   const { fields, prepend, remove } = useFieldArray({
     name: "products",
@@ -39,10 +39,14 @@ export default function FormBuy({
 
   return (
     <form
-      className="flex flex-col  gap-4 w-full max-w-[1000px] mt-12 !px-5 container-table"
+      className="flex flex-col  gap-4 w-full max-w-[700px] mt-12 !px-5 container-table"
       onSubmit={handleSubmit((body) => onSubmit({ body, setDisabled, router }))}
     >
-      <HeadFormBuy pyDollar={dollar} products={products} prepend={prepend} />
+      <HeadFormBuy
+        fields={fields}
+        products={products}
+        prepend={prepend}
+      />
       <BodyFormBuy
         pyDollar={dollar}
         getValues={getValues}
@@ -57,7 +61,7 @@ export default function FormBuy({
         className="btn-primary !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
         disabled={disabled}
       >
-        Agregar
+        Crear Comprar
       </button>
     </form>
   );

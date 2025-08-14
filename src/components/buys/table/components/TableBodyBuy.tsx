@@ -1,18 +1,18 @@
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { CellSelect } from "@table-library/react-table-library/select";
-import { TableBuysType } from "../types";
 import { FaChevronDown } from "react-icons/fa6";
 import { TypeData } from "@/types/data";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 import { handleExpand } from "@/components/dashboard/tables/utils";
+import { Buy } from "@/app/api/buys/models/buy.model";
 
 function TableBodyBuy({
   tableList,
   pyDollar,
   data,
 }: {
-  tableList: TableBuysType[];
+  tableList: Buy[];
   pyDollar: number | undefined;
   data: TypeData;
 }) {
@@ -20,7 +20,7 @@ function TableBodyBuy({
 
   return (
     <Body>
-      {tableList.map((item: TableBuysType) => (
+      {tableList.map((item: Buy) => (
         <Row key={item.id} item={item}>
           <CellSelect item={item} />
           <Cell>

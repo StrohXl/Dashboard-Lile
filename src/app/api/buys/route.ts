@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validToken } from "../products/services";
-import { createBuy, getBuys } from "./services";
+import { getBuys, createBuy } from "./services";
+
+const elementsPerPage = 10;
 
 export async function GET(request: NextRequest) {
   const token = await validToken(request);
@@ -10,7 +12,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const page = searchParams.get("page") ?? 1;
 
-  return await getBuys(Number(page));
+  return await getBuys({ page: Number(page), elementsPerPage });
 }
 
 export async function POST(request: NextRequest) {

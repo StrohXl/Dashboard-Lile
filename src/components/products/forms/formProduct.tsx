@@ -1,6 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
-import TypeProduct from "@/app/api/products/type/typeProducts";
+import TypeProduct from "@/app/api/products/models/product.model";
 import HooksForm from "./hooks";
 import { onSubmit } from "./utils";
 import { use } from "react";

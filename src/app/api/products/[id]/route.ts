@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  deleteProductId,
-  getProductId,
-  updateProductId,
-  validToken,
+  deleteProductById,
+  getProductById,
+  updateProductById,
 } from "../services";
-import TypeProduct from "../type/typeProducts";
+import { tokenValidator } from "@/app/validators/token.validator";
+import { Product } from "../models";
 
 type Params = {
   id: string;
@@ -15,41 +15,41 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
-  const token = await validToken(request);
+  const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
 
   const { id } = await params;
-  return await getProductId(Number(id));
+  return await getProductById(Number(id));
 }
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
-  const token = await validToken(request);
+  const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
 
-  return await deleteProductId(Number(id));
+  return await deleteProductById(Number(id));
 }
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<Params> }
 ) {
-  const token = await validToken(request);
+  const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
 
   const { id } = await params;
-  const body: TypeProduct = await request.json();
+  const body: Product = await request.json();
   body.price = Number(body.price);
   body.stock = Number(body.stock);
 
-  return await updateProductId(body, Number(id));
+  return await updateProductById(body, Number(id));
 }

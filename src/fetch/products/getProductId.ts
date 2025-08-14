@@ -1,4 +1,4 @@
-import TypeProduct from "@/app/api/products/type/typeProducts";
+import TypeProduct from "@/app/api/products/models/product.model";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 const getProductId = async (id: number): Promise<TypeProduct | undefined> => {

@@ -1,5 +1,5 @@
 import MessageError from "@/components/dashboard/forms/components/messageError";
-import { InputFormBuyType } from "../types";
+import type { InputFormBuy } from "../models";
 
 export default function InputFormBuy({
   label,
@@ -14,10 +14,12 @@ export default function InputFormBuy({
   iconEnd,
   step,
   disabled,
-}: InputFormBuyType) {
+}: InputFormBuy) {
   return (
     <label
-      className={`font-roboto relative  ${error ? "text-red-500" : "text-gray-700"}`}
+      className={`font-roboto relative  ${
+        error ? "text-red-500" : "text-gray-700"
+      }`}
     >
       <span>{label}:</span>
       <div

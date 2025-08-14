@@ -1,11 +1,11 @@
 import { FieldErrors } from "react-hook-form";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
-import { FormBuyType } from "../types";
+import { FormBuy } from "../models";
 
 export default function NotHaveProducts({
   errors,
 }: {
-  errors: FieldErrors<FormBuyType>;
+  errors: FieldErrors<FormBuy>;
 }) {
   return (
     <>

@@ -3,8 +3,8 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from "react-hook-form";
-import { FormBuyType } from "../types";
-import { changeSellingPrice } from "../utils";
+import { changeSellingPrice } from "../utilities";
+import { FormBuy } from "../models";
 
 export default function SelectMoneyType({
   getValues,
@@ -14,13 +14,14 @@ export default function SelectMoneyType({
   setValue,
 }: {
   index: number;
-  register: UseFormRegister<FormBuyType>;
-  getValues: UseFormGetValues<FormBuyType>;
+  register: UseFormRegister<FormBuy>;
+  getValues: UseFormGetValues<FormBuy>;
   pyDollar: number;
-  setValue: UseFormSetValue<FormBuyType>;
+  setValue: UseFormSetValue<FormBuy>;
 }) {
   return (
     <select
+      className="outline-none"
       {...register(`products.${index}.moneyType`, {
         onChange: () =>
           changeSellingPrice({

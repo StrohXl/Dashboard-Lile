@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import TypeProduct from "@/app/api/products/type/typeProducts";
+import TypeProduct from "@/app/api/products/models/product.model";
 interface ResponseAxios {
   data: {
     status: number;

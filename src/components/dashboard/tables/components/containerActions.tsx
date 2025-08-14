@@ -40,7 +40,7 @@ export default function ContainerActions({
       {includeActions.edit && (
         <Link
           href={`/dashboard${apiUrl}/` + id}
-          className="text-gray-500 p-1 border-1 border-gray-500 rounded-[5px] hover:text-primary hover:border-primary transition-colors duration-300 cursor-pointer"
+          className="!text-gray-500 p-1 border-1 !border-gray-500 rounded-[5px] hover:!text-primary hover:!border-primary transition-colors duration-300 cursor-pointer"
         >
           <AiFillEdit size={20} />
         </Link>
@@ -48,7 +48,7 @@ export default function ContainerActions({
       {includeActions.delete && (
         <button
           onClick={() => deleteData(id)}
-          className="disabled:opacity-50 disabled:!cursor-not-allowed transition-colors duration-300 text-gray-500 p-1 border-1 border-gray-500 rounded-[5px] hover:text-primary hover:border-primary cursor-pointer"
+          className="disabled:opacity-50 disabled:!cursor-not-allowed transition-colors duration-300 !text-gray-500 p-1 border-1 !border-gray-500 rounded-[5px] hover:!text-primary hover:!border-primary cursor-pointer"
           disabled={disabled}
         >
           <MdDelete size={20} />

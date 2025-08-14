@@ -1,17 +1,15 @@
 import MessageError from "@/components/dashboard/forms/components/messageError";
-import { SelectFormBuyType } from "../types";
-import { changeSellingPrice } from "../utils";
+import type { SelectFormBuy } from "../models";
 
 function SelectFormBuy({
   error,
   label,
-  iconStart,
   iconEnd,
   nameField,
   options,
   register,
   selectOptions,
-}: SelectFormBuyType) {
+}: SelectFormBuy) {
   return (
     <label
       className={`font-roboto relative  ${
@@ -24,11 +22,6 @@ function SelectFormBuy({
                ${error ? "!border-red-500" : "border-gray-700"}
               focus-within:border-primary flex items-center mt-2 px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
       >
-        {iconStart && (
-          <span className={`text-gray-700 ${error && "text-red-500"}`}>
-            {iconStart}
-          </span>
-        )}
         <select
           className="w-full bg-transparent autofill:bg-transparent outline-none"
           {...register(nameField, options)}

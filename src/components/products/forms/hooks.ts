@@ -1,4 +1,4 @@
-import TypeProduct from "@/app/api/products/type/typeProducts";
+import TypeProduct from "@/app/api/products/models/product.model";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

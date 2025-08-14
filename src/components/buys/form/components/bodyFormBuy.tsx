@@ -1,8 +1,7 @@
-import { MdDelete } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 import { LuDollarSign } from "react-icons/lu";
 import InputFormBuy from "./inputFormBuy";
 import { HiArchiveBox } from "react-icons/hi2";
-import { changeSellingPrice, removeField } from "../utils";
 import NotHaveProducts from "./notHaveProducts";
 import {
   FieldArrayWithId,
@@ -12,9 +11,10 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from "react-hook-form";
-import { FormBuyType } from "../types";
 import SelectFormBuy from "./selectFormBuy";
 import SelectMoneyType from "./selectMoneyType";
+import { changeSellingPrice, removeField } from "../utilities";
+import { FormBuy } from "../models";
 
 export default function BodyFormBuy({
   fields,
@@ -25,14 +25,22 @@ export default function BodyFormBuy({
   setValue,
   getValues,
 }: {
-  fields: FieldArrayWithId<FormBuyType>[];
-  register: UseFormRegister<FormBuyType>;
-  errors: FieldErrors<FormBuyType>;
+  fields: FieldArrayWithId<FormBuy>[];
+  register: UseFormRegister<FormBuy>;
+  errors: FieldErrors<FormBuy>;
   remove: UseFieldArrayRemove;
-  getValues: UseFormGetValues<FormBuyType>;
-  setValue: UseFormSetValue<FormBuyType>;
+  getValues: UseFormGetValues<FormBuy>;
+  setValue: UseFormSetValue<FormBuy>;
   pyDollar: number;
 }) {
+  const selectOptions = [
+    { title: "25%", value: 0.25 },
+    { title: "30%", value: 0.3 },
+    { title: "35%", value: 0.35 },
+    { title: "40%", value: 0.4 },
+    { title: "45%", value: 0.45 },
+    { title: "50%", value: 0.5 },
+  ];
   return (
     <div
       className={`container-fields gap-4 py-3  ${
@@ -42,16 +50,25 @@ export default function BodyFormBuy({
       {fields.map((item, index) => (
         <div
           key={item.id}
-          className={`grid ${
+          className={`${
             fields.length > 0 &&
             index != fields.length - 1 &&
             "pb-8 border-b-1   !border-gray-500"
-          }  md:grid-cols-[1fr_1fr_42px]
-          lg:md:grid-cols-[1fr_1fr_1fr_42px]
-          items-center gap-4`}
+          } `}
         >
-          <input type="hidden" {...register(`products.${index}.id`)} />
-          <div className="md:col-start-1 container-name">
+          <div className="flex justify-end">
+            <button
+              className="transition-colors cursor-pointer duration-300 hover:text-primary hover:border-primary p-[2px] border-1 border-gray-500 text-gray-500 rounded-[5px] "
+              onClick={() => removeField({ index, remove })}
+            >
+              <IoClose size={22} />
+            </button>
+          </div>
+          <div
+            className={`grid sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_1fr_1fr] items-center gap-4
+           `}
+          >
+            <input type="hidden" {...register(`products.${index}.id`)} />
             <InputFormBuy
               register={register}
               label="Nombre del Producto"
@@ -71,8 +88,6 @@ export default function BodyFormBuy({
               }}
               error={errors.products && errors.products[index]?.name}
             />
-          </div>
-          <div className="md:col-start-2 lg:col-start-2 ">
             <SelectFormBuy
               pyDollar={pyDollar}
               selectOptions={[
@@ -91,8 +106,6 @@ export default function BodyFormBuy({
               nameField={`products.${index}.buyType`}
               error={errors.products && errors.products[index]?.markup}
             />
-          </div>
-          <div className="md:col-start-1 container-price lg:col-start-3 ">
             <InputFormBuy
               register={register}
               label="Precio de compra"
@@ -122,8 +135,6 @@ export default function BodyFormBuy({
               }}
               error={errors.products && errors.products[index]?.price}
             />
-          </div>
-          <div className="md:col-start-2 container-stock lg:col-start-1">
             <InputFormBuy
               register={register}
               label="Cantidad"
@@ -149,17 +160,8 @@ export default function BodyFormBuy({
               }}
               error={errors.products && errors.products[index]?.stock}
             />
-          </div>
-          <div className="md:col-start-1 lg:col-start-2 container-markup ">
             <SelectFormBuy
-              selectOptions={[
-                { title: "25%", value: 0.25 },
-                { title: "30%", value: 0.3 },
-                { title: "35%", value: 0.35 },
-                { title: "40%", value: 0.4 },
-                { title: "45%", value: 0.45 },
-                { title: "50%", value: 0.5 },
-              ]}
+              selectOptions={selectOptions}
               index={index}
               getValues={getValues}
               setValue={setValue}
@@ -173,8 +175,6 @@ export default function BodyFormBuy({
               }}
               pyDollar={pyDollar}
             />
-          </div>
-          <div className="container-selli-price md:col-start-2 lg:col-start-3 ">
             <InputFormBuy
               register={register}
               label="Precio de Venta"
@@ -194,16 +194,6 @@ export default function BodyFormBuy({
               }}
               error={errors.products && errors.products[index]?.sellingPrice}
             />
-          </div>
-          <div className="md:col-start-3 justify-center lg:col-start-4 md:row-start-1 md:row-end-4 lg:row-end-3  flex items-center">
-            <div className="mt-auto  flex items-center justify-center h-[42px]">
-              <button
-                className="transition-colors cursor-pointer duration-300 hover:text-primary hover:border-primary p-1 border-1 border-gray-500 text-gray-500 rounded-md "
-                onClick={() => removeField({ index, remove })}
-              >
-                <MdDelete size={20} />
-              </button>
-            </div>
           </div>
         </div>
       ))}
