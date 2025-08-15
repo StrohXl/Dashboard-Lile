@@ -13,6 +13,9 @@ const getData = async ({
   // Obtener el token
   const cookieStore = await cookies();
   const myToken: RequestCookie | undefined = cookieStore.get("myToken");
+  console.log(url)
+  console.log(params)
+  console.log(myToken)
 
   // Obtener url de dominio
   const node_env = process.env.DEPLOY_SITE || "";
