@@ -15,23 +15,7 @@ export default async function TableProducts({
 }) {
   const data = await getData({ url: "/products", params });
   const pyDollar = await getPyDolar();
+  console.log(data);
 
-  if (data.data.length != 0) {
-    return (
-      <HookDataContext data={data}>
-        <ReactTableProducts data={data} pyDollar={pyDollar} />
-        <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
-          <div>
-            <DeleteSelects data={data} apiUrl="/products" />
-          </div>
-          <div className="flex justify-center">
-            <Pagination data={data} />
-          </div>
-          <div></div>
-        </div>
-      </HookDataContext>
-    );
-  } else {
-    return <NotHaveProducts />;
-  }
+  return <NotHaveProducts />;
 }

@@ -18,31 +18,10 @@ const getData = async ({
   // Obtener url de dominio
   const node_env = process.env.DEPLOY_SITE || "";
   let siteUrl = "";
-  if (node_env == "development") {
-    siteUrl = process.env.URL_DEV || "http://localhost:3000";
-    console.log("development", siteUrl);
-  } else {
-    // En producción, asegúrate de incluir el protocolo
-    const host = (await headers()).get("host") as string;
-    siteUrl = `https://${host}`; // Asume HTTPS en producción
-    console.log("prod", siteUrl);
-    const protocol =
-      (await headers()).get("x-forwarded-proto") === "https" ? "https" : "http";
-    siteUrl = `${protocol}://${host}`;
-  }
-
-  try {
-    const { data } = await axios.get(`${siteUrl}/api${url}`, {
-      params,
-      headers: {
-        Cookie: `${myToken?.name}=${myToken?.value}`,
-      },
-    });
-    return data;
-  } catch (error) {
-    console.log(error);
-    return { data: [], pages: 0 };
-  }
+  const host = (await headers()).get("host") as string;
+  siteUrl = `https://${host}`; // Asume HTTPS en producción
+  console.log("prod", siteUrl);
+  return siteUrl;
 };
 
 export default getData;
