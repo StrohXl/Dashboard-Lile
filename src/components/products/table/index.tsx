@@ -10,5 +10,5 @@ export default async function TableProducts({
 }) {
   const data = await getData({ url: "/products", params });
 
-  return <NotHaveProducts site_url={data} />;
+  return <NotHaveProducts site_url={data.siteUrl} node={data.node_env} />;
 }

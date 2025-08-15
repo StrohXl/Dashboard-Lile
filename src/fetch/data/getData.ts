@@ -1,6 +1,5 @@
 "use server";
 import TypeParams from "@/types/typeParams";
-import axios from "axios";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies, headers } from "next/headers";
 
@@ -17,11 +16,12 @@ const getData = async ({
 
   // Obtener url de dominio
   const node_env = process.env.DEPLOY_SITE || "";
+  console.log(node_env)
   let siteUrl = "";
   const host = (await headers()).get("host") as string;
   siteUrl = `https://${host}`; // Asume HTTPS en producción
   console.log("prod", siteUrl);
-  return siteUrl;
+  return {siteUrl,node_env};
 };
 
 export default getData;
