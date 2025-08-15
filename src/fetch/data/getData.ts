@@ -30,8 +30,8 @@ const getData = async ({
       (await headers()).get("x-forwarded-proto") === "https" ? "https" : "http";
     siteUrl = `${protocol}://${host}`;
   }
-  console.error(siteUrl);
   try {
+    console.error(`${siteUrl}/api${url}`);
     const { data } = await axios.get(`${siteUrl}/api${url}`, {
       params,
       headers: {
