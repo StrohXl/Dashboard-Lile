@@ -11,23 +11,7 @@ import getPyDollar from "@/fetch/pydolar/getPyDolar";
 export default async function TableBuys({ params }: { params?: TypeParams }) {
   const buys = await getData({ url: "/buys", params });
   const pyDollar = await getPyDollar();
+  console.log(buys);
 
-  if (buys.data.length != 0) {
-    return (
-      <HookDataContext data={buys}>
-        <ReactTableBuys data={buys} pyDollar={pyDollar} />
-        <div className="mt-6 ms-auto grid grid-cols-3 items-center justify-between pe-5">
-          <div>
-            <DeleteSelects apiUrl="/buys" data={buys} />
-          </div>
-          <div className="flex justify-center">
-            <Pagination data={buys} />
-          </div>
-          <div></div>
-        </div>
-      </HookDataContext>
-    );
-  } else {
-    return <NotHaveBuys />;
-  }
+  return <NotHaveBuys />;
 }
