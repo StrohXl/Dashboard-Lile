@@ -31,16 +31,16 @@ const getData = async ({
     siteUrl = `${protocol}://${host}`;
   }
   try {
-    console.error(`${siteUrl}/api${url}`);
     const { data } = await axios.get(`${siteUrl}/api${url}`, {
       params,
       headers: {
         Cookie: `${myToken?.name}=${myToken?.value}`,
       },
     });
+    console.info(data);
     return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return { data: [], pages: 0 };
   }
 };
