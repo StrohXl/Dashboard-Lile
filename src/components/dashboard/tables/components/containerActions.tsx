@@ -19,7 +19,7 @@ export default function ContainerActions({
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const { replace, refresh } = useRouter();
   const { disabled, setDisabled } = useDataContext();
 
   const deleteData = async (id: number) => {
@@ -32,6 +32,7 @@ export default function ContainerActions({
       replace,
       data,
     });
+    refresh();
     setDisabled(false);
   };
 
