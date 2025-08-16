@@ -15,7 +15,7 @@ export default function DeleteSelects({
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const { replace, refresh } = useRouter();
 
   const { disabled, setDisabled, selects } = useDataContext();
 
@@ -29,6 +29,7 @@ export default function DeleteSelects({
       replace,
       searchParams,
     });
+    refresh()
     setDisabled(false);
   };
 

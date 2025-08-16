@@ -92,7 +92,7 @@ export default function BodyFormBuy({
               pyDollar={pyDollar}
               selectOptions={[
                 { title: "Individual", value: "individual" },
-                { title: "Grupo", value: "group" },
+                { title: "Paquete", value: "group" },
               ]}
               index={index}
               getValues={getValues}
