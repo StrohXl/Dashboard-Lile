@@ -1,10 +1,10 @@
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { CellSelect } from "@table-library/react-table-library/select";
-import { TypeData } from "@/types/data";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 import { handleExpand } from "@/components/dashboard/tables/utils";
 import { Product } from "@/app/api/products/models";
+import { Data } from "@/models";
 
 function TableBodyProducts({
   tableList,
@@ -13,7 +13,7 @@ function TableBodyProducts({
 }: {
   pyDollar: number | undefined;
   tableList: Product[];
-  data: TypeData;
+  data: Data;
 }) {
   const { ids, setIds } = useDataContext();
 

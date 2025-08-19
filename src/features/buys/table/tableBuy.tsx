@@ -4,7 +4,7 @@ import { HookDataContext } from "@/components/dashboard/hooks/useContextData";
 import ReactTableBuys from "./components/reactTableBuy";
 import Pagination from "@/components/dashboard/tables/components/pagination";
 import getData from "@/fetch/data/getData";
-import TypeParams from "@/types/typeParams";
+import TypeParams from "@/models/typeParams";
 import DeleteSelects from "@/components/dashboard/tables/components/deleteSelects";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 

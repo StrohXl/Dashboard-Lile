@@ -1,5 +1,4 @@
-
-export type TypeData = {
+export type Data = {
   data: [];
   pages: number;
 };

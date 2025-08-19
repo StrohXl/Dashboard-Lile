@@ -1,4 +1,4 @@
-import TableBuys from "@/components/buys/table/tableBuy";
+import TableBuys from "@/features/buys/table/tableBuy";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import Link from "next/link";
 import { Suspense } from "react";

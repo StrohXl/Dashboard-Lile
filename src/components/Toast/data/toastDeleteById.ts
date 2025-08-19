@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { TypeData } from "@/types/data";
+import { Data } from "@/models";
 
 const toastDeleteById = async ({
   id,
@@ -13,7 +13,7 @@ const toastDeleteById = async ({
   replace,
 }: {
   id: number;
-  data: TypeData;
+  data: Data;
   replace: (href: string, options?: NavigateOptions) => void;
   pathname: string;
   apiUrl: string;

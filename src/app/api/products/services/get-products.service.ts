@@ -32,6 +32,7 @@ export async function getProducts({
         tags: ["findProducts"],
       },
     });
+    
     const counts = await prisma.products.count();
     let pages = counts / elementsPerPage;
     pages = Math.ceil(pages);

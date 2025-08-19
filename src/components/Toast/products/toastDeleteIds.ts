@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import TypeParams from "@/types/typeParams";
+import TypeParams from "@/models/typeParams";
 
 interface ResponseAxios {
   data: {

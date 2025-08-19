@@ -1,7 +1,7 @@
 import SearchData from "@/components/dashboard/forms/searchData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
-import TableProducts from "@/components/products/table";
-import TypeParams from "@/types/typeParams";
+import TableProducts from "@/features/products/table";
+import TypeParams from "@/models/typeParams";
 import Link from "next/link";
 import { Suspense } from "react";
 import { HiArchiveBoxArrowDown } from "react-icons/hi2";

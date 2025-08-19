@@ -2,6 +2,7 @@ import { RiDashboardFill } from "react-icons/ri";
 import { HiArchiveBox } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import { MdShoppingCart } from "react-icons/md";
+import { HiUsers } from "react-icons/hi";
 export const sideBarMenu = [
   {
     title: "Dashboard",
@@ -18,6 +19,12 @@ export const sideBarMenu = [
     link: "/dashboard/buys",
     icon: MdShoppingCart,
   },
+  {
+    title: "Clientes",
+    link: "/dashboard/clients",
+    icon: HiUsers,
+  },
+
 ];
 
 export const sideBarMenuSecond = [

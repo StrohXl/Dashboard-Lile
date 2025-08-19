@@ -4,7 +4,7 @@ import Link from "next/link";
 import toastDeleteById from "@/components/Toast/data/toastDeleteById";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDataContext } from "../../hooks/useContextData";
-import { TypeData } from "@/types/data";
+import { Data } from "@/models";
 
 export default function ContainerActions({
   id,
@@ -12,7 +12,7 @@ export default function ContainerActions({
   data,
   includeActions,
 }: {
-  data: TypeData;
+  data: Data;
   id: number;
   apiUrl: "/buys" | "/products";
   includeActions: { delete?: boolean; edit?: boolean };

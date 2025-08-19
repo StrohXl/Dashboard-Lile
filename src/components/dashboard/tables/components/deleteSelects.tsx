@@ -4,13 +4,13 @@ import { MdDelete } from "react-icons/md";
 import { useDataContext } from "../../hooks/useContextData";
 import toastDelete from "@/components/Toast/data/toastDelete";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { TypeData } from "@/types/data";
+import { Data } from "@/models";
 
 export default function DeleteSelects({
   apiUrl,
   data,
 }: {
-  data: TypeData;
+  data: Data;
   apiUrl: "/buys" | "/products";
 }) {
   const searchParams = useSearchParams();

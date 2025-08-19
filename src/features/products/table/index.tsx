@@ -4,7 +4,7 @@ import ReactTableProducts from "./components/reactTableProducts";
 import Pagination from "@/components/dashboard/tables/components/pagination";
 import DeleteSelects from "@/components/dashboard/tables/components/deleteSelects";
 import getData from "@/fetch/data/getData";
-import TypeParams from "@/types/typeParams";
+import TypeParams from "@/models/typeParams";
 import getPyDolar from "@/fetch/pydolar/getPyDolar";
 import { HookDataContext } from "@/components/dashboard/hooks/useContextData";
 

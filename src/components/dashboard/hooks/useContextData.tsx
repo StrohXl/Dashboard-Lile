@@ -1,5 +1,4 @@
 "use client";
-import { TypeData } from "@/types/data";
 import { createContext, ReactNode, useContext, useState } from "react";
 import {
   useRowSelect,
@@ -7,6 +6,7 @@ import {
   Select,
 } from "@table-library/react-table-library/select";
 import { onSelectChange } from "../tables/utils";
+import { Data } from "@/models";
 export type DataContextType = {
   disabled: boolean;
   setDisabled: (val: boolean) => void;
@@ -24,7 +24,7 @@ export function HookDataContext({
   data,
 }: {
   children: ReactNode;
-  data: TypeData;
+  data: Data;
 }) {
   const [disabled, setDisabled] = useState(false);
   const [selects, setSelects] = useState<number[]>([]);

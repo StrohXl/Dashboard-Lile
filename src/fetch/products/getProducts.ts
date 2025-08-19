@@ -1,4 +1,4 @@
-import TypeParams from "@/types/typeParams";
+import TypeParams from "@/models/typeParams";
 import axios from "axios";
 import { toast } from "react-toastify";
 

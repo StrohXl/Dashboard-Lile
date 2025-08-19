@@ -2,10 +2,10 @@ import { Body, Row, Cell } from "@table-library/react-table-library/table";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { CellSelect } from "@table-library/react-table-library/select";
 import { FaChevronDown } from "react-icons/fa6";
-import { TypeData } from "@/types/data";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
 import { handleExpand } from "@/components/dashboard/tables/utils";
 import { Buy } from "@/app/api/buys/models/buy.model";
+import { Data } from "@/models";
 
 function TableBodyBuy({
   tableList,
@@ -14,7 +14,7 @@ function TableBodyBuy({
 }: {
   tableList: Buy[];
   pyDollar: number | undefined;
-  data: TypeData;
+  data: Data;
 }) {
   const { ids, setIds } = useDataContext();
 

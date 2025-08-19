@@ -1,8 +1,8 @@
 "use client";
-import { TypeData } from "@/types/data";
+import { Data } from "@/models";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-export default function Pagination({ data }: { data: TypeData }) {
+export default function Pagination({ data }: { data: Data }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || 1;

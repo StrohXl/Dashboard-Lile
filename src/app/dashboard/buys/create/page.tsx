@@ -1,5 +1,5 @@
-import SkeletonFormBuy from "@/components/buys/form/components/skeletonFormBuy";
-import FormBuy from "@/components/buys/form/formBuys";
+import SkeletonFormBuy from "@/features/buys/form/components/skeletonFormBuy";
+import FormBuy from "@/features/buys/form/formBuys";
 import getData from "@/fetch/data/getData";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";

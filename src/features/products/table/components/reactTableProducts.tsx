@@ -1,17 +1,17 @@
 "use client";
 import { Table } from "@table-library/react-table-library/table";
 import { useDataContext } from "@/components/dashboard/hooks/useContextData";
-import { TypeData } from "@/types/data";
 import TableHeaderProducts from "./tableHeaderProducts";
 import TableBodyProducts from "./tableBodyProducts";
 import ThemeTableProducts from "../theme";
 import { Product } from "@/app/api/products/models";
+import { Data } from "@/models";
 
 export default function ReactTable({
   pyDollar,
   data,
 }: {
-  data: TypeData;
+  data: Data;
   pyDollar: number | undefined;
 }) {
   const { select } = useDataContext();
