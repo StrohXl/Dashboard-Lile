@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getBuys, createBuy } from "./services";
 import { tokenValidator } from "@/app/validators/token.validator";
 
-const elementsPerPage = 10;
-
 export async function GET(request: NextRequest) {
   const token = await tokenValidator(request);
   if (!token) {
@@ -12,7 +10,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const page = searchParams.get("page") ?? 1;
 
-  return await getBuys({ page: Number(page), elementsPerPage });
+  return await getBuys({ page: Number(page) });
 }
 
 export async function POST(request: NextRequest) {

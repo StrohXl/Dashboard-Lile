@@ -5,7 +5,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { HTMLInputTypeAttribute, ReactNode } from "react";
-import MessageError from "@/components/dashboard/forms/components/messageError";
+import MessageError from "@/components/message-error/messageError";
 import { FormProduct } from "../models/form-product.model";
 
 export default function InputFormProduct({

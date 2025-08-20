@@ -1,5 +1,5 @@
 "use server";
-import TypeParams from "@/models/typeParams";
+import UrlParams from "@/models/url-params.model";
 import axios from "axios";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies, headers } from "next/headers";
@@ -9,7 +9,7 @@ const getData = async ({
   params,
 }: {
   url: "/buys" | "/products" | "/clients";
-  params?: TypeParams;
+  params?: UrlParams;
 }) => {
   // Obtener el token
   const cookieStore = await cookies();

@@ -12,7 +12,7 @@ const toastDelete = async ({
   pathname,
   replace,
 }: {
-  apiUrl: "/buys" | "/products";
+  apiUrl: "/buys" | "/products" | "/clients";
   ids: number[];
   data: Data;
   replace: (href: string, options?: NavigateOptions) => void;
@@ -32,9 +32,9 @@ const toastDelete = async ({
     const params = new URLSearchParams(searchParams);
     params.set("deleteId", `${ids[0]}`);
     const page = searchParams.get("page") || 1;
-    if (data.data.length == ids.length && page == 1) {
+    if (data.length == ids.length && page == 1) {
       params.delete("page");
-    } else if (data.data.length == ids.length) {
+    } else if (data.length == ids.length) {
       params.set("page", `${Number(page) - 1}`);
     }
     replace(pathname + "?" + params.toString());

@@ -3,6 +3,9 @@ import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import Link from "next/link";
 import { Suspense } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
+import { HookDataContext } from "@/hooks/useContextData";
+import getData from "@/fetch/data/getData";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 
 export default async function Buys({
   searchParams,
@@ -11,8 +14,11 @@ export default async function Buys({
 }) {
   const params = await searchParams;
   const { name, page, deleteId } = params;
+
+  const buys = getData({ url: "/buys", params });
+  const pyDollar = getPyDollar();
   return (
-    <section className="container-table max-w-[1200px] overflow-hidden relative">
+    <section className="container-table max-w-[800px] overflow-hidden relative">
       <div className="flex justify-between items-centerF mb-6 ">
         <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
           Lista de Compras
@@ -25,7 +31,9 @@ export default async function Buys({
         </div>
       </div>
       <Suspense key={name + page + deleteId} fallback={<SkeletonTable />}>
-        <TableBuys params={params} />
+        <HookDataContext>
+          <TableBuys data={buys} pyDollar={pyDollar} />
+        </HookDataContext>
       </Suspense>
     </section>
   );

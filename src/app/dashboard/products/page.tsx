@@ -1,18 +1,24 @@
-import SearchData from "@/components/dashboard/forms/searchData";
+import SearchData from "@/components/searchData/searchData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
-import TableProducts from "@/features/products/table";
-import TypeParams from "@/models/typeParams";
+import TableProducts from "@/features/products/table/tableProducts";
+import UrlParams from "@/models/url-params.model";
 import Link from "next/link";
 import { Suspense } from "react";
 import { HiArchiveBoxArrowDown } from "react-icons/hi2";
+import getData from "@/fetch/data/getData";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
+import { HookDataContext } from "@/hooks/useContextData";
 
 export default async function Products({
   searchParams,
 }: {
-  searchParams: Promise<TypeParams>;
+  searchParams: Promise<UrlParams>;
 }) {
   const params = await searchParams;
   const { name, deleteId, page } = params;
+
+  const products = getData({ url: "/products", params });
+  const pyDollar = getPyDollar();
 
   return (
     <section className="container-table max-w-[1200px] overflow-hidden relative">
@@ -29,7 +35,9 @@ export default async function Products({
         </div>
       </div>
       <Suspense key={name ?? "" + deleteId + page} fallback={<SkeletonTable />}>
-        <TableProducts params={params} />
+        <HookDataContext>
+          <TableProducts data={products} pyDollar={pyDollar} />
+        </HookDataContext>
       </Suspense>
     </section>
   );

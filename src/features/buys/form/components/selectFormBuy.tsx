@@ -1,4 +1,4 @@
-import MessageError from "@/components/dashboard/forms/components/messageError";
+import MessageError from "@/components/message-error/messageError";
 import type { SelectFormBuy } from "../models";
 
 function SelectFormBuy({

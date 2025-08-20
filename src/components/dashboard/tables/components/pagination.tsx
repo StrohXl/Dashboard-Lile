@@ -1,8 +1,8 @@
 "use client";
-import { Data } from "@/models";
+import { ResponseData } from "@/models";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-export default function Pagination({ data }: { data: Data }) {
+export default function Pagination({ data }: { data: ResponseData }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || 1;

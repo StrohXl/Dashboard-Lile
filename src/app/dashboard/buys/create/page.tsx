@@ -10,7 +10,7 @@ export default function CreateBuy() {
   const data = getData({
     url: "/products",
     params: {
-      all: true,
+      all: 'true',
     },
   });
   const pyDollar = getPyDollar();
@@ -18,7 +18,7 @@ export default function CreateBuy() {
     <>
       <div className="flex mb-6 items-center gap-12">
         <h2 className="text-4xl font-semibold  text-gray-700 font-open_sans">
-          Agregar Compra
+          Agregar compra
         </h2>
         <Link
           href={"/dashboard/buys"}

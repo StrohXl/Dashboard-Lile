@@ -1,0 +1,5 @@
+export * from './create-client.service'
+export * from './delete-client-by-array.service'
+export * from './delete-client-by-id.service'
+export * from './get-client-by-id.service'
+export * from './get-clients.service'

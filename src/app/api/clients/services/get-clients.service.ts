@@ -1,15 +1,15 @@
 import prisma from "@/libs/prisma";
+import { getPages } from "@/utils/get-pages.utility";
 import { NextResponse } from "next/server";
 
 export const getClients = async ({
   page,
-  elementsPerPage,
   name,
 }: {
   page: number;
-  elementsPerPage: number;
   name: string;
 }) => {
+  const { elementsPerPage, pages } = await getPages("clients");
   const clients = await prisma.clients.findMany({
     skip: (page - 1) * elementsPerPage,
     take: elementsPerPage,
@@ -19,5 +19,5 @@ export const getClients = async ({
       },
     },
   });
-  return NextResponse.json(clients);
+  return NextResponse.json({ data: clients, pages });
 };

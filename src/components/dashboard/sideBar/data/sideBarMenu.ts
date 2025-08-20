@@ -3,6 +3,7 @@ import { HiArchiveBox } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import { MdShoppingCart } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
+
 export const sideBarMenu = [
   {
     title: "Dashboard",

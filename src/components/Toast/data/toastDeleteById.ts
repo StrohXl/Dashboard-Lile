@@ -29,13 +29,13 @@ const toastDeleteById = async ({
       },
       error: "Hubo un error",
     });
+
     const params = new URLSearchParams(searchParams);
     params.set("deleteId", `${id}`);
     const page = searchParams.get("page") || 1;
-    if (data.data.length < 2 && page == 1) {
+    if (data.length < 2 && page == 1) {
       params.delete("page");
-    } 
-    else if (data.data.length < 2 && page && Number(page) > 1) {
+    } else if (data.length < 2 && page && Number(page) > 1) {
       params.set("page", `${Number(page) - 1}`);
     }
     replace(pathname + "?" + params.toString());

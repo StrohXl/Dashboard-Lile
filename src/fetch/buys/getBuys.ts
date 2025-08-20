@@ -1,8 +1,8 @@
-import TypeParams from "@/models/typeParams";
+import UrlParams from "@/models/url-params.model";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const getBuys = async (params?: TypeParams) => {
+const getBuys = async (params?: UrlParams) => {
   try {
     const { data } = await axios.get("/api/buys", {
       params,

@@ -1,14 +1,9 @@
 import prisma from "@/libs/prisma";
 import { NextResponse } from "next/server";
-import { getPagesBuys } from "./get-pages-buys.service";
+import { getPages } from "@/utils/get-pages.utility";
 
-export async function getBuys({
-  page,
-  elementsPerPage,
-}: {
-  page: number;
-  elementsPerPage: number;
-}) {
+export async function getBuys({ page }: { page: number }) {
+  const { elementsPerPage, pages } = await getPages("buys");
   try {
     const buys = await prisma.buys.findMany({
       include: {
@@ -21,7 +16,6 @@ export async function getBuys({
       orderBy: { id: "desc" },
       cacheStrategy: { ttl: 2, tags: ["findBuys"] },
     });
-    const pages = await getPagesBuys(elementsPerPage);
     return NextResponse.json({ data: buys, pages });
   } catch (error) {
     console.log(error);

@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import TypeParams from "@/models/typeParams";
+import UrlParams from "@/models/url-params.model";
 
 interface ResponseAxios {
   data: {
@@ -16,7 +16,7 @@ const toastDeleteIds = async ({
 }: {
   ids: number[];
   setSelects: (value: number[]) => void;
-  fetchProducts: (params?: TypeParams) => void;
+  fetchProducts: (params?: UrlParams) => void;
 }) => {
   try {
     await toast.promise(axios.post(`/api/products/delete-batch`, ids), {

@@ -1,6 +1,5 @@
 export * from './get-buys.service'
 export * from './get-buy-by-id.service'
-export * from './get-pages-buys.service'
 export * from './create-buy.service'
 export * from './delete-buy-by-array.service'
 export * from './delete-buy-by-id.service'

@@ -6,19 +6,23 @@
   --color-primary: #be4499;
   --color-primary-dark: #a4327e;
   --color-primary-ligth: #ecb5e1;
-  --heigth-dynamic: calc(100dvh - 48px) 
-
+  --heigth-dynamic: calc(100dvh - 48px);
 }
-#my-tooltip{
+#my-tooltip {
   z-index: 100;
   background: var(--color-primary) !important;
   opacity: 1 !important;
   font-family: var(--font-roboto);
   font-weight: 500 !important;
 }
-#tv-attr-logo{
+#tv-attr-logo {
   display: none !important;
 }
+.td,
+.th {
+  padding: 10px 16px !important;
+}
+
 @theme inline {
   --heigth-dynamic: var(--heigth-dynamic);
   --color-primary: var(--color-primary);
@@ -28,7 +32,7 @@
   --color-foreground: var(--foreground);
   --font-roboto: var(--font-roboto);
   --font-open_sans: var(--font-open_sans);
-  --width-sidebar-open: calc(100% - 256px - 24px); 
+  --width-sidebar-open: calc(100% - 256px - 24px);
   --width-sidebar-close: calc(100% - 70px - 24px);
 }
 
@@ -69,7 +73,7 @@
     color: white;
   }
 }
-.container-table{
+.container-table {
   background: #fff;
   padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

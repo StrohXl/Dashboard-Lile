@@ -1,8 +1,8 @@
-import TypeParams from "@/models/typeParams";
+import UrlParams from "@/models/url-params.model";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const getProducts = async (params?: TypeParams) => {
+const getProducts = async (params?: UrlParams) => {
   try {
     const { data } = await axios.get("/api/products", {
       params,
@@ -10,7 +10,7 @@ const getProducts = async (params?: TypeParams) => {
     return data && data;
   } catch (error) {
     console.log(error);
-    toast.error('Error: no se pudieron encontrar productos')
+    toast.error("Error: no se pudieron encontrar productos");
     return { products: [], pages: 0 };
   }
 };

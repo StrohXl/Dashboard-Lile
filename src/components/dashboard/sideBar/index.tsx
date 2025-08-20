@@ -4,8 +4,9 @@ import { usePathname } from "next/navigation";
 import { sideBarMenu, sideBarMenuSecond } from "./data/sideBarMenu";
 import { BsPcDisplayHorizontal } from "react-icons/bs";
 import { FaChevronLeft } from "react-icons/fa";
-import { closeSideBar, logoutUser, openSideBar } from "./utils";
+import { closeSideBar, openSideBar } from "./utils";
 import { Tooltip } from "react-tooltip";
+import { logoutUser } from "./service/logout-user.service";
 
 const SideBarNav = ({
   open,
@@ -64,7 +65,7 @@ const SideBarNav = ({
                   }`}
                   href={item.link}
                 >
-                <Icon size={30} />
+                  <Icon size={30} />
                   {showLogo && item.title}
                 </Link>
               </li>
@@ -79,7 +80,7 @@ const SideBarNav = ({
                   className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 cursor-pointer hover:text-primary-ligth text-gray-600 text-lg `}
                   onClick={() => item.link === "/" && logoutUser()}
                 >
-                <Icon size={30} />
+                  <Icon size={30} />
                   {showLogo && item.title}
                 </span>
               </li>

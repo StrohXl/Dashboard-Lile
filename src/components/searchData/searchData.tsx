@@ -3,39 +3,20 @@ import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { onSubmitSearch } from "./service/on-submi-search.service";
+import { resetInputSearch } from "./utilities/reset-input-search.utility";
+
 export default function SearchData({
   placeholderInput,
 }: {
   placeholderInput: string;
 }) {
   const [inputName, setInputName] = useState<string>("");
-  const { register, reset } = useForm<{ name: string }>();
-
-  let time: ReturnType<typeof setTimeout>;
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
+  const { register, reset } = useForm<{ name: string }>();
   const name = searchParams.get("name");
-
-  const onSubmit = async (search: string) => {
-    setInputName(search);
-    const params = new URLSearchParams(searchParams);
-    clearTimeout(time);
-    time = setTimeout(async () => {
-      if (search) {
-        params.set("name", search);
-      } else {
-        params.delete("name");
-      }
-      replace(`${pathname}?${params.toString()}`);
-    }, 300);
-  };
-
-  const resetInput = () => {
-    setInputName("");
-    reset({ name: "" });
-    onSubmit("");
-  };
 
   return (
     <form
@@ -50,11 +31,27 @@ export default function SearchData({
         className="outline-none py-2 "
         defaultValue={name || ""}
         placeholder={placeholderInput}
-        onChange={({ target }) => onSubmit(target.value.toLocaleLowerCase())}
+        onChange={({ target }) =>
+          onSubmitSearch({
+            search: target.value.toLocaleLowerCase(),
+            pathname,
+            replace,
+            searchParams,
+            setInputName,
+          })
+        }
       />
       {inputName !== "" && (
         <div
-          onClick={resetInput}
+          onClick={() =>
+            resetInputSearch({
+              pathname,
+              replace,
+              reset,
+              searchParams,
+              setInputName,
+            })
+          }
           className="cursor-pointer transition-colors focus:group- duration-300 hover:text-primary "
         >
           <IoCloseOutline size={20} />

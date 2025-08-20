@@ -1,17 +1,17 @@
 import prisma from "@/libs/prisma";
+import { getPages } from "@/utils/get-pages.utility";
 import { NextResponse } from "next/server";
 
 export async function getProducts({
   page,
   name,
   all,
-  elementsPerPage,
 }: {
   name: string | null;
   page: number;
   all: string;
-  elementsPerPage: number;
 }) {
+  const { elementsPerPage, pages } = await getPages("products");
   try {
     const products = await prisma.products.findMany({
       orderBy: { id: "desc" },
@@ -32,10 +32,6 @@ export async function getProducts({
         tags: ["findProducts"],
       },
     });
-    
-    const counts = await prisma.products.count();
-    let pages = counts / elementsPerPage;
-    pages = Math.ceil(pages);
     return NextResponse.json({ data: products, pages: pages });
   } catch (error) {
     console.log(error);

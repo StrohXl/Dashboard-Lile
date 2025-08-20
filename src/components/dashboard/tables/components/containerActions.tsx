@@ -3,7 +3,7 @@ import { MdDelete } from "react-icons/md";
 import Link from "next/link";
 import toastDeleteById from "@/components/Toast/data/toastDeleteById";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDataContext } from "../../hooks/useContextData";
+import { useDataContext } from "../../../../hooks/useContextData";
 import { Data } from "@/models";
 
 export default function ContainerActions({
@@ -14,7 +14,7 @@ export default function ContainerActions({
 }: {
   data: Data;
   id: number;
-  apiUrl: "/buys" | "/products";
+  apiUrl: "/buys" | "/products" | "/clients";
   includeActions: { delete?: boolean; edit?: boolean };
 }) {
   const searchParams = useSearchParams();
