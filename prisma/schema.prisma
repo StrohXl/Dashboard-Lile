@@ -34,20 +34,8 @@ model Products {
   User      User?    @relation(fields: [userId], references: [id])
   userId    Int?
   Buys      Buys[]
-}
-
-model ListProducts {
-  id            Int      @id @default(autoincrement())
-  name          String
-  price         Decimal  @default(0)
-  selling_price Decimal  @default(0)
-  stock         Int      @default(0)
-  createdAT     DateTime @default(now())
-  updatedAT     DateTime @updatedAt
-  Buys          Buys?    @relation(fields: [buysId], references: [id])
-  buysId        Int?
-  Sales         Sales?   @relation(fields: [salesId], references: [id])
-  salesId       Int?
+  Sales     Sales[]
+  salesId   Int?
 }
 
 model BlackListToken {
@@ -68,21 +56,48 @@ model Buys {
   userId        Int?
 }
 
-model Clients {
+model ListProducts {
   id        Int      @id @default(autoincrement())
   name      String
-  last_name String
+  price     Decimal  @default(0)
+  stock     Int      @default(0)
   createdAT DateTime @default(now())
   updatedAT DateTime @updatedAt
-  Sales     Sales[]
+  Buys      Buys?    @relation(fields: [buysId], references: [id])
+  buysId    Int?
+  Sales     Sales?   @relation(fields: [salesId], references: [id])
+  salesId   Int?
+}
+
+model Clients {
+  id         Int      @id @default(autoincrement())
+  name       String
+  last_name  String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  sales      Sales[]
 }
 
 model Sales {
   id            Int            @id @default(autoincrement())
   list_products ListProducts[]
-  total_price   Int
+  products      Products[]
+  total_price   Decimal
+  payments      Payments[]
+  debt          Decimal        @default(0)
+  status        String
   id_client     Int
-  Client        Clients        @relation(fields: [id_client], references: [id])
-  createdAT     DateTime       @default(now())
-  updatedAT     DateTime       @updatedAt
+  client        Clients        @relation(fields: [id_client], references: [id])
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+}
+
+model Payments {
+  id             Int      @id @default(autoincrement())
+  payment_method String
+  payment_amount Decimal
+  operation      Int      @default(0)
+  sales_id       Int?
+  sales          Sales?   @relation(fields: [sales_id], references: [id])
+  created_at     DateTime @default(now())
 }

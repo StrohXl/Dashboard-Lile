@@ -5,6 +5,6 @@ export interface Client {
   name: string;
   last_name: string;
   sales: Sale[];
-  createAT: string;
-  updatedAT: string;
+  create_at: string;
+  updated_at: string;
 }

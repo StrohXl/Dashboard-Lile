@@ -1,2 +1,2 @@
 export * from "./buy.model";
-export * from "./data-buy.model";
+export * from "./dataBuy.model";

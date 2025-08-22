@@ -1,1 +1,1 @@
-export * from './create-list-product.service'
+export * from './createListProduct.service'

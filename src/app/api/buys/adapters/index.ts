@@ -1,1 +1,1 @@
-export * from './create-body-buy.adapter'
+export * from './createBodyBuy.adapter'
