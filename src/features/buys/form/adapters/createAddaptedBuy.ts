@@ -5,7 +5,7 @@ export const createAddaptedBuy = (body: FormBuy) => {
   const newBody: ListProduct[] = [];
 
   body.products.forEach((item) => {
-    const price = item.sellingPrice / (item.markup + 1);
+    const price = item.sellingPrice / (Number(item.markup) + 1);
     newBody.push({
       id: item.id,
       name: item.name,
