@@ -1,6 +1,4 @@
 export * from "./createSale.service";
-export * from "./createSaleAndCreateClient.service";
-export * from "./createSaleByIdClient.service";
 export * from "./getSales.service";
 export * from "./getSaleById.service";
 export * from "./deleteSaleById.service";

@@ -5,20 +5,23 @@ import { paymentsAdapter } from "../../payments/adapters/payments.adapter";
 
 export async function updateSaleStatus(id: number) {
   try {
-    const sale = await prisma.sales.findUnique({
-      where: { id },
-      include: {
-        payments: true,
-        list_products: true,
-      },
-    });
-    if (sale) {
+    await prisma.$transaction(async (tx) => {
+      const sale = await tx.sales.findUnique({
+        where: { id },
+        include: {
+          payments: true,
+          list_products: true,
+        },
+      });
+      if (!sale) {
+        throw new Error("Venta no encontrada");
+      }
       const payments = paymentsAdapter(sale);
       const totalPayments = calculateTotalPayments(payments);
-      const totalPrice = Number(sale.total_price)
+      const totalPrice = Number(sale.total_price);
       const status = getSaleStatus({ totalPayments, totalPrice });
       const debt = getDebt({ totalPayments, totalPrice });
-      console.log({totalPayments,totalPrice,status,debt})
+      console.log({ totalPayments, totalPrice, status, debt });
       const saleUpdate = await prisma.sales.update({
         where: { id },
         data: {
@@ -26,12 +29,9 @@ export async function updateSaleStatus(id: number) {
           debt,
         },
       });
-      return saleUpdate
-    } else {
-      return undefined;
-    }
+      return saleUpdate;
+    });
   } catch (error) {
     console.error(error);
-    
   }
 }
