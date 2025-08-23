@@ -1,8 +1,8 @@
-import { ListProduct } from "@/app/api/list-products/models";
 import { FormBuy } from "../models";
+import { CreateBuy } from "@/app/api/buys/validators/createBuy.validator";
 
 export const createAddaptedBuy = (body: FormBuy) => {
-  const newBody: ListProduct[] = [];
+  const newBody: CreateBuy = [];
 
   body.products.forEach((item) => {
     const price = item.sellingPrice / (Number(item.markup) + 1);
