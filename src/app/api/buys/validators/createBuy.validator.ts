@@ -8,7 +8,7 @@ const BuySchema = z
       price: z.number().min(0).positive(),
       stock: z.number().min(1).positive(),
       selling_price: z.number().min(0.1),
-    })
+    }).strict()
   )
   .nonempty();
 

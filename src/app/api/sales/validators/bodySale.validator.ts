@@ -1,4 +1,4 @@
-import { object, z, ZodError } from "zod";
+import { z, ZodError } from "zod";
 
 const BodySaleSchema = z.object({
   id_client: z.number().positive().optional(),
@@ -10,7 +10,7 @@ const BodySaleSchema = z.object({
     .optional(),
   list_products: z
     .array(
-      object({
+      z.object({
         id: z.number().positive(),
         name: z.string().nonempty().min(3),
         price: z.number().positive().min(0.1),
@@ -37,7 +37,7 @@ const BodySaleSchema = z.object({
       })
     )
     .optional(),
-});
+}).strict();
 
 export type CreateSale = z.infer<typeof BodySaleSchema>;
 

@@ -1,9 +1,7 @@
 import prisma from "@/libs/prisma";
 import { calculateTotalPayments, getSaleStatus } from "../utilities";
-import { calculateTotalPrice } from "@/utils";
 import { getDebt } from "../utilities/getDebt.utility";
 import { paymentsAdapter } from "../../payments/adapters/payments.adapter";
-import { listProductsAdapter } from "../../payments/adapters/listProducts.adapter";
 
 export async function updateSaleStatus(id: number) {
   try {
@@ -16,19 +14,19 @@ export async function updateSaleStatus(id: number) {
     });
     if (sale) {
       const payments = paymentsAdapter(sale);
-      const listProducts = listProductsAdapter(sale);
       const totalPayments = calculateTotalPayments(payments);
-      const totalPrice = calculateTotalPrice(listProducts);
+      const totalPrice = Number(sale.total_price)
       const status = getSaleStatus({ totalPayments, totalPrice });
       const debt = getDebt({ totalPayments, totalPrice });
-
-      await prisma.sales.update({
+      console.log({totalPayments,totalPrice,status,debt})
+      const saleUpdate = await prisma.sales.update({
         where: { id },
         data: {
           status,
           debt,
         },
       });
+      return saleUpdate
     } else {
       return undefined;
     }

@@ -15,7 +15,7 @@ const CreatePaymentSchema = z.object({
     .positive()
     .optional(),
   sales_id: z.number().positive(),
-});
+}).strict();
 
 export type CreatePayment = z.infer<typeof CreatePaymentSchema>;
 
