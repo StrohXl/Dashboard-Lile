@@ -3,6 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSale, getSales } from "./services";
 
 export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const all = searchParams.get("all") ?? "false";
+  const page = searchParams.get("page");
+
   const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json(
@@ -10,7 +14,7 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   }
-  return await getSales();
+  return await getSales({ all, page: Number(page) });
 }
 
 export async function POST(request: NextRequest) {

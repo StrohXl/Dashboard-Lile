@@ -23,6 +23,8 @@
   padding: 10px 16px !important;
 }
 
+
+
 @theme inline {
   --heigth-dynamic: var(--heigth-dynamic);
   --color-primary: var(--color-primary);

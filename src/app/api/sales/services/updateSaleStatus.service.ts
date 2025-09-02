@@ -21,7 +21,6 @@ export async function updateSaleStatus(id: number) {
       const totalPrice = Number(sale.total_price);
       const status = getSaleStatus({ totalPayments, totalPrice });
       const debt = getDebt({ totalPayments, totalPrice });
-      console.log({ totalPayments, totalPrice, status, debt });
       const saleUpdate = await prisma.sales.update({
         where: { id },
         data: {

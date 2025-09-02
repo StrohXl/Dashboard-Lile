@@ -6,7 +6,7 @@ export interface FormBuy {
     stock: number;
     type: "create" | "select";
     sellingPrice: number;
-    buyType: "individual" | "group";
+    buyType: "unit" | "package" | "kg";
     moneyType: "dollar" | "bs";
     markup: number;
   }[];

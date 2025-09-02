@@ -8,9 +8,9 @@ export default function ProductId() {
 
   return (
     <>
-      <div className="flex mb-6 items-center gap-12">
-        <h2 className="text-5xl font-semibold  text-gray-700 font-open_sans">
-          Editar Producto
+      <div className="flex mb-10 items-center gap-12">
+        <h2 className="text-5xl font-semibold  text-gray-800 font-open_sans">
+          Producto
         </h2>
         <Link
           href={"/dashboard/products"}

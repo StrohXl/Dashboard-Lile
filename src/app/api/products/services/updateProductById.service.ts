@@ -7,17 +7,21 @@ import { Prisma } from "@prisma/client/edge";
 
 export async function updateProductById(body: Product, id: number) {
   const result = productValidator(body);
+
   if (result instanceof ZodError) {
     console.log(result.issues);
     return NextResponse.json(result.issues, { status: 400 });
   }
-  const { name, price, stock } = body;
+
+  const { name, price, stock, unit } = body;
+
   try {
     const productUpdate = await prisma.products.update({
       data: {
         name,
-        price,
+        price: price,
         stock,
+        unit,
       },
       where: { id },
     });

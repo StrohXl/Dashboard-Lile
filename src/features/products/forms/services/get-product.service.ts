@@ -23,6 +23,7 @@ export const getProduct = async ({
       price: data.price,
       stock: data.stock,
       priceBs: dollar && data.price * dollar,
+      unit: data.unit
     });
     setProduct(data);
   }

@@ -37,6 +37,6 @@ export async function onSubmitClient({
     router.push("/dashboard/clients");
   } catch (error) {
     console.error(error);
+    setDisabled(false);
   }
-  setDisabled(false);
 }

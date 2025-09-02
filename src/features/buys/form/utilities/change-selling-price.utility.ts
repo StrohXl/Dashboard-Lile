@@ -18,9 +18,17 @@ export const changeSellingPrice = ({
   const markup = Number(getValues(`products.${index}.markup`));
   const inputPrice = Number(getValues(`products.${index}.price`));
 
-  const price = moneyType == "dollar" ? inputPrice : inputPrice / pyDollar;
+  const price =
+    moneyType == "dollar"
+      ? inputPrice
+      : parseFloat((inputPrice / pyDollar).toFixed(2));
 
-  const priceIndividual = priceFormat == "individual" ? price : price / stock;
+  const priceIndividual =
+    priceFormat == "unit"
+      ? price
+      : priceFormat == "package"
+      ? price / stock
+      : (price * 1000) / stock;
 
   const sellingPrice = priceIndividual * markup + priceIndividual;
 

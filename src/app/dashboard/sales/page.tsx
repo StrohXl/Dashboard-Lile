@@ -1,0 +1,42 @@
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+import UrlParams from "@/models/url-params.model";
+import Link from "next/link";
+import { Suspense } from "react";
+import getData from "@/fetch/data/getData";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
+import { HookDataContext } from "@/hooks/useContextData";
+import { FaCashRegister } from "react-icons/fa6";
+import TableSales from "@/features/sales/table/tableSales";
+
+export default async function Products({
+  searchParams,
+}: {
+  searchParams: Promise<UrlParams>;
+}) {
+  const params = await searchParams;
+  const { name, deleteId, page } = params;
+
+  const sales = getData({ url: "/sales", params });
+  const pyDollar = getPyDollar();
+
+  return (
+    <section className="container-table max-w-[800px] overflow-hidden relative">
+      <div className="flex justify-between items-centerF mb-6 ">
+        <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
+          Lista de Ventas
+        </h4>
+        <div className="flex items-center gap-6">
+          <Link className="btn-primary" href="/dashboard/sales/create">
+            Agregar
+            <FaCashRegister size={20} />
+          </Link>
+        </div>
+      </div>
+      <Suspense key={name ?? "" + deleteId + page} fallback={<SkeletonTable />}>
+        <HookDataContext>
+          <TableSales data={sales} pyDollar={pyDollar} />
+        </HookDataContext>
+      </Suspense>
+    </section>
+  );
+}

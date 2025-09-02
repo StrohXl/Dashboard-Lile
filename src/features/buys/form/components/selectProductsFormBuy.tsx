@@ -28,17 +28,17 @@ export default function SelectProductsFormBuy({
             searchProduct({
               text: item.target.value,
               fields,
-              products,
               setOpen,
               setProducts,
               setSearch,
+              options,
             })
           }
           onClick={() =>
             openSelect({
               fields,
               open,
-              products,
+              options,
               setOpen,
               setProducts,
             })
@@ -49,9 +49,9 @@ export default function SelectProductsFormBuy({
             openSelect({
               fields,
               open,
-              products,
               setOpen,
               setProducts,
+              options,
             })
           }
           className="cursor-pointer"

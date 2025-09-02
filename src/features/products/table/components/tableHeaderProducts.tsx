@@ -16,7 +16,7 @@ function TableHeaderProducts() {
         <HeaderCell>Existentes</HeaderCell>
         <HeaderCell>Fecha de Creacion</HeaderCell>
         <HeaderCell>Fecha de Actualizacion</HeaderCell>
-        <HeaderCell pinRight>Acciones</HeaderCell>
+        <HeaderCell pinRight><div className="text-center" >Acciones</div></HeaderCell>
       </HeaderRow>
     </Header>
   );

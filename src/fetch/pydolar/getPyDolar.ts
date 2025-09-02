@@ -24,7 +24,10 @@ const getDolarApi = async (): Promise<number | undefined> => {
   try {
     const { data }: { data: { promedio: number } | undefined } =
       await axios.get("https://ve.dolarapi.com/v1/dolares/oficial");
-    return data?.promedio;
+    if (data) {
+      return Number(data.promedio.toFixed(2));
+    }
+    return 0;
   } catch (error) {
     console.log(error);
     throw new Error();

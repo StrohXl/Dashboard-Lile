@@ -74,7 +74,7 @@ function TableBodyBuy({
                     <div>
                       <p className="truncate">{product.name}</p>
                     </div>
-                    <div>{product.stock}</div>
+                    <div>{`${product.unit == 'kg'? product.stock >= 1000? `${(product.stock / 1000)} kg`: `${product.stock} gr` : product.stock }`}</div>
                     <div>{Number(product.price).toFixed(2)}$</div>
                   </div>
                 </li>

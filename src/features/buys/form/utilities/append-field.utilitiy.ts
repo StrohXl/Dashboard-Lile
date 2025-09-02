@@ -12,10 +12,9 @@ export const appendField = ({
     price: 0.1,
     stock: 1,
     moneyType: "dollar",
-    buyType: "individual",
+    buyType: "unit",
     type: "create",
     markup: 0.3,
     sellingPrice: 0.1 * 1 * 0.3 + 0.1,
-    
   });
 };

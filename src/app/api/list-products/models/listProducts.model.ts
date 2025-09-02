@@ -3,6 +3,7 @@ export interface ListProduct {
   name: string;
   price: number;
   stock: number;
+  unit: "unit" | "kg" | "package";
   createdAt?: string;
   updatedAt?: string;
 }

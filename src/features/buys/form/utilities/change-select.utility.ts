@@ -20,7 +20,7 @@ export const changeSelect = ({
       stock: 1,
       markup: 0.3,
       moneyType: "dollar",
-      buyType: "individual",
+      buyType: product.unit,
       sellingPrice: 0.1 * 1 * 0.3 + 0.1,
       type: "select",
     });

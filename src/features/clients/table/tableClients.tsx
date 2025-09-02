@@ -1,4 +1,6 @@
 "use client";
+
+import "@/components/dashboard/tables/css/table.css";
 import { Client } from "@/app/api/clients/models/client.model";
 import { useDataContext } from "@/hooks/useContextData";
 import { ResponseData } from "@/models";

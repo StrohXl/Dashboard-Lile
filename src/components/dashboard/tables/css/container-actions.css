@@ -1,0 +1,54 @@
+.container-actions > a,
+.container-actions > .container-icon,
+.container-actions > button {
+  color: var(--color-gray-500) !important;
+  border: 1px solid var(--color-gray-500) !important;
+  transition-property: color border-color;
+  transition-duration: 300ms;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 4px;
+  &:hover {
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+  }
+}
+
+.container-actions-red > a,
+.container-actions-red > .container-icon,
+.container-actions-red > button {
+  color: var(--color-gray-500) !important;
+  border: 1px solid var(--color-gray-500) !important;
+  transition-property: color border-color;
+  transition-duration: 300ms;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 4px;
+  &:hover {
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+  }
+}
+
+.stock-red .container-actions-red > a,
+.stock-red .container-actions-red > .container-icon,
+.stock-red .container-actions-red > button {
+  color: #fff !important;
+  border: 1px solid #fff !important;
+  transition: 300ms;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 4px;
+  &:hover {
+    color: #aaa !important;
+    border-color: #aaa !important;
+  }
+}
+
+.container-actions > button:disabled,
+.container-actions > .container-icon,
+.container-actions-red > button:disabled,
+.container-actions-red > .container-icon {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

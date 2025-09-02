@@ -16,6 +16,7 @@ export function listProductsAdapter(
       name: string;
       price: Decimal;
       stock: number;
+      unit: "kg" | "unit" | "package";
       createdAT: Date;
       updatedAT: Date;
       buysId: number | null;
@@ -36,6 +37,7 @@ export function listProductsAdapter(
     name: item.name,
     price: Number(item.price),
     stock: item.stock,
+    unit: item.unit,
   }));
   return listProducts;
 }

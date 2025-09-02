@@ -1,7 +1,12 @@
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { UseFormReset, UseFormSetValue, UseFormWatch } from "react-hook-form";
+import {
+  UseFormGetValues,
+  UseFormReset,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 import { Product } from "@/app/api/products/models";
 import { getProduct } from "./services";
 import { FormProduct } from "./models/form-product.model";
@@ -11,10 +16,14 @@ export default function HooksForm({
   dollar,
   setValue,
   reset,
+  getValues,
+  isDirty,
 }: {
   reset: UseFormReset<FormProduct>;
   dollar: number | undefined;
+  getValues: UseFormGetValues<FormProduct>;
   setValue: UseFormSetValue<FormProduct>;
+  isDirty: boolean;
   watch: UseFormWatch<FormProduct>;
 }) {
   const { id } = useParams();
@@ -23,10 +32,10 @@ export default function HooksForm({
   const [disabled, setDisabled] = useState(false);
   const router = useRouter();
 
-  
   useEffect(() => {
     // ejecutar funcion si existe el id en la pagina
     if (id) {
+      setDisabled(true);
       getProduct({ dollar, id: Number(id), reset, setLoading, setProduct });
     } else {
       setLoading(false);
@@ -42,6 +51,20 @@ export default function HooksForm({
       setValue("priceBs", fieldPrice * dollar);
     }
   }, [fieldPrice]);
+
+  useEffect(() => {
+    if (id) {
+      if (isDirty) {
+        setDisabled(false);
+      } else if (
+        product?.name === getValues("name") &&
+        product?.price == getValues("price") &&
+        product?.stock == getValues("stock")
+      ) {
+        setDisabled(true);
+      }
+    }
+  }, [isDirty]);
 
   return {
     id,

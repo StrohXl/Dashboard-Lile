@@ -26,6 +26,7 @@ type NameFields =
   | `products.${number}.stock`;
 
 export interface SelectFormBuy {
+  disabled?: boolean;
   error: FieldError | undefined;
   label: string;
   pyDollar: number;

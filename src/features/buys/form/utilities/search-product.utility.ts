@@ -5,28 +5,29 @@ import { Product } from "@/app/api/products/models";
 export const searchProduct = ({
   text,
   fields,
-  products,
   setOpen,
   setSearch,
   setProducts,
+  options,
 }: {
   text: string;
   fields: FieldArrayWithId<FormBuy>[];
-  products: Product[];
   setOpen: (value: boolean) => void;
   setSearch: (value: string) => void;
   setProducts: (value: Product[]) => void;
+  options: Product[];
 }) => {
   setSearch(text);
   if (text !== "") {
     setOpen(true);
   } else {
     setOpen(false);
+    setProducts(options);
   }
   const searchFields = fields.find((item) => item.name.includes(text))
     ? true
     : false;
   setProducts(
-    products.filter((item) => item.name.includes(text) && !searchFields)
+    options.filter((item) => item.name.includes(text) && !searchFields)
   );
 };

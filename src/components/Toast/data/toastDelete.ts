@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { Data } from "@/models";
+import { ApiUrl, Data } from "@/models";
 
 const toastDelete = async ({
   ids,
@@ -12,12 +12,12 @@ const toastDelete = async ({
   pathname,
   replace,
 }: {
-  apiUrl: "/buys" | "/products" | "/clients";
   ids: number[];
   data: Data;
   replace: (href: string, options?: NavigateOptions) => void;
   pathname: string;
   searchParams: ReadonlyURLSearchParams;
+  apiUrl: ApiUrl
 }) => {
   try {
     await toast.promise(axios.post(`/api/${apiUrl}/delete-batch`, ids), {

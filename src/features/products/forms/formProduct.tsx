@@ -20,17 +20,20 @@ export default function FormProduct({
     register,
     handleSubmit,
     setValue,
+    getValues,
     reset,
     watch,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<FormProduct>();
 
   // Variables de estado
   const { disabled, id, loading, product, router, setDisabled } = HooksForm({
     dollar,
     reset,
+    isDirty,
     setValue,
     watch,
+    getValues,
   });
 
   // Obtener el producto mediante el id de la pagina
@@ -41,9 +44,9 @@ export default function FormProduct({
         <SkeletonFormProduct />
       ) : (
         <form
-          className="flex flex-col gap-4 max-w-[450px] mt-12 !px-5 container-table"
+          className="flex flex-col gap-4 max-w-[800px] mt-12 !px-5 container-table"
           onSubmit={handleSubmit((body) =>
-            onSubmit({ body, data: product, id, reset, router, setDisabled })
+            onSubmit({ body, id, router, setDisabled })
           )}
         >
           <h4 className="font-open_sans text-gray-800 font-semibold text-2xl">
@@ -55,9 +58,9 @@ export default function FormProduct({
           <button
             type="submit"
             disabled={disabled}
-            className="btn-primary mt-3 !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
+            className="btn-primary ms-auto mt-3 !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
           >
-            {product ? "Guardar cambios" : "Agregar"}
+            {product ? "Guardar cambios" : `Agregar`}
           </button>
         </form>
       )}

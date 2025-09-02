@@ -4,5 +4,5 @@ export interface Payment {
   payment_amount: number;
   operation?: number | undefined;
   sales_id: number;
-  create_at: string;
+  created_at: string;
 }

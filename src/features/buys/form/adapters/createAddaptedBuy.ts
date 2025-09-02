@@ -12,6 +12,12 @@ export const createAddaptedBuy = (body: FormBuy) => {
       price: Number(price),
       stock: Number(item.stock),
       selling_price: Number(item.sellingPrice),
+      unit:
+        item.buyType == "kg"
+          ? "kg"
+          : item.buyType == "package"
+          ? "package"
+          : "unit",
     });
   });
   return newBody;

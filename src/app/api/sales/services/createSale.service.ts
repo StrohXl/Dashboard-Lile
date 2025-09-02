@@ -10,18 +10,29 @@ import { calculateTotalPrice } from "@/utils";
 import { getDebt } from "../utilities/getDebt.utility";
 import { createListProduct } from "../../list-products/adapters";
 import prisma from "@/libs/prisma";
+import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 
 export async function createSale(body: CreateSale) {
   const validatorBody = saleBodyValidator(body);
   if (validatorBody instanceof ZodError) {
-    return NextResponse.json("Hubo un error en la solicitud", { status: 400 });
+    return NextResponse.json("Hubo un error en el cuerpo de la solicitud", {
+      status: 400,
+    });
   }
   try {
+    const totalChanges = calculateTotalChanges(body.change_manager);
     const totalPayments = calculateTotalPayments(body.payments);
     const totalPrice = calculateTotalPrice(body.list_products);
     const status = getSaleStatus({ totalPayments, totalPrice });
     const debt = getDebt({ totalPayments, totalPrice });
     const listProducts = createListProduct(body.list_products);
+
+    if (
+      (totalChanges > 0 && totalPayments - totalChanges != totalPrice) ||
+      (totalPayments > totalPrice && totalChanges == 0)
+    ) {
+      return NextResponse.json("Error en el cambio entregado", { status: 400 });
+    }
 
     const sale = await prisma.sales.create({
       data: {
@@ -34,21 +45,23 @@ export async function createSale(body: CreateSale) {
         payments: {
           create: body.payments,
         },
-        client: body.new_client
-          ? {
-              create: {
-                name: body.new_client.name ?? "",
-                last_name: body.new_client.last_name ?? "",
+        client:
+          body.client.id !== 0
+            ? {
+                create: {
+                  name: body.client.name ?? "",
+                  last_name: body.client.last_name ?? "",
+                },
+              }
+            : {
+                connect: { id: body.client.id },
               },
-            }
-          : {
-              connect: { id: body.id_client },
-            },
         products: {
           connect: body.list_products.map((item) => ({ id: item.id })),
         },
       },
     });
+
     await updateStockProducts({
       action: "decrement",
       products: body.list_products,

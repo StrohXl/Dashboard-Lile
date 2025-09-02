@@ -16,8 +16,8 @@ export default function CreateBuy() {
   const pyDollar = getPyDollar();
   return (
     <>
-      <div className="flex mb-6 items-center gap-12">
-        <h2 className="text-4xl font-semibold  text-gray-700 font-open_sans">
+      <div className="flex mb-10 items-center gap-12">
+        <h2 className="text-5xl font-semibold  text-gray-800 font-open_sans">
           Agregar compra
         </h2>
         <Link

@@ -1,4 +1,5 @@
 "use server";
+import { ApiUrl } from "@/models";
 import UrlParams from "@/models/url-params.model";
 import axios from "axios";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
@@ -8,7 +9,7 @@ const getData = async ({
   url,
   params,
 }: {
-  url: "/buys" | "/products" | "/clients";
+  url: ApiUrl;
   params?: UrlParams;
 }) => {
   // Obtener el token
@@ -29,7 +30,6 @@ const getData = async ({
     siteUrl = `${protocol}://${host}`;
   }
   try {
-    console.log(`${siteUrl}/api${url}`)
     const { data } = await axios.get(`${siteUrl}/api${url}`, {
       params,
       headers: {

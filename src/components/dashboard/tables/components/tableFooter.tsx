@@ -1,13 +1,13 @@
 import DeleteSelects from "./deleteSelects";
 import Pagination from "./pagination";
-import { ResponseData } from "@/models";
+import { ApiUrl, ResponseData } from "@/models";
 
 export default function TableFooter({
   data,
   apiUrl,
 }: {
   data: ResponseData;
-  apiUrl: "/buys" | "/clients" | "/products";
+  apiUrl: ApiUrl
 }) {
   return (
     <div className="mt-6 min-h-[43px] ms-auto grid grid-cols-3 items-center justify-between pe-5">

@@ -9,7 +9,7 @@ export const getClients = async ({
   page: number;
   name: string;
 }) => {
-  const { elementsPerPage, pages } = await getPages("clients");
+  const { elementsPerPage, pages } = await getPages("/clients");
   const clients = await prisma.clients.findMany({
     skip: (page - 1) * elementsPerPage,
     take: elementsPerPage,

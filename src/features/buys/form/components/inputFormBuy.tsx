@@ -35,7 +35,7 @@ export default function InputFormBuy({
         )}
         <input
           disabled={disabled}
-          className="w-full bg-transparent autofill:bg-transparent outline-none"
+          className={`w-full bg-transparent autofill:bg-transparent outline-none ${disabled && 'disabled:cursor-not-allowed'}`}
           autoComplete="off"
           type={type}
           step={step}

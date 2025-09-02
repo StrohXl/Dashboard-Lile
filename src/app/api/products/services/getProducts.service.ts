@@ -11,7 +11,7 @@ export async function getProducts({
   page: number;
   all: string;
 }) {
-  const { elementsPerPage, pages } = await getPages("products");
+  const { elementsPerPage, pages } = await getPages("/products");
   try {
     const products = await prisma.products.findMany({
       orderBy: { id: "desc" },

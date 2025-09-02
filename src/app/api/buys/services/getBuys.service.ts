@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getPages } from "@/utils/getPages.utility";
 
 export async function getBuys({ page }: { page: number }) {
-  const { elementsPerPage, pages } = await getPages("buys");
+  const { elementsPerPage, pages } = await getPages("/buys");
   try {
     const buys = await prisma.buys.findMany({
       include: {

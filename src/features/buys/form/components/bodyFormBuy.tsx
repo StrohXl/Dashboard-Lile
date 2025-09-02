@@ -34,6 +34,7 @@ export default function BodyFormBuy({
   pyDollar: number;
 }) {
   const selectOptions = [
+    { title: "20%", value: 0.2 },
     { title: "25%", value: 0.25 },
     { title: "30%", value: 0.3 },
     { title: "35%", value: 0.35 },
@@ -90,9 +91,11 @@ export default function BodyFormBuy({
             />
             <SelectFormBuy
               pyDollar={pyDollar}
+              disabled={item.type !== "create"}
               selectOptions={[
-                { title: "Individual", value: "individual" },
-                { title: "Paquete", value: "group" },
+                { title: "Unidad", value: "unit" },
+                { title: "Paquete", value: "package" },
+                { title: "Kg", value: "kg" },
               ]}
               index={index}
               getValues={getValues}
@@ -140,7 +143,8 @@ export default function BodyFormBuy({
               label="Cantidad"
               nameField={`products.${index}.stock`}
               type="number"
-              iconEnd={<HiArchiveBox />}
+              iconEnd={<HiArchiveBox />
+              }
               options={{
                 required: {
                   value: true,
