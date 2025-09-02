@@ -1,4 +1,4 @@
-import SearchData from "@/components/searchData/searchData";
+import SearchData from "@/components/searchData/inputSearch";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import TableProducts from "@/features/products/table/tableProducts";
 import UrlParams from "@/models/url-params.model";
@@ -27,7 +27,10 @@ export default async function Products({
           Lista de Productos
         </h4>
         <div className="flex items-center gap-6">
-          <SearchData placeholderInput="Buscar Productos..." />
+          <SearchData
+            inputSearchType="name"
+            placeholderInput="Buscar Productos..."
+          />
           <Link className="btn-primary" href="/dashboard/products/create">
             Agregar
             <HiArchiveBoxArrowDown size={20} />

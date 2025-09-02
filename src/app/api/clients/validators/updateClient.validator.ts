@@ -3,6 +3,7 @@ import { z } from "zod";
 const UpdateClientSchema = z.object({
   name: z.string().min(3),
   last_name: z.string().min(3),
+  ci: z.number().positive(),
 });
 
 export type UpdateClient = z.infer<typeof UpdateClientSchema>;

@@ -22,6 +22,8 @@ export async function onSubmitClientById({
   setDisabled: (value: boolean) => void;
 }) {
   setDisabled(true);
+  body.ci = Number(body.ci);
+
   try {
     await toast.promise(axios.put(`/api/clients/${id}`, body), {
       pending: "Guardando...",

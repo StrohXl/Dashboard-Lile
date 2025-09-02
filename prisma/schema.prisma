@@ -53,7 +53,7 @@ model Buys {
   total_price   Decimal        @default(0)
   createdAT     DateTime       @default(now())
   updatedAT     DateTime       @updatedAt
-  User          User?          @relation(fields: [userId], references: [id],onDelete: Restrict)
+  User          User?          @relation(fields: [userId], references: [id], onDelete: Restrict)
   userId        Int?
 }
 
@@ -75,6 +75,7 @@ model Clients {
   id         Int      @id @default(autoincrement())
   name       String
   last_name  String
+  ci         Int      @default(0)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   sales      Sales[]
@@ -90,7 +91,7 @@ model Sales {
   debt           Decimal         @default(0)
   status         String
   id_client      Int
-  client         Clients         @relation(fields: [id_client], references: [id],onDelete: Restrict)
+  client         Clients         @relation(fields: [id_client], references: [id], onDelete: Restrict)
   created_at     DateTime        @default(now())
   updated_at     DateTime        @updatedAt
 }
@@ -111,7 +112,7 @@ model ChangeManager {
   change_amount Decimal
   operation     Int      @default(0)
   sale_id       Int
-  sale         Sales?   @relation(fields: [sale_id], references: [id])
+  sale          Sales?   @relation(fields: [sale_id], references: [id])
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
 }

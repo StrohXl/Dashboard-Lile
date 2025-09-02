@@ -15,6 +15,7 @@ export default function TableBodyClients({
           <CellSelect item={item} />
           <Cell>{item.name}</Cell>
           <Cell>{item.last_name}</Cell>
+          <Cell>{item.ci}</Cell>
           <Cell>
             <ContainerActions
               apiUrl="/clients"

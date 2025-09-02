@@ -1,5 +1,5 @@
 import { FaUserPlus } from "react-icons/fa6";
-import SearchData from "@/components/searchData/searchData";
+import SearchData from "@/components/searchData/inputSearch";
 import { HookDataContext } from "@/hooks/useContextData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import TableClients from "@/features/clients/table/tableClients";
@@ -14,7 +14,7 @@ export default async function Clients({
   searchParams: Promise<UrlParams>;
 }) {
   const params = await searchParams;
-  const { deleteId, name, page } = params;
+  const { deleteId, ci, page } = params;
   const clients = getData({ url: "/clients", params });
 
   return (
@@ -24,14 +24,14 @@ export default async function Clients({
           Lista de clientes
         </h4>
         <div className="flex items-center gap-6">
-          <SearchData placeholderInput="Buscar Cliente..." />
+          <SearchData inputSearchType="ci" placeholderInput="Buscar Cliente..." />
           <Link className="btn-primary" href="/dashboard/clients/create">
             Agregar
             <FaUserPlus size={20} />
           </Link>
         </div>
       </div>
-      <Suspense key={name?? '' + page + deleteId} fallback={<SkeletonTable />}>
+      <Suspense key={ci?? '' + page + deleteId} fallback={<SkeletonTable />}>
         <HookDataContext>
           <TableClients data={clients} />
         </HookDataContext>

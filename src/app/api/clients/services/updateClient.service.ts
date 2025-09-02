@@ -18,6 +18,8 @@ export async function updateClient({
       status: 400,
     });
   }
+  body.name = body.name.toLocaleLowerCase();
+  body.last_name = body.last_name.toLocaleLowerCase();
   try {
     const client = await prisma.clients.update({
       data: body,

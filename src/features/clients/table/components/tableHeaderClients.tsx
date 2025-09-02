@@ -12,6 +12,7 @@ export default function TableHeaderClients() {
         <HeaderCellSelect />
         <HeaderCell>Nombre</HeaderCell>
         <HeaderCell>Apellido</HeaderCell>
+        <HeaderCell>C.I</HeaderCell>
         <HeaderCell><div className="text-center" >Acciones</div></HeaderCell>
       </HeaderRow>
     </Header>

@@ -5,18 +5,22 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { onSubmitSearch } from "./service/on-submi-search.service";
 import { resetInputSearch } from "./utilities/reset-input-search.utility";
+import { InputSearchType } from "./models/inputSearch.model";
+import { FormSearch } from "./models/formSearch.model";
 
-export default function SearchData({
+export default function InputSearch({
   placeholderInput,
+  inputSearchType,
 }: {
   placeholderInput: string;
+  inputSearchType: InputSearchType;
 }) {
   const [inputName, setInputName] = useState<string>("");
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
-  const { register, reset } = useForm<{ name: string }>();
-  const name = searchParams.get("name");
+  const { register, reset } = useForm<FormSearch>();
+  const search = searchParams.get("search");
 
   return (
     <form
@@ -26,16 +30,17 @@ export default function SearchData({
         <IoSearchOutline size={20} />
       </div>
       <input
-        {...register("name")}
+        {...register("search")}
         type="text"
         className="outline-none py-2 "
-        defaultValue={name || ""}
+        defaultValue={search || ""}
         placeholder={placeholderInput}
         onChange={({ target }) =>
           onSubmitSearch({
             search: target.value.toLocaleLowerCase(),
             pathname,
             replace,
+            inputSearchType,
             searchParams,
             setInputName,
           })
@@ -50,6 +55,7 @@ export default function SearchData({
               reset,
               searchParams,
               setInputName,
+              inputSearchType,
             })
           }
           className="cursor-pointer transition-colors focus:group- duration-300 hover:text-primary "

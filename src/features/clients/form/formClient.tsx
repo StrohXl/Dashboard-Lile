@@ -19,7 +19,7 @@ export default function FormClient() {
   const { disabled, setDisabled, router, id, loading } = FormClientHooks({
     reset,
     isDirty,
-    getValues
+    getValues,
   });
 
   return (
@@ -38,7 +38,7 @@ export default function FormClient() {
           <h4 className="font-open_sans text-gray-800 font-semibold text-2xl">
             Cliente
           </h4>
-          <div className="grid sm:grid-cols-2 mt-6 mb-10 gap-4">
+          <div className="grid sm:grid-cols-3 mt-6 mb-10 gap-4">
             <InputForm
               error={errors.name}
               label="Nombre"
@@ -71,6 +71,25 @@ export default function FormClient() {
                 minLength: {
                   message: "Minimo 3 caracteres",
                   value: 3,
+                },
+                onChange: () => id && setDisabled(false),
+              }}
+            />
+            <InputForm
+              error={errors.ci}
+              label="C.I"
+              nameField="ci"
+              placeholder="20453535"
+              register={register}
+              type="number"
+              options={{
+                required: {
+                  message: "Este campo es requerido",
+                  value: true,
+                },
+                minLength: {
+                  message: "Minimo 7 caracteres",
+                  value: 7,
                 },
                 onChange: () => id && setDisabled(false),
               }}

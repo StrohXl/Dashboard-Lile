@@ -1,9 +1,10 @@
-import { string, z } from "zod";
+import { z } from "zod";
 
 const ClientSchema = z.object({
-  name: string().nonempty().min(3),
-  last_name: string().nonempty().min(3),
-});
+  name: z.string().nonempty().min(3),
+  last_name: z.string().nonempty().min(3),
+  ci: z.number().positive(),
+}).strict();
 
 export type ZodClientSchema = z.infer<typeof ClientSchema>;
 

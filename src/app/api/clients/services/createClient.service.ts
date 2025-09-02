@@ -14,6 +14,8 @@ export const createClient = async ({ body }: { body: ZodClientSchema }) => {
       status: 400,
     });
   }
+  body.name = body.name.toLocaleLowerCase();
+  body.last_name = body.last_name.toLocaleLowerCase();
   try {
     const sale = await prisma.clients.create({
       data: body,
