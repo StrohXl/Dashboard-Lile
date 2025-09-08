@@ -21,7 +21,7 @@ export default async function Products({
   const pyDollar = getPyDollar();
 
   return (
-    <section className="container-table max-w-[800px] overflow-hidden relative">
+    <section className="container-table max-w-[1200px] overflow-hidden relative">
       <div className="flex justify-between items-centerF mb-6 ">
         <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
           Lista de Productos

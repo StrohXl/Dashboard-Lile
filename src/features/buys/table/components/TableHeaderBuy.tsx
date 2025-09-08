@@ -9,12 +9,10 @@ export default function TableHeaderBuy() {
     <Header>
       <HeaderRow>
         <HeaderCellSelect />
-        <HeaderCell></HeaderCell>
         <HeaderCell>Fecha de Compra</HeaderCell>
         <HeaderCell>Productos</HeaderCell>
-        <HeaderCell>Precio Total en $</HeaderCell>
-        <HeaderCell>Precio Total en Bs</HeaderCell>
-        <HeaderCell pinRight>Acciones</HeaderCell>
+        <HeaderCell><div className="text-center" >Precio</div></HeaderCell>
+        <HeaderCell pinRight><div className="text-center" >Acciones</div></HeaderCell>
       </HeaderRow>
     </Header>
   );

@@ -13,7 +13,7 @@ type NameFields =
   | `payments.${number}.payment_method`
   | "change_manager"
   | `change_manager.${number}`
-  | `change_manager.${number}.payment_method`;
+  | `change_manager.${number}.change_method`;
 
 export interface SelectFormSale {
   error: FieldError | undefined;

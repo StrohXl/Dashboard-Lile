@@ -1,96 +1,190 @@
 "use client";
-import { useForm } from "react-hook-form";
+import {
+  Control,
+  FieldErrors,
+  useForm,
+  UseFormGetValues,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormReset,
+  UseFormSetValue,
+  UseFormTrigger,
+  UseFormWatch,
+} from "react-hook-form";
+
 import { use } from "react";
 import { onSubmitSale } from "./services/onSubmitSale";
-import { ResponseData } from "@/models";
-import { Product } from "@/app/api/products/models";
 import SaleHookContext, { useContextSale } from "./hooks/saleHookContext";
 import FormHeaderSale from "./components/formHeaderSale";
-import ListProduct from "./components/listProduct/listProduct";
-import ListPayments from "./components/listPayments/listPayments";
+import FormBodySale from "./components/formBodySale";
 import type { FormSale } from "./models";
-import { ChangeManager } from "./components/changeManager/changeManager";
+import { nextForm } from "./utilities";
+import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
+import { onSubmitSaleById } from "./services/onSubmitSaleById";
 
 export default function FormSale({
-  data,
   pyDollar,
 }: {
-  data: Promise<ResponseData<Product>>;
   pyDollar: Promise<number | undefined>;
 }) {
-  const products = use(data);
   const dollar = use(pyDollar) ?? 1;
 
-  return (
-    <SaleHookContext pyDollar={dollar} dataProducts={products.data}>
-      <SaleForm />
-    </SaleHookContext>
-  );
-}
-
-const SaleForm = () => {
   const {
     handleSubmit,
     control,
     register,
     getValues,
     watch,
+    setValue,
     reset,
-    formState: { errors },
+    trigger,
+    formState: { errors, isDirty },
   } = useForm<FormSale>({
     defaultValues: {
       payments: [
-        { operation: 0, payment_amount: 0, payment_method: "efectivo Bs" },
+        { operation: 0, payment_amount: 0, payment_method: "transferencia" },
       ],
     },
+    mode: "onChange",
   });
-  const { disabled, setDisabled, formSteps, setFormSteps } = useContextSale();
+
   return (
-    <form
-      className="grid container-table  max-w-[800px]"
-      onSubmit={handleSubmit((body) =>
-        onSubmitSale({ body, reset, setDisabled })
-      )}
-    >
-      <FormHeaderSale />
-      
-      <div className="flex flex-col gap-4 w-full mt-6 pb-6 border-b-1 border-gray-400 ">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <h4 className="font-roboto text-gray-800 font-semibold text-lg">
-            Cliente
-          </h4>
-          <button className="btn-outlined-primary">Agregar Cliente</button>
-        </div>
-      </div>
-
-      <ListPayments
-        errors={errors}
-        getValues={getValues}
-        register={register}
-        watch={watch}
-        control={control}
-      />
-
-      <ChangeManager
+    <SaleHookContext reset={reset} pyDollar={dollar}>
+      <SaleForm
+        isDirty={isDirty}
         errors={errors}
         control={control}
-        register={register}
-        watch={watch}
+        setValue={setValue}
         getValues={getValues}
-      />
-
-      <ListProduct
-        watch={watch}
-        getValues={getValues}
+        handleSubmit={handleSubmit}
         register={register}
-        control={control}
+        reset={reset}
+        trigger={trigger}
+        watch={watch}
       />
-
-      <div className="flex justify-end mt-6">
-        <button disabled={disabled} className="btn-primary">
-          Crear Venta
-        </button>
-      </div>
-    </form>
+    </SaleHookContext>
   );
+}
+
+const SaleForm = ({
+  control,
+  getValues,
+  handleSubmit,
+  register,
+  reset,
+  setValue,
+  trigger,
+  watch,
+  isDirty,
+  errors,
+}: {
+  handleSubmit: UseFormHandleSubmit<FormSale>;
+  control: Control<FormSale>;
+  isDirty: boolean;
+  register: UseFormRegister<FormSale>;
+  getValues: UseFormGetValues<FormSale>;
+  watch: UseFormWatch<FormSale>;
+  reset: UseFormReset<FormSale>;
+  trigger: UseFormTrigger<FormSale>;
+  setValue: UseFormSetValue<FormSale>;
+  errors: FieldErrors<FormSale>;
+}) => {
+  const {
+    disabled,
+    setDisabled,
+    formSteps,
+    setFormSteps,
+    totalChanges,
+    totalPayments,
+    dollar,
+    totalPrice,
+    loadingSale,
+    setTotalChanges,
+    setTotalPrice,
+    setTotalPayments,
+    id,
+    reload,
+    setReload,
+  } = useContextSale();
+
+
+  if (loadingSale) {
+    return <SkeletonFormProduct />;
+  } else {
+    return (
+      <form
+        className="grid container-table  max-w-[1200px]"
+        onSubmit={handleSubmit((body) => {
+          if (id) {
+            onSubmitSaleById({
+              body,
+              id,
+              setDisabled,
+              setFormSteps,
+              reload,
+              setReload,
+            });
+          } else {
+            onSubmitSale({
+              body,
+              reset,
+              setDisabled,
+              setFormSteps,
+              setTotalChanges,
+              setTotalPayments,
+              setTotalPrice,
+            });
+          }
+        })}
+      >
+        <FormHeaderSale />
+        <FormBodySale
+          control={control}
+          errors={errors}
+          getValues={getValues}
+          register={register}
+          reset={reset}
+          watch={watch}
+        />
+
+        <div className="flex justify-between mt-6">
+          {formSteps !== 0 && (
+            <button
+              type="button"
+              onClick={() => setFormSteps(formSteps - 1)}
+              className="btn-outlined-primary"
+            >
+              Regresar
+            </button>
+          )}
+          <button
+            disabled={disabled || (formSteps == 3 && !isDirty)}
+            type={formSteps !== 3 ? "button" : "submit"}
+            className={`btn-primary ms-auto disabled:opacity-50 disabled:cursor-not-allowed`}
+            onClick={() =>
+              nextForm({
+                formSteps,
+                getValues,
+                setFormSteps,
+                trigger,
+                setValue,
+                dollar,
+                totalChanges,
+                totalPayments,
+                totalPrice,
+                id,
+                setTotalPayments,
+              })
+            }
+          >
+            {formSteps !== 3
+              ? "Siguiente"
+              : id
+              ? "Actualizar Venta"
+              : "Crear Venta"}
+          </button>
+        </div>
+      </form>
+    );
+  }
 };

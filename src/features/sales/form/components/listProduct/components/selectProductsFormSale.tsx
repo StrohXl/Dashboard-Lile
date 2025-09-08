@@ -1,6 +1,5 @@
 import { FieldArrayWithId } from "react-hook-form";
-import { FaChevronDown } from "react-icons/fa";
-import { addProduct, openSelect, searchProduct } from "../../../utilities";
+import { addProduct, searchProduct } from "../../../utilities";
 import { Sale } from "@/app/api/sales/models";
 import { useContextSale } from "../../../hooks/saleHookContext";
 
@@ -11,8 +10,17 @@ export default function SelectProductsFormSale({
   fields: FieldArrayWithId<Sale, "list_products">[];
   changeSelect: (value: number) => void;
 }) {
-  const { open, products, search, setOpen, setSearch, setOptions, options } =
-    useContextSale();
+  const {
+    open,
+    search,
+    setOpen,
+    setSearch,
+    setOptions,
+    options,
+    setProducts,
+    loading,
+    setLoading,
+  } = useContextSale();
 
   return (
     <div className="relative">
@@ -26,42 +34,14 @@ export default function SelectProductsFormSale({
             searchProduct({
               text: item.target.value,
               fields,
+              setLoading,
               setOpen,
+              setProducts,
               setSearch,
-              setOptions,
-              products,
-            })
-          }
-          onClick={() =>
-            openSelect({
-              fields,
-              open,
-              products,
-              setOpen,
               setOptions,
             })
           }
         />
-        <button
-          onClick={() =>
-            openSelect({
-              fields,
-              open,
-              setOpen,
-              products,
-              setOptions,
-            })
-          }
-          className="cursor-pointer"
-          type="button"
-        >
-          <FaChevronDown
-            className={`transition-transform duration-300  ${
-              open && "rotate-x-180"
-            }`}
-            size={14}
-          />
-        </button>
       </div>
       <ul
         style={{
@@ -72,7 +52,9 @@ export default function SelectProductsFormSale({
           !open && "hidden"
         }`}
       >
-        {options.length == 0 ? (
+        {loading ? (
+          <li className="px-4 font-roboto">Buscando....</li>
+        ) : options.length == 0 ? (
           <li className="!px-4 font-roboto">No se encontraron productos</li>
         ) : (
           options.map((item) => (

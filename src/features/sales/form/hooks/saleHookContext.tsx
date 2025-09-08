@@ -1,44 +1,36 @@
 "use client";
 import { Product } from "@/app/api/products/models";
-import { createContext, ReactNode, useContext, useState } from "react";
-
-type SaleSchemaHook = {
-  search: string;
-  setSearch: (value: string) => void;
-  products: Product[];
-  setProducts: (value: Product[]) => void;
-  open: boolean;
-  setOpen: (value: boolean) => void;
-  disabled: boolean;
-  setDisabled: (value: boolean) => void;
-  dollar: number;
-  setDollar: (value: number) => void;
-  totalPrice: number;
-  setTotalPrice: (value: number) => void;
-  totalPayments: number;
-  setTotalPayments: (value: number) => void;
-  totalChanges: number;
-  setTotalChanges: (value: number) => void;
-  options: Product[];
-  setOptions: (value: Product[]) => void;
-  formSteps: number;
-  setFormSteps: (value: number) => void;
-};
+import { useParams } from "next/navigation";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { UseFormReset } from "react-hook-form";
+import { FormSale, SaleSchemaHook } from "../models";
+import { getSale } from "../services/getSale";
 
 const UseSaleContext = createContext<SaleSchemaHook | undefined>(undefined);
 
 export default function SaleHookContext({
   children,
-  dataProducts,
   pyDollar,
+  reset,
 }: {
   pyDollar: number;
   children: ReactNode;
-  dataProducts: Product[];
+  reset: UseFormReset<FormSale>;
 }) {
+  // Hooks FormSale ID
+  const { id } = useParams();
+  const [loadingSale, setLoadingSale] = useState<boolean>(true);
+
+  // Hooks FormSale
   const [search, setSearch] = useState<string>("");
-  const [products, setProducts] = useState<Product[]>(dataProducts);
-  const [options, setOptions] = useState<Product[]>(dataProducts);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [options, setOptions] = useState<Product[]>([]);
   const [dollar, setDollar] = useState<number>(pyDollar);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalChanges, setTotalChanges] = useState<number>(0);
@@ -46,6 +38,24 @@ export default function SaleHookContext({
   const [disabled, setDisabled] = useState<boolean>(false);
   const [formSteps, setFormSteps] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [reload, setReload] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (id) {
+      getSale({
+        id,
+        dollar,
+        reset,
+        setLoadingSale,
+        setTotalPayments,
+        setTotalPrice,
+        setTotalChanges,
+      });
+    } else {
+      setLoadingSale(false);
+    }
+  }, [reload]);
 
   return (
     <UseSaleContext.Provider
@@ -70,6 +80,13 @@ export default function SaleHookContext({
         setTotalChanges,
         formSteps,
         setFormSteps,
+        loading,
+        setLoading,
+        id,
+        loadingSale,
+        setLoadingSale,
+        reload,
+        setReload,
       }}
     >
       {children}

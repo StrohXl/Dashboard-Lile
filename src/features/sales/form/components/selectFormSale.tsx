@@ -20,7 +20,7 @@ export function SelectSaleForm({
       <div
         className={`border-1
                ${error ? "!border-red-500" : "border-gray-700"}
-              focus-within:border-primary flex items-center px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
+              focus-within:border-primary flex items-center px-3 py-[10px] gap-2 text-foreground   w-full rounded-sm `}
       >
         <select
           className="w-full bg-transparent autofill:bg-transparent outline-none"

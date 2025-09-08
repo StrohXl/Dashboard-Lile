@@ -11,6 +11,7 @@ export async function getSaleById(id: number) {
         list_products: true,
         client: true,
         payments: true,
+        change_manager: true,
       },
     });
     if (!sale) {

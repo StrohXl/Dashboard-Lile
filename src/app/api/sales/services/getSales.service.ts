@@ -14,6 +14,9 @@ export async function getSales({ page, all }: { page: number; all: string }) {
       },
       skip: page == 0 ? page : (page - 1) * elementsPerPage,
       take: all == "false" ? elementsPerPage : undefined,
+      orderBy:{
+        id: 'desc'
+      }
     });
     return NextResponse.json({ data: sales, pages });
   } catch (error) {

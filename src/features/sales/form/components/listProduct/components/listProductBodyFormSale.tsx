@@ -2,6 +2,7 @@ import { IoClose } from "react-icons/io5";
 import NotHaveProducts from "./notHaveProducts";
 import {
   FieldArrayWithId,
+  FieldErrors,
   UseFieldArrayRemove,
   UseFormGetValues,
   UseFormRegister,
@@ -18,7 +19,9 @@ export default function ListProductBodyFormSale({
   remove,
   getValues,
   watch,
+  errors,
 }: {
+  errors: FieldErrors<FormSale>;
   fields: FieldArrayWithId<FormSale, "list_products">[];
   register: UseFormRegister<FormSale>;
   remove: UseFieldArrayRemove;
@@ -77,6 +80,11 @@ export default function ListProductBodyFormSale({
                 },
                 onChange: () => changeStock({ getValues, setTotalPrice }),
               })}
+              className={`outline-none ${
+                errors.list_products &&
+                errors.list_products[index]?.stock &&
+                "!border-1 !border-red-500"
+              }`}
             />
             <div className="grid grid-cols-[45%_55%]">
               <h6 className="font-roboto text-gray-700 font-semibold">
@@ -95,6 +103,7 @@ export default function ListProductBodyFormSale({
               </h6>
             </div>
             <button
+              type="button"
               className="transition-colors cursor-pointer duration-300 hover:!text-red-500 p-[2px] text-gray-500"
               onClick={() =>
                 removeProduct({ id: item.id, fields, remove, setTotalPrice })

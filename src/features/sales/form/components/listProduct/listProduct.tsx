@@ -2,6 +2,7 @@ import ListProductBodyFormSale from "./components/listProductBodyFormSale";
 import ListProductHeadFormSale from "./components/listProductHeadFormSale";
 import {
   Control,
+  FieldErrors,
   useFieldArray,
   UseFormGetValues,
   UseFormRegister,
@@ -14,11 +15,13 @@ export default function ListProduct({
   getValues,
   watch,
   control,
+  errors,
 }: {
   control: Control<FormSale>;
-  register: UseFormRegister<FormSale>;
   getValues: UseFormGetValues<FormSale>;
+  register: UseFormRegister<FormSale>;
   watch: UseFormWatch<FormSale>;
+  errors: FieldErrors<FormSale>;
 }) {
   const { fields, prepend, remove } = useFieldArray({
     name: "list_products",
@@ -29,9 +32,10 @@ export default function ListProduct({
   });
 
   return (
-    <div className="flex flex-col gap-4 w-full mt-6 pb-6 border-b-1 border-gray-400 ">
+    <div className="flex flex-col gap-4 w-full mt-6 pb-6">
       <ListProductHeadFormSale fields={fields} prepend={prepend} />
       <ListProductBodyFormSale
+        errors={errors}
         watch={watch}
         fields={fields}
         register={register}

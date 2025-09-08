@@ -44,23 +44,25 @@ export default function TableSales({
   if (sales.data.length !== 0) {
     return (
       <>
-        <Table
-          layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
-          data={nodes}
-          select={select}
-          theme={theme}
-        >
-          {(tableList: Sale[]) => (
-            <>
-              <TableHeaderSales />
-              <TableBodySales
-                data={sales.data}
-                pyDollar={dollar}
-                tableList={tableList}
-              />
-            </>
-          )}
-        </Table>
+        <div className="h-[420px] container-table-scroll">
+          <Table
+            layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
+            data={nodes}
+            select={select}
+            theme={theme}
+          >
+            {(tableList: Sale[]) => (
+              <>
+                <TableHeaderSales />
+                <TableBodySales
+                  data={sales.data}
+                  pyDollar={dollar}
+                  tableList={tableList}
+                />
+              </>
+            )}
+          </Table>
+        </div>
         <TableFooter apiUrl="/sales" data={sales} />
       </>
     );

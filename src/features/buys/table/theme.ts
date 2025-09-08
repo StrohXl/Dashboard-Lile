@@ -6,9 +6,9 @@ export function ThemeMaterialBuy() {
   const theme = useTheme([
     materialTheme,
     {
-      Table: `grid-template-columns: 50px 50px 180px 1fr 170px 170px 96px !important;`,
+      Table: `grid-template-columns: 50px 180px 1fr 1fr 120px !important;`,
       BaseCell: `
-      &:nth-of-type(7){
+      &:nth-of-type(5){
       right:0px;
       border-left:1px solid #f0f0f0;
       }

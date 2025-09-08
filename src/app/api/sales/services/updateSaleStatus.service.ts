@@ -2,9 +2,11 @@ import prisma from "@/libs/prisma";
 import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { getDebt } from "../utilities/getDebt.utility";
 import { paymentsAdapter } from "../../payments/adapters/payments.adapter";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 
 export async function updateSaleStatus(id: number) {
   try {
+    const dollar = (await getPyDollar()) ?? 0;
     await prisma.$transaction(async (tx) => {
       const sale = await tx.sales.findUnique({
         where: { id },
@@ -17,7 +19,7 @@ export async function updateSaleStatus(id: number) {
         throw new Error("Venta no encontrada");
       }
       const payments = paymentsAdapter(sale);
-      const totalPayments = calculateTotalPayments(payments);
+      const totalPayments = calculateTotalPayments({ dollar, payments });
       const totalPrice = Number(sale.total_price);
       const status = getSaleStatus({ totalPayments, totalPrice });
       const debt = getDebt({ totalPayments, totalPrice });

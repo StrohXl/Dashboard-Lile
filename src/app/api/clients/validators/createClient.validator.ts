@@ -6,9 +6,9 @@ const ClientSchema = z.object({
   ci: z.number().positive(),
 }).strict();
 
-export type ZodClientSchema = z.infer<typeof ClientSchema>;
+export type CreateClient = z.infer<typeof ClientSchema>;
 
-export default function createClientValidator(body: ZodClientSchema) {
+export default function createClientValidator(body: CreateClient) {
   try {
     const result = ClientSchema.parse(body);
     return result;

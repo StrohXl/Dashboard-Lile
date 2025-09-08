@@ -3,9 +3,15 @@ import { z, ZodError } from "zod";
 const BodySaleSchema = z
   .object({
     client: z.object({
-      id: z.number().positive(),
+      id: z.number().min(0),
       name: z.string().nonempty().min(3).toLowerCase(),
       last_name: z.string().nonempty().min(3).toLowerCase(),
+      ci: z
+        .number()
+        .refine((value) => {
+          return value.toString().length >= 7;
+        })
+        .positive(),
     }),
     list_products: z
       .array(
@@ -21,38 +27,28 @@ const BodySaleSchema = z
     payments: z
       .array(
         z.object({
+          id: z.number().optional(),
           payment_method: z.union([
             z.literal("efectivo Bs"),
             z.literal("divisa"),
             z.literal("transferencia"),
           ]),
           payment_amount: z.number().positive().min(0.1),
-          operation: z
-            .number()
-            .refine((value) => {
-              return value.toString().length > 3;
-            })
-            .positive()
-            .optional(),
+          operation: z.number().optional(),
         })
       )
       .optional(),
     change_manager: z
       .array(
         z.object({
-          payment_method: z.union([
+          id: z.number().optional(),
+          change_method: z.union([
             z.literal("efectivo Bs"),
             z.literal("divisa"),
             z.literal("transferencia"),
           ]),
-          payment_amount: z.number().positive().min(0.1),
-          operation: z
-            .number()
-            .refine((value) => {
-              return value.toString().length > 3;
-            })
-            .positive()
-            .optional(),
+          change_amount: z.number().positive().min(0.1),
+          operation: z.number().optional(),
         })
       )
       .optional(),

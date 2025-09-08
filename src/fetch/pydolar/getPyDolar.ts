@@ -31,6 +31,7 @@ const getDolarApi = async (): Promise<number | undefined> => {
   } catch (error) {
     console.log(error);
     throw new Error();
+    
   }
 };
 

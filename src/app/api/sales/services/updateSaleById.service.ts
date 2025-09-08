@@ -13,32 +13,57 @@ export async function updateSaleById({
   id: number;
 }) {
   const validBody = updateBodySaleValidator(body);
+
   if (validBody instanceof ZodError) {
+    console.error(validBody);
     return NextResponse.json("Error en el cuerpo de la solicitud", {
       status: 400,
     });
   }
-  const paymentsConnet = body.payments?.filter((item) => item.id);
+
+  //Payments
+  const paymentsConnet = body.payments.filter((item) => item.id != 0);
+  const paymentsCreate = body.payments.filter((item) => item.id == 0);
+
+  //Changes
+  const changesConnect =
+    body.change_manager?.filter((item) => item.id != 0) ?? [];
+  const changesCreate =
+    body.change_manager?.filter((item) => item.id == 0) ?? [];
+
   try {
     await prisma.sales.update({
       where: {
         id,
       },
       data: {
-        id_client: body.id_client,
         payments: {
-          create: body.payments?.filter((item) => !item.id),
-          connect: paymentsConnet?.map((item) => ({
-            id: item.id,
+          create: paymentsCreate.map((item) => ({
             payment_amount: item.payment_amount,
-            payment_method: item.payment_method,
             operation: item.operation,
+            payment_method: item.payment_method,
+          })),
+          connect:
+            paymentsConnet.length > 0
+              ? paymentsConnet.map((item) => ({
+                  id: item.id,
+                }))
+              : [],
+        },
+        change_manager: {
+          create: changesCreate.map((item) => ({
+            change_amount: item.change_amount,
+            change_method: item.change_method,
+            operation: item.operation,
+          })),
+          connect: changesConnect.map((item) => ({
+            id: item.id,
           })),
         },
       },
     });
-    const saleUpdate = await updateSaleStatus(id);
-    return NextResponse.json(saleUpdate);
+    await updateSaleStatus(id);
+    return NextResponse.json("Venta actualizada");
   } catch (error) {
     console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

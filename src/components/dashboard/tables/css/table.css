@@ -11,10 +11,15 @@ table {
   input {
     accent-color: var(--color-primary) !important; /* Fondo verde */
   }
+
 }
 table tbody {
   .row-select-single-selected,
   .row-select-selected {
     font-weight: initial  !important;
   }
+}
+
+.container-table table{
+  grid-template-rows: auto repeat(10, 1fr);
 }

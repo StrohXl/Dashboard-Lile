@@ -13,7 +13,7 @@ export default function FormProduct({
   pyDollar: Promise<number | undefined>;
 }) {
   // Resolver promesa de la api pyDollar
-  const dollar = use(pyDollar);
+  const dollar = use(pyDollar) ?? 0;
 
   //React-Hook-Form
   const {
@@ -22,7 +22,6 @@ export default function FormProduct({
     setValue,
     getValues,
     reset,
-    watch,
     formState: { errors, isDirty },
   } = useForm<FormProduct>();
 
@@ -31,8 +30,6 @@ export default function FormProduct({
     dollar,
     reset,
     isDirty,
-    setValue,
-    watch,
     getValues,
   });
 
@@ -44,16 +41,21 @@ export default function FormProduct({
         <SkeletonFormProduct />
       ) : (
         <form
-          className="flex flex-col gap-4 max-w-[800px] mt-12 !px-5 container-table"
+          className="flex flex-col gap-4 max-w-[600px] mt-12 !px-5 container-table"
           onSubmit={handleSubmit((body) =>
             onSubmit({ body, id, router, setDisabled })
           )}
         >
-          <h4 className="font-open_sans text-gray-800 font-semibold text-2xl">
+          <h4 className="font-open_sans mb-4 text-gray-800 font-semibold text-2xl">
             Producto
           </h4>
 
-          <BodyFormProduct errors={errors} register={register} />
+          <BodyFormProduct
+            dollar={dollar}
+            errors={errors}
+            setValue={setValue}
+            register={register}
+          />
 
           <button
             type="submit"

@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export const getClients = async ({
   page = undefined,
-  name = undefined,
+  name = "",
   all = "false",
   ci = undefined,
 }: UrlParams) => {
@@ -14,39 +14,32 @@ export const getClients = async ({
       include: {
         sales: true,
       },
+    });
+    return NextResponse.json({ data: clients, pages: 0 });
+  } else if (ci) {
+    const clients = await prisma.clients.findMany({
+      include: {
+        sales: true,
+      },
       where: {
-        name: name
-          ? {
-              contains: name,
-            }
-          : {},
-        ci: ci
-          ? {
-              equals: Number(ci),
-            }
-          : {},
+        ci: {
+          equals: Number(ci),
+        },
       },
     });
     return NextResponse.json({ data: clients, pages: 0 });
   }
   const { elementsPerPage, pages } = await getPages("/clients");
   const clients = await prisma.clients.findMany({
-    skip: Number(page) && (Number(page) - 1) * elementsPerPage,
+    skip: (Number(page) - 1) * elementsPerPage,
     take: elementsPerPage,
     include: {
       sales: true,
     },
     where: {
-      name: name
-        ? {
-            contains: name,
-          }
-        : {},
-      ci: ci
-        ? {
-            equals: Number(ci),
-          }
-        : {},
+      name: {
+        contains: name,
+      },
     },
   });
   return NextResponse.json({ data: clients, pages });

@@ -11,8 +11,7 @@ function TableHeaderProducts() {
       <HeaderRow>
         <HeaderCellSelect />
         <HeaderCell>Producto</HeaderCell>
-        <HeaderCell>Precio en $</HeaderCell>
-        <HeaderCell>Precio en Bs</HeaderCell>
+        <HeaderCell><div className="text-center" >Precio</div></HeaderCell>
         <HeaderCell>Existentes</HeaderCell>
         <HeaderCell>Fecha de Creacion</HeaderCell>
         <HeaderCell>Fecha de Actualizacion</HeaderCell>

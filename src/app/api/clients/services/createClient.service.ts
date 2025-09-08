@@ -3,10 +3,10 @@ import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import createClientValidator, {
-  ZodClientSchema,
+  CreateClient,
 } from "../validators/createClient.validator";
 
-export const createClient = async ({ body }: { body: ZodClientSchema }) => {
+export const createClient = async ({ body }: { body: CreateClient }) => {
   const zodClient = createClientValidator(body);
   if (zodClient instanceof ZodError) {
     console.log(zodClient);

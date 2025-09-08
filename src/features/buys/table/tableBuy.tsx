@@ -44,23 +44,25 @@ export default function TableBuys({
   if (buys.data.length !== 0) {
     return (
       <>
-        <Table
-          layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
-          data={nodes}
-          select={select}
-          theme={theme}
-        >
-          {(tableList: Buy[]) => (
-            <>
-              <TableHeaderBuy />
-              <TableBodyBuy
-                tableList={tableList}
-                pyDollar={dollar}
-                data={buys.data}
-              />
-            </>
-          )}
-        </Table>
+        <div className="h-[420px] container-table-scroll">
+          <Table
+            layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
+            data={nodes}
+            select={select}
+            theme={theme}
+          >
+            {(tableList: Buy[]) => (
+              <>
+                <TableHeaderBuy />
+                <TableBodyBuy
+                  tableList={tableList}
+                  pyDollar={dollar}
+                  data={buys.data}
+                />
+              </>
+            )}
+          </Table>
+        </div>
         <TableFooter apiUrl="/buys" data={buys} />
       </>
     );

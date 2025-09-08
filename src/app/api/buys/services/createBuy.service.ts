@@ -20,6 +20,7 @@ export async function createBuy(body: CreateBuy, id: number) {
   const { productsConnect, productsCreate } = createBodyBuy(body);
   const listProducts = createListProduct(body);
   const totalPrice = calculateTotalPrice(body);
+
   try {
     await prisma.buys.create({
       data: {
@@ -35,6 +36,7 @@ export async function createBuy(body: CreateBuy, id: number) {
       },
       include: { products: true },
     });
+    
     await updateProducts({ action: "increment", products: productsConnect });
 
     return NextResponse.json(

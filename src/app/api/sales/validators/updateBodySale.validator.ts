@@ -1,28 +1,35 @@
 import z from "zod";
 
-const UpdateSaleSchema = z.object({
-  id_client: z.number().positive().optional(),
-  payments: z
-    .array(
+const UpdateSaleSchema = z
+  .object({
+    payments: z.array(
       z.object({
-        id: z.number().positive().optional(),
+        id: z.number(),
         payment_method: z.union([
           z.literal("efectivo Bs"),
           z.literal("divisa"),
           z.literal("transferencia"),
         ]),
         payment_amount: z.number().positive().min(0.1),
-        operation: z
-          .number()
-          .refine((value) => {
-            return value.toString().length > 3;
-          })
-          .positive()
-          .optional(),
+        operation: z.number().optional(),
       })
-    )
-    .optional(),
-}).strict();
+    ),
+    change_manager: z
+      .array(
+        z.object({
+          id: z.number().optional(),
+          change_method: z.union([
+            z.literal("efectivo Bs"),
+            z.literal("divisa"),
+            z.literal("transferencia"),
+          ]),
+          change_amount: z.number().positive().min(0.1),
+          operation: z.number().optional(),
+        })
+      )
+      .optional(),
+  })
+  .strict();
 
 export type UpdateSale = z.infer<typeof UpdateSaleSchema>;
 

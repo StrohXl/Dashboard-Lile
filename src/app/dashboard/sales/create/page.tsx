@@ -1,18 +1,12 @@
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
 import FormSale from "@/features/sales/form/formSale";
-import getData from "@/fetch/data/getData";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 export default async function CreateSale() {
   const pyDollar = getPyDollar();
-  const products = getData({
-    url: "/products",
-    params: {
-      all: 'true',
-    },
-  });
+
   return (
     <>
       <div className="flex mb-10 items-center gap-12">
@@ -28,7 +22,7 @@ export default async function CreateSale() {
       </div>
       <section>
         <Suspense fallback={<SkeletonFormProduct />}>
-          <FormSale data={products} pyDollar={pyDollar} />
+          <FormSale pyDollar={pyDollar} />
         </Suspense>
       </section>
     </>

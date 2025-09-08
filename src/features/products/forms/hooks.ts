@@ -4,17 +4,13 @@ import { useEffect, useState } from "react";
 import {
   UseFormGetValues,
   UseFormReset,
-  UseFormSetValue,
-  UseFormWatch,
 } from "react-hook-form";
 import { Product } from "@/app/api/products/models";
 import { getProduct } from "./services";
 import { FormProduct } from "./models/form-product.model";
 
 export default function HooksForm({
-  watch,
   dollar,
-  setValue,
   reset,
   getValues,
   isDirty,
@@ -22,9 +18,7 @@ export default function HooksForm({
   reset: UseFormReset<FormProduct>;
   dollar: number | undefined;
   getValues: UseFormGetValues<FormProduct>;
-  setValue: UseFormSetValue<FormProduct>;
   isDirty: boolean;
-  watch: UseFormWatch<FormProduct>;
 }) {
   const { id } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
@@ -41,16 +35,6 @@ export default function HooksForm({
       setLoading(false);
     }
   }, [id]);
-
-  // Ver cambios en el input Price
-  const fieldPrice = watch("price");
-
-  useEffect(() => {
-    // Cambiar el input priceBs cada vez que cambie el valor en el input Price
-    if (dollar) {
-      setValue("priceBs", fieldPrice * dollar);
-    }
-  }, [fieldPrice]);
 
   useEffect(() => {
     if (id) {

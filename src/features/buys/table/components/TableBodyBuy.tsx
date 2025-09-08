@@ -1,9 +1,7 @@
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { CellSelect } from "@table-library/react-table-library/select";
-import { FaChevronDown } from "react-icons/fa6";
 import { useDataContext } from "@/hooks/useContextData";
-import { handleExpand } from "@/components/dashboard/tables/utils";
 import { Buy } from "@/app/api/buys/models/buy.model";
 import { Data } from "@/models";
 
@@ -16,34 +14,13 @@ function TableBodyBuy({
   pyDollar: number | undefined;
   data: Data;
 }) {
-  const { ids, setIds } = useDataContext();
+  const { ids } = useDataContext();
 
   return (
     <Body>
       {tableList.map((item: Buy) => (
         <Row key={item.id} item={item}>
           <CellSelect item={item} />
-          <Cell>
-            {item.list_products.map(
-              (producto, index) =>
-                index > 0 &&
-                index < 2 && (
-                  <button
-                    key={producto.id}
-                    onClick={() =>
-                      handleExpand({ idItem: item.id, ids, setIds })
-                    }
-                    className="cursor-pointer p-1 transition-colors duration-300 hover:text-primary"
-                  >
-                    <FaChevronDown
-                      className={`transition-transform duration-300 ${
-                        ids.includes(item.id) && "rotate-x-180"
-                      }`}
-                    />
-                  </button>
-                )
-            )}
-          </Cell>
           <Cell>{new Date(item.createdAT).toLocaleDateString("es-Es")}</Cell>
           <Cell>
             <ul>
@@ -74,21 +51,33 @@ function TableBodyBuy({
                     <div>
                       <p className="truncate">{product.name}</p>
                     </div>
-                    <div>{`${product.unit == 'kg'? product.stock >= 1000? `${(product.stock / 1000)} kg`: `${product.stock} gr` : product.stock }`}</div>
+                    <div>{`${
+                      product.unit == "kg"
+                        ? product.stock >= 1000
+                          ? `${product.stock / 1000} kg`
+                          : `${product.stock} gr`
+                        : product.stock
+                    }`}</div>
                     <div>{Number(product.price).toFixed(2)}$</div>
                   </div>
                 </li>
               ))}
             </ul>
           </Cell>
-          <Cell>{item.total_price}$</Cell>
           <Cell>
-            {pyDollar && (item.total_price * pyDollar).toFixed(2)}
-            Bs
+            <div className="w-full grid grid-cols-[1fr_1fr]">
+              <div className="text-end pe-4">
+                {Number(item.total_price).toFixed(2)}$
+              </div>
+              <div className="text-start ps-4 border-l-1 border-gray-400">
+                {pyDollar && (item.total_price * pyDollar).toFixed(2)}
+                Bs
+              </div>
+            </div>
           </Cell>
           <Cell pinRight>
             <ContainerActions
-              includeActions={{ delete: true }}
+              includeActions={{ delete: true, edit: true }}
               data={data}
               apiUrl="/buys"
               id={item.id}

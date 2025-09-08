@@ -75,6 +75,9 @@
     color: white;
   }
 }
+.container-table-scroll{
+  scrollbar-width: thin;
+}
 .container-table {
   background: #fff;
   padding: 1.5rem;

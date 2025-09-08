@@ -11,62 +11,116 @@ import { getDebt } from "../utilities/getDebt.utility";
 import { createListProduct } from "../../list-products/adapters";
 import prisma from "@/libs/prisma";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 
 export async function createSale(body: CreateSale) {
   const validatorBody = saleBodyValidator(body);
+
   if (validatorBody instanceof ZodError) {
+    console.error(validatorBody);
     return NextResponse.json("Hubo un error en el cuerpo de la solicitud", {
       status: 400,
     });
   }
+
+  const dollar = (await getPyDollar()) ?? 0;
+
   try {
-    const totalChanges = calculateTotalChanges(body.change_manager);
-    const totalPayments = calculateTotalPayments(body.payments);
+    const totalChanges = calculateTotalChanges({
+      changes: body.change_manager,
+      dollar,
+    });
+
+    const totalPayments = calculateTotalPayments({
+      dollar,
+      payments: body.payments,
+    });
+
     const totalPrice = calculateTotalPrice(body.list_products);
     const status = getSaleStatus({ totalPayments, totalPrice });
     const debt = getDebt({ totalPayments, totalPrice });
     const listProducts = createListProduct(body.list_products);
 
     if (
-      (totalChanges > 0 && totalPayments - totalChanges != totalPrice) ||
-      (totalPayments > totalPrice && totalChanges == 0)
+      (totalChanges > 0 &&
+        Math.floor(totalPayments - totalChanges) != totalPrice) ||
+      (debt > 0.009 && totalChanges == 0 && totalPayments > totalPrice)
     ) {
       return NextResponse.json("Error en el cambio entregado", { status: 400 });
     }
 
-    const sale = await prisma.sales.create({
-      data: {
-        status,
-        debt,
-        total_price: totalPrice,
-        list_products: {
-          create: listProducts,
+    if (body.client.id == 0) {
+      await prisma.sales.create({
+        data: {
+          status,
+          debt,
+          total_price: totalPrice,
+          list_products: {
+            create: listProducts,
+          },
+          payments: {
+            create: body.payments?.map((item) => ({
+              payment_amount: item.payment_amount,
+              payment_method: item.payment_method,
+              operation: item.operation,
+            })),
+          },
+          client: {
+            create: {
+              name: body.client.name ?? "",
+              last_name: body.client.last_name ?? "",
+            },
+          },
+          change_manager: {
+            create: body.change_manager?.map((item) => ({
+              change_amount: item.change_amount,
+              change_method: item.change_method,
+              operation: item.operation,
+            })),
+          },
+          products: {
+            connect: body.list_products.map((item) => ({ id: item.id })),
+          },
         },
-        payments: {
-          create: body.payments,
+      });
+    } else if (body.client.id !== 0) {
+      await prisma.sales.create({
+        data: {
+          status,
+          debt,
+          total_price: totalPrice,
+          list_products: {
+            create: listProducts,
+          },
+          payments: {
+            create: body.payments?.map((item) => ({
+              payment_amount: item.payment_amount,
+              payment_method: item.payment_method,
+              operation: item.operation,
+            })),
+          },
+          client: {
+            connect: { id: body.client.id },
+          },
+          change_manager: {
+            create: body.change_manager?.map((item) => ({
+              change_amount: item.change_amount,
+              change_method: item.change_method,
+              operation: item.operation,
+            })),
+          },
+          products: {
+            connect: body.list_products.map((item) => ({ id: item.id })),
+          },
         },
-        client:
-          body.client.id !== 0
-            ? {
-                create: {
-                  name: body.client.name ?? "",
-                  last_name: body.client.last_name ?? "",
-                },
-              }
-            : {
-                connect: { id: body.client.id },
-              },
-        products: {
-          connect: body.list_products.map((item) => ({ id: item.id })),
-        },
-      },
-    });
+      });
+    }
 
     await updateStockProducts({
       action: "decrement",
       products: body.list_products,
     });
-    return NextResponse.json(sale);
+    return NextResponse.json("Venta creada");
   } catch (error) {
     console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

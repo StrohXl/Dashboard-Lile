@@ -32,8 +32,15 @@ function TableBodyProducts({
         >
           <CellSelect item={item} />
           <Cell>{item.name}</Cell>
-          <Cell>{item.price}</Cell>
-          <Cell>{pyDollar && (item.price * pyDollar).toFixed(2)} Bs</Cell>
+          <Cell>
+            <div className="w-full grid grid-cols-[1fr_1fr]">
+              <div className="text-end pe-4">{item.price}$</div>
+              <div className="text-start ps-4 border-l-1 border-gray-400">
+                {pyDollar && (item.price * pyDollar).toFixed(2)}
+                Bs
+              </div>
+            </div>
+          </Cell>
           <Cell>
             {`${
               item.unit == "kg"

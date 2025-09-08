@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const searchParams = request.nextUrl.searchParams;
-  const page = searchParams.get("page") ?? undefined;
+  const page = searchParams.get("page") ?? '1';
   const name = searchParams.get("name") ?? undefined;
   const all = searchParams.get("all") ?? "false";
   const ci = searchParams.get("ci") ?? undefined;
