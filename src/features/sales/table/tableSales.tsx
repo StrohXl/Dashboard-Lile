@@ -14,7 +14,7 @@ import {
 import { onSelectChange } from "@/components/dashboard/tables/utils";
 import { ThemeMaterialSales } from "./theme";
 import { Sale } from "@/app/api/sales/models";
-import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 
 export default function TableSales({

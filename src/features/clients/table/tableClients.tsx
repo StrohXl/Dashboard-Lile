@@ -15,7 +15,7 @@ import {
   useRowSelect,
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
-import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 
 export default function TableClients({

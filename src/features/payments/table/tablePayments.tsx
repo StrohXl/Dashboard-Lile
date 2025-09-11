@@ -15,7 +15,7 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 import PaymentsTheme from "@/features/clients/table/theme";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { Table } from "@table-library/react-table-library/table";
-import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
 import TableBodyPayments from "./components/tableBodyPayments";
 
 export default function TablePayments({

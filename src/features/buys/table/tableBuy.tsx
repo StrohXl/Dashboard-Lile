@@ -14,8 +14,8 @@ import {
 import { onSelectChange } from "@/components/dashboard/tables/utils";
 import { ThemeMaterialBuy } from "./theme";
 import NotHave from "@/components/dashboard/tables/components/notHave";
-import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
-import TableBodyBuy from "@/features/buys/table/components/tableBodyBuy";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import TableBodyBuy from "@/features/buys/table/components/TableBodyBuy";
 
 export default function TableBuy({
   data,

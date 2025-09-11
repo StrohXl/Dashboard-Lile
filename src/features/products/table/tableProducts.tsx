@@ -15,7 +15,7 @@ import {
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
 import { onSelectChange } from "@/components/dashboard/tables/utils";
-import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 
 export default function TableProducts({
