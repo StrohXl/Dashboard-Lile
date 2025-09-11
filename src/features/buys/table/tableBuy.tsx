@@ -6,7 +6,6 @@ import "@/components/dashboard/tables/css/table.css";
 import { ResponseData } from "@/models";
 import { Table } from "@table-library/react-table-library/table";
 import { use } from "react";
-import TableBodyBuy from "./components/tableBodyBuy";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { useDataContext } from "@/hooks/useContextData";
 import {
@@ -17,6 +16,7 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 import { ThemeMaterialBuy } from "./theme";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import TableBodyBuy from "@/features/buys/table/components/tableBodyBuy";
 
 export default function TableBuys({
   data,
