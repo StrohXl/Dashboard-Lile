@@ -6,7 +6,7 @@ export default function PaymentsTheme() {
   const theme = useTheme([
     materialTheme,
     {
-      Table: `grid-template-columns:50px 1fr 1fr 1fr 1fr 120px !important;`,
+      Table: `grid-template-columns:50px 1fr 1fr 1fr 120px !important;`,
     },
   ]);
   return theme;
