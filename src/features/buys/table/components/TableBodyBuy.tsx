@@ -5,7 +5,7 @@ import { useDataContext } from "@/hooks/useContextData";
 import { Buy } from "@/app/api/buys/models/buy.model";
 import { Data } from "@/models";
 
-function TableBodyBuy({
+export default function TableBodyBuy({
   tableList,
   pyDollar,
   data,
@@ -89,4 +89,4 @@ function TableBodyBuy({
   );
 }
 
-export default TableBodyBuy;
+
