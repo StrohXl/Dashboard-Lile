@@ -1,4 +1,4 @@
-import TableBuys from "@/features/buys/table/tableBuy";
+import TableBuy from "@/features/buys/table/tableBuy";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -32,7 +32,7 @@ export default async function Buys({
       </div>
       <Suspense key={name + page + deleteId} fallback={<SkeletonTable />}>
         <HookDataContext>
-          <TableBuys data={buys} pyDollar={pyDollar} />
+          <TableBuy data={buys} pyDollar={pyDollar} />
         </HookDataContext>
       </Suspense>
     </section>

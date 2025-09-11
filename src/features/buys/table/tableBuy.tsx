@@ -1,5 +1,4 @@
 "use client";
-
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { Buy } from "@/app/api/buys/models/buy.model";
 import "@/components/dashboard/tables/css/table.css";
@@ -18,7 +17,7 @@ import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
 import TableBodyBuy from "@/features/buys/table/components/tableBodyBuy";
 
-export default function TableBuys({
+export default function TableBuy({
   data,
   pyDollar,
 }: {
