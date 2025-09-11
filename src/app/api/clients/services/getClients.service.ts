@@ -1,22 +1,13 @@
 import prisma from "@/libs/prisma";
-import UrlParams from "@/models/url-params.model";
+import { ParamsRequest } from "@/models";
 import { getPages } from "@/utils/getPages.utility";
 import { NextResponse } from "next/server";
 
-export const getClients = async ({
-  page = undefined,
-  name = "",
-  all = "false",
-  ci = undefined,
-}: UrlParams) => {
-  if (all == "true") {
-    const clients = await prisma.clients.findMany({
-      include: {
-        sales: true,
-      },
-    });
-    return NextResponse.json({ data: clients, pages: 0 });
-  } else if (ci) {
+export const getClients = async ({ params }: { params: ParamsRequest }) => {
+  const { ci, name } = params;
+
+  if (ci) {
+
     const clients = await prisma.clients.findMany({
       include: {
         sales: true,
@@ -28,19 +19,19 @@ export const getClients = async ({
       },
     });
     return NextResponse.json({ data: clients, pages: 0 });
+    
   }
-  const { elementsPerPage, pages } = await getPages("/clients");
+
+  const { skip, take, pages } = await getPages("/clients", params);
+
   const clients = await prisma.clients.findMany({
-    skip: (Number(page) - 1) * elementsPerPage,
-    take: elementsPerPage,
-    include: {
-      sales: true,
-    },
     where: {
       name: {
         contains: name,
       },
     },
+    skip,
+    take,
   });
   return NextResponse.json({ data: clients, pages });
 };

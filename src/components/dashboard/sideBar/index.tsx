@@ -47,7 +47,7 @@ const SideBarNav = ({
         </button>
       </div>
       <div className="menu">
-        <ul className="flex flex-col gap-6 mt-10">
+        <ul className="flex flex-col gap-5 mt-10">
           {sideBarMenu.map((item, index) => {
             const Icon = item.icon;
             return (

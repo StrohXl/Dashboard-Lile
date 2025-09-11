@@ -13,7 +13,6 @@ export async function updateSaleById({
   id: number;
 }) {
   const validBody = updateBodySaleValidator(body);
-
   if (validBody instanceof ZodError) {
     console.error(validBody);
     return NextResponse.json("Error en el cuerpo de la solicitud", {
@@ -24,45 +23,45 @@ export async function updateSaleById({
   //Payments
   const paymentsConnet = body.payments.filter((item) => item.id != 0);
   const paymentsCreate = body.payments.filter((item) => item.id == 0);
-
-  //Changes
   const changesConnect =
     body.change_manager?.filter((item) => item.id != 0) ?? [];
   const changesCreate =
     body.change_manager?.filter((item) => item.id == 0) ?? [];
 
   try {
-    await prisma.sales.update({
-      where: {
-        id,
-      },
-      data: {
-        payments: {
-          create: paymentsCreate.map((item) => ({
-            payment_amount: item.payment_amount,
-            operation: item.operation,
-            payment_method: item.payment_method,
-          })),
-          connect:
-            paymentsConnet.length > 0
-              ? paymentsConnet.map((item) => ({
-                  id: item.id,
-                }))
-              : [],
+    await prisma.$transaction(async (tx) => {
+      await tx.sales.update({
+        where: {
+          id,
         },
-        change_manager: {
-          create: changesCreate.map((item) => ({
-            change_amount: item.change_amount,
-            change_method: item.change_method,
-            operation: item.operation,
-          })),
-          connect: changesConnect.map((item) => ({
-            id: item.id,
-          })),
+        data: {
+          payments: {
+            create: paymentsCreate.map((item) => ({
+              payment_amount: item.payment_amount,
+              operation: item.operation,
+              payment_method: item.payment_method,
+            })),
+            connect:
+              paymentsConnet.length > 0
+                ? paymentsConnet.map((item) => ({
+                    id: item.id,
+                  }))
+                : [],
+          },
+          change_manager: {
+            create: changesCreate.map((item) => ({
+              change_amount: item.change_amount,
+              change_method: item.change_method,
+              operation: item.operation,
+            })),
+            connect: changesConnect.map((item) => ({
+              id: item.id,
+            })),
+          },
         },
-      },
+      });
+      await updateSaleStatus({ id, tx });
     });
-    await updateSaleStatus(id);
     return NextResponse.json("Venta actualizada");
   } catch (error) {
     console.error(error);

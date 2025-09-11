@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const page = searchParams.get("page") ?? 1;
 
-  return await getBuys({ page: Number(page) });
+  return await getBuys({ params: { page: Number(page) } });
 }
 
 export async function POST(request: NextRequest) {

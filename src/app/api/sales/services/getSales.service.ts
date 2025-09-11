@@ -1,22 +1,22 @@
 import prisma from "@/libs/prisma";
+import { ParamsRequest } from "@/models";
 import { getPages } from "@/utils";
 import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 
-export async function getSales({ page, all }: { page: number; all: string }) {
-  const { elementsPerPage, pages } = await getPages("/sales");
+export async function getSales({ params }: { params: ParamsRequest }) {
+  const { skip, take, pages } = await getPages("/sales", params);
   try {
     const sales = await prisma.sales.findMany({
       include: {
         list_products: true,
         client: true,
-        payments: true,
       },
-      skip: page == 0 ? page : (page - 1) * elementsPerPage,
-      take: all == "false" ? elementsPerPage : undefined,
-      orderBy:{
-        id: 'desc'
-      }
+      skip: skip,
+      take: take,
+      orderBy: {
+        id: "desc",
+      },
     });
     return NextResponse.json({ data: sales, pages });
   } catch (error) {

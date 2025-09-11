@@ -4,6 +4,8 @@ import { MdLogout } from "react-icons/md";
 import { MdShoppingCart } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import { FaCashRegister } from "react-icons/fa6";
+import { MdOutlinePayments } from "react-icons/md";
+import { MdCurrencyExchange } from "react-icons/md";
 
 export const sideBarMenu = [
   {
@@ -29,9 +31,18 @@ export const sideBarMenu = [
   {
     title: "Ventas",
     link: "/dashboard/sales",
-    icon: FaCashRegister
-  }
-
+    icon: FaCashRegister,
+  },
+  {
+    title: "Pagos",
+    link: "/dashboard/payments",
+    icon: MdOutlinePayments,
+  },
+  {
+    title: "Cambios",
+    link: "/dashboard/change_manager",
+    icon: MdCurrencyExchange,
+  },
 ];
 
 export const sideBarMenuSecond = [

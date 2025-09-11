@@ -1,9 +1,12 @@
 import prisma from "@/libs/prisma";
 import { NextResponse } from "next/server";
 import { getPages } from "@/utils/getPages.utility";
+import { ParamsRequest } from "@/models";
 
-export async function getBuys({ page }: { page: number }) {
-  const { elementsPerPage, pages } = await getPages("/buys");
+export async function getBuys({ params }: { params: ParamsRequest }) {
+  
+  const { skip, take, pages } = await getPages("/buys", params);
+
   try {
     const buys = await prisma.buys.findMany({
       include: {
@@ -11,8 +14,8 @@ export async function getBuys({ page }: { page: number }) {
         products: true,
         User: true,
       },
-      skip: (Number(page) - 1) * elementsPerPage,
-      take: elementsPerPage,
+      skip,
+      take,
       orderBy: { id: "desc" },
       cacheStrategy: { ttl: 2, tags: ["findBuys"] },
     });

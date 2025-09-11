@@ -1,11 +1,12 @@
 "use client";
+
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { Buy } from "@/app/api/buys/models/buy.model";
 import "@/components/dashboard/tables/css/table.css";
 import { ResponseData } from "@/models";
 import { Table } from "@table-library/react-table-library/table";
 import { use } from "react";
-import TableHeaderBuy from "./components/TableHeaderBuy";
-import TableBodyBuy from "./components/TableBodyBuy";
+import TableBodyBuy from "./components/tableBodyBuy";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { useDataContext } from "@/hooks/useContextData";
 import {
@@ -14,7 +15,8 @@ import {
 } from "@table-library/react-table-library/select";
 import { onSelectChange } from "@/components/dashboard/tables/utils";
 import { ThemeMaterialBuy } from "./theme";
-import NotHaveBuys from "./components/notHaveBuys";
+import NotHave from "@/components/dashboard/tables/components/notHave";
+import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
 
 export default function TableBuys({
   data,
@@ -41,10 +43,19 @@ export default function TableBuys({
   const nodes = { nodes: buys.data };
 
   const theme = ThemeMaterialBuy();
+
+  const tableHeader = [
+    "Fecha de Compra",
+    "Productos",
+    <div key={3} className="text-center">
+      Precio
+    </div>,
+  ];
+
   if (buys.data.length !== 0) {
     return (
       <>
-        <div className="h-[420px] container-table-scroll">
+        <div className="h-[330px] 2xl:h-[420px] container-table-scroll">
           <Table
             layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
             data={nodes}
@@ -53,7 +64,7 @@ export default function TableBuys({
           >
             {(tableList: Buy[]) => (
               <>
-                <TableHeaderBuy />
+                <TableHeader options={tableHeader} />
                 <TableBodyBuy
                   tableList={tableList}
                   pyDollar={dollar}
@@ -67,6 +78,11 @@ export default function TableBuys({
       </>
     );
   } else {
-    return <NotHaveBuys />;
+    return (
+      <NotHave
+        message="No tienes compras actualmente"
+        icon={MdOutlineRemoveShoppingCart}
+      />
+    );
   }
 }

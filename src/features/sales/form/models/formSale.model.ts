@@ -1,4 +1,4 @@
-import { ChangeManagerCreate } from "@/app/api/change-manager/validators/bodyChange.validator";
+import { ChangeManagerUpdate } from "@/app/api/change_manager/models/changeManagerUpdate.model";
 import { CreateListProduct } from "@/app/api/list-products/validators/createListProduct.validator";
 import { CreatePaymentOfSale } from "@/app/api/sales/models";
 
@@ -11,5 +11,5 @@ export interface FormSale {
   };
   list_products: CreateListProduct;
   payments: CreatePaymentOfSale[];
-  change_manager: ChangeManagerCreate[];
+  change_manager: ChangeManagerUpdate[];
 }

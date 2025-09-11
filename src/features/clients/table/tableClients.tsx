@@ -1,5 +1,6 @@
 "use client";
 
+import { HiUsers } from "react-icons/hi";
 import "@/components/dashboard/tables/css/table.css";
 import { Client } from "@/app/api/clients/models/client.model";
 import { useDataContext } from "@/hooks/useContextData";
@@ -7,7 +8,6 @@ import { ResponseData } from "@/models";
 import { Table } from "@table-library/react-table-library/table";
 import { use } from "react";
 import ClientTheme from "./theme";
-import TableHeaderClients from "./components/tableHeaderClients";
 import TableBodyClients from "./components/tableBodyClients";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { onSelectChange } from "@/components/dashboard/tables/utils";
@@ -15,7 +15,8 @@ import {
   useRowSelect,
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
-import NotHaveClients from "./components/notHaveClients";
+import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import NotHave from "@/components/dashboard/tables/components/notHave";
 
 export default function TableClients({
   data,
@@ -36,21 +37,30 @@ export default function TableClients({
     }
   );
 
+  const tableHeader = ["Nombre", "Apellido", "C.I"];
+
   if (clients.data.length != 0) {
     return (
-      <div>
-        <Table data={nodes} theme={theme} select={select}>
-          {(tableList: Client[]) => (
-            <>
-              <TableHeaderClients />
-              <TableBodyClients tableList={tableList} />
-            </>
-          )}
-        </Table>
+      <>
+        <div className="h-[330px] 2xl:h-[420px] container-table-scroll">
+          <Table
+            layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
+            data={nodes}
+            theme={theme}
+            select={select}
+          >
+            {(tableList: Client[]) => (
+              <>
+                <TableHeader options={tableHeader} />
+                <TableBodyClients tableList={tableList} />
+              </>
+            )}
+          </Table>
+        </div>
         <TableFooter apiUrl="/clients" data={clients} />
-      </div>
+      </>
     );
   } else {
-    return <NotHaveClients />;
+    return <NotHave icon={HiUsers} message="No tienes clientes actualmente" />;
   }
 }

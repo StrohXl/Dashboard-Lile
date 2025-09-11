@@ -5,18 +5,27 @@ import { updateSaleStatus } from "../../sales/services";
 
 export async function deletePaymentById(id: number) {
   try {
-    const payment = await prisma.payments.findUnique({
-      where: {
-        id,
-      },
+    const payment = await prisma.$transaction(async (tx) => {
+      const payment = await tx.payments.findUnique({
+        where: {
+          id,
+        },
+      });
+      if (!payment) {
+        return false;
+      }
+      const idSale = payment?.sales_id ?? 0;
+      await tx.payments.delete({
+        where: {
+          id,
+        },
+      });
+      await updateSaleStatus({ id: idSale, tx });
+      return true;
     });
-    const idSale = payment?.sales_id ?? 0;
-    await prisma.payments.delete({
-      where: {
-        id,
-      },
-    });
-    await updateSaleStatus(idSale);
+    if (payment == false) {
+      return NextResponse.json("Pago no encontrado");
+    }
     return NextResponse.json("Pago eliminado");
   } catch (error) {
     console.error(error);

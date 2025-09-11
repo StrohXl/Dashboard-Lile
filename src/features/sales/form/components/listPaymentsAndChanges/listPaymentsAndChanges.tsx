@@ -17,6 +17,7 @@ import { IoClose } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { deletePayment } from "./services/deletePayment.service";
 import { calculatePayments, prependChange, prependPayment } from "./utils";
+import { deleteChange } from "./services/deleteChange.service";
 
 export default function ListPaymentsAndChanges({
   errors,
@@ -234,17 +235,29 @@ export default function ListPaymentsAndChanges({
                 <button
                   type="button"
                   disabled={disabled}
-                  onClick={() =>
-                    deletePayment({
-                      dollar,
-                      getValues,
-                      id: Number(watch(`payments.${index}.id`)),
-                      remove,
-                      index,
-                      setTotalPayments,
-                      setDisabled,
-                    })
-                  }
+                  onClick={() => {
+                    if (option == "payments") {
+                      deletePayment({
+                        dollar,
+                        getValues,
+                        id: Number(watch(`payments.${index}.id`)),
+                        remove,
+                        index,
+                        setTotalPayments,
+                        setDisabled,
+                      });
+                    } else {
+                      deleteChange({
+                        dollar,
+                        getValues,
+                        id: Number(watch(`change_manager.${index}.id`)),
+                        remove,
+                        index,
+                        setDisabled,
+                        setTotalChanges
+                      });
+                    }
+                  }}
                 >
                   <MdDelete size={22} />
                 </button>

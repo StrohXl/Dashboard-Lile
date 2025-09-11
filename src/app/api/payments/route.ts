@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const token = tokenValidator(request);
   const searchParams = request.nextUrl.searchParams;
   const all = searchParams.get("all") ?? "false";
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") ?? 1;
 
   if (!token) {
     return NextResponse.json(
@@ -14,7 +14,8 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   }
-  return await getPayments({ all, page: Number(page) });
+  
+  return await getPayments({ params: { all, page: Number(page) } });
 }
 
 export async function POST(request: NextRequest) {

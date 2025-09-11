@@ -1,9 +1,9 @@
 "use client";
+import { FaCashRegister } from "react-icons/fa6";
 import "@/components/dashboard/tables/css/table.css";
 import { ResponseData } from "@/models";
 import { Table } from "@table-library/react-table-library/table";
 import { use } from "react";
-import TableHeaderSales from "./components/tableHeaderSales";
 import TableBodySales from "./components/tableBodySales";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { useDataContext } from "@/hooks/useContextData";
@@ -14,7 +14,8 @@ import {
 import { onSelectChange } from "@/components/dashboard/tables/utils";
 import { ThemeMaterialSales } from "./theme";
 import { Sale } from "@/app/api/sales/models";
-import NotHaveSales from "./components/notHaveSales";
+import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import NotHave from "@/components/dashboard/tables/components/notHave";
 
 export default function TableSales({
   data,
@@ -40,11 +41,21 @@ export default function TableSales({
 
   const nodes = { nodes: sales.data };
 
+  const tableHeader = [
+    "Fecha de Venta",
+    "Cliente",
+    "Estado",
+    <div key={4} className="text-center">
+      Precio
+    </div>,
+    "Deuda",
+  ];
+
   const theme = ThemeMaterialSales();
   if (sales.data.length !== 0) {
     return (
       <>
-        <div className="h-[420px] container-table-scroll">
+        <div className="h-[330px] 2xl:h-[420px] container-table-scroll">
           <Table
             layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
             data={nodes}
@@ -53,7 +64,7 @@ export default function TableSales({
           >
             {(tableList: Sale[]) => (
               <>
-                <TableHeaderSales />
+                <TableHeader options={tableHeader} />
                 <TableBodySales
                   data={sales.data}
                   pyDollar={dollar}
@@ -67,6 +78,8 @@ export default function TableSales({
       </>
     );
   } else {
-    return <NotHaveSales />;
+    return (
+      <NotHave message="No tienes ventas actualmente" icon={FaCashRegister} />
+    );
   }
 }

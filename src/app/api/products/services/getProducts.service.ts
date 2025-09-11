@@ -1,30 +1,20 @@
 import prisma from "@/libs/prisma";
+import { ParamsRequest } from "@/models";
 import { getPages } from "@/utils/getPages.utility";
 import { NextResponse } from "next/server";
 
-export async function getProducts({
-  page,
-  name,
-  all,
-}: {
-  name: string | null;
-  page: number;
-  all: string;
-}) {
-  const { elementsPerPage, pages } = await getPages("/products");
+export async function getProducts({ params }: { params: ParamsRequest }) {
+  const { name } = params;
+  const { skip, take, pages } = await getPages("/products", params);
+
   try {
     const products = await prisma.products.findMany({
       orderBy: { id: "desc" },
-      skip:
-        all == "false"
-          ? page == 0
-            ? page
-            : (page - 1) * elementsPerPage
-          : undefined,
-      take: all == "false" ? elementsPerPage : undefined,
+      skip,
+      take,
       where: {
         name: {
-          contains: name ?? "",
+          contains: name,
         },
       },
       cacheStrategy: {

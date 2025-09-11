@@ -1,12 +1,11 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import NotHaveProducts from "./components/notHaveProducts";
+import { HiArchiveBoxXMark } from "react-icons/hi2";
 import { ResponseData } from "@/models";
 import { use } from "react";
 import { Product } from "@/app/api/products/models";
 import { Table } from "@table-library/react-table-library/table";
-import TableHeaderProducts from "./components/tableHeaderProducts";
 import TableBodyProducts from "./components/tableBodyProducts";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { useDataContext } from "@/hooks/useContextData";
@@ -16,6 +15,8 @@ import {
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
 import { onSelectChange } from "@/components/dashboard/tables/utils";
+import TableHeader from "@/components/dashboard/tables/components/tableHaeader";
+import NotHave from "@/components/dashboard/tables/components/notHave";
 
 export default function TableProducts({
   data,
@@ -24,6 +25,7 @@ export default function TableProducts({
   data: Promise<ResponseData<Product>>;
   pyDollar: Promise<number | undefined>;
 }) {
+  
   const products = use(data);
   const dollar = use(pyDollar) ?? 1;
 
@@ -42,10 +44,18 @@ export default function TableProducts({
     }
   );
 
+  const tableHeader = [
+    "Producto",
+    <div className="text-center" key={1}>Precio</div>,
+    "Existentes",
+    "Fecha de Creacion",
+    "Fecha de Actualizacion",
+  ];
+
   if (products.data.length !== 0) {
     return (
       <>
-        <div className="h-[420px] container-table-scroll">
+        <div className="h-[330px] 2xl:h-[420px] container-table-scroll">
           <Table
             layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
             data={nodes}
@@ -54,7 +64,11 @@ export default function TableProducts({
           >
             {(tableList: Product[]) => (
               <>
-                <TableHeaderProducts />
+                <TableHeader
+                  actions={true}
+                  options={tableHeader}
+                  select={true}
+                />
                 <TableBodyProducts
                   data={products.data}
                   pyDollar={dollar}
@@ -68,6 +82,6 @@ export default function TableProducts({
       </>
     );
   } else {
-    return <NotHaveProducts />;
+    return <NotHave icon={HiArchiveBoxXMark} message="No tienes productos actualmente" />;
   }
 }

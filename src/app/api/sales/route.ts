@@ -5,7 +5,7 @@ import { createSale, getSales } from "./services";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const all = searchParams.get("all") ?? "false";
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") ?? 1;
 
   const token = await tokenValidator(request);
   if (!token) {
@@ -14,7 +14,8 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   }
-  return await getSales({ all, page: Number(page) });
+  const params = { all, page: Number(page) };
+  return await getSales({ params });
 }
 
 export async function POST(request: NextRequest) {

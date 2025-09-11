@@ -19,11 +19,13 @@ export async function createPayment(body: CreatePayment) {
     return NextResponse.json("Se necesita el numero de operacion");
   }
   try {
-    const payment = await prisma.payments.create({
-      data: body,
+    await prisma.$transaction(async (tx) => {
+      const payment = await tx.payments.create({
+        data: body,
+      });
+      await updateSaleStatus({ id: body.sales_id, tx });
+      return NextResponse.json(payment);
     });
-    await updateSaleStatus(body.sales_id);
-    return NextResponse.json(payment);
   } catch (error) {
     console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {

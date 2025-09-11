@@ -1,10 +1,10 @@
-import { ChangeManagerCreate } from "../../change-manager/validators/bodyChange.validator";
+import { ChangeManagerUpdate } from "../../change_manager/models/changeManagerUpdate.model";
 
 export function calculateTotalChanges({
   dollar,
   changes,
 }: {
-  changes: ChangeManagerCreate[] | undefined;
+  changes: ChangeManagerUpdate[] | undefined;
   dollar: number;
 }): number {
   if (changes) {

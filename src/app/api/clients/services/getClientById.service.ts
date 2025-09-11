@@ -8,6 +8,9 @@ export const getClientById = async (id: number) => {
       where: {
         id,
       },
+      include:{
+        sales:true
+      }
     });
     if (!client) {
       return NextResponse.json("El cliente no existe", { status: 404 });
