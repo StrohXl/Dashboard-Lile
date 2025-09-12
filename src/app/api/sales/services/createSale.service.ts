@@ -69,6 +69,7 @@ export async function createSale(body: CreateSale) {
             create: {
               name: body.client.name ?? "",
               last_name: body.client.last_name ?? "",
+              ci: body.client.ci,
             },
           },
           change_manager: {

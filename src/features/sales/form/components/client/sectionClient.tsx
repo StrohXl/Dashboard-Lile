@@ -2,6 +2,7 @@ import {
   FieldErrors,
   UseFormRegister,
   UseFormReset,
+  UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
 import { FormSale } from "../../models";
@@ -13,13 +14,14 @@ export default function SectionClient({
   register,
   errors,
   reset,
+  setValue,
 }: {
   register: UseFormRegister<FormSale>;
   errors: FieldErrors<FormSale>;
   reset: UseFormReset<FormSale>;
   watch: UseFormWatch<FormSale>;
+  setValue: UseFormSetValue<FormSale>;
 }) {
-
   return (
     <div className="flex flex-col gap-4 w-full mt-6 pb-6  ">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -27,7 +29,7 @@ export default function SectionClient({
           Cliente
         </h4>
 
-        <SelectClient reset={reset} />
+        <SelectClient setValue={setValue} />
       </div>
       <div className="grid grid-cols-[1fr_1fr_1fr_42px] items-end gap-4 mt-4">
         <input type="hidden" {...register("client.id")} defaultValue={0} />

@@ -20,7 +20,7 @@ export async function getPages(
     all && all == "true"
       ? 0
       : Number(page) == 1
-      ? 1
+      ? 0
       : elementsPerPage * (Number(page) - 1);
 
   if (model === "/buys") {

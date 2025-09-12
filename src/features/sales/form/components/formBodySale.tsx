@@ -5,6 +5,7 @@ import {
   UseFormGetValues,
   UseFormRegister,
   UseFormReset,
+  UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
 import { useContextSale } from "../hooks/saleHookContext";
@@ -16,13 +17,15 @@ import ListPaymentsAndChanges from "./listPaymentsAndChanges/listPaymentsAndChan
 export default function FormBodySale({
   register,
   errors,
-  reset,
   watch,
+  setValue,
   control,
   getValues,
+  reset
 }: {
   register: UseFormRegister<FormSale>;
   errors: FieldErrors<FormSale>;
+  setValue: UseFormSetValue<FormSale>;
   reset: UseFormReset<FormSale>;
   watch: UseFormWatch<FormSale>;
   control: Control<FormSale>;
@@ -54,6 +57,7 @@ export default function FormBodySale({
         <SectionClient
           watch={watch}
           errors={errors}
+          setValue={setValue}
           register={register}
           reset={reset}
         />

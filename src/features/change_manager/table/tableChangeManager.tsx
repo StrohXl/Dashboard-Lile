@@ -11,12 +11,12 @@ import {
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
 import { onSelectChange } from "@/components/dashboard/tables/utils";
-import PaymentsTheme from "@/features/clients/table/theme";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { Table } from "@table-library/react-table-library/table";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
 import { ChangeManager } from "@/app/api/change_manager/models/changeManager.model";
 import TableBodyChangeManager from "./components/tableBodyChangeManager";
+import PaymentsTheme from "@/features/payments/table/theme";
 
 export default function TableChangeManager({
   data,

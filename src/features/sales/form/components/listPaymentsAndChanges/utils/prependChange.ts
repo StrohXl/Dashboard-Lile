@@ -10,6 +10,5 @@ export function prependChange({
     id: 0,
     change_amount: 0,
     change_method: "efectivo Bs",
-    operation: 0,
   });
 }

@@ -42,7 +42,11 @@ export default function FormSale({
   } = useForm<FormSale>({
     defaultValues: {
       payments: [
-        { operation: 0, payment_amount: 0, payment_method: "transferencia" },
+        {
+          payment_amount: 0,
+          payment_method: "transferencia",
+          id: 0,
+        },
       ],
     },
     mode: "onChange",
@@ -107,7 +111,6 @@ const SaleForm = ({
     setReload,
   } = useContextSale();
 
-
   if (loadingSale) {
     return <SkeletonFormProduct />;
   } else {
@@ -145,6 +148,7 @@ const SaleForm = ({
           register={register}
           reset={reset}
           watch={watch}
+          setValue={setValue}
         />
 
         <div className="flex justify-between mt-6">

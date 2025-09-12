@@ -1,7 +1,7 @@
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/material-ui";
 
-export default function PaymentsTheme() {
+export default function ClientTheme() {
   const materialTheme = getTheme();
   const theme = useTheme([
     materialTheme,

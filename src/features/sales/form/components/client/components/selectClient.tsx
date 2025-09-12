@@ -1,4 +1,4 @@
-import { UseFormReset } from "react-hook-form";
+import { UseFormSetValue } from "react-hook-form";
 import { useContextSale } from "../../../hooks/saleHookContext";
 import { FormSale } from "../../../models";
 import { useState } from "react";
@@ -9,9 +9,9 @@ import { ResponseData } from "@/models";
 let time: ReturnType<typeof setTimeout> = setTimeout(() => {});
 
 export default function SelectClient({
-  reset,
+  setValue,
 }: {
-  reset: UseFormReset<FormSale>;
+  setValue: UseFormSetValue<FormSale>;
 }) {
   const { open, search, setOpen, setSearch, setLoading, loading } =
     useContextSale();
@@ -40,14 +40,10 @@ export default function SelectClient({
   };
 
   const addClient = () => {
-    reset({
-      client: {
-        id: clients[0].id,
-        ci: `${clients[0].ci}`,
-        last_name: clients[0].last_name,
-        name: clients[0].name,
-      },
-    });
+    setValue("client.name", clients[0].name);
+    setValue("client.id", clients[0].id);
+    setValue("client.last_name", clients[0].last_name);
+    setValue("client.ci", `${clients[0].ci}`);
     setSearch("");
     setOpen(false);
     setClients([]);
