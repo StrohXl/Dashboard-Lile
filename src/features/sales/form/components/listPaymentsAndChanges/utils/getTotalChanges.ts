@@ -1,15 +1,13 @@
 import { UseFormGetValues } from "react-hook-form";
 import { FormSale } from "../../../models";
 
-export const calculateChanges = ({
+export default function getTotalChanges({
   getValues,
-  setTotalChanges,
   dollar,
 }: {
   dollar: number;
-  setTotalChanges: (value: number) => void;
   getValues: UseFormGetValues<FormSale>;
-}) => {
+}) {
   const changeManager = getValues("change_manager");
   const totalChanges = changeManager.reduce(
     (accumulator, item) =>
@@ -19,6 +17,5 @@ export const calculateChanges = ({
         : Number(item.change_amount) / dollar),
     0
   );
-  console.log(totalChanges)
-  setTotalChanges(Number(totalChanges));
-};
+  return totalChanges;
+}

@@ -16,7 +16,7 @@ export default function FormHeaderSale() {
         </h4>
         <div className="flex items-center">
           <h4 className="mb-2 font-open_sans text-gray-800 me-12 font-semibold text-4xl">
-            {totalPrice.toFixed(2)}$
+            {totalPrice}$
           </h4>
           <h4 className="mb-2 ps-12 border-l-1 border-gray-600 font-open_sans text-gray-800 font-semibold text-4xl">
             {(totalPrice * dollar).toFixed(2)}Bs

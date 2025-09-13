@@ -2,7 +2,7 @@ import { UseFieldArrayRemove, UseFormGetValues } from "react-hook-form";
 import { FormSale } from "../../../models";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { calculatePayments } from "../utils/calculatePayments.utility";
+import { updateTotalPayments } from "../utils/updateTotalPayments";
 
 export async function deletePayment({
   dollar,
@@ -29,7 +29,7 @@ export async function deletePayment({
       error: "Error",
     });
     remove(index);
-    calculatePayments({ dollar, getValues, setTotalPayments });
+    updateTotalPayments({ dollar, getValues, setTotalPayments });
   } catch (error) {
     console.error(error);
   }

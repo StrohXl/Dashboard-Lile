@@ -32,7 +32,6 @@ export default function SelectClient({
           url: "/clients",
           params: { ci: value },
         });
-        console.log(data);
         setClients(data);
         setLoading(false);
       }, 200);

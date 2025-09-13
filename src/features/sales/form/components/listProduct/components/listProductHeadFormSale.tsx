@@ -1,8 +1,8 @@
 import SelectProductsFormSale from "./selectProductsFormSale";
 import { FieldArrayWithId, UseFieldArrayPrepend } from "react-hook-form";
-import { changeSelect } from "../../../utilities";
 import { useContextSale } from "../../../hooks/saleHookContext";
 import { FormSale } from "../../../models";
+import { changeSelect } from "../utils";
 
 export default function ListProductHeadFormSale({
   prepend,

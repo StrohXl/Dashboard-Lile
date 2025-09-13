@@ -1,4 +1,3 @@
-import calculatePriceKg from "@/utils/calculatePriceKg.utility";
 import { CreateProduct } from "../../products/validators/product.validator";
 
 export const createListProduct = (body: CreateProduct[]): CreateProduct[] => {
@@ -6,10 +5,7 @@ export const createListProduct = (body: CreateProduct[]): CreateProduct[] => {
   body.forEach((item) => {
     list_products.push({
       name: item.name,
-      price:
-        item.unit == "unit"
-          ? item.price
-          : calculatePriceKg({ price: item.price, weight: item.stock }),
+      price: item.price,
       stock: item.stock,
       unit: item.unit,
     });

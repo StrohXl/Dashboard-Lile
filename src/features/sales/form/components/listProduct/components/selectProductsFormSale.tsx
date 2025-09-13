@@ -1,7 +1,7 @@
 import { FieldArrayWithId } from "react-hook-form";
-import { addProduct, searchProduct } from "../../../utilities";
 import { Sale } from "@/app/api/sales/models";
 import { useContextSale } from "../../../hooks/saleHookContext";
+import { addProduct, searchProduct } from "../utils";
 
 export default function SelectProductsFormSale({
   fields,

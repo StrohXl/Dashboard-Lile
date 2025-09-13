@@ -83,6 +83,7 @@ export default function FormBodySale({
             register={register}
             remove={paymentRemove}
             watch={watch}
+            setValue={setValue}
           />
           <div className="h-full hidden lg:block w-[1px] bg-gray-400"></div>
           <ListPaymentsAndChanges
@@ -94,6 +95,8 @@ export default function FormBodySale({
             register={register}
             remove={changeRemove}
             watch={watch}
+            setValue={setValue}
+
           />
         </div>
       )}

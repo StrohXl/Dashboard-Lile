@@ -5,19 +5,21 @@ import {
   UseFieldArrayRemove,
   UseFormGetValues,
   UseFormRegister,
+  UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
 import { FormSale } from "../../models";
 import { OptionList } from "./models/optionList.model";
+import {
+  prependChange,
+  prependPayment,
+  updateTotalChanges,
+  updateTotalPayments,
+} from "./utils";
+import FooterPayments from "./components/footerPayments";
+import FooterChanges from "./components/footerChanges";
+import ListBody from "./components/listBody";
 import { useContextSale } from "../../hooks/saleHookContext";
-import { SelectSaleForm } from "../selectFormSale";
-import InputSaleForm from "../inputFormSale";
-import { calculateChanges } from "./utils/calculateChanges";
-import { IoClose } from "react-icons/io5";
-import { MdDelete } from "react-icons/md";
-import { deletePayment } from "./services/deletePayment.service";
-import { calculatePayments, prependChange, prependPayment } from "./utils";
-import { deleteChange } from "./services/deleteChange.service";
 
 export default function ListPaymentsAndChanges({
   errors,
@@ -28,6 +30,7 @@ export default function ListPaymentsAndChanges({
   prepend,
   fields,
   remove,
+  setValue,
 }: {
   remove: UseFieldArrayRemove;
   fields: FieldArrayWithId<FormSale>[];
@@ -37,19 +40,39 @@ export default function ListPaymentsAndChanges({
   errors: FieldErrors<FormSale>;
   watch: UseFormWatch<FormSale>;
   getValues: UseFormGetValues<FormSale>;
+  setValue: UseFormSetValue<FormSale>;
 }) {
   const {
-    totalPayments,
     dollar,
     totalPrice,
-    totalChanges,
     setTotalPayments,
+    totalPayments,
+    totalChanges,
     setTotalChanges,
-    disabled,
-    setDisabled,
   } = useContextSale();
 
-  const totalDebt = totalPayments - totalPrice;
+  const addInput = () => {
+    if (option == "payments") {
+      prependPayment({ prepend, dollar, totalPayments, totalPrice });
+      setTimeout(
+        () => updateTotalPayments({ dollar, getValues, setTotalPayments }),
+        200
+      );
+    } else {
+      prependChange({
+        prepend,
+        dollar,
+        totalChanges,
+        totalPayments,
+        totalPrice,
+      });
+      setTimeout(
+        () => updateTotalChanges({ dollar, getValues, setTotalChanges }),
+        200
+      );
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -57,13 +80,7 @@ export default function ListPaymentsAndChanges({
           {option == "payments" ? "Pagos" : "Cambios"}
         </h4>
         <button
-          onClick={() => {
-            if (option == "payments") {
-              prependPayment({ prepend });
-            } else {
-              prependChange({ prepend });
-            }
-          }}
+          onClick={addInput}
           className="btn-outlined-primary"
           type="button"
         >
@@ -84,282 +101,27 @@ export default function ListPaymentsAndChanges({
           </h6>
         </div>
 
-        {fields.map((payment, index) => (
+        {fields.map((item, index) => (
           <div
-            key={payment.id}
+            key={item.id}
             className={`grid sm:grid-cols-[1fr_90px_90px_100px] items-center gap-4
                  `}
           >
-            <input
-              type="hidden"
-              {...register(
-                `${
-                  option == "payments" ? "payments" : "change_manager"
-                }.${index}.id`
-              )}
-            />
-
-            <SelectSaleForm
-              error={
-                option == "payments"
-                  ? errors.payments && errors.payments[index]?.payment_method
-                  : errors.change_manager &&
-                    errors.change_manager[index]?.change_method
-              }
+            <ListBody
+              errors={errors}
+              getValues={getValues}
+              index={index}
+              option={option}
               register={register}
-              nameField={
-                option == "payments"
-                  ? `payments.${index}.payment_method`
-                  : `change_manager.${index}.change_method`
-              }
-              selectOptions={[
-                { title: "Transferencia", value: "transferencia" },
-                { title: "Divisa", value: "divisa" },
-                { title: "Efectivo Bs", value: "efectivo Bs" },
-              ]}
-              options={{
-                onChange: () => {
-                  if (option == "payments") {
-                    calculatePayments({ dollar, getValues, setTotalPayments });
-                  } else {
-                    calculateChanges({ dollar, getValues, setTotalChanges });
-                  }
-                },
-              }}
+              remove={remove}
+              watch={watch}
+              setValue={setValue}
             />
-
-            <InputSaleForm
-              nameField={
-                option == "payments"
-                  ? `payments.${index}.payment_amount`
-                  : `change_manager.${index}.change_amount`
-              }
-              register={register}
-              type="number"
-              hiddenMessageError={true}
-              error={
-                option == "payments"
-                  ? errors.payments && errors.payments[index]?.payment_amount
-                  : errors.change_manager &&
-                    errors.change_manager[index]?.change_amount
-              }
-              options={{
-                required: {
-                  message: "requerido",
-                  value: true,
-                },
-                min: {
-                  value: 0,
-                  message: "",
-                },
-                onChange: () => {
-                  if (option == "payments") {
-                    calculatePayments({ dollar, getValues, setTotalPayments });
-                  } else {
-                    calculateChanges({ dollar, getValues, setTotalChanges });
-                  }
-                },
-              }}
-              step="any"
-            />
-
-            <InputSaleForm
-              nameField={
-                option == "payments"
-                  ? `payments.${index}.operation`
-                  : `change_manager.${index}.operation`
-              }
-              register={register}
-              type={
-                option == "payments"
-                  ? watch(`payments.${index}.payment_method`) == "transferencia"
-                    ? "number"
-                    : "hidden"
-                  : watch(`change_manager.${index}.change_method`) ==
-                    "transferencia"
-                  ? "number"
-                  : "hidden"
-              }
-              hiddenMessageError={true}
-              error={
-                option == "payments"
-                  ? errors.payments && errors.payments[index]?.operation
-                  : errors.change_manager &&
-                    errors.change_manager[index]?.operation
-              }
-              options={{
-                required: {
-                  message: "requerido",
-                  value: true,
-                },
-                minLength: {
-                  value: 4,
-                  message: "minimo 4",
-                },
-                maxLength: {
-                  value: 4,
-                  message: "maximo 4",
-                },
-              }}
-            />
-
-            <div className="container-actions flex justify-center gap-4 items-center">
-              {watch(
-                `${
-                  option == "payments" ? "payments" : "change_manager"
-                }.${index}.id`
-              ) == 0 ? (
-                <button
-                  type="button"
-                  disabled={disabled}
-                  onClick={() => {
-                    remove(index);
-                    if (option == "payments") {
-                      calculatePayments({
-                        dollar,
-                        getValues,
-                        setTotalPayments,
-                      });
-                    } else {
-                      calculateChanges({
-                        dollar,
-                        getValues,
-                        setTotalChanges,
-                      });
-                    }
-                  }}
-                >
-                  <IoClose size={22} />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  disabled={disabled}
-                  onClick={() => {
-                    if (option == "payments") {
-                      deletePayment({
-                        dollar,
-                        getValues,
-                        id: Number(watch(`payments.${index}.id`)),
-                        remove,
-                        index,
-                        setTotalPayments,
-                        setDisabled,
-                      });
-                    } else {
-                      deleteChange({
-                        dollar,
-                        getValues,
-                        id: Number(watch(`change_manager.${index}.id`)),
-                        remove,
-                        index,
-                        setDisabled,
-                        setTotalChanges
-                      });
-                    }
-                  }}
-                >
-                  <MdDelete size={22} />
-                </button>
-              )}
-            </div>
           </div>
         ))}
       </div>
 
-      {option == "payments" && (
-        <div className="mt-auto">
-          <div className="grid mt-4 grid-cols-[130px_1fr] items-center gap-4">
-            <h6 className="font-roboto text-gray-600 font-semibold">
-              Pagos totales:
-            </h6>
-            <div className="font-roboto text-gray-700 font-semibold grid grid-cols-2 items-center">
-              <span className="ms-auto pe-4 block">
-                {totalPayments.toFixed(2)}$
-              </span>
-              <span className="border-l-1 border-gray-400 ps-4 block">
-                {(totalPayments * dollar).toFixed(2)}Bs
-              </span>
-            </div>
-          </div>
-          <div className="grid mt-2 grid-cols-[130px_1fr] items-center gap-4">
-            <h6 className="font-roboto text-gray-600 font-semibold">
-              Monto Faltante:
-            </h6>
-            <div
-              className={`font-roboto text-green-600 ${
-                totalPayments < totalPrice && "!text-red-500"
-              } font-semibold grid grid-cols-2 items-center`}
-            >
-              <span className="ms-auto pe-4 block">
-                {totalPayments > totalPrice
-                  ? `0.00`
-                  : (totalPrice - totalPayments).toFixed(2)}
-                $
-              </span>
-              <span className="border-l-1 border-gray-400 ps-4 block">
-                {totalPayments > totalPrice
-                  ? `0.00`
-                  : (totalPrice * dollar - totalPayments * dollar).toFixed(2)}
-                Bs
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-      {option == "changes" && (
-        <div className="mt-auto">
-          <div className="grid mt-4 grid-cols-[130px_1fr] items-center gap-4">
-            <h6 className="font-roboto text-gray-600 font-semibold">
-              Cambios totales:
-            </h6>
-            <div
-              className={`font-roboto text-gray-700 font-semibold grid grid-cols-2 items-center ${
-                totalPayments > 0 &&
-                totalChanges != 0 &&
-                totalChanges > totalDebt &&
-                "!text-red-500"
-              }`}
-            >
-              <span className="ms-auto pe-4 block">
-                {totalChanges.toFixed(2)}$
-              </span>
-              <span className="border-l-1 border-gray-400 ps-4 block">
-                {(totalChanges * dollar).toFixed(2)}Bs
-              </span>
-            </div>
-          </div>
-          <div className="grid mt-2 grid-cols-[130px_1fr] items-center gap-4">
-            <h6 className="font-roboto text-gray-600 font-semibold">
-              Cambio Faltante:
-            </h6>
-            <div
-              className={`font-roboto text-green-600 ${
-                totalPayments > totalPrice &&
-                totalChanges < totalDebt &&
-                "!text-blue-500"
-              } font-semibold grid grid-cols-2 items-center`}
-            >
-              <span className="ms-auto pe-4 block">
-                {totalPayments <= totalPrice || totalChanges > totalDebt
-                  ? `0.00`
-                  : (totalDebt - totalChanges).toFixed(2)}
-                $
-              </span>
-              <span className="border-l-1 border-gray-400 ps-4 block">
-                {totalPayments <= totalPrice || totalChanges > totalDebt
-                  ? `0.00`
-                  : (
-                      totalPayments * dollar -
-                      totalPrice * dollar -
-                      totalChanges * dollar
-                    ).toFixed(2)}
-                Bs
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
+      {option == "payments" ? <FooterPayments /> : <FooterChanges />}
     </div>
   );
 }

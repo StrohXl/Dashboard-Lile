@@ -2,7 +2,7 @@ import { FieldArrayWithId, UseFieldArrayPrepend } from "react-hook-form";
 import { Product } from "@/app/api/products/models";
 import { calculateTotalPrice } from "@/utils";
 import { ListProduct } from "@/app/api/list-products/models";
-import { FormSale } from "../models";
+import { FormSale } from "../../../models";
 
 export const changeSelect = ({
   products,
@@ -20,6 +20,7 @@ export const changeSelect = ({
 
   const fieldsUpdate: ListProduct[] = fields;
   const product = products.find((item) => item.id === value);
+  
   fieldsUpdate.push({
     id: product?.id ?? 0,
     name: product?.name ?? "",

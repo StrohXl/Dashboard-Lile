@@ -26,17 +26,24 @@ export async function createSale(body: CreateSale) {
   const dollar = (await getPyDollar()) ?? 0;
 
   try {
-    const totalChanges = calculateTotalChanges({
-      changes: body.change_manager,
-      dollar,
-    });
+    const totalChanges = Number(
+      calculateTotalChanges({
+        changes: body.change_manager,
+        dollar,
+      }).toFixed(2)
+    );
 
-    const totalPayments = calculateTotalPayments({
-      dollar,
-      payments: body.payments,
-    });
+    const totalPayments = Number(
+      calculateTotalPayments({
+        dollar,
+        payments: body.payments,
+      }).toFixed(2)
+    );
 
-    const totalPrice = calculateTotalPrice(body.list_products);
+    const totalPrice = Number(
+      calculateTotalPrice(body.list_products).toFixed(2)
+    );
+    
     const status = getSaleStatus({ totalPayments, totalPrice });
     const debt = getDebt({ totalPayments, totalPrice });
     const listProducts = createListProduct(body.list_products);

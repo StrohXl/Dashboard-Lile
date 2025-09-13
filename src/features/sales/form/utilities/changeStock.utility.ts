@@ -11,5 +11,5 @@ export function changeStock({
 }) {
   const fields = getValues("list_products");
   const totalPrice = calculateTotalPrice(fields);
-  setTotalPrice(totalPrice);
+  setTotalPrice(Number((totalPrice).toFixed(2)));
 }
