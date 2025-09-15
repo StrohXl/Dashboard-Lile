@@ -1,4 +1,4 @@
-import prisma from "@/libs/prisma";
+import prisma from "../../../../../libs/prisma";
 import { ParamsRequest } from "@/models";
 import { getPages } from "@/utils/getPages.utility";
 import { NextResponse } from "next/server";

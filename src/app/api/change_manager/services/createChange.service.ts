@@ -3,7 +3,7 @@ import validatedChangeManager, {
   CreateChangeManager,
 } from "../validators/bodyChange.validator";
 import { NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import prisma from "../../../../../libs/prisma";
 import { Prisma } from "@prisma/client";
 
 export async function createChange({ body }: { body: CreateChangeManager }) {

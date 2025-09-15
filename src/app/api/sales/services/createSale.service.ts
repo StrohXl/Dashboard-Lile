@@ -9,7 +9,7 @@ import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { calculateTotalPrice } from "@/utils";
 import { getDebt } from "../utilities/getDebt.utility";
 import { createListProduct } from "../../list-products/adapters";
-import prisma from "@/libs/prisma";
+import prisma from "../../../../../libs/prisma";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 

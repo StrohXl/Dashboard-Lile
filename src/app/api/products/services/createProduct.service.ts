@@ -1,7 +1,7 @@
 import { ZodError } from "zod";
 import { Product } from "../models";
 import { NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import prisma from "../../../../../libs/prisma";
 import { Prisma } from "@prisma/client/edge";
 import productValidator from "../validators/product.validator";
 

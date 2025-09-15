@@ -5,7 +5,7 @@ import {
 } from "../validators/createPayment.validator";
 import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client/edge";
-import prisma from "@/libs/prisma";
+import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 
 export function updatePaymentById({

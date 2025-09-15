@@ -24,7 +24,7 @@ function TableBodyProducts({
           className={`${
             !selects.includes(item.id) &&
             item.stock <= 10 &&
-            "!bg-red-500 text-white stock-red"
+            "!bg-red-500 text-white stock-red font-medium"
           }`}
           key={item.id}
           item={item}

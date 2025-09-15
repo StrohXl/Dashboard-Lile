@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
-import prisma from "@/libs/prisma";
+import prisma from "../../../../../libs/prisma";
 import { Prisma } from "@prisma/client/edge";
 import { updateProducts } from "../../products/services";
 import { createBodyBuy } from "../adapters";

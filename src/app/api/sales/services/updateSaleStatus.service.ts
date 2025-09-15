@@ -2,7 +2,7 @@ import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { getDebt } from "../utilities/getDebt.utility";
 import { paymentsAdapter } from "../../payments/adapters/payments.adapter";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
-import prisma from "@/libs/prisma";
+import prisma from "../../../../../libs/prisma";
 import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client/edge";
 

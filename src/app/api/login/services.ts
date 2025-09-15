@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import TypeUser from "../users/type/typeUser";
 import validInputs from "../users/utils/validInputs";
 import { ZodError } from "zod";
@@ -6,7 +5,8 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 import bcrypt from "bcrypt";
-const prisma = new PrismaClient();
+import prisma from "@/../libs/prisma";
+
 export async function loginUser(body: TypeUser) {
   const validInputsUser = await validInputs(body);
 
@@ -55,6 +55,7 @@ export async function loginUser(body: TypeUser) {
       });
     }
   } catch (error) {
-    return NextResponse.json(error, { status: 500 });
+    console.error(error)
+    return NextResponse.json("Error", { status: 500 });
   }
 }
