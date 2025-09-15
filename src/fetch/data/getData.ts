@@ -17,9 +17,9 @@ const getData = async ({
   const myToken: RequestCookie | undefined = cookieStore.get("myToken");
 
   // Obtener url de dominio
-  const node_env = process.env.DEPLOY_SITE || "";
+  const node_env = process.env.VERCEL_ENV || "";
   let siteUrl = "";
-  if (node_env == "development") {
+  if (node_env != "production") {
     siteUrl = process.env.URL_DEV || "http://localhost:3000";
   } else {
     // En producción, asegúrate de incluir el protocolo
