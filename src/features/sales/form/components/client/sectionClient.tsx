@@ -15,6 +15,7 @@ export default function SectionClient({
   errors,
   reset,
   setValue,
+  watch,
 }: {
   register: UseFormRegister<FormSale>;
   errors: FieldErrors<FormSale>;
@@ -22,6 +23,8 @@ export default function SectionClient({
   watch: UseFormWatch<FormSale>;
   setValue: UseFormSetValue<FormSale>;
 }) {
+  const idClient = watch("client.id");
+
   return (
     <div className="flex flex-col gap-4 w-full mt-6 pb-6  ">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -49,6 +52,7 @@ export default function SectionClient({
               value: 3,
             },
           }}
+          disabled={idClient != 0?true:false}
         />
         <InputSaleForm
           placeholder="Apellido del Cliente"
@@ -66,6 +70,8 @@ export default function SectionClient({
               value: 3,
             },
           }}
+          disabled={idClient != 0?true:false}
+
         />
         <InputSaleForm
           placeholder="22304034"
@@ -87,6 +93,8 @@ export default function SectionClient({
               message: "Solo numeros",
             },
           }}
+          disabled={idClient != 0?true:false}
+
         />
         <div className="flex mt-auto h-[42px] items-center justify-center">
           <MdDeleteOutline

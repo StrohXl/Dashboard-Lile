@@ -28,7 +28,7 @@ export default function InputSaleForm({
         <div
           className={`border-1
              ${error ? "!border-red-500" : "border-gray-700"}
-             ${disabled && "opacity-50 cursor-not-allowed"}
+             ${disabled && "!opacity-70 cursor-not-allowed"}
             focus-within:border-primary flex items-center px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
         >
           {iconStart && (
