@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
 import { ParamValue } from "next/dist/server/request/params";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CreateProduct } from "@/app/api/products/validators/product.validator";
 interface ResponseAxios {
   data: {
@@ -14,12 +13,10 @@ const toastEditProduct = async ({
   body,
   changeDisabled,
   id,
-  router,
 }: {
   body: CreateProduct;
   changeDisabled: () => void;
   id: ParamValue;
-  router: AppRouterInstance;
 }) => {
   try {
     await toast.promise(axios.put(`/api/products/${id}`, body), {
@@ -35,7 +32,6 @@ const toastEditProduct = async ({
         },
       },
     });
-    router.push("/dashboard/products");
   } catch (error) {
     console.log(error);
     changeDisabled();
