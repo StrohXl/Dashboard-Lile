@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("ws_PRISMA_DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -41,10 +41,12 @@ model Products {
 }
 
 model HistoryPrice {
-  id Int @id @default(autoincrement())
-  price Decimal 
-  products   Products? @relation(fields: [products_id], references: [id])
+  id          Int       @id @default(autoincrement())
+  price       Decimal
+  products    Products? @relation(fields: [products_id], references: [id])
   products_id Int?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
 }
 
 model BlackListToken {
