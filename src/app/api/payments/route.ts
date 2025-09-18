@@ -1,21 +1,18 @@
 import { tokenValidator } from "@/app/validators/token.validator";
 import { NextRequest, NextResponse } from "next/server";
 import { getPayments, createPayment } from "./services";
+import { getParams } from "@/utils/getParams";
 
 export async function GET(request: NextRequest) {
   const token = tokenValidator(request);
-  const searchParams = request.nextUrl.searchParams;
-  const all = searchParams.get("all") ?? "false";
-  const page = searchParams.get("page") ?? 1;
-
   if (!token) {
     return NextResponse.json(
       { error: "Solicitud no permitida" },
       { status: 400 }
     );
   }
-  
-  return await getPayments({ params: { all, page: Number(page) } });
+  const params = getParams({ request });
+  return await getPayments({ params });
 }
 
 export async function POST(request: NextRequest) {

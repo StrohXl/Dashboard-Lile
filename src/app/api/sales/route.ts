@@ -1,12 +1,9 @@
 import { tokenValidator } from "@/app/validators/token.validator";
 import { NextRequest, NextResponse } from "next/server";
 import { createSale, getSales } from "./services";
+import { getParams } from "@/utils/getParams";
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const all = searchParams.get("all") ?? "false";
-  const page = searchParams.get("page") ?? 1;
-
   const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json(
@@ -14,7 +11,7 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   }
-  const params = { all, page: Number(page) };
+  const params = getParams({ request });
   return await getSales({ params });
 }
 
