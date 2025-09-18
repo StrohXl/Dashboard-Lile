@@ -23,7 +23,6 @@ export const onSubmit = async ({
       body: editProduct,
       changeDisabled: () => setDisabled(false),
       id,
-      router,
     });
   } else {
     const createProduct = createBodyProduct(body);
