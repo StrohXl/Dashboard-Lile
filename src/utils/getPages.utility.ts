@@ -54,6 +54,12 @@ export async function getPages(
     pages = Math.ceil(pages);
     return { pages, take, skip };
   }
+  else if (model === "/history_price") {
+    const counts = await prisma.historyPrice.count();
+    let pages: number = counts / elementsPerPage;
+    pages = Math.ceil(pages);
+    return { pages, take, skip };
+  }
   return {
     take,
     pages: 1,
