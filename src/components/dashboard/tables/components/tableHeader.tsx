@@ -11,7 +11,7 @@ export default function TableHeader({
   select = true,
   options,
 }: {
-  actions?: true;
+  actions?: boolean;
   select?: boolean;
   options: ReactNode[] | string[];
 }) {
