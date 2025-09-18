@@ -2,7 +2,6 @@ import { Body, Row, Cell } from "@table-library/react-table-library/table";
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 import { CellSelect } from "@table-library/react-table-library/select";
 import { useDataContext } from "@/hooks/useContextData";
-import { handleExpand } from "@/components/dashboard/tables/utils";
 import { Product } from "@/app/api/products/models";
 import { Data } from "@/models";
 
@@ -15,7 +14,7 @@ function TableBodyProducts({
   tableList: Product[];
   data: Data;
 }) {
-  const { ids, setIds, selects } = useDataContext();
+  const { selects } = useDataContext();
 
   return (
     <Body>
@@ -28,7 +27,6 @@ function TableBodyProducts({
           }`}
           key={item.id}
           item={item}
-          onClick={() => handleExpand({ ids, setIds, idItem: item.id })}
         >
           <CellSelect item={item} />
           <Cell>{item.name}</Cell>
