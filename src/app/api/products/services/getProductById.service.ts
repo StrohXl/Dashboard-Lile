@@ -7,7 +7,7 @@ export async function getProductById(id: number) {
     const productId = await prisma.products.findUnique({
       where: { id },
       cacheStrategy: {
-        ttl: 2,
+        ttl: 3,
         tags: ["findIdProduct"],
       },
     });
