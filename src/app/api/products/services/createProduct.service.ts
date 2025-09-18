@@ -10,7 +10,9 @@ export async function createProduct(body: Product, id: number) {
 
   if (result instanceof ZodError) {
     console.log(result.issues);
-    return NextResponse.json('Error en el cuerpo de la solicitud', { status: 400 });
+    return NextResponse.json("Error en el cuerpo de la solicitud", {
+      status: 400,
+    });
   }
 
   const { name, price, stock, unit } = body;
@@ -22,6 +24,11 @@ export async function createProduct(body: Product, id: number) {
         price: price,
         unit,
         userId: id,
+        history_price: {
+          create: {
+            price: price,
+          },
+        },
       },
     });
 

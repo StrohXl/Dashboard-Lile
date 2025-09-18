@@ -19,9 +19,14 @@ export async function updateProductById(body: Product, id: number) {
     const productUpdate = await prisma.products.update({
       data: {
         name,
-        price: price,
+        price,
         stock,
         unit,
+        history_price: {
+          create: {
+            price,
+          },
+        },
       },
       where: { id },
     });

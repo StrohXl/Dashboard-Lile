@@ -15,6 +15,11 @@ export const updateProducts = async ({
         where: { id: products[index].id },
         data: {
           price: products[index].price,
+          history_price: {
+            create: {
+              price: products[index].price,
+            },
+          },
           stock:
             action == "increment"
               ? {
