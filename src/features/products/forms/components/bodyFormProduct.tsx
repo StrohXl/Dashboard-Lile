@@ -64,7 +64,7 @@ export default function BodyFormProduct({
             }}
           />
         </div>
-        <div className="lg:col-start-1 lg:col-end-3 ">
+        <div className="lg:col-start-1 lg:col-end-5 ">
           <span
             className={`font-roboto block mb-2  ${
               errors.price || errors.priceBs ? "text-red-500" : "text-gray-700"
