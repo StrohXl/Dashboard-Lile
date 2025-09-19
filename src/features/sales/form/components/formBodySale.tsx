@@ -73,7 +73,7 @@ export default function FormBodySale({
       )}
 
       {formSteps == 2 && (
-        <div className="grid lg:grid-cols-[1fr_1px_1fr] gap-6 lg:gap-10 mt-6 pb-6">
+        <div className="grid xl:grid-cols-[1fr_1px_1fr] gap-6 mt-6 pb-6">
           <ListPaymentsAndChanges
             errors={errors}
             fields={paymentFields}
@@ -85,7 +85,7 @@ export default function FormBodySale({
             watch={watch}
             setValue={setValue}
           />
-          <div className="h-full hidden lg:block w-[1px] bg-gray-400"></div>
+          <div className=" w-full h-[1px] xl:h-full xl:w-[1px] bg-gray-400"></div>
           <ListPaymentsAndChanges
             errors={errors}
             fields={changeFields}
