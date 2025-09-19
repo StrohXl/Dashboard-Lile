@@ -3,7 +3,7 @@ import { ParamValue } from "next/dist/server/request/params";
 
 export type SaleSchemaHook = {
   search: string | number;
-  setSearch: (value: string) => void;
+  setSearch: (value: string | number) => void;
   products: Product[];
   id: ParamValue;
   setProducts: (value: Product[]) => void;
