@@ -2,7 +2,6 @@ import FormProduct from "@/features/products/forms/formProduct";
 import Link from "next/link";
 import { FaChevronLeft } from "react-icons/fa6";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
-
 export default function ProductId() {
   const pyDollar = getPyDollar();
 
@@ -19,9 +18,7 @@ export default function ProductId() {
           <FaChevronLeft size={20} />
         </Link>
       </div>
-      <section>
-        <FormProduct pyDollar={pyDollar} />
-      </section>
+      <FormProduct pyDollar={pyDollar} />
     </>
   );
 }
