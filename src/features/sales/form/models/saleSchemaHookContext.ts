@@ -2,7 +2,7 @@ import { Product } from "@/app/api/products/models";
 import { ParamValue } from "next/dist/server/request/params";
 
 export type SaleSchemaHook = {
-  search: string;
+  search: string | number;
   setSearch: (value: string) => void;
   products: Product[];
   id: ParamValue;

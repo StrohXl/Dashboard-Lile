@@ -28,7 +28,7 @@ export default function SaleHookContext({
   const [loadingSale, setLoadingSale] = useState<boolean>(true);
 
   // Hooks FormSale
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string | number>("");
   const [products, setProducts] = useState<Product[]>([]);
   const [options, setOptions] = useState<Product[]>([]);
   const [dollar, setDollar] = useState<number>(pyDollar);
