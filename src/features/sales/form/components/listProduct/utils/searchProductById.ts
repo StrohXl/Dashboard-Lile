@@ -1,37 +1,42 @@
 import { Product } from "@/app/api/products/models";
-import getData from "@/fetch/data/getData";
-import { ResponseData } from "@/models";
 import { UseFormGetValues } from "react-hook-form";
 import { FormSale } from "../../../models";
+import axios from "axios";
 
 let timeout: ReturnType<typeof setTimeout> = setTimeout(() => {});
 
-export const searchProduct = ({
-  text,
+export const searchProductById = ({
+  id,
   setOpen,
   setOptions,
   setLoading,
   getValues,
 }: {
-  text: string;
+  id: string;
   setOpen: (value: boolean) => void;
   setOptions: (value: Product[]) => void;
   setLoading: (value: boolean) => void;
   getValues: UseFormGetValues<FormSale>;
 }) => {
-  if (text !== "") {
+  if (id) {
     setLoading(true);
     setOpen(true);
     clearTimeout(timeout);
 
     const idFields = getValues("list_products").map((item) => item.id);
     timeout = setTimeout(async () => {
-      const products: ResponseData<Product> = await getData({
-        url: "/products",
-        params: { name: text },
-      });
-      setOptions(products.data.filter((item) => item.name.includes(text) && !idFields.includes(item.id)));
-      setLoading(false);
+      try {
+        const { data }: { data: Product } = await axios.get(
+          `/api/products/${id}`
+        );
+        const listProducts = [data];
+        setOptions(listProducts.filter((item) => !idFields.includes(item.id)));
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+        setOptions([])
+      }
     }, 300);
   } else {
     setOpen(false);

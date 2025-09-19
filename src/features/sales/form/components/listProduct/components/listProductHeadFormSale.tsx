@@ -14,10 +14,16 @@ export default function ListProductHeadFormSale({
       <h4 className="mb-2 font-roboto text-gray-800 font-semibold text-lg">
         Lista de Productos
       </h4>
-      <div className="flex flex-col-reverse md:flex-row md:items-center gap-3">
+      <div className="grid md:grid-cols-[250px_250px] items-center gap-4">
         <SelectProductsFormSale
           prependProduct={prepend}
           getValues={getValues}
+          typeSearch="id"
+        />
+        <SelectProductsFormSale
+          prependProduct={prepend}
+          getValues={getValues}
+          typeSearch="name"
         />
       </div>
     </div>

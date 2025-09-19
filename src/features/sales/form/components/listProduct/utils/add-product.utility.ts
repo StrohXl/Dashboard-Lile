@@ -4,17 +4,12 @@ import { FormSale } from "../../../models";
 
 export function addProduct({
   product,
-  setOpen,
-  setSearch,
   prependProduct,
 }: {
-  setOpen: (value: boolean) => void;
-  setSearch: (value: string) => void;
   product: Product;
   prependProduct: UseFieldArrayPrepend<FormSale, "list_products">;
 }) {
-  setOpen(false);
-  setSearch("");
+
   prependProduct({
     id: product.id,
     name: product.name,
