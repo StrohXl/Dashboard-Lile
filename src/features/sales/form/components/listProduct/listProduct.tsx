@@ -33,7 +33,7 @@ export default function ListProduct({
 
   return (
     <div className="flex flex-col gap-4 w-full mt-6 pb-6">
-      <ListProductHeadFormSale fields={fields} prepend={prepend} />
+      <ListProductHeadFormSale getValues={getValues} prepend={prepend} />
       <ListProductBodyFormSale
         errors={errors}
         watch={watch}

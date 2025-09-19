@@ -1,14 +1,19 @@
-import { FieldArrayWithId } from "react-hook-form";
-import { Sale } from "@/app/api/sales/models";
+import { UseFieldArrayPrepend, UseFormGetValues } from "react-hook-form";
 import { useContextSale } from "../../../hooks/saleHookContext";
-import { addProduct, searchProduct } from "../utils";
+import {
+  addProduct,
+  searchProduct,
+  updateTotalPriceByListProduct,
+} from "../utils";
+import { FormSale } from "../../../models";
+import { Product } from "@/app/api/products/models";
 
 export default function SelectProductsFormSale({
-  fields,
-  changeSelect,
+  getValues,
+  prependProduct,
 }: {
-  fields: FieldArrayWithId<Sale, "list_products">[];
-  changeSelect: (value: number) => void;
+  getValues: UseFormGetValues<FormSale>;
+  prependProduct: UseFieldArrayPrepend<FormSale, "list_products">;
 }) {
   const {
     open,
@@ -17,10 +22,23 @@ export default function SelectProductsFormSale({
     setSearch,
     setOptions,
     options,
-    setProducts,
     loading,
     setLoading,
+    setTotalPrice,
   } = useContextSale();
+
+  const onClickProduct = (product: Product) => {
+    addProduct({
+      prependProduct,
+      product,
+      setOpen,
+      setSearch,
+    });
+    setTimeout(
+      () => updateTotalPriceByListProduct({ getValues, setTotalPrice }),
+      200
+    );
+  };
 
   return (
     <div className="relative">
@@ -29,14 +47,13 @@ export default function SelectProductsFormSale({
           value={search}
           type="text"
           className="py-2  outline-none text-gray-700 placeholder:text-gray-600 sm:max-w-[160px] md:max-w-full md:w-[400px]"
-          placeholder="Seleccionar producto"
+          placeholder="Nombre del producto"
           onChange={(item) =>
             searchProduct({
               text: item.target.value,
-              fields,
               setLoading,
+              getValues,
               setOpen,
-              setProducts,
               setSearch,
               setOptions,
             })
@@ -60,16 +77,7 @@ export default function SelectProductsFormSale({
           options.map((item) => (
             <li
               className="!px-4 transition-colors duration-300 font-roboto hover:bg-primary hover:text-white cursor-pointer py-1"
-              onClick={() =>
-                addProduct({
-                  id: item.id,
-                  changeSelect,
-                  setOpen,
-                  options,
-                  setOptions,
-                  setSearch,
-                })
-              }
+              onClick={() => onClickProduct(item)}
               key={item.id}
             >
               <p className="truncate"> {item.name}</p>

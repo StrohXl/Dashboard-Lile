@@ -1,22 +1,25 @@
 import { Product } from "@/app/api/products/models";
+import { UseFieldArrayPrepend } from "react-hook-form";
+import { FormSale } from "../../../models";
 
 export function addProduct({
-  id,
-  options,
+  product,
   setOpen,
-  setOptions,
   setSearch,
-  changeSelect,
+  prependProduct,
 }: {
-  id: number;
-  options: Product[];
   setOpen: (value: boolean) => void;
   setSearch: (value: string) => void;
-  setOptions: (value: Product[]) => void;
-  changeSelect: (value: number) => void;
+  product: Product;
+  prependProduct: UseFieldArrayPrepend<FormSale, "list_products">;
 }) {
   setOpen(false);
-  changeSelect(id);
   setSearch("");
-  setOptions(options);
+  prependProduct({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    stock: 1,
+    unit: product.unit,
+  });
 }
