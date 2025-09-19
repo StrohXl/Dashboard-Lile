@@ -48,6 +48,9 @@ export default function FormSale({
           id: 0,
         },
       ],
+      client:{
+        id:0
+      }
     },
     mode: "onChange",
   });
@@ -141,15 +144,18 @@ const SaleForm = ({
         })}
       >
         <FormHeaderSale />
-        <FormBodySale
-          control={control}
-          errors={errors}
-          getValues={getValues}
-          register={register}
-          reset={reset}
-          watch={watch}
-          setValue={setValue}
-        />
+
+        <div className="max-h-[300px] xl:max-h-full pe-4 xl:pe-0  overflow-auto" >
+          <FormBodySale
+            control={control}
+            errors={errors}
+            getValues={getValues}
+            register={register}
+            reset={reset}
+            watch={watch}
+            setValue={setValue}
+          />
+        </div>
 
         <div className="flex justify-between mt-6">
           {formSteps !== 0 && (
@@ -161,6 +167,7 @@ const SaleForm = ({
               Regresar
             </button>
           )}
+
           <button
             disabled={disabled || (formSteps == 3 && !isDirty)}
             type={formSteps !== 3 ? "button" : "submit"}
