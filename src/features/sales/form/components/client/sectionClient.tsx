@@ -32,7 +32,10 @@ export default function SectionClient({
           Cliente
         </h4>
 
-        <SelectClient setValue={setValue} />
+       <div className="grid md:grid-cols-[250px_250px] gap-4 items-center" >
+         <SelectClient setValue={setValue} typeSearch="name"  />
+         <SelectClient setValue={setValue} typeSearch="ci"  />
+       </div>
       </div>
       <div className="grid grid-cols-[1fr_1fr_1fr_42px] items-end gap-4 mt-4">
         <input type="hidden" {...register("client.id")} defaultValue={0} />

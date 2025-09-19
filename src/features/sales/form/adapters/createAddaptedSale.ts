@@ -18,8 +18,8 @@ export const createAddaptedSale = (body: FormSale) => {
     client: {
       id: Number(body.client.id),
       ci: Number(body.client.ci),
-      name: body.client.name,
-      last_name: body.client.last_name,
+      name: body.client.name.toLocaleLowerCase(),
+      last_name: body.client.last_name.toLocaleLowerCase(),
     },
     list_products: [],
     payments: [],
