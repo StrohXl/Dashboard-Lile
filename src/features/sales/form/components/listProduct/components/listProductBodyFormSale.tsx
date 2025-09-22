@@ -75,7 +75,7 @@ export default function ListProductBodyFormSale({
 
               <div>
                 <h6 className="font-roboto text-gray-600 font-semibold">
-                  {item.price}$
+                  {Number(item.price.toFixed(2))}$
                 </h6>
               </div>
 
@@ -100,7 +100,7 @@ export default function ListProductBodyFormSale({
               />
               <div className="grid grid-cols-[45%_55%]">
                 <h6 className="font-roboto text-gray-700 font-semibold">
-                  {unit == "unit" ? totalPriceProduct : totalPriceProductKg}$
+                  {unit == "unit" ? totalPriceProduct.toFixed(2) : totalPriceProductKg.toFixed(2)}$
                 </h6>
                 <h6 className="font-roboto border-s-1 text-end border-gray-700 text-gray-700 font-semibold">
                   {unit == "unit"
