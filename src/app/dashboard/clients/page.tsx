@@ -24,7 +24,7 @@ export default async function Clients({
           Lista de clientes
         </h4>
         <div className="flex items-center gap-6">
-          <SearchData inputSearchType="ci" placeholderInput="Buscar Cliente..." />
+          <SearchData type="number" inputSearchType="ci" placeholderInput="Cedula del Cliente" />
           <Link className="btn-primary" href="/dashboard/clients/create">
             Agregar
             <FaUserPlus size={20} />

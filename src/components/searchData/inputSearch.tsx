@@ -2,7 +2,7 @@
 import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { HTMLInputTypeAttribute, useState } from "react";
 import { onSubmitSearch } from "./service/on-submi-search.service";
 import { resetInputSearch } from "./utilities/reset-input-search.utility";
 import { InputSearchType } from "./models/inputSearch.model";
@@ -11,7 +11,9 @@ import { FormSearch } from "./models/formSearch.model";
 export default function InputSearch({
   placeholderInput,
   inputSearchType,
+  type = "text",
 }: {
+  type?: HTMLInputTypeAttribute;
   placeholderInput: string;
   inputSearchType: InputSearchType;
 }) {
@@ -31,7 +33,7 @@ export default function InputSearch({
       </div>
       <input
         {...register("search")}
-        type="text"
+        type={type}
         className="outline-none py-2 "
         defaultValue={search || ""}
         placeholder={placeholderInput}
