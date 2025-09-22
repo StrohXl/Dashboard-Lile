@@ -24,7 +24,9 @@ export const createClient = async ({ body }: { body: CreateClient }) => {
   } catch (error) {
     console.log(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      return NextResponse.json(error.code, { status: 400 });
+      if(error.code == "P2002"){
+        return NextResponse.json("Ya existe un cliente con esta cedula", { status: 400 });
+      }
     }
     return NextResponse.json("Error", { status: 500 });
   }
