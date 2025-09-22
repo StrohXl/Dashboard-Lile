@@ -43,16 +43,14 @@ export async function createSale(body: CreateSale) {
     const totalPrice = Number(
       calculateTotalPrice(body.list_products).toFixed(2)
     );
-    
+
     const status = getSaleStatus({ totalPayments, totalPrice });
     const debt = getDebt({ totalPayments, totalPrice });
+    const turned = totalPayments > totalPrice && Number((totalPayments - totalPrice).toFixed(2));
     const listProducts = createListProduct(body.list_products);
 
-    if (
-      (totalChanges > 0 &&
-        Math.floor(totalPayments - totalChanges) != totalPrice) ||
-      (debt > 0.009 && totalChanges == 0 && totalPayments > totalPrice)
-    ) {
+    if (totalPayments > totalPrice && turned !== totalChanges) {
+      console.log({ turned, totalChanges });
       return NextResponse.json("Error en el cambio entregado", { status: 400 });
     }
 
@@ -128,6 +126,7 @@ export async function createSale(body: CreateSale) {
       action: "decrement",
       products: body.list_products,
     });
+
     return NextResponse.json("Venta creada");
   } catch (error) {
     console.error(error);
