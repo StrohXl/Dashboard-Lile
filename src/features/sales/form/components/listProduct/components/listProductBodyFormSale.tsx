@@ -75,7 +75,7 @@ export default function ListProductBodyFormSale({
 
               <div>
                 <h6 className="font-roboto text-gray-600 font-semibold">
-                  {Number(item.price.toFixed(2))}$
+                  {Number(item.price).toFixed(2)}$
                 </h6>
               </div>
 
