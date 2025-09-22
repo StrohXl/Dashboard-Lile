@@ -9,6 +9,12 @@ export async function getChanges({ params }: { params: ParamsRequest }) {
     const changes = await prisma.changeManager.findMany({
       take,
       skip: skip,
+      orderBy: {
+        id: "desc",
+      },
+      cacheStrategy: {
+        ttl: 3,
+      },
     });
     return NextResponse.json({ data: changes, pages });
   } catch (error) {

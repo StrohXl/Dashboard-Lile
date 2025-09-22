@@ -4,20 +4,22 @@ import { getPages } from "@/utils";
 import { NextResponse } from "next/server";
 
 export async function getPayments({ params }: { params: ParamsRequest }) {
-  
   const { skip, take, pages } = await getPages("/payments", params);
 
   try {
     const payments = await prisma.payments.findMany({
       skip,
       take,
+      orderBy: {
+        id: "desc",
+      },
+      cacheStrategy: {
+        ttl: 3,
+      },
     });
     return NextResponse.json({ data: payments, pages });
-
   } catch (error) {
-
     console.error(error);
     return NextResponse.json("Error", { status: 500 });
-
   }
 }

@@ -32,6 +32,9 @@ export const getClients = async ({ params }: { params: ParamsRequest }) => {
     },
     skip,
     take,
+    orderBy:{
+      id:'desc'
+    }
   });
   return NextResponse.json({ data: clients, pages });
 };
