@@ -1,20 +1,30 @@
-import { FieldArrayWithId } from "react-hook-form";
-import { FaChevronDown } from "react-icons/fa";
+import { UseFieldArrayPrepend, UseFormGetValues } from "react-hook-form";
 import { FormBuy } from "../models";
-import { Product } from "@/app/api/products/models";
 import SelectProductHook from "../hooks/select-product.hook";
-import { addProduct, openSelect, searchProduct } from "../utilities";
+import { addProduct, searchProduct } from "../utilities";
+import { Product } from "@/app/api/products/models";
+
 export default function SelectProductsFormBuy({
-  options,
-  changeSelect,
-  fields,
+  getValues,
+  prepend,
 }: {
-  fields: FieldArrayWithId<FormBuy>[];
-  options: Product[];
-  changeSelect: (value: number) => void;
+  getValues: UseFormGetValues<FormBuy>;
+  prepend: UseFieldArrayPrepend<FormBuy>;
 }) {
-  const { open, products, search, setOpen, setProducts, setSearch } =
-    SelectProductHook({ dataProducts: options });
+  const {
+    open,
+    products,
+    search,
+    setOpen,
+    setProducts,
+    setSearch,
+    loading,
+    setLoading,
+  } = SelectProductHook();
+
+  const onClickSelect = (product: Product) => {
+    addProduct({ product, prepend, setOpen, setSearch });
+  };
 
   return (
     <div className="relative">
@@ -23,47 +33,18 @@ export default function SelectProductsFormBuy({
           value={search}
           type="text"
           className="py-2  outline-none text-gray-700 placeholder:text-gray-600 sm:max-w-[160px]"
-          placeholder="Seleccionar producto"
+          placeholder="Nombre del Producto"
           onChange={(item) =>
             searchProduct({
               text: item.target.value,
-              fields,
               setOpen,
+              getValues,
               setProducts,
               setSearch,
-              options,
-            })
-          }
-          onClick={() =>
-            openSelect({
-              fields,
-              open,
-              options,
-              setOpen,
-              setProducts,
+              setLoading,
             })
           }
         />
-        <button
-          onClick={() =>
-            openSelect({
-              fields,
-              open,
-              setOpen,
-              setProducts,
-              options,
-            })
-          }
-          className="cursor-pointer"
-          type="button"
-        >
-          <FaChevronDown
-            className={`transition-transform duration-300  ${
-              open && "rotate-x-180"
-            }`}
-            size={14}
-          />
-        </button>
       </div>
       <ul
         style={{
@@ -74,22 +55,15 @@ export default function SelectProductsFormBuy({
           !open && "hidden"
         }`}
       >
-        {products.length == 0 ? (
+        {loading ? (
+          <li className="!px-4 font-roboto">Buscando...</li>
+        ) : products.length == 0 ? (
           <li className="!px-4 font-roboto">No se encontraron productos</li>
         ) : (
           products.map((item) => (
             <li
               className="!px-4 transition-colors duration-300 font-roboto hover:bg-primary hover:text-white cursor-pointer py-1"
-              onClick={() =>
-                addProduct({
-                  id: item.id,
-                  changeSelect,
-                  products,
-                  setOpen,
-                  setProducts,
-                  setSearch,
-                })
-              }
+              onClick={() => onClickSelect(item)}
               key={item.id}
             >
               <p className="truncate"> {item.name}</p>

@@ -1,33 +1,43 @@
-import { FieldArrayWithId } from "react-hook-form";
-import { FormBuy } from "../models";
 import { Product } from "@/app/api/products/models";
+import { UseFormGetValues } from "react-hook-form";
+import { FormBuy } from "../models";
+import getData from "@/fetch/data/getData";
+
+let timeout: ReturnType<typeof setTimeout> = setTimeout(() => {});
 
 export const searchProduct = ({
   text,
-  fields,
   setOpen,
   setSearch,
   setProducts,
-  options,
+  getValues,
+  setLoading,
 }: {
   text: string;
-  fields: FieldArrayWithId<FormBuy>[];
   setOpen: (value: boolean) => void;
   setSearch: (value: string) => void;
   setProducts: (value: Product[]) => void;
-  options: Product[];
+  setLoading: (value: boolean) => void;
+  getValues: UseFormGetValues<FormBuy>;
 }) => {
-  setSearch(text);
   if (text !== "") {
     setOpen(true);
+    setLoading(true);
+    setSearch(text);
   } else {
-    setOpen(false);
-    setProducts(options);
+    return setOpen(false);
   }
-  const searchFields = fields.find((item) => item.name.includes(text))
-    ? true
-    : false;
-  setProducts(
-    options.filter((item) => item.name.includes(text) && !searchFields)
-  );
+  clearTimeout(timeout);
+  timeout = setTimeout(async () => {
+    const idFields = getValues("products").map((item) => item.id);
+    const { data }: { data: Product[] } = await getData({
+      url: "/products",
+      params: {
+        name: text,
+      },
+    });
+    const products = data;
+    setLoading(false);
+    setProducts(products.filter((item) => !idFields.includes(item.id)));
+  }, 300);
 };

@@ -1,17 +1,14 @@
 import SelectFormBuy from "./selectProductsFormBuy";
-import { FieldArrayWithId, UseFieldArrayPrepend } from "react-hook-form";
-import { changeSelect, appendField } from "../utilities";
-import { DataProduct } from "@/app/api/products/models";
+import { UseFieldArrayPrepend, UseFormGetValues } from "react-hook-form";
+import { appendField } from "../utilities";
 import { FormBuy } from "../models";
 
 export default function HeadFormBuy({
-  products,
   prepend,
-  fields,
+  getValues,
 }: {
-  products: DataProduct;
-  fields: FieldArrayWithId<FormBuy>[];
   prepend: UseFieldArrayPrepend<FormBuy>;
+  getValues: UseFormGetValues<FormBuy>;
 }) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -19,19 +16,7 @@ export default function HeadFormBuy({
         Compra
       </h4>
       <div className="flex flex-col-reverse md:flex-row md:items-center gap-3">
-        {products.data.length > 0 && (
-          <SelectFormBuy
-            changeSelect={(value) =>
-              changeSelect({
-                products,
-                prepend,
-                value: Number(value),
-              })
-            }
-            fields={fields}
-            options={products.data}
-          />
-        )}
+        <SelectFormBuy getValues={getValues} prepend={prepend} />
         <button
           className="btn-outlined-primary !w-full !sm:w-fit"
           onClick={() => appendField({ prepend })}

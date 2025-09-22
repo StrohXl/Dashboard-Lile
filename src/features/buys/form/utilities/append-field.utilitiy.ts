@@ -6,6 +6,7 @@ export const appendField = ({
 }: {
   prepend: UseFieldArrayPrepend<FormBuy>;
 }) => {
+
   prepend({
     id: 0,
     name: "",
@@ -13,8 +14,8 @@ export const appendField = ({
     stock: 1,
     moneyType: "dollar",
     buyType: "unit",
-    type: "create",
     markup: 0.3,
-    sellingPrice: 0.1 * 1 * 0.3 + 0.1,
+    sellingPrice: 0,
   });
+
 };

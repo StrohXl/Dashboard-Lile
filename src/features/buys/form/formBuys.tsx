@@ -5,14 +5,11 @@ import BodyFormBuy from "./components/bodyFormBuy";
 import HeadFormBuy from "./components/headFormBuy";
 import { HookFormBuy } from "./hooks";
 import { onSubmit } from "./services/onSubmitBuy";
-import { DataProduct } from "@/app/api/products/models";
 import type { FormBuy } from "./models";
 
 export default function FormBuy({
-  data,
   pyDollar,
 }: {
-  data: Promise<DataProduct>;
   pyDollar: Promise<number | undefined>;
 }) {
   const { disabled, setDisabled, router } = HookFormBuy();
@@ -24,6 +21,7 @@ export default function FormBuy({
     control,
     setValue,
     getValues,
+    watch,
   } = useForm<FormBuy>();
 
   const { fields, prepend, remove } = useFieldArray({
@@ -34,7 +32,6 @@ export default function FormBuy({
     },
   });
 
-  const products = use(data);
   const dollar = use(pyDollar) ?? 1;
 
   return (
@@ -42,11 +39,7 @@ export default function FormBuy({
       className="flex flex-col  gap-4 w-full max-w-[700px] !px-5 container-table"
       onSubmit={handleSubmit((body) => onSubmit({ body, setDisabled, router }))}
     >
-      <HeadFormBuy
-        fields={fields}
-        products={products}
-        prepend={prepend}
-      />
+      <HeadFormBuy getValues={getValues} prepend={prepend} />
       <BodyFormBuy
         pyDollar={dollar}
         getValues={getValues}
@@ -55,6 +48,7 @@ export default function FormBuy({
         setValue={setValue}
         register={register}
         remove={remove}
+        watch={watch}
       />
       <button
         type="submit"
