@@ -17,23 +17,17 @@ export async function validatedStep2({
   dollar: number;
   totalPrice: number;
 }) {
-  
   const listPayments = await trigger("payments");
   const listChanges = await trigger("change_manager");
-  const totalDebt = totalPayments - totalPrice - totalChanges;
+  const turned = Number(Math.abs(totalPayments - totalPrice).toFixed(2));
+  if (listPayments && listChanges) {
 
-  if (listPayments && listChanges && totalDebt <= 0.009) {
-    if (totalPayments > 0) {
-      if (totalChanges <= 0) {
-        setFormSteps(formSteps + 1);
-      } else if (
-        totalChanges > 0 &&
-        totalPayments - totalPrice == totalChanges
-      ) {
-        setFormSteps(formSteps + 1);
-      }
-    } else if (totalPayments == 0 && totalChanges == 0) {
-      setFormSteps(formSteps + 1);
+    if(totalPayments>totalPrice && turned != totalChanges){
+      
     }
+    else{
+       setFormSteps(formSteps + 1);
+    }
+
   }
 }

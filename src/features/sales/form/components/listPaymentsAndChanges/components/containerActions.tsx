@@ -72,7 +72,7 @@ export default function ContainerActions({
 
   return (
     <div className="container-actions flex justify-center gap-4 items-center">
-      <button type="button" disabled={disabled} onClick={removeFields}>
+      <button type="button" className="transition-colors duration-300 text-red-500 hover:text-primary cursor-pointer" disabled={disabled} onClick={removeFields}>
         {id == 0 ? <IoClose size={22} /> : <MdDelete size={22} />}
       </button>
     </div>
