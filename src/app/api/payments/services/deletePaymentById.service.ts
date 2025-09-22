@@ -14,7 +14,7 @@ export async function deletePaymentById(id: number) {
       if (!payment) {
         return false;
       }
-      const idSale = payment?.sales_id ?? 0;
+      const idSale = payment.sales_id ?? 0;
       await tx.payments.delete({
         where: {
           id,
@@ -24,7 +24,7 @@ export async function deletePaymentById(id: number) {
       return true;
     });
     if (payment == false) {
-      return NextResponse.json("Pago no encontrado");
+      return NextResponse.json("Pago no encontrado",{status:404});
     }
     return NextResponse.json("Pago eliminado");
   } catch (error) {
