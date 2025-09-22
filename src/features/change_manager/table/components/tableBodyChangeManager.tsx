@@ -23,7 +23,7 @@ export default function TableBodyChangeManager({
           <Cell>{item.operation}</Cell>
           <Cell>
             <ContainerActions
-              apiUrl="/payments"
+              apiUrl="/change_manager"
               data={tableList}
               id={item.id}
               includeActions={{ delete: true }}
