@@ -69,6 +69,7 @@ export default function SelectClient({
     setValue("client.ci", `${client.ci}`);
     setSearch("");
     setOpen(false);
+    setOpenCi(false)
     setClients([]);
   };
 
