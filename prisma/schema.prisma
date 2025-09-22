@@ -85,7 +85,7 @@ model Clients {
   id         Int      @id @default(autoincrement())
   name       String
   last_name  String
-  ci         Int      @default(0)
+  ci         Int      @default(0) @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   sales      Sales[]
