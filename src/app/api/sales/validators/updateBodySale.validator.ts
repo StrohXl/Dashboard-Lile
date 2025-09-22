@@ -8,6 +8,7 @@ const UpdateSaleSchema = z
         payment_method: z.union([
           z.literal("efectivo Bs"),
           z.literal("divisa"),
+          z.literal("biopago"),
           z.literal("transferencia"),
         ]),
         payment_amount: z.number().positive().min(0.1),

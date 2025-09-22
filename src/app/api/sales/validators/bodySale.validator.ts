@@ -32,6 +32,7 @@ const BodySaleSchema = z
             z.literal("efectivo Bs"),
             z.literal("divisa"),
             z.literal("transferencia"),
+            z.literal("biopago"),
           ]),
           payment_amount: z.number().positive().min(0.1),
           operation: z.number().optional(),

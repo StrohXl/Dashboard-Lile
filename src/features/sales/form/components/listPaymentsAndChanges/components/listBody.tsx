@@ -44,6 +44,20 @@ export default function ListBody({
   const { dollar, setTotalPayments, setTotalChanges, totalPrice } =
     useContextSale();
 
+  const selectOptions =
+    option == "payments"
+      ? [
+          { title: "Transferencia", value: "transferencia" },
+          { title: "Divisa", value: "divisa" },
+          { title: "Efectivo Bs", value: "efectivo Bs" },
+          { title: "Biopago", value: "biopago" },
+        ]
+      : [
+          { title: "Transferencia", value: "transferencia" },
+          { title: "Divisa", value: "divisa" },
+          { title: "Efectivo Bs", value: "efectivo Bs" },
+        ];
+
   return (
     <>
       <input type="hidden" {...register(idField)} />
@@ -60,11 +74,7 @@ export default function ListBody({
             ? `payments.${index}.payment_method`
             : `change_manager.${index}.change_method`
         }
-        selectOptions={[
-          { title: "Transferencia", value: "transferencia" },
-          { title: "Divisa", value: "divisa" },
-          { title: "Efectivo Bs", value: "efectivo Bs" },
-        ]}
+        selectOptions={selectOptions}
         options={{
           onChange: (event) =>
             onChangeSelect({
