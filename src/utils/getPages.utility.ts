@@ -34,7 +34,13 @@ export async function getPages(
     pages = Math.ceil(pages);
     return { pages, take, skip };
   } else if (model === "/products") {
-    const counts = await prisma.products.count();
+    const counts = await prisma.products.count({
+      where: {
+        name: {
+          contains: params.name,
+        },
+      },
+    });
     let pages: number = counts / elementsPerPage;
     pages = Math.ceil(pages);
     return { pages, take, skip };
@@ -53,8 +59,7 @@ export async function getPages(
     let pages: number = counts / elementsPerPage;
     pages = Math.ceil(pages);
     return { pages, take, skip };
-  }
-  else if (model === "/history_price") {
+  } else if (model === "/history_price") {
     const counts = await prisma.historyPrice.count();
     let pages: number = counts / elementsPerPage;
     pages = Math.ceil(pages);
