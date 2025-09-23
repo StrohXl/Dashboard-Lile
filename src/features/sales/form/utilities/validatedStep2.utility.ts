@@ -1,5 +1,6 @@
 import { UseFormTrigger } from "react-hook-form";
 import { FormSale } from "../models";
+import { toast } from "react-toastify";
 
 export async function validatedStep2({
   formSteps,
@@ -21,9 +22,8 @@ export async function validatedStep2({
   const listChanges = await trigger("change_manager");
   const turned = Number(Math.abs(totalPayments - totalPrice).toFixed(2));
   if (listPayments && listChanges) {
-
     if(totalPayments>totalPrice && turned != totalChanges){
-      
+      toast.error('Error en el cambio entregado')
     }
     else{
        setFormSteps(formSteps + 1);
