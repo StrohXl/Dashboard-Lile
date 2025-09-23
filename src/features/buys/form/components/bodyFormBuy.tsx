@@ -12,7 +12,6 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import SelectFormBuy from "./selectFormBuy";
 import SelectMoneyType from "./selectMoneyType";
 import { changeSellingPrice } from "../utilities";
 import { FormBuy } from "../models";
@@ -36,15 +35,6 @@ export default function BodyFormBuy({
   pyDollar: number;
   watch: UseFormWatch<FormBuy>;
 }) {
-  const selectOptions = [
-    { title: "20%", value: 0.2 },
-    { title: "25%", value: 0.25 },
-    { title: "30%", value: 0.3 },
-    { title: "35%", value: 0.35 },
-    { title: "40%", value: 0.4 },
-    { title: "45%", value: 0.45 },
-    { title: "50%", value: 0.5 },
-  ];
   return (
     <div
       className={`container-fields gap-4 py-3  ${
@@ -59,10 +49,10 @@ export default function BodyFormBuy({
             className={`${
               fields.length > 0 &&
               index != fields.length - 1 &&
-              "pb-8 border-b-1   !border-gray-500"
+              "pb-8 border-b-1 mb-5   !border-gray-500"
             } `}
           >
-            <div className="flex justify-end">
+            <div className="flex justify-end mb-4">
               <button
                 className="transition-colors cursor-pointer duration-300 hover:text-primary hover:border-primary p-[2px] border-1 border-gray-500 text-gray-500 rounded-[5px] "
                 onClick={() => remove(index)}
@@ -71,7 +61,7 @@ export default function BodyFormBuy({
               </button>
             </div>
             <div
-              className={`grid sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_1fr_1fr] items-center gap-4
+              className={`grid sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_150px_150px_150px] items-center gap-4
            `}
             >
               <input type="hidden" {...register(`products.${index}.id`)} />
@@ -93,30 +83,6 @@ export default function BodyFormBuy({
                   },
                 }}
                 error={errors.products && errors.products[index]?.name}
-              />
-              <SelectFormBuy
-                pyDollar={pyDollar}
-                selectOptions={[
-                  { title: "Unidad", value: "unit" },
-                  { title: "Paquete", value: "package" },
-                  { title: "Kg", value: "kg" },
-                ]}
-                index={index}
-                getValues={getValues}
-                setValue={setValue}
-                register={register}
-                options={{
-                  onChange: () =>
-                    changeSellingPrice({
-                      getValues,
-                      index,
-                      pyDollar,
-                      setValue,
-                    }),
-                }}
-                label="Formato de precio"
-                nameField={`products.${index}.buyType`}
-                error={errors.products && errors.products[index]?.markup}
               />
               <InputFormBuy
                 register={register}
@@ -177,32 +143,11 @@ export default function BodyFormBuy({
                 }}
                 error={errors.products && errors.products[index]?.stock}
               />
-              <SelectFormBuy
-                selectOptions={selectOptions}
-                index={index}
-                getValues={getValues}
-                setValue={setValue}
-                register={register}
-                label="Margen de Ganancia"
-                nameField={`products.${index}.markup`}
-                error={errors.products && errors.products[index]?.markup}
-                options={{
-                  onChange: () =>
-                    changeSellingPrice({
-                      getValues,
-                      index,
-                      pyDollar,
-                      setValue,
-                    }),
-                }}
-                pyDollar={pyDollar}
-              />
               <InputFormBuy
                 register={register}
                 label="Precio de Venta"
                 nameField={`products.${index}.sellingPrice`}
                 type="number"
-                disabled={true}
                 iconEnd={<LuDollarSign />}
                 options={{
                   required: {

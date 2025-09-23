@@ -36,7 +36,7 @@ export default function FormBuy({
 
   return (
     <form
-      className="flex flex-col  gap-4 w-full max-w-[700px] !px-5 container-table"
+      className="flex flex-col  gap-4 w-full max-w-[1000px] !px-5 container-table"
       onSubmit={handleSubmit((body) => onSubmit({ body, setDisabled, router }))}
     >
       <HeadFormBuy getValues={getValues} prepend={prepend} />
