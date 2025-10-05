@@ -1,5 +1,6 @@
-import { CreateProduct } from "@/app/api/products/validators/product.validator";
+import { Product } from "@/app/api/products/models";
 
-export interface FormProduct extends CreateProduct {
-  priceBs: number;
+export interface FormProduct extends Omit<Product, "iva"> {
+  iva: "true" | "false";
+  type_of_currency: "bs" | "dollar";
 }

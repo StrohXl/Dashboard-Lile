@@ -15,7 +15,8 @@ export async function createProduct(body: Product, id: number) {
     });
   }
 
-  const { name, price, stock, unit } = body;
+  const { name, price, stock, unit, iva } = body;
+
   try {
     await prisma.products.create({
       data: {
@@ -24,6 +25,7 @@ export async function createProduct(body: Product, id: number) {
         price: price,
         unit,
         userId: id,
+        iva,
         history_price: {
           create: {
             price: price,

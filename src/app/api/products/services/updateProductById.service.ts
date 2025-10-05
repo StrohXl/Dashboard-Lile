@@ -13,7 +13,7 @@ export async function updateProductById(body: Product, id: number) {
     return NextResponse.json(result.issues, { status: 400 });
   }
 
-  const { name, price, stock, unit } = body;
+  const { name, price, stock, unit,iva } = body;
 
   try {
     const productUpdate = await prisma.products.update({
@@ -22,6 +22,7 @@ export async function updateProductById(body: Product, id: number) {
         price,
         stock,
         unit,
+        iva,
         history_price: {
           create: {
             price,

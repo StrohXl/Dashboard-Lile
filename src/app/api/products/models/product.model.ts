@@ -1,9 +1,7 @@
-export interface Product {
+import { CreateProduct } from "../validators/product.validator";
+
+export interface Product extends Required<CreateProduct> {
   id: number;
-  name: string;
-  price: number;
-  stock: number;
-  unit: "unit" | "kg" | "package";
   createdAT: string;
   updatedAT: string;
 }
