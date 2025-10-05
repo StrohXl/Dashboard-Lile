@@ -1,9 +1,6 @@
-export interface ListProduct {
-  id: number;
-  name: string;
-  price: number;
-  stock: number;
-  unit: "unit" | "kg" | "package";
-  createdAt?: string;
-  updatedAt?: string;
+import { CreateListProduct } from "../validators/createListProduct.validator";
+
+export interface ListProduct extends CreateListProduct {
+  createdAt: string;
+  updatedAt: string;
 }

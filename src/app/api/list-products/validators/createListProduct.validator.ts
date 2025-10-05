@@ -1,24 +1,23 @@
 import { z, ZodError } from "zod";
+import { createProductSchema } from "../../products/validators/product.validator";
 
-const ListProductSchema = z
+export const createListProductSchema = z
   .array(
-    z.object({
-      id: z.number(),
-      name: z.string().min(3).nonempty(),
-      price: z.number().min(0).positive(),
-      stock: z.number().min(1).positive(),
-      unit: z.union([z.literal("unit"), z.literal("kg"), z.literal("package")]),
-    })
+    createProductSchema
+      .extend({
+        id: z.number(),
+      })
+      .omit({ iva: true })
   )
   .nonempty();
 
-export type CreateListProduct = z.infer<typeof ListProductSchema>;
+export type CreateListProduct = z.infer<typeof createListProductSchema>;
 
 export default function createListProductValidator(
   body: CreateListProduct
 ): CreateListProduct | ZodError {
   try {
-    return ListProductSchema.parse(body);
+    return createListProductSchema.parse(body);
   } catch (error) {
     if (error instanceof ZodError) {
       return error;
