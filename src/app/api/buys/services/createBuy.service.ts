@@ -4,7 +4,6 @@ import prisma from "../../../../../libs/prisma";
 import { Prisma } from "@prisma/client/edge";
 import { updateProducts } from "../../products/services";
 import { createBodyBuy } from "../adapters";
-import { createListProduct } from "../../list-products/adapters";
 import { calculateTotalPrice } from "@/utils";
 import createBuyValidator, {
   CreateBuy,
@@ -28,7 +27,7 @@ export async function createBuy(body: CreateBuy, id: number) {
     unit: item.unit,
   }));
 
-  const listProducts = createListProduct(products);
+  const listProducts = body.products;
   const totalPrice = calculateTotalPrice(products);
 
   try {
@@ -42,7 +41,7 @@ export async function createBuy(body: CreateBuy, id: number) {
         list_products: {
           create: listProducts.map((item) => ({
             name: item.name,
-            price: item.price,
+            price: item.purchase_price,
             stock: item.stock,
             unit: item.unit,
           })),
