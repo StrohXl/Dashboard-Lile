@@ -1,11 +1,9 @@
 import { Sale } from "../../sales/models/sale.model";
+import { CreateClient } from "../validators";
 
-export interface Client {
+export interface Client extends CreateClient {
   id: number;
-  name: string;
-  last_name: string;
-  ci: number;
-  sales: Sale[];
+  sales?: Sale[];
   create_at: string;
   updated_at: string;
 }

@@ -9,7 +9,7 @@ import createClientValidator, {
 export const createClient = async ({ body }: { body: CreateClient }) => {
   const zodClient = createClientValidator(body);
   if (zodClient instanceof ZodError) {
-    console.log(zodClient);
+    console.error(zodClient);
     return NextResponse.json("Error en el cuerpo de la solicitud", {
       status: 400,
     });
