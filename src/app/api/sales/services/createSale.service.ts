@@ -8,7 +8,6 @@ import { updateStockProducts } from "../../products/services";
 import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { calculateTotalPrice } from "@/utils";
 import { getDebt } from "../utilities/getDebt.utility";
-import { createListProduct } from "../../list-products/adapters";
 import prisma from "../../../../../libs/prisma";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
@@ -46,8 +45,10 @@ export async function createSale(body: CreateSale) {
 
     const status = getSaleStatus({ totalPayments, totalPrice });
     const debt = getDebt({ totalPayments, totalPrice });
-    const turned = totalPayments > totalPrice && Number((totalPayments - totalPrice).toFixed(2));
-    const listProducts = createListProduct(body.list_products);
+    const turned =
+      totalPayments > totalPrice &&
+      Number((totalPayments - totalPrice).toFixed(2));
+    const listProducts = body.list_products;
 
     if (totalPayments > totalPrice && turned !== totalChanges) {
       console.log({ turned, totalChanges });
@@ -64,25 +65,17 @@ export async function createSale(body: CreateSale) {
             create: listProducts,
           },
           payments: {
-            create: body.payments?.map((item) => ({
-              payment_amount: item.payment_amount,
-              payment_method: item.payment_method,
-              operation: item.operation,
-            })),
+            create: body.payments,
           },
           client: {
             create: {
-              name: body.client.name ?? "",
-              last_name: body.client.last_name ?? "",
+              name: body.client.name,
+              last_name: body.client.last_name,
               ci: body.client.ci,
             },
           },
           change_manager: {
-            create: body.change_manager?.map((item) => ({
-              change_amount: item.change_amount,
-              change_method: item.change_method,
-              operation: item.operation,
-            })),
+            create: body.change_manager,
           },
           products: {
             connect: body.list_products.map((item) => ({ id: item.id })),
@@ -99,21 +92,13 @@ export async function createSale(body: CreateSale) {
             create: listProducts,
           },
           payments: {
-            create: body.payments?.map((item) => ({
-              payment_amount: item.payment_amount,
-              payment_method: item.payment_method,
-              operation: item.operation,
-            })),
+            create: body.payments,
           },
           client: {
             connect: { id: body.client.id },
           },
           change_manager: {
-            create: body.change_manager?.map((item) => ({
-              change_amount: item.change_amount,
-              change_method: item.change_method,
-              operation: item.operation,
-            })),
+            create: body.change_manager
           },
           products: {
             connect: body.list_products.map((item) => ({ id: item.id })),
