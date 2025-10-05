@@ -1,50 +1,32 @@
 import Skeleton from "./skeleton";
 
-export default function SkeletonTable() {
+export default function SkeletonHistory() {
   return (
     <div>
-      <div className="flex flex-col gap-5 h-[330px] 2xl:h-[420px] overflow-hidden">
-        <div className="items-center grid grid-cols-[200px_1fr_250px_250px_100px] gap-6 pt-3 ">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-24" />
+      <div className="flex flex-col gap-5 h-[330px] 2xl:h-[420px] w-[350px] overflow-hidden">
+        <div className="items-center grid grid-cols-[1fr_1fr] gap-6 pt-3 ">
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-full" />
         </div>
-        <div className="items-center grid grid-cols-[200px_1fr_250px_250px_100px] gap-6 pt-3 ">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-24" />
+        <div className="items-center grid grid-cols-[1fr_1fr] gap-6 pt-3 ">
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-full" />
         </div>
-        <div className="items-center grid grid-cols-[200px_1fr_250px_250px_100px] gap-6 pt-3 ">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-24" />
+        <div className="items-center grid grid-cols-[1fr_1fr] gap-6 pt-3 ">
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-full" />
         </div>
-        <div className="items-center grid grid-cols-[200px_1fr_250px_250px_100px] gap-6 pt-3 ">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-24" />
+        <div className="items-center grid grid-cols-[1fr_1fr] gap-6 pt-3 ">
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-full" />
         </div>
-        <div className="items-center grid grid-cols-[200px_1fr_250px_250px_100px] gap-6 pt-3 ">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-24" />
+        <div className="items-center grid grid-cols-[1fr_1fr] gap-6 pt-3 ">
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-full" />
         </div>
-        <div className="items-center grid grid-cols-[200px_1fr_250px_250px_100px] gap-6 pt-3 ">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-34" />
-          <Skeleton className="h-6 w-24" />
+        <div className="items-center grid grid-cols-[1fr_1fr] gap-6 pt-3 ">
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-full" />
         </div>
       </div>
       <div className="flex h-[32px] mt-6 justify-center gap-2 items-center">
