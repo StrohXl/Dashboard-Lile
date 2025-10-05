@@ -1,9 +1,9 @@
 import { HookDataContext } from "@/hooks/useContextData";
 import { Suspense } from "react";
-import TableBodyHistoryPrice from "./components/tableBodyHistoryPrice";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import getData from "@/fetch/data/getData";
+import GetPromise from "./components/getPromise";
 
 export default function TableHistoryPrice() {
   const dollarPy = getPyDollar();
@@ -19,7 +19,7 @@ export default function TableHistoryPrice() {
       </div>
       <Suspense fallback={<SkeletonTable />}>
         <HookDataContext>
-          <TableBodyHistoryPrice data={data} dollarPy={dollarPy} />
+          <GetPromise data={data} dollarPy={dollarPy} />
         </HookDataContext>
       </Suspense>
     </section>

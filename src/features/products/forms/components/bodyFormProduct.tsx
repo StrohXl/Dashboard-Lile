@@ -1,24 +1,41 @@
-import { LuDollarSign } from "react-icons/lu";
-import InputFormProduct from "./inputFormProduct";
-import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 import { FormProduct } from "../models/form-product.model";
-import { SelectFormProduct } from "./selectFormProduct";
+import LabelPriceAndPriceIva from "@/components/dashboard/form/labelPriceAndPriceIva";
+import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
+import GroupRadio from "@/components/dashboard/form/groupRadio";
+import InputForm from "@/components/dashboard/form/inputForm";
+import SelectForm from "@/components/dashboard/form/selectForm";
+import { changeCurrency } from "@/components/dashboard/form/utils/changeCurrency";
 
 export default function BodyFormProduct({
   errors,
   register,
   dollar,
   setValue,
+  watch,
+  iva,
 }: {
   dollar: number;
   errors: FieldErrors<FormProduct>;
   register: UseFormRegister<FormProduct>;
   setValue: UseFormSetValue<FormProduct>;
+  watch: UseFormWatch<FormProduct>;
+  iva: number;
 }) {
+  const inputIva = watch("iva");
+  const price = Number(watch("price"));
+  const priceIva = Number((price * Number(`0.${iva}`) + price).toFixed(2));
+  const typeOfCurrency = watch("type_of_currency");
+
   return (
     <div className="body-form flex flex-col gap-4">
       <div className="grid grid-cols-1 gap-4">
-        <InputFormProduct
+        <InputForm<FormProduct>
           error={errors.name}
           label="Nombre del Producto"
           nameField="name"
@@ -31,19 +48,20 @@ export default function BodyFormProduct({
             },
           }}
         />
+        
         <div className="grid md:grid-cols-2 gap-4  2xl:grid-cols-1">
-          <SelectFormProduct
+          <SelectForm<FormProduct>
             error={errors.unit}
             label="Tipo"
             nameField="unit"
             register={register}
             selectOptions={[
               { title: "Unidad", value: "unit" },
-              { title: "Paquete", value: "package" },
               { title: "Kg", value: "kg" },
             ]}
           />
-          <InputFormProduct
+
+          <InputForm<FormProduct>
             error={errors.stock}
             label="Cantidad"
             nameField="stock"
@@ -60,51 +78,56 @@ export default function BodyFormProduct({
             }}
           />
         </div>
-        <div className="grid md:grid-cols-2 gap-4">
-          <InputFormProduct
-            error={errors.price}
-            nameField="price"
-            register={register}
-            placeholder="1"
-            step="any"
-            type="number"
-            label="Precio en $"
-            defaultValue={0}
-            options={{
-              required: "Este campo es requerido",
-              min: {
-                value: 0.1,
-                message: "La cantidad debe de ser  minimo 0.1",
-              },
-              onChange: (event) =>
-                setValue(
-                  "priceBs",
-                  Number(
-                    (Number(event.target.value) * Number(dollar)).toFixed(2)
-                  )
-                ),
-            }}
-            iconEnd={<LuDollarSign />}
-          />
-          <InputFormProduct
-            error={errors.priceBs}
-            nameField="priceBs"
-            register={register}
-            defaultValue={0}
-            placeholder="1"
-            type="number"
-            step="any"
-            label="Precio en Bs"
-            options={{
-              onChange: (event) =>
-                setValue(
-                  "price",
-                  Number((event.target.value / Number(dollar)).toFixed(2))
-                ),
-            }}
-            iconEnd={<span>Bs</span>}
-          />
-        </div>
+        <GroupRadio<FormProduct>
+          nameField="iva"
+          label="Incluir IVA de 16%"
+          options={[
+            { title: "Si", value: "true" },
+            { title: "No", value: "false" },
+          ]}
+          register={register}
+          setValue={setValue}
+        />
+        <InputForm<FormProduct>
+          error={errors.price}
+          nameField="price"
+          register={register}
+          placeholder="1"
+          step="any"
+          type="number"
+          label="Precio de Venta"
+          labelTheLast={
+            <LabelPriceAndPriceIva
+              inputIva={inputIva}
+              price={price}
+              priceIva={priceIva}
+              typeOfCurrency={typeOfCurrency}
+            />
+          }
+          defaultValue={0}
+          options={{
+            required: "Este campo es requerido",
+            min: {
+              value: 0.1,
+              message: "La cantidad debe de ser  minimo 0.1",
+            },
+          }}
+          iconEnd={
+            <TypeOfCurrency
+              typeOfCurrency={typeOfCurrency}
+              onClickIcon={() =>
+                changeCurrency({
+                  dollar,
+                  price,
+                  setValue,
+                  typeOfCurrency,
+                  nameFieldCurrency: "type_of_currency",
+                  nameFieldPrice: "price",
+                })
+              }
+            />
+          }
+        />
       </div>
     </div>
   );

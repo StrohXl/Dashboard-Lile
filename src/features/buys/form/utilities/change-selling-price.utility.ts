@@ -12,25 +12,41 @@ export const changeSellingPrice = ({
   getValues: UseFormGetValues<FormBuy>;
   setValue: UseFormSetValue<FormBuy>;
 }) => {
-  const moneyType = getValues(`products.${index}.moneyType`);
-  const priceFormat = getValues(`products.${index}.buyType`);
+  const method = getValues("method");
   const stock = Number(getValues(`products.${index}.stock`));
-  const markup = Number(getValues(`products.${index}.markup`));
-  const inputPrice = Number(getValues(`products.${index}.price`));
+  let purchase_price = Number(getValues(`products.${index}.purchase_price`));
+  const type_of_currency = getValues(`products.${index}.type_of_currency_of_the_purchase`);
+  const markup = Number(getValues("markup"));
 
-  const price =
-    moneyType == "dollar"
-      ? inputPrice
-      : parseFloat((inputPrice / pyDollar).toFixed(2));
+  let sellingPrice = 0;
 
-  const priceIndividual =
-    priceFormat == "unit"
-      ? price
-      : priceFormat == "package"
-      ? price / stock
-      : (price * 1000) / stock;
+  if (type_of_currency == "bs") {
+    purchase_price = purchase_price / pyDollar;
+  }
 
-  const sellingPrice = priceIndividual * markup + priceIndividual;
+  switch (method) {
+    case "kg":
+      const priceKg = (purchase_price * 1000) / (stock * 1000);
+      const totalKg = priceKg * markup + priceKg;
+      sellingPrice = totalKg;
 
-  setValue(`products.${index}.sellingPrice`, sellingPrice);
+      break;
+
+    case "package":
+      const individualPrice = purchase_price / stock;
+      const totalPackage = Number(
+        (individualPrice * markup + individualPrice).toFixed(2)
+      );
+      sellingPrice = totalPackage;
+      break;
+
+    case "unit":
+      const totalUnit = Number(
+        (purchase_price * markup + purchase_price).toFixed(2)
+      );
+      sellingPrice = totalUnit;
+      break;
+  }
+
+  setValue(`selling_price`, sellingPrice);
 };

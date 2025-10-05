@@ -1,7 +1,7 @@
-import { ListProduct } from "../app/api/list-products/models";
+import { CreateProduct } from "@/app/api/products/validators/product.validator";
 import calculatePriceKg from "./calculatePriceKg.utility";
 
-export const calculateTotalPrice = (body: ListProduct[]) => {
+export const calculateTotalPrice = (body: Omit<CreateProduct,"iva">[]) => {
   const totalPrice = body.reduce(
     (accumulator, item) =>
       accumulator +

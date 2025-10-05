@@ -21,7 +21,7 @@ export default function FormBodySale({
   setValue,
   control,
   getValues,
-  reset
+  reset,
 }: {
   register: UseFormRegister<FormSale>;
   errors: FieldErrors<FormSale>;
@@ -57,8 +57,8 @@ export default function FormBodySale({
         <SectionClient
           watch={watch}
           errors={errors}
-          setValue={setValue}
           register={register}
+          setValue={setValue}
           reset={reset}
         />
       )}
@@ -96,7 +96,6 @@ export default function FormBodySale({
             remove={changeRemove}
             watch={watch}
             setValue={setValue}
-
           />
         </div>
       )}

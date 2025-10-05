@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FieldErrors,
   UseFormRegister,
@@ -6,16 +8,16 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { FormSale } from "../../models";
-import InputSaleForm from "../inputFormSale";
-import SelectClient from "./components/selectClient";
 import { MdDeleteOutline } from "react-icons/md";
+import InputForm from "@/components/dashboard/form/inputForm";
+import SelectClient from "./components/selectClient";
 
 export default function SectionClient({
   register,
   errors,
   reset,
-  setValue,
   watch,
+  setValue,
 }: {
   register: UseFormRegister<FormSale>;
   errors: FieldErrors<FormSale>;
@@ -24,7 +26,6 @@ export default function SectionClient({
   setValue: UseFormSetValue<FormSale>;
 }) {
   const idClient = watch("client.id");
-
   return (
     <div className="flex flex-col gap-4 w-full mt-6 pb-6  ">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -32,14 +33,22 @@ export default function SectionClient({
           Cliente
         </h4>
 
-       <div className="grid md:grid-cols-[250px_250px] gap-4 items-center" >
-         <SelectClient setValue={setValue} typeSearch="name"  />
-         <SelectClient setValue={setValue} typeSearch="ci"  />
-       </div>
+        <div className="grid md:grid-cols-[250px_250px] gap-4 items-center">
+          <SelectClient
+            setValue={setValue}
+            params={"name"}
+            placeholder="Nombre del cliente"
+          />
+          <SelectClient
+            params={"ci"}
+            setValue={setValue}
+            placeholder="Cedula del cliente"
+          />
+        </div>
       </div>
       <div className="grid grid-cols-[1fr_1fr_1fr_42px] items-end gap-4 mt-4">
         <input type="hidden" {...register("client.id")} defaultValue={0} />
-        <InputSaleForm
+        <InputForm<FormSale>
           placeholder="Nombre del Cliente"
           error={errors.client?.name}
           register={register}
@@ -55,9 +64,9 @@ export default function SectionClient({
               value: 3,
             },
           }}
-          disabled={idClient != 0?true:false}
+          disabled={idClient != 0 ? true : false}
         />
-        <InputSaleForm
+        <InputForm<FormSale>
           placeholder="Apellido del Cliente"
           error={errors.client?.last_name}
           register={register}
@@ -73,10 +82,9 @@ export default function SectionClient({
               value: 3,
             },
           }}
-          disabled={idClient != 0?true:false}
-
+          disabled={idClient != 0 ? true : false}
         />
-        <InputSaleForm
+        <InputForm<FormSale>
           placeholder="22304034"
           error={errors.client?.ci}
           register={register}
@@ -96,8 +104,7 @@ export default function SectionClient({
               message: "Solo numeros",
             },
           }}
-          disabled={idClient != 0?true:false}
-
+          disabled={idClient != 0 ? true : false}
         />
         <div className="flex mt-auto h-[42px] items-center justify-center">
           <MdDeleteOutline

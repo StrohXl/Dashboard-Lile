@@ -1,6 +1,6 @@
-import { Sale } from "@/app/api/sales/models";
 import { calculateTotalPrice } from "@/utils";
 import { FieldArrayWithId, UseFieldArrayRemove } from "react-hook-form";
+import { FormSale } from "../../../models";
 
 export function removeProduct({
   fields,
@@ -9,7 +9,7 @@ export function removeProduct({
   setTotalPrice,
 }: {
   id: number;
-  fields: FieldArrayWithId<Sale, "list_products">[];
+  fields: FieldArrayWithId<FormSale, "list_products">[];
   remove: UseFieldArrayRemove;
   setTotalPrice: (value: number) => void;
 }) {

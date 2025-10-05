@@ -4,5 +4,6 @@ type UrlParams = {
   page?: string;
   deleteId?: string;
   all?: string;
+  id?: string
 };
 export default UrlParams;

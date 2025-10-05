@@ -2,16 +2,18 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { use } from "react";
 import BodyFormBuy from "./components/bodyFormBuy";
-import HeadFormBuy from "./components/headFormBuy";
+import HeadFormBuy from "./components/headFormBuy/headFormBuy";
 import { HookFormBuy } from "./hooks";
 import { onSubmit } from "./services/onSubmitBuy";
 import type { FormBuy } from "./models";
+import ModalCalculatePrice from "./components/modalCalculatePrice";
 
 export default function FormBuy({
   pyDollar,
 }: {
   pyDollar: Promise<number | undefined>;
 }) {
+  const IVA = 16;
   const { disabled, setDisabled, router } = HookFormBuy();
 
   const {
@@ -22,7 +24,11 @@ export default function FormBuy({
     setValue,
     getValues,
     watch,
-  } = useForm<FormBuy>();
+  } = useForm<FormBuy>({
+    defaultValues: {
+      selling_price: 0,
+    },
+  });
 
   const { fields, prepend, remove } = useFieldArray({
     name: "products",
@@ -35,28 +41,41 @@ export default function FormBuy({
   const dollar = use(pyDollar) ?? 1;
 
   return (
-    <form
-      className="flex flex-col  gap-4 w-full max-w-[1000px] !px-5 container-table"
-      onSubmit={handleSubmit((body) => onSubmit({ body, setDisabled, router }))}
-    >
-      <HeadFormBuy getValues={getValues} prepend={prepend} />
-      <BodyFormBuy
-        pyDollar={dollar}
-        getValues={getValues}
+    <>
+      <form
+        className="flex flex-col h-fit  gap-4 w-full max-w-[800px] !px-5 container-table"
+        onSubmit={handleSubmit((body) =>
+          onSubmit({ body, setDisabled, router, iva: IVA })
+        )}
+      >
+        <HeadFormBuy getValues={getValues} prepend={prepend} />
+        <BodyFormBuy
+          IVA={IVA}
+          pyDollar={dollar}
+          getValues={getValues}
+          errors={errors}
+          fields={fields}
+          setValue={setValue}
+          register={register}
+          remove={remove}
+          watch={watch}
+        />
+        <button
+          type="submit"
+          className="btn-primary !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
+          disabled={disabled}
+        >
+          Crear Comprar
+        </button>
+      </form>
+      <ModalCalculatePrice
         errors={errors}
-        fields={fields}
-        setValue={setValue}
+        getValues={getValues}
+        pyDollar={dollar}
         register={register}
-        remove={remove}
+        setValue={setValue}
         watch={watch}
       />
-      <button
-        type="submit"
-        className="btn-primary !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
-        disabled={disabled}
-      >
-        Crear Comprar
-      </button>
-    </form>
+    </>
   );
 }

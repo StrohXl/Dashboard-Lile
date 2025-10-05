@@ -1,5 +1,4 @@
 "use client";
-import { Product } from "@/app/api/products/models";
 import { useParams } from "next/navigation";
 import {
   createContext,
@@ -28,17 +27,12 @@ export default function SaleHookContext({
   const [loadingSale, setLoadingSale] = useState<boolean>(true);
 
   // Hooks FormSale
-  const [search, setSearch] = useState<string | number>("");
-  const [products, setProducts] = useState<Product[]>([]);
-  const [options, setOptions] = useState<Product[]>([]);
   const [dollar, setDollar] = useState<number>(pyDollar);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalChanges, setTotalChanges] = useState<number>(0);
   const [totalPayments, setTotalPayments] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [formSteps, setFormSteps] = useState<number>(0);
-  const [open, setOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
   const [reload, setReload] = useState<boolean>(true);
 
   useEffect(() => {
@@ -60,28 +54,18 @@ export default function SaleHookContext({
   return (
     <UseSaleContext.Provider
       value={{
-        search,
-        setSearch,
-        products,
-        setProducts,
         disabled,
         setDisabled,
-        open,
-        setOpen,
         dollar,
         setDollar,
         totalPrice,
         setTotalPrice,
-        options,
-        setOptions,
         totalPayments,
         setTotalPayments,
         totalChanges,
         setTotalChanges,
         formSteps,
         setFormSteps,
-        loading,
-        setLoading,
         id,
         loadingSale,
         setLoadingSale,

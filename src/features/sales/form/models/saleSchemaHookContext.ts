@@ -1,20 +1,11 @@
-import { Product } from "@/app/api/products/models";
 import { ParamValue } from "next/dist/server/request/params";
 
 export type SaleSchemaHook = {
-  search: string | number;
-  setSearch: (value: string | number) => void;
-  products: Product[];
   id: ParamValue;
-  setProducts: (value: Product[]) => void;
-  open: boolean;
-  setOpen: (value: boolean) => void;
   disabled: boolean;
   setDisabled: (value: boolean) => void;
   loadingSale: boolean;
   setLoadingSale: (value: boolean) => void;
-  loading: boolean;
-  setLoading: (value: boolean) => void;
   dollar: number;
   setDollar: (value: number) => void;
   totalPrice: number;
@@ -23,8 +14,6 @@ export type SaleSchemaHook = {
   setTotalPayments: (value: number) => void;
   totalChanges: number;
   setTotalChanges: (value: number) => void;
-  options: Product[];
-  setOptions: (value: Product[]) => void;
   formSteps: number;
   setFormSteps: (value: number) => void;
   reload: boolean;

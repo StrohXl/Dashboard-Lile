@@ -8,13 +8,15 @@ export const onSubmit = async ({
   body,
   setDisabled,
   router,
+  iva,
 }: {
   body: FormBuy;
   setDisabled: (value: boolean) => void;
   router: AppRouterInstance;
+  iva: number;
 }) => {
   setDisabled(true);
-  const data = createAddaptedBuy(body);
+  const data = createAddaptedBuy({ body, iva });
   try {
     await toast.promise(axios.post("/api/buys", data), {
       pending: "Creando compra...",

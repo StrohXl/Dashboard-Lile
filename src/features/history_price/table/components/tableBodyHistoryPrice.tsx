@@ -6,9 +6,7 @@ import {
   Cell,
   Table,
 } from "@table-library/react-table-library/table";
-import { ResponseData } from "@/models";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
-import { use } from "react";
 import ThemeTableHistory from "../theme";
 import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
 
@@ -16,13 +14,10 @@ export default function TableBodyHistoryPrice({
   data,
   dollarPy,
 }: {
-  dollarPy: Promise<number | undefined>;
-  data: Promise<{ data: ResponseData<{ data: HistoryPrice; pages: number }> }>;
+  dollarPy: number | undefined;
+  data: HistoryPrice[] | undefined;
 }) {
-  const dollar = use(dollarPy) ?? 0;
-  const historyPrice = use(data);
-  const nodes = { nodes: historyPrice.data.data };
-  console.log(historyPrice);
+  const nodes = { nodes: data && data };
 
   const tableHeader = [
     "Fecha",
@@ -41,14 +36,7 @@ export default function TableBodyHistoryPrice({
           data={nodes}
           theme={theme}
         >
-          {(
-            tableList: {
-              id: number;
-              price: number;
-              created_at: string;
-              updated_at: string;
-            }[]
-          ) => (
+          {(tableList: HistoryPrice[]) => (
             <>
               <TableHeader
                 select={false}
@@ -65,7 +53,7 @@ export default function TableBodyHistoryPrice({
                       <div className="w-full grid grid-cols-[1fr_1fr]">
                         <div className="text-end pe-4">{item.price}$</div>
                         <div className="text-start ps-4 border-l-1 border-gray-400">
-                          {dollar && (item.price * dollar).toFixed(2)}
+                          {dollarPy && (item.price * dollarPy).toFixed(2)}
                           Bs
                         </div>
                       </div>

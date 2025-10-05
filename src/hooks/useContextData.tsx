@@ -1,5 +1,6 @@
 "use client";
 import { createContext, ReactNode, useContext, useState } from "react";
+
 export type DataContextType = {
   disabled: boolean;
   setDisabled: (val: boolean) => void;

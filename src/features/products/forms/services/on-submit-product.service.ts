@@ -10,22 +10,25 @@ export const onSubmit = async ({
   setDisabled,
   router,
   id,
+  iva,
 }: {
   id: ParamValue;
   body: FormProduct;
   setDisabled: (value: boolean) => void;
   router: AppRouterInstance;
+  iva: number;
 }) => {
   setDisabled(true);
+
   if (id) {
-    const editProduct = editBodyProductAdapter(body);
+    const editProduct = editBodyProductAdapter({ body, iva });
     await toastEditProduct({
       body: editProduct,
       changeDisabled: () => setDisabled(false),
       id,
     });
   } else {
-    const createProduct = createBodyProduct(body);
+    const createProduct = createBodyProduct({ body, iva });
     await toastCreateProduct({
       body: createProduct,
       changeDisabled: () => setDisabled(false),

@@ -1,13 +1,14 @@
-export interface FormBuy {
+import { ProductsBuy } from "@/app/api/buys/validators/createBuy.validator";
 
-  products: {
-    id: number;
-    name: string;
-    price: number;
-    stock: number;
-    sellingPrice: number;
-    buyType: "unit" | "package" | "kg";
-    moneyType: "dollar" | "bs";
-    markup: number;
-  }[];
+interface Products extends Omit<ProductsBuy, "iva"> {
+  type_of_currency_of_the_purchase: "dollar" | "bs";
+  type_of_currency_for_sale: "dollar" | "bs";
+  iva: "true" | "false";
+}
+
+export interface FormBuy {
+  products: Products[];
+  selling_price: number;
+  markup: number;
+  method: "unit" | "package" | "kg";
 }

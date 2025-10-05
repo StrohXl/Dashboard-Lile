@@ -8,12 +8,12 @@ import {
 } from "react-hook-form";
 import { FormSale } from "../../../models";
 import { OptionList } from "../models/optionList.model";
-import { SelectSaleForm } from "../../selectFormSale";
-import InputSaleForm from "../../inputFormSale";
 import ContainerActions from "./containerActions";
 import { updateTotalChanges, updateTotalPayments } from "../utils";
 import { useContextSale } from "../../../hooks/saleHookContext";
 import onChangeSelect from "../utils/onChangeSelect";
+import InputForm from "@/components/dashboard/form/inputForm";
+import SelectForm from "@/components/dashboard/form/selectForm";
 
 export default function ListBody({
   errors,
@@ -62,7 +62,7 @@ export default function ListBody({
     <>
       <input type="hidden" {...register(idField)} />
 
-      <SelectSaleForm
+      <SelectForm<FormSale>
         error={
           option == "payments"
             ? errorPayments?.payment_method
@@ -91,15 +91,14 @@ export default function ListBody({
         }}
       />
 
-      <InputSaleForm
+      <InputForm<FormSale>
         nameField={
           option == "payments"
             ? `payments.${index}.payment_amount`
             : `change_manager.${index}.change_amount`
         }
         register={register}
-        type="number"
-        hiddenMessageError={true}
+        type={'number'}
         error={
           option == "payments"
             ? errorPayments?.payment_amount
@@ -127,9 +126,10 @@ export default function ListBody({
           },
         }}
         step="any"
+        messageError={false}
       />
-
-      <InputSaleForm
+      {}
+      <InputForm<FormSale>
         nameField={
           option == "payments"
             ? `payments.${index}.operation`
@@ -145,7 +145,6 @@ export default function ListBody({
             ? "number"
             : "hidden"
         }
-        hiddenMessageError={true}
         error={
           option == "payments"
             ? errorPayments?.operation
@@ -165,6 +164,7 @@ export default function ListBody({
             message: "maximo 4",
           },
         }}
+        messageError={false}
       />
 
       <ContainerActions

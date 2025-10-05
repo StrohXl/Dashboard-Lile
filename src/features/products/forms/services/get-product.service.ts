@@ -8,22 +8,24 @@ export const getProduct = async ({
   reset,
   setProduct,
   setLoading,
-  dollar,
+  iva,
 }: {
   id: number;
-  dollar: number | undefined;
   reset: UseFormReset<FormProduct>;
   setProduct: (value: Product | undefined) => void;
   setLoading: (value: boolean) => void;
+  iva: number;
 }) => {
   const data = await getProductId(id);
   if (data) {
+    const originalPrice = data.price / (iva / 100 + 1);
     reset({
       name: data.name,
-      price: data.price,
+      price: data.iva ? originalPrice : data.price,
       stock: data.stock,
-      priceBs: dollar && data.price * dollar,
-      unit: data.unit
+      unit: data.unit,
+      iva: data.iva == true ? "true" : "false",
+      type_of_currency: 'dollar'
     });
     setProduct(data);
   }

@@ -1,6 +1,3 @@
-import { IoClose } from "react-icons/io5";
-import { LuDollarSign } from "react-icons/lu";
-import InputFormBuy from "./inputFormBuy";
 import { HiArchiveBox } from "react-icons/hi2";
 import NotHaveProducts from "./notHaveProducts";
 import {
@@ -12,9 +9,14 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import SelectMoneyType from "./selectMoneyType";
-import { changeSellingPrice } from "../utilities";
 import { FormBuy } from "../models";
+import MenuOptions from "./menuOptions";
+import InputForm from "@/components/dashboard/form/inputForm";
+import SelectForm from "@/components/dashboard/form/selectForm";
+import GroupRadio from "@/components/dashboard/form/groupRadio";
+import LabelPriceAndPriceIva from "@/components/dashboard/form/labelPriceAndPriceIva";
+import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
+import { changeCurrency } from "@/components/dashboard/form/utils/changeCurrency";
 
 export default function BodyFormBuy({
   fields,
@@ -25,6 +27,7 @@ export default function BodyFormBuy({
   setValue,
   getValues,
   watch,
+  IVA,
 }: {
   fields: FieldArrayWithId<FormBuy>[];
   register: UseFormRegister<FormBuy>;
@@ -34,6 +37,7 @@ export default function BodyFormBuy({
   setValue: UseFormSetValue<FormBuy>;
   pyDollar: number;
   watch: UseFormWatch<FormBuy>;
+  IVA: number;
 }) {
   return (
     <div
@@ -43,29 +47,42 @@ export default function BodyFormBuy({
     >
       {fields.map((item, index) => {
         const idProduct = watch(`products.${index}.id`);
+        const unit = watch(`products.${index}.unit`);
+        const inputIva = watch(`products.${index}.iva`);
+        const price = Number(watch(`products.${index}.selling_price`));
+        const priceIva = Number(
+          (price * Number(`0.${IVA}`) + price).toFixed(2)
+        );
+        const typeOfCurrencyForSale = watch(
+          `products.${index}.type_of_currency_for_sale`
+        );
+        const typeOfCurrencyOfThePurchase = watch(
+          `products.${index}.type_of_currency_of_the_purchase`
+        );
         return (
           <div
             key={item.id}
             className={`${
               fields.length > 0 &&
               index != fields.length - 1 &&
-              "pb-8 border-b-1 mb-5   !border-gray-500"
+              "pb-8 border-b-1  !border-gray-500"
             } `}
           >
-            <div className="flex justify-end mb-4">
-              <button
-                className="transition-colors cursor-pointer duration-300 hover:text-primary hover:border-primary p-[2px] border-1 border-gray-500 text-gray-500 rounded-[5px] "
-                onClick={() => remove(index)}
-              >
-                <IoClose size={22} />
-              </button>
+            <div className="flex justify-end mb-2">
+              <MenuOptions
+                id={idProduct}
+                getValues={getValues}
+                index={index}
+                remove={remove}
+                setValue={setValue}
+              />
             </div>
             <div
-              className={`grid sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_150px_150px_150px] items-center gap-4
+              className={`grid sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_150px_300px] items-center gap-4
            `}
             >
               <input type="hidden" {...register(`products.${index}.id`)} />
-              <InputFormBuy
+              <InputForm<FormBuy>
                 register={register}
                 label="Nombre del Producto"
                 nameField={`products.${index}.name`}
@@ -84,19 +101,39 @@ export default function BodyFormBuy({
                 }}
                 error={errors.products && errors.products[index]?.name}
               />
-              <InputFormBuy
+              <SelectForm<FormBuy>
+                register={register}
+                label="Tipo"
+                nameField={`products.${index}.unit`}
+                disabled={idProduct == 0 ? false : true}
+                selectOptions={[
+                  { title: "Unidad", value: "unit" },
+                  { title: "Kg", value: "kg" },
+                ]}
+                error={errors.products && errors.products[index]?.unit}
+              />
+              <InputForm<FormBuy>
                 register={register}
                 label="Precio de compra"
-                nameField={`products.${index}.price`}
+                nameField={`products.${index}.purchase_price`}
                 type="number"
                 step="any"
                 iconEnd={
-                  <SelectMoneyType
-                    getValues={getValues}
-                    index={index}
-                    pyDollar={pyDollar}
-                    register={register}
-                    setValue={setValue}
+                  <TypeOfCurrency
+                    typeOfCurrency={typeOfCurrencyOfThePurchase}
+                    onClickIcon={() => {
+                      if (typeOfCurrencyOfThePurchase == "bs") {
+                        setValue(
+                          `products.${index}.type_of_currency_of_the_purchase`,
+                          "dollar"
+                        );
+                      } else {
+                        setValue(
+                          `products.${index}.type_of_currency_of_the_purchase`,
+                          "bs"
+                        );
+                      }
+                    }}
                   />
                 }
                 options={{
@@ -108,47 +145,61 @@ export default function BodyFormBuy({
                     value: 0.1,
                     message: "Precio minimo 0.1",
                   },
-                  onChange: () =>
-                    changeSellingPrice({
-                      getValues,
-                      index,
-                      pyDollar,
-                      setValue,
-                    }),
                 }}
-                error={errors.products && errors.products[index]?.price}
+                error={
+                  errors.products && errors.products[index]?.purchase_price
+                }
               />
-              <InputFormBuy
+              <GroupRadio<FormBuy>
+                label="Incluir IVA de 16%"
+                nameField={`products.${index}.iva`}
+                options={[
+                  { title: "Si", value: "true" },
+                  { title: "No", value: "false" },
+                ]}
+                register={register}
+                setValue={setValue}
+                disabled={idProduct == 0 ? false : true}
+              />
+              <InputForm<FormBuy>
                 register={register}
                 label="Cantidad"
                 nameField={`products.${index}.stock`}
                 type="number"
-                iconEnd={<HiArchiveBox />}
+                iconEnd={unit == "kg" ? "Kg" : <HiArchiveBox />}
                 options={{
                   required: {
                     value: true,
                     message: "Este campo es requerido",
                   },
                   min: {
-                    value: 1,
+                    value: unit == "kg" ? 0 : 1,
                     message: "Cantidad minima  de 1",
                   },
-                  onChange: () =>
-                    changeSellingPrice({
-                      index,
-                      getValues,
-                      setValue,
-                      pyDollar,
-                    }),
                 }}
+                step={unit == "kg" ? "0.1" : "1"}
                 error={errors.products && errors.products[index]?.stock}
               />
-              <InputFormBuy
+              <InputForm<FormBuy>
                 register={register}
                 label="Precio de Venta"
-                nameField={`products.${index}.sellingPrice`}
+                nameField={`products.${index}.selling_price`}
                 type="number"
-                iconEnd={<LuDollarSign />}
+                iconEnd={
+                  <TypeOfCurrency
+                    typeOfCurrency={typeOfCurrencyForSale}
+                    onClickIcon={() =>
+                      changeCurrency({
+                        dollar: pyDollar,
+                        price,
+                        setValue,
+                        typeOfCurrency: typeOfCurrencyForSale,
+                        nameFieldCurrency: `products.${index}.type_of_currency_for_sale`,
+                        nameFieldPrice: `products.${index}.selling_price`,
+                      })
+                    }
+                  />
+                }
                 options={{
                   required: {
                     value: true,
@@ -159,7 +210,16 @@ export default function BodyFormBuy({
                     message: "Cantidad minima  de 0.1",
                   },
                 }}
-                error={errors.products && errors.products[index]?.sellingPrice}
+                step="any"
+                labelTheLast={
+                  <LabelPriceAndPriceIva
+                    inputIva={inputIva}
+                    price={price}
+                    priceIva={priceIva}
+                    typeOfCurrency={typeOfCurrencyForSale}
+                  />
+                }
+                error={errors.products && errors.products[index]?.selling_price}
               />
             </div>
           </div>

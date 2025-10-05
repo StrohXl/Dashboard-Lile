@@ -1,6 +1,6 @@
-import SelectProductsFormSale from "./selectProductsFormSale";
 import { UseFieldArrayPrepend, UseFormGetValues } from "react-hook-form";
 import { FormSale } from "../../../models";
+import SelectProduct from "./searchProduct/selectProduct";
 
 export default function ListProductHeadFormSale({
   prepend,
@@ -15,15 +15,17 @@ export default function ListProductHeadFormSale({
         Lista de Productos
       </h4>
       <div className="grid md:grid-cols-[250px_250px] items-center gap-4">
-        <SelectProductsFormSale
-          prependProduct={prepend}
+        <SelectProduct
           getValues={getValues}
-          typeSearch="id"
+          prependProduct={prepend}
+          params="id"
+          placeholder="Id del producto"
         />
-        <SelectProductsFormSale
-          prependProduct={prepend}
+        <SelectProduct
           getValues={getValues}
-          typeSearch="name"
+          prependProduct={prepend}
+          params="name"
+          placeholder="Nombre del producto"
         />
       </div>
     </div>

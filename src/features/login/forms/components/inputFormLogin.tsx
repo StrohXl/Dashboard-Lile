@@ -5,7 +5,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { ReactNode } from "react";
-import MessageError from "@/components/message-error/messageError";
+import MessageError from "@/components/dashboard/form/message-error/messageError";
 import TypeUser from "@/app/api/users/type/typeUser";
 
 export default function InputFormLogin({
