@@ -1,6 +1,5 @@
 import { Product } from "../../products/models";
-
-export interface Buy {
+export interface Buy  {
   id: number;
   products: Product[];
   list_products: Product[];

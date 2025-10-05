@@ -6,7 +6,7 @@ export async function deleteBuys(ids: number[]) {
     await prisma.buys.deleteMany({ where: { id: { in: ids } } });
     return NextResponse.json("Compras Eliminadas");
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json(error, { status: 500 });
   }
 }

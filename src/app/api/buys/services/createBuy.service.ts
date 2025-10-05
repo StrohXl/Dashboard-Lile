@@ -9,17 +9,27 @@ import { calculateTotalPrice } from "@/utils";
 import createBuyValidator, {
   CreateBuy,
 } from "../validators/createBuy.validator";
+import { CreateProduct } from "../../products/validators/product.validator";
 
 export async function createBuy(body: CreateBuy, id: number) {
   const result = createBuyValidator(body);
   if (result instanceof ZodError) {
-    console.log(result.issues);
+    console.error(result.issues);
     return NextResponse.json(result.issues, { status: 400 });
   }
 
   const { productsConnect, productsCreate } = createBodyBuy(body);
-  const listProducts = createListProduct(body);
-  const totalPrice = calculateTotalPrice(body);
+  
+  const products: CreateProduct[] = body.products.map((item) => ({
+    name: item.name,
+    iva: item.iva,
+    price: item.purchase_price,
+    stock: item.stock,
+    unit: item.unit,
+  }));
+
+  const listProducts = createListProduct(products);
+  const totalPrice = calculateTotalPrice(products);
 
   try {
     await prisma.buys.create({
@@ -30,20 +40,25 @@ export async function createBuy(body: CreateBuy, id: number) {
           create: productsCreate,
         },
         list_products: {
-          create: listProducts,
+          create: listProducts.map((item) => ({
+            name: item.name,
+            price: item.price,
+            stock: item.stock,
+            unit: item.unit,
+          })),
         },
         total_price: totalPrice,
       },
       include: { products: true },
     });
-    
+
     await updateProducts({ action: "increment", products: productsConnect });
 
     return NextResponse.json(
       `Productos ${productsConnect ? "Actualizados" : "Creados"}`
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
         return NextResponse.json("Ya existe un producto con ese nombre", {
