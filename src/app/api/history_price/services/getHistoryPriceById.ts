@@ -28,7 +28,8 @@ export async function getHistoryPriceById({ id }: { id: number }) {
 
     if (historyPrice.length == 0) {
       return NextResponse.json(
-        "No se encontro un historial de precios para este producto"
+        "No se encontro un historial de precios para este producto",
+        { status: 404 }
       );
     }
     return NextResponse.json({ data: filterHistory, pages: 0 });
