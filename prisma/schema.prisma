@@ -34,6 +34,7 @@ model Products {
   User          User?          @relation(fields: [userId], references: [id], onDelete: Restrict)
   userId        Int?
   unit          String         @default("unit")
+  iva           Boolean        @default(false)
   history_price HistoryPrice[]
   Buys          Buys[]
   Sales         Sales[]
@@ -45,8 +46,8 @@ model HistoryPrice {
   price       Decimal
   products    Products? @relation(fields: [products_id], references: [id])
   products_id Int?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
 }
 
 model BlackListToken {
@@ -85,7 +86,7 @@ model Clients {
   id         Int      @id @default(autoincrement())
   name       String
   last_name  String
-  ci         Int      @default(0) @unique
+  ci         Int      @unique @default(0)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   sales      Sales[]
