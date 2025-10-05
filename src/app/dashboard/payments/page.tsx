@@ -2,7 +2,6 @@ import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import UrlParams from "@/models/url-params.model";
 import { Suspense } from "react";
 import getData from "@/fetch/data/getData";
-import { HookDataContext } from "@/hooks/useContextData";
 import TablePayments from "@/features/payments/table/tablePayments";
 
 export default async function Payments({
@@ -21,13 +20,10 @@ export default async function Payments({
         <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
           Lista de Pagos
         </h4>
-        <div className="flex items-center gap-6">
-        </div>
+        <div className="flex items-center gap-6"></div>
       </div>
       <Suspense key={name ?? "" + deleteId + page} fallback={<SkeletonTable />}>
-        <HookDataContext>
-          <TablePayments data={payments} />
-        </HookDataContext>
+        <TablePayments data={payments} />
       </Suspense>
     </section>
   );
