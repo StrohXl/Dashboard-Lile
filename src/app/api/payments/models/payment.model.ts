@@ -1,8 +1,6 @@
-export interface Payment {
+import { CreatePayment } from "../validators/createPayment.validator";
+
+export interface Payment extends CreatePayment {
   id: number;
-  payment_method: "efectivo Bs" | "divisa" | "transferencia" | "biopago";
-  payment_amount: number;
-  operation?: number | undefined;
-  sales_id: number;
   created_at: string;
 }

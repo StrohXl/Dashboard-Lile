@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const CreatePaymentSchema = z
+export const createPaymentSchema = z
   .object({
     payment_method: z.union([
       z.literal("efectivo Bs"),
@@ -9,16 +9,21 @@ export const CreatePaymentSchema = z
       z.literal("biopago"),
     ]),
     payment_amount: z.number().positive().min(0.1),
-    operation: z.number().optional(),
+    operation: z
+      .number()
+      .refine((value) => {
+        return value.toString().length >= 4;
+      })
+      .optional(),
     sales_id: z.number().positive(),
   })
   .strict();
 
-export type CreatePayment = z.infer<typeof CreatePaymentSchema>;
+export type CreatePayment = z.infer<typeof createPaymentSchema>;
 
 export function createPaymentValidator(body: CreatePayment) {
   try {
-    const bodyValidator = CreatePaymentSchema.parse(body);
+    const bodyValidator = createPaymentSchema.parse(body);
     return bodyValidator;
   } catch (error) {
     console.error(error);
