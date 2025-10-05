@@ -54,7 +54,7 @@ const SideBarNav = ({
               <li key={index}>
                 <Link
                   onClick={() => closeSideBar({ setOpen, setShowLogo })}
-                  className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 hover:text-primary-ligth text-[#B2ABAB] text-lg ${
+                  className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 hover:text-primary-ligth text-gray-400 text-lg ${
                     links.length >= 3
                       ? item.link.includes(links[2])
                         ? "!text-primary"
