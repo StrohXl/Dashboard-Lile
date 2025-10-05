@@ -1,5 +1,7 @@
 import SkeletonFormBuy from "@/features/buys/form/components/skeletonFormBuy";
 import FormBuy from "@/features/buys/form/formBuys";
+import { HookBuyContext } from "@/features/buys/form/hooks/useContenxtBuy";
+import ContainerHistoryPrice from "@/features/buys/form/components/containerTableHistoryPrice";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -20,11 +22,14 @@ export default function CreateBuy() {
           <FaChevronLeft size={13} />
         </Link>
       </div>
-      <section>
-        <Suspense fallback={<SkeletonFormBuy />}>
-          <FormBuy pyDollar={pyDollar} />
-        </Suspense>
-      </section>
+      <HookBuyContext>
+        <section className="grid 2xl:grid-cols-[800px_400px] gap-6">
+          <Suspense fallback={<SkeletonFormBuy />}>
+            <FormBuy pyDollar={pyDollar} />
+          </Suspense>
+          <ContainerHistoryPrice dollarPy={pyDollar} />
+        </section>
+      </HookBuyContext>
     </>
   );
 }
