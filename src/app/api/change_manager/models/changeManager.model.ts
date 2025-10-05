@@ -1,9 +1,7 @@
-export interface ChangeManager {
+import { CreateChangeManager } from "../validators/createChange.validator";
+
+export interface ChangeManager extends CreateChangeManager {
   id: number;
-  change_method: "efectivo Bs" | "divisa" | "transferencia";
-  change_amount: number;
-  operation?: number | undefined;
-  sales_id: number;
   created_at: string;
   updated_at: string
 }

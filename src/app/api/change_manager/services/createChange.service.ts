@@ -1,7 +1,7 @@
 import { ZodError } from "zod";
 import validatedChangeManager, {
   CreateChangeManager,
-} from "../validators/bodyChange.validator";
+} from "../validators/createChange.validator";
 import { NextResponse } from "next/server";
 import prisma from "../../../../../libs/prisma";
 import { Prisma } from "@prisma/client";
