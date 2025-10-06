@@ -9,5 +9,5 @@ export async function GET(request: NextRequest) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const params = getParams({ request });
-  return await getHistoryPrice({params})
+  return await getHistoryPrice({params});
 }

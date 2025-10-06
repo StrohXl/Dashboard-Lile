@@ -18,7 +18,7 @@ export async function createBuy(body: CreateBuy, id: number) {
   }
 
   const { productsConnect, productsCreate } = createBodyBuy(body);
-  
+
   const products: CreateProduct[] = body.products.map((item) => ({
     name: item.name,
     iva: item.iva,

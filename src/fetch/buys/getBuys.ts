@@ -10,7 +10,7 @@ const getBuys = async (params?: UrlParams) => {
     return data && data;
   } catch (error) {
     console.log(error);
-    toast.error('Error: no se encontro una lista de compras')
+    toast.error('Error: no se encontro una lista de compras');
     return { buys: [], pages: 0 };
   }
 };

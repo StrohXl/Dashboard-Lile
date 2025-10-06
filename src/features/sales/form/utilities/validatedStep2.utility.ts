@@ -23,7 +23,7 @@ export async function validatedStep2({
   const turned = Number(Math.abs(totalPayments - totalPrice).toFixed(2));
   if (listPayments && listChanges) {
     if(totalPayments>totalPrice && turned != totalChanges){
-      toast.error('Error en el cambio entregado')
+      toast.error('Error en el cambio entregado');
     }
     else{
        setFormSteps(formSteps + 1);

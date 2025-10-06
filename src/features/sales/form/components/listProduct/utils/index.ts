@@ -1,2 +1,2 @@
-export * from './removeProduct.uitility'
-export * from './updateTotalPriceByListProduct'
+export * from './removeProduct.uitility';
+export * from './updateTotalPriceByListProduct';

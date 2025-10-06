@@ -45,7 +45,7 @@ export const onSubmitSaleById = async ({
         success: "Venta actualizada",
       }
     );
-    setReload(!reload)
+    setReload(!reload);
     setFormSteps(0);
     setDisabled(false);
   } catch (error) {

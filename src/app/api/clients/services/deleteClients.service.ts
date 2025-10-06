@@ -13,7 +13,7 @@ export const deleteClientByArray = async (ids: number[]) => {
     });
     return NextResponse.json("Clientes Eliminados");
   } catch (error) {
-    console.error(error)
+    console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return NextResponse.json(error.message, { status: 500 });
     }

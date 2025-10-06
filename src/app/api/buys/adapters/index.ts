@@ -1,1 +1,1 @@
-export * from './createBodyBuy.adapter'
+export * from "./createBodyBuy.adapter";

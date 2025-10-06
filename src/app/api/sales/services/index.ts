@@ -3,5 +3,5 @@ export * from "./getSales.service";
 export * from "./getSaleById.service";
 export * from "./deleteSaleById.service";
 export * from "./deleteSales.service";
-export * from './updateSaleStatus.service'
-export * from './updateSaleById.service'
+export * from './updateSaleStatus.service';
+export * from './updateSaleById.service';

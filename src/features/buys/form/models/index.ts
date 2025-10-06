@@ -1,1 +1,1 @@
-export * from './form-buy.model'
+export * from './form-buy.model';

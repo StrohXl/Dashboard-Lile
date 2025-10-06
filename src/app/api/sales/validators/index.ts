@@ -1,2 +1,2 @@
-export * from './bodySale.validator'
-export * from './updateBodySale.validator'
+export * from './bodySale.validator';
+export * from './updateBodySale.validator';

@@ -42,6 +42,6 @@ export async function validatedStep1({
     setFormSteps(formSteps + 1);
   }
   else if(listProducts.length == 0){
-    toast.error('Agregue un producto')
+    toast.error('Agregue un producto');
   }
 }

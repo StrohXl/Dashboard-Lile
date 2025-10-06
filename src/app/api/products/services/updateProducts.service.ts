@@ -1,13 +1,13 @@
 import prisma from "../../../../../libs/prisma";
 import { NextResponse } from "next/server";
-import { CreateProduct } from "../validators/product.validator";
+import { CreateListProduct } from "../../list-products/validators/createListProduct.validator";
 
 export const updateProducts = async ({
   action,
   products,
 }: {
   action: "increment" | "decrement";
-  products: CreateProduct[];
+  products: CreateListProduct;
 }) => {
   for (let index = 0; index < products.length; index++) {
     try {

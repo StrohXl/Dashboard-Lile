@@ -55,7 +55,7 @@ export async function loginUser(body: TypeUser) {
       });
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return NextResponse.json("Error", { status: 500 });
   }
 }

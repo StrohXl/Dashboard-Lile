@@ -1,2 +1,2 @@
-export * from './formSale.model'
-export * from './saleSchemaHookContext'
+export * from './formSale.model';
+export * from './saleSchemaHookContext';

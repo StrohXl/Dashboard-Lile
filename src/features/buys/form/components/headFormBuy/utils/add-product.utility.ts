@@ -1,6 +1,6 @@
 import { UseFieldArrayPrepend } from "react-hook-form";
 import { FormBuy } from "../../../models";
-import { OptionsProduct } from "../services/getProducts.service";
+import { OptionProducts } from "@/components/dashboard/searchMenu/services/getProducts.service";
 
 export function addProduct({
   product,
@@ -8,7 +8,7 @@ export function addProduct({
   setTextSearch,
   prepend,
 }: {
-  product: OptionsProduct;
+  product: OptionProducts;
   setOpen: (value: boolean) => void;
   setTextSearch: (value: string) => void;
   prepend: UseFieldArrayPrepend<FormBuy>;

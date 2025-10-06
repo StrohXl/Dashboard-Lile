@@ -1,2 +1,2 @@
-export * from './createPaymentOfSale.model'
-export * from './sale.model'
+export * from './createPaymentOfSale.model';
+export * from './sale.model';

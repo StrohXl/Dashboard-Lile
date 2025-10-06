@@ -1,2 +1,2 @@
-export * from './calculatePaymentsTotal.utility'
-export * from './getSaleStatus.utility'
+export * from './calculatePaymentsTotal.utility';
+export * from './getSaleStatus.utility';
