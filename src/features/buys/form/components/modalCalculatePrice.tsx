@@ -55,7 +55,7 @@ export default function ModalCalculatePrice({
 
   const addPrice = () => {
     const method = getValues("method");
-    setValue(`products.${indexFields}.sellingPrice`, sellingPrice);
+    setValue(`products.${indexFields}.selling_price`, sellingPrice);
 
     if (method == "kg") {
       setValue(`products.${indexFields}.unit`, "kg");
