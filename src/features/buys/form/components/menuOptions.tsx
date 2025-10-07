@@ -12,7 +12,6 @@ import { FaEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { MdCalculate } from "react-icons/md";
 
-
 import { ResponseData } from "@/models";
 
 import Menu from "@/components/dashboard/menu/menu";
@@ -20,9 +19,6 @@ import { OptionList } from "@/components/dashboard/menu/models/optionList.model"
 
 import { useContextBuy } from "../hooks/useContenxtBuy";
 import { FormBuy } from "../models";
-
-
-
 
 export default function MenuOptions({
   remove,

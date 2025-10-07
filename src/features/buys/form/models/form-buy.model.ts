@@ -11,4 +11,5 @@ export interface FormBuy {
   selling_price: number;
   markup: number;
   method: "unit" | "package" | "kg";
+  purchase_price: number;
 }
