@@ -5,9 +5,6 @@ import { ChangeManager } from "@/app/api/change_manager/models/changeManager.mod
 import { use } from "react";
 import { MdCurrencyExchange } from "react-icons/md";
 
-
-import { ResponseData } from "@/models";
-
 import { useDataContext } from "@/hooks/useContextData";
 
 import {
@@ -16,7 +13,6 @@ import {
 } from "@table-library/react-table-library/select";
 import { Table } from "@table-library/react-table-library/table";
 
-
 import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
@@ -24,15 +20,14 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import PaymentsTheme from "@/features/payments/table/theme";
 
-
-
 import TableBodyChangeManager from "./components/tableBodyChangeManager";
-
+import { ResponseData } from "@/models/response/responseData.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableChangeManager({
   data,
 }: {
-  data: Promise<ResponseData<ChangeManager>>;
+  data: Promise<ResponseData<ResponseGet<ChangeManager>>>;
 }) {
   const changes = use(data);
 
@@ -41,7 +36,7 @@ export default function TableChangeManager({
   const nodes = { nodes: changes.data };
 
   const select = useRowSelect(
-    { nodes: changes.data },
+    { nodes: changes.data ? changes.data.data : [] },
     {
       onChange: (action, state) => onSelectChange({ setSelects, state }),
     },
@@ -53,7 +48,7 @@ export default function TableChangeManager({
   const theme = PaymentsTheme();
   const tableHeader = ["Fecha de creacion", "Monto", "Metodo", "Operacion"];
 
-  if (changes.data.length != 0) {
+  if (changes.data && changes.data.data.length != 0) {
     return (
       <>
         <div className="h-[330px] 2xl:h-[420px] container-table-scroll">

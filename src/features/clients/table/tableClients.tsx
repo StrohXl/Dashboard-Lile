@@ -5,9 +5,6 @@ import { Client } from "@/app/api/clients/models/client.model";
 import { use } from "react";
 import { HiUsers } from "react-icons/hi";
 
-
-import { ResponseData } from "@/models";
-
 import { useDataContext } from "@/hooks/useContextData";
 
 import {
@@ -16,27 +13,27 @@ import {
 } from "@table-library/react-table-library/select";
 import { Table } from "@table-library/react-table-library/table";
 
-
 import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
 import { onSelectChange } from "@/components/dashboard/tables/utils";
 
-
 import TableBodyClients from "./components/tableBodyClients";
 import ClientTheme from "./theme";
+import { ResponseData } from "@/models/response/responseData.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableClients({
   data,
 }: {
-  data: Promise<ResponseData<Client>>;
+  data: Promise<ResponseData<ResponseGet<Client>>>;
 }) {
   const { setSelects } = useDataContext();
-  const clients = use(data) ?? { data: [], pages: 1 };
+  const clients = use(data);
   const nodes = { nodes: clients.data };
   const theme = ClientTheme();
   const select = useRowSelect(
-    { nodes: clients ? clients.data : [] },
+    { nodes: clients.data ? clients.data.data : [] },
     {
       onChange: (action, state) => onSelectChange({ setSelects, state }),
     },
@@ -47,7 +44,7 @@ export default function TableClients({
 
   const tableHeader = ["Nombre", "Apellido", "C.I"];
 
-  if (clients.data.length != 0) {
+  if (clients.data && clients.data.data.length != 0) {
     return (
       <>
         <div className="h-[330px] 2xl:h-[420px] container-table-scroll">

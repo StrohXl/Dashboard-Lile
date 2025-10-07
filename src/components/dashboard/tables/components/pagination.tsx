@@ -1,16 +1,14 @@
 "use client";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-import { ResponseData } from "@/models";
-
-export default function Pagination({ data }: { data: ResponseData }) {
+export default function Pagination({ pages }: { pages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || 1;
   const arrayPages: number[] = [];
   const { replace } = useRouter();
 
-  for (let index = 0; index < data.pages; index++) {
+  for (let index = 0; index < pages; index++) {
     arrayPages.push(index + 1);
   }
   // functions

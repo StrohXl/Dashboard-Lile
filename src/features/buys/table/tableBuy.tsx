@@ -3,9 +3,7 @@ import { Buy } from "@/app/api/buys/models/buy.model";
 import { use } from "react";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 
-
 import "@/components/dashboard/tables/css/table.css";
-import { ResponseData } from "@/models";
 
 import { useDataContext } from "@/hooks/useContextData";
 
@@ -23,13 +21,15 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 import TableBodyBuy from "@/features/buys/table/components/TableBodyBuy";
 
 import { ThemeMaterialBuy } from "./theme";
+import { ResponseData } from "@/models/response/responseData.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableBuy({
   data,
   pyDollar,
 }: {
   pyDollar: Promise<number | undefined>;
-  data: Promise<ResponseData<Buy>>;
+  data: Promise<ResponseData<ResponseGet<Buy>>>;
 }) {
   const dollar = use(pyDollar) ?? 1;
   const buys = use(data);
@@ -37,7 +37,7 @@ export default function TableBuy({
   const { setSelects } = useDataContext();
 
   const select = useRowSelect(
-    { nodes: buys.data },
+    { nodes: buys.data ? buys.data.data : [] },
     {
       onChange: (action, state) => onSelectChange({ setSelects, state }),
     },
@@ -58,7 +58,7 @@ export default function TableBuy({
     </div>,
   ];
 
-  if (buys.data.length !== 0) {
+  if (buys.data && buys.data.data.length !== 0) {
     return (
       <>
         <div className="h-[330px] 2xl:h-[420px] container-table-scroll">
@@ -74,7 +74,7 @@ export default function TableBuy({
                 <TableBodyBuy
                   tableList={tableList}
                   pyDollar={dollar}
-                  data={buys.data}
+                  data={buys.data ? buys.data.data : []}
                 />
               </>
             )}

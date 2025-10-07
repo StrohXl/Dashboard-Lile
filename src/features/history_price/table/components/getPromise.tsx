@@ -2,19 +2,20 @@
 import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
 import { use } from "react";
 
-
-import { ResponseData } from "@/models";
-
 import TableBodyHistoryPrice from "./tableBodyHistoryPrice";
+import { ResponseData } from "@/models/response/responseData.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function GetPromise({
   data,
   dollarPy,
 }: {
-  data: Promise<ResponseData<HistoryPrice>>;
+  data: Promise<ResponseData<ResponseGet<HistoryPrice>>>;
   dollarPy: Promise<number | undefined>;
 }) {
   const historyPrice = use(data);
   const dollar = use(dollarPy) ?? 0;
-  return <TableBodyHistoryPrice data={historyPrice.data} dollarPy={dollar} />;
+  return (
+    <TableBodyHistoryPrice data={historyPrice.data? historyPrice.data.data: []} dollarPy={dollar} />
+  );
 }

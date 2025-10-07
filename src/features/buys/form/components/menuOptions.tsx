@@ -1,6 +1,5 @@
 "use client";
 import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
-import axios from "axios";
 import { useState } from "react";
 import {
   UseFieldArrayRemove,
@@ -12,13 +11,12 @@ import { FaEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { MdCalculate } from "react-icons/md";
 
-import { ResponseData } from "@/models";
-
 import Menu from "@/components/dashboard/menu/menu";
 import { OptionList } from "@/components/dashboard/menu/models/optionList.model";
 
 import { useContextBuy } from "../hooks/useContenxtBuy";
 import { FormBuy } from "../models";
+import getDataById from "@/services/get/byId/getDataById";
 
 export default function MenuOptions({
   remove,
@@ -69,10 +67,11 @@ export default function MenuOptions({
     setShowHistory(true);
     try {
       setLoading(true);
-      const { data }: { data: ResponseData<HistoryPrice> } = await axios.get(
-        `/api/history_price/${id}`
-      );
-      setHistoryPrice(data.data);
+      const history = await getDataById<HistoryPrice[]>({
+        apiUrl: "/history_price",
+        id,
+      });
+      setHistoryPrice(history.data ? history.data : []);
       setLoading(false);
     } catch (error) {
       console.error(error);

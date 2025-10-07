@@ -4,8 +4,6 @@ import { FaCashRegister } from "react-icons/fa6";
 import "@/components/dashboard/tables/css/table.css";
 import { Sale } from "@/app/api/sales/models";
 
-import { ResponseData } from "@/models";
-
 import { useDataContext } from "@/hooks/useContextData";
 
 import {
@@ -16,7 +14,6 @@ import { Table } from "@table-library/react-table-library/table";
 
 import { use } from "react";
 
-
 import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
@@ -24,15 +21,15 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import TableBodySales from "./components/tableBodySales";
 import { ThemeMaterialSales } from "./theme";
-
-
+import { ResponseData } from "@/models/response/responseData.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableSales({
   data,
   pyDollar,
 }: {
   pyDollar: Promise<number | undefined>;
-  data: Promise<ResponseData<Sale>>;
+  data: Promise<ResponseData<ResponseGet<Sale>>>;
 }) {
   const dollar = use(pyDollar) ?? 1;
   const sales = use(data);
@@ -40,7 +37,7 @@ export default function TableSales({
   const { setSelects } = useDataContext();
 
   const select = useRowSelect(
-    { nodes: sales.data },
+    { nodes: sales.data ? sales.data.data : [] },
     {
       onChange: (action, state) => onSelectChange({ setSelects, state }),
     },
@@ -62,7 +59,7 @@ export default function TableSales({
   ];
 
   const theme = ThemeMaterialSales();
-  if (sales.data.length !== 0) {
+  if (sales.data && sales.data.data.length !== 0) {
     return (
       <>
         <div className="h-[330px] 2xl:h-[420px] container-table-scroll">
@@ -76,7 +73,7 @@ export default function TableSales({
               <>
                 <TableHeader options={tableHeader} />
                 <TableBodySales
-                  data={sales.data}
+                  data={sales.data ? sales.data.data : []}
                   pyDollar={dollar}
                   tableList={tableList}
                 />

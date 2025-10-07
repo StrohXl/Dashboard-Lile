@@ -5,9 +5,6 @@ import { Product } from "@/app/api/products/models";
 import { use } from "react";
 import { HiArchiveBoxXMark } from "react-icons/hi2";
 
-
-import { ResponseData } from "@/models";
-
 import { useDataContext } from "@/hooks/useContextData";
 
 import {
@@ -16,7 +13,6 @@ import {
 } from "@table-library/react-table-library/select";
 import { Table } from "@table-library/react-table-library/table";
 
-
 import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
@@ -24,15 +20,16 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import TableBodyProducts from "./components/tableBodyProducts";
 import ThemeTableProducts from "./theme";
+import { ResponseData } from "@/models/response/responseData.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableProducts({
   data,
   pyDollar,
 }: {
-  data: Promise<ResponseData<Product>>;
+  data: Promise<ResponseData<ResponseGet<Product>>>;
   pyDollar: Promise<number | undefined>;
 }) {
-  
   const products = use(data);
   const dollar = use(pyDollar) ?? 1;
 
@@ -42,7 +39,7 @@ export default function TableProducts({
   const nodes = { nodes: products.data };
 
   const select = useRowSelect(
-    { nodes: products.data },
+    { nodes: products.data? products.data.data: [] },
     {
       onChange: (action, state) => onSelectChange({ setSelects, state }),
     },
@@ -53,13 +50,15 @@ export default function TableProducts({
 
   const tableHeader = [
     "Producto",
-    <div className="text-center" key={1}>Precio</div>,
+    <div className="text-center" key={1}>
+      Precio
+    </div>,
     "Existentes",
     "Fecha de Creacion",
     "Fecha de Actualizacion",
   ];
 
-  if (products.data.length !== 0) {
+  if (products.data && products.data.data.length !== 0) {
     return (
       <>
         <div className="h-[330px] 2xl:h-[420px] container-table-scroll">
@@ -77,7 +76,7 @@ export default function TableProducts({
                   select={true}
                 />
                 <TableBodyProducts
-                  data={products.data}
+                  data={products.data? products.data.data: []}
                   pyDollar={dollar}
                   tableList={tableList}
                 />
@@ -89,6 +88,11 @@ export default function TableProducts({
       </>
     );
   } else {
-    return <NotHave icon={HiArchiveBoxXMark} message="No tienes productos actualmente" />;
+    return (
+      <NotHave
+        icon={HiArchiveBoxXMark}
+        message="No tienes productos actualmente"
+      />
+    );
   }
 }

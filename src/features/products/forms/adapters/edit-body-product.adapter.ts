@@ -18,7 +18,7 @@ export const editBodyProductAdapter = ({
             Number(body.price)
           ).toFixed(2)
         )
-      : Number(body.price.toFixed(2)),
+      : Number(Number(body.price).toFixed(2)),
     stock: Number(body.stock),
     unit: body.unit,
     iva: body.iva == "true" ? true : false,

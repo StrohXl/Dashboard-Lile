@@ -1,21 +1,27 @@
-import { Prisma } from "@prisma/client/edge";
+import { Prisma, Products } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
 import { Product } from "../models";
 import productValidator from "../validators/product.validator";
+import { ResponseService } from "@/models/response/responseService.model";
 
-
-export async function updateProductById(body: Product, id: number) {
+export async function updateProductById(
+  body: Product,
+  id: number
+): ResponseService<Products> {
   const result = productValidator(body);
 
   if (result instanceof ZodError) {
     console.log(result.issues);
-    return NextResponse.json(result.issues, { status: 400 });
+    return NextResponse.json(
+      { message: "Cuerpo de la solicitud invalido", status: 400 },
+      { status: 400 }
+    );
   }
 
-  const { name, price, stock, unit,iva } = body;
+  const { name, price, stock, unit, iva } = body;
 
   try {
     const productUpdate = await prisma.products.update({
@@ -34,19 +40,32 @@ export async function updateProductById(body: Product, id: number) {
       where: { id },
     });
 
-    return NextResponse.json(productUpdate);
+    return NextResponse.json({
+      message: "Producto Actualizado",
+      status: 200,
+      data: productUpdate,
+    });
   } catch (error) {
     console.log(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
-        return NextResponse.json("Un producto ya tiene ese nombre", {
-          status: 400,
-        });
+        return NextResponse.json(
+          { message: "Un producto ya tiene ese nombre", status: 400 },
+          {
+            status: 400,
+          }
+        );
       }
       if (error.code === "P2025") {
-        return NextResponse.json("El Producto no existe", { status: 404 });
+        return NextResponse.json(
+          { message: "El Producto no existe", status: 404 },
+          { status: 404 }
+        );
       }
     }
-    return NextResponse.json("Error", { status: 500 });
+    return NextResponse.json(
+      { message: "Error", status: 500 },
+      { status: 500 }
+    );
   }
 }

@@ -1,25 +1,32 @@
-import { Prisma } from "@prisma/client/edge";
+import { Prisma, Products } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
-import { Product } from "../models";
 import productValidator from "../validators/product.validator";
+import { ResponseService } from "@/models/response/responseService.model";
+import { Product } from "../models";
 
-export async function createProduct(body: Product, id: number) {
+export async function createProduct(
+  body: Product,
+  id: number
+): ResponseService<Products> {
   const result = productValidator(body);
 
   if (result instanceof ZodError) {
     console.log(result.issues);
-    return NextResponse.json("Error en el cuerpo de la solicitud", {
-      status: 400,
-    });
+    return NextResponse.json(
+      { message: "Error en el cuerpo de la solicitud", status: 400 },
+      {
+        status: 400,
+      }
+    );
   }
 
   const { name, price, stock, unit, iva } = body;
 
   try {
-    await prisma.products.create({
+    const newProduct = await prisma.products.create({
       data: {
         name,
         stock,
@@ -35,17 +42,26 @@ export async function createProduct(body: Product, id: number) {
       },
     });
 
-    return NextResponse.json({ message: "Producto  Creado" });
+    return NextResponse.json(
+      { data: newProduct, message: "Producto  Creado", status: 200 },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
-        return NextResponse.json("Un producto ya tiene ese nombre", {
-          status: 400,
-        });
+        return NextResponse.json(
+          { message: "Un producto ya tiene ese nombre", status: 400 },
+          {
+            status: 400,
+          }
+        );
       }
     } else {
-      return NextResponse.json("Error", { status: 500 });
+      return NextResponse.json(
+        { message: "Error", status: 500 },
+        { status: 500 }
+      );
     }
   }
 }
