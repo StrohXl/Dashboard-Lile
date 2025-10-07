@@ -1,4 +1,4 @@
-import { Product } from "@/app/api/products/models";
+import { Product } from "./product.model";
 
 export interface FormProduct extends Omit<Product, "iva"> {
   iva: "true" | "false";

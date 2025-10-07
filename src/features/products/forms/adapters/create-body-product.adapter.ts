@@ -1,5 +1,5 @@
-import { CreateProduct } from "@/app/api/products/validators/product.validator";
 
+import { CreateProduct } from "@/models/product";
 import { FormProduct } from "../models/form-product.model";
 
 export const createBodyProduct = ({

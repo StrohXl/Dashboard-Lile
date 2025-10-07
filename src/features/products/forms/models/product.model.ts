@@ -1,4 +1,4 @@
-import { CreateProduct } from "@/app/api/products/validators/product.validator";
+import { CreateProduct } from "@/models/product";
 
 export interface Product extends CreateProduct {
   id: number;

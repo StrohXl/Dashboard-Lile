@@ -13,7 +13,6 @@ import saleBodyValidator, {
   CreateSale,
 } from "../validators/bodySale.validator";
 
-
 export async function createSale(body: CreateSale) {
   const validatorBody = saleBodyValidator(body);
 
@@ -29,7 +28,7 @@ export async function createSale(body: CreateSale) {
   try {
     const totalChanges = Number(
       calculateTotalChanges({
-        changes: body.change_manager,
+        changes: body.change_manager ?? [],
         dollar,
       }).toFixed(2)
     );
@@ -100,7 +99,7 @@ export async function createSale(body: CreateSale) {
             connect: { id: body.client.id },
           },
           change_manager: {
-            create: body.change_manager
+            create: body.change_manager,
           },
           products: {
             connect: body.list_products.map((item) => ({ id: item.id })),

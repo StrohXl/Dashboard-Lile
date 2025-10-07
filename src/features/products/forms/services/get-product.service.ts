@@ -1,9 +1,8 @@
-
-import { Product } from "@/app/api/products/models";
-import getProductId from "@/fetch/products/getProductId";
 import { UseFormReset } from "react-hook-form";
 
 import { FormProduct } from "../models/form-product.model";
+import { Product } from "@/models/product";
+import getDataById from "@/services/get/byId/getDataById";
 
 export const getProduct = async ({
   id,
@@ -18,18 +17,19 @@ export const getProduct = async ({
   setLoading: (value: boolean) => void;
   iva: number;
 }) => {
-  const data = await getProductId(id);
-  if (data) {
-    const originalPrice = data.price / (iva / 100 + 1);
+  const data = await getDataById<Product>({ apiUrl: "/products", id });
+  const product = data.data;
+  if (product) {
+    const originalPrice = product.price / (iva / 100 + 1);
     reset({
-      name: data.name,
-      price: data.iva ? originalPrice : data.price,
-      stock: data.stock,
-      unit: data.unit,
-      iva: data.iva == true ? "true" : "false",
-      type_of_currency: 'dollar'
+      name: product.name,
+      price: product.iva ? originalPrice : product.price,
+      stock: product.stock,
+      unit: product.unit,
+      iva: product.iva == true ? "true" : "false",
+      type_of_currency: "dollar",
     });
-    setProduct(data);
+    setProduct(product);
   }
   setLoading(false);
 };

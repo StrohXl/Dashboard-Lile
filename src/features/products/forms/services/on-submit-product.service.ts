@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import { updateData } from "@/services/put/updateData";
 import createData from "@/services/post/createData";
 import { Product } from "../models/product.model";
-import { CreateProduct } from "@/app/api/products/validators/product.validator";
 import { ResponseData } from "@/models/response/responseData.model";
+import { CreateProduct } from "@/models/product";
 
 export const onSubmit = async ({
   body,

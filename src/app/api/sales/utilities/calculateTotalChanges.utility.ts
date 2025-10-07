@@ -4,7 +4,7 @@ export function calculateTotalChanges({
   dollar,
   changes,
 }: {
-  changes: UpdateChangeManager[] | undefined;
+  changes: Omit<UpdateChangeManager, "id">[];
   dollar: number;
 }): number {
   if (changes) {

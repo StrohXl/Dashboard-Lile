@@ -1,6 +1,5 @@
 import "../css/container-actions.css";
 
-import { Product } from "@/app/api/products/models";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FaEye } from "react-icons/fa6";
@@ -12,6 +11,7 @@ import toastDeleteById from "@/components/Toast/data/toastDeleteById";
 
 
 import { useDataContext } from "../../../../hooks/useContextData";
+import { Product } from "@/models/product";
 
 
 export default function ContainerActions({
