@@ -1,5 +1,5 @@
-import { CreateProduct } from "../../products/validators/product.validator";
-import { CreateBuy } from "../validators/createBuy.validator";
+import { CreateBuy } from "@/models/buy";
+import { CreateProduct } from "@/models/product";
 
 interface ProductConnect extends CreateProduct {
   id: number;

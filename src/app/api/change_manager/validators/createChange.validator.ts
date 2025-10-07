@@ -1,3 +1,4 @@
+import { CreateChangeManager } from "@/models/change_manager";
 import z, { ZodError } from "zod";
 
 export const createChangeSchema = z
@@ -17,8 +18,6 @@ export const createChangeSchema = z
     sale_id: z.number().positive(),
   })
   .strict();
-
-export type CreateChangeManager = z.infer<typeof createChangeSchema>;
 
 export default function validatedChangeManager(body: CreateChangeManager) {
   try {

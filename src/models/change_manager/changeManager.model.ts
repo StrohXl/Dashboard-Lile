@@ -1,4 +1,4 @@
-import { CreateChangeManager } from "../validators/createChange.validator";
+import { CreateChangeManager } from "./createChangeManager.model";
 
 export interface ChangeManager extends CreateChangeManager {
   id: number;

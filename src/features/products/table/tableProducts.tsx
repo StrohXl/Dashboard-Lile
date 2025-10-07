@@ -1,7 +1,6 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import { Product } from "@/app/api/products/models";
 import { use } from "react";
 import { HiArchiveBoxXMark } from "react-icons/hi2";
 
@@ -22,6 +21,7 @@ import TableBodyProducts from "./components/tableBodyProducts";
 import ThemeTableProducts from "./theme";
 import { ResponseData } from "@/models/response/responseData.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { Product } from "@/models/product";
 
 export default function TableProducts({
   data,
@@ -36,10 +36,10 @@ export default function TableProducts({
   const { setSelects } = useDataContext();
 
   const theme = ThemeTableProducts();
-  const nodes = { nodes: products.data };
+  const nodes = { nodes: products.data? products.data.data: [] };
 
   const select = useRowSelect(
-    { nodes: products.data? products.data.data: [] },
+    { nodes: products.data ? products.data.data : [] },
     {
       onChange: (action, state) => onSelectChange({ setSelects, state }),
     },
@@ -76,7 +76,7 @@ export default function TableProducts({
                   select={true}
                 />
                 <TableBodyProducts
-                  data={products.data? products.data.data: []}
+                  data={products.data ? products.data.data : []}
                   pyDollar={dollar}
                   tableList={tableList}
                 />

@@ -1,6 +1,6 @@
-import { ProductsBuy } from "@/app/api/buys/validators/createBuy.validator";
+import { CreateBuyProduct } from "@/models/buy";
 
-interface Products extends Omit<ProductsBuy, "iva"> {
+interface Products extends Omit<CreateBuyProduct, "iva"> {
   type_of_currency_of_the_purchase: "dollar" | "bs";
   type_of_currency_for_sale: "dollar" | "bs";
   iva: "true" | "false";

@@ -1,4 +1,5 @@
-import { Product } from "../../products/models";
+import { Product } from "@/models/product";
+
 export interface Buy  {
   id: number;
   products: Product[];

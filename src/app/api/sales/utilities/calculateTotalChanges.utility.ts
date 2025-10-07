@@ -1,10 +1,10 @@
-import { ChangeManagerUpdate } from "../../change_manager/models/changeManagerUpdate.model";
+import { UpdateChangeManager } from "@/models/change_manager";
 
 export function calculateTotalChanges({
   dollar,
   changes,
 }: {
-  changes: ChangeManagerUpdate[] | undefined;
+  changes: UpdateChangeManager[] | undefined;
   dollar: number;
 }): number {
   if (changes) {

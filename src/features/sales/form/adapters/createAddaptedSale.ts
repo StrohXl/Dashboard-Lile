@@ -1,8 +1,8 @@
-import { ChangeManagerUpdate } from "@/app/api/change_manager/models/changeManagerUpdate.model";
 import { CreateListProduct } from "@/app/api/list-products/validators/createListProduct.validator";
 import { CreatePaymentOfSale } from "@/app/api/sales/models";
 
 import { FormSale } from "../models";
+import { UpdateChangeManager } from "@/models/change_manager";
 
 export const createAddaptedSale = (body: FormSale) => {
   const newBody: {
@@ -14,7 +14,7 @@ export const createAddaptedSale = (body: FormSale) => {
     };
     list_products: CreateListProduct;
     payments: CreatePaymentOfSale[];
-    change_manager: ChangeManagerUpdate[];
+    change_manager: UpdateChangeManager[];
   } = {
     client: {
       id: Number(body.client.id),

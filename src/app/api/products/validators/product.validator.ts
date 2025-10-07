@@ -1,6 +1,5 @@
+import { CreateProduct } from "@/models/product";
 import { z, ZodError } from "zod";
-
-import { Product } from "../models";
 
 export const createProductSchema = z
   .object({
@@ -12,10 +11,8 @@ export const createProductSchema = z
   })
   .strict();
 
-export type CreateProduct = z.infer<typeof createProductSchema>;
-
 export default function productValidator(
-  body: Product
+  body: CreateProduct
 ): CreateProduct | ZodError {
   try {
     return createProductSchema.parse(body);

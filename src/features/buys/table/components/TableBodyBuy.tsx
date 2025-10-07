@@ -1,4 +1,4 @@
-import { Buy } from "@/app/api/buys/models/buy.model";
+import { Buy } from "@/models/buy/buy.model";
 
 import { Data } from "@/models";
 

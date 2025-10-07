@@ -5,10 +5,10 @@ import { ZodError } from "zod";
 import prisma from "../../../../../libs/prisma";
 import productValidator from "../validators/product.validator";
 import { ResponseService } from "@/models/response/responseService.model";
-import { Product } from "../models";
+import { CreateProduct } from "@/models/product";
 
 export async function createProduct(
-  body: Product,
+  body: CreateProduct,
   id: number
 ): ResponseService<Products> {
   const result = productValidator(body);

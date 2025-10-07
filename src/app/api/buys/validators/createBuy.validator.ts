@@ -1,8 +1,9 @@
 import { z, ZodError } from "zod";
 
 import { createProductSchema } from "../../products/validators/product.validator";
+import { CreateBuy } from "@/models/buy";
 
-const productsBuySchema = createProductSchema
+export const createBuyProductsSchema = createProductSchema
   .extend({
     id: z.number(),
     selling_price: z.number().min(0.1).positive(),
@@ -10,12 +11,9 @@ const productsBuySchema = createProductSchema
   })
   .omit({ price: true });
 
-const createBuySchema = z.object({
-  products: z.array(productsBuySchema).nonempty(),
+export const createBuySchema = z.object({
+  products: z.array(createBuyProductsSchema).nonempty(),
 });
-
-export type CreateBuy = z.infer<typeof createBuySchema>;
-export type ProductsBuy = z.infer<typeof productsBuySchema>;
 
 export default function createBuyValidator(
   body: CreateBuy

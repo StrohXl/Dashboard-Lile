@@ -1,5 +1,5 @@
 "use client";
-import { Buy } from "@/app/api/buys/models/buy.model";
+import { Buy } from "@/models/buy/buy.model";
 import { use } from "react";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 

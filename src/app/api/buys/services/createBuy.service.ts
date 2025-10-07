@@ -5,11 +5,11 @@ import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
 import { updateProducts } from "../../products/services";
-import { CreateProduct } from "../../products/validators/product.validator";
 import { createBodyBuy } from "../adapters";
-import createBuyValidator, {
-  CreateBuy,
-} from "../validators/createBuy.validator";
+import { CreateBuy } from "@/models/buy";
+import { CreateProduct } from "@/models/product";
+import createBuyValidator from "../validators/createBuy.validator";
+
 
 export async function createBuy(body: CreateBuy, id: number) {
   const result = createBuyValidator(body);

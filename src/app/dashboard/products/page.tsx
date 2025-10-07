@@ -1,5 +1,4 @@
 
-import getData from "@/fetch/data/getData";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -13,6 +12,8 @@ import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import SearchData from "@/components/searchData/inputSearch";
 
 import TableProducts from "@/features/products/table/tableProducts";
+import getAllData from "@/services/get/all/getAllData";
+import { Product } from "@/models/product";
 
 export default async function Products({
   searchParams,
@@ -22,7 +23,7 @@ export default async function Products({
   const params = await searchParams;
   const { name, deleteId, page } = params;
 
-  const products = getData({ url: "/products", params });
+  const products = getAllData<Product>({ apiUrl: "/products", params });
   const pyDollar = getPyDollar();
 
   return (

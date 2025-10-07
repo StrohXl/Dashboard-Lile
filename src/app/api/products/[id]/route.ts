@@ -1,12 +1,12 @@
 import { tokenValidator } from "@/app/validators/token.validator";
 import { NextRequest, NextResponse } from "next/server";
 
-import { Product } from "../models";
 import {
   deleteProductById,
   getProductById,
   updateProductById,
 } from "../services";
+import { Product } from "@/models/product";
 
 type Params = {
   id: string;
