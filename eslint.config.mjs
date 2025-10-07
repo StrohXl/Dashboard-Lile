@@ -17,16 +17,21 @@ const eslintConfig = [
       "import-helpers/order-imports": [
         "warn", {
           "newlinesBetween": "always",
-          "groups": [ [ "/^next/", "module"], "/^@/models/", "/^@/hooks/", "/^@table-library/", "/^@/styles/", "/^@/components/", "/^@/lib/", "/^@/features/", ["parent", "sibling", "index"]],
+          "groups": [["/^next/", "module"], "/^@/models/", "/^@/hooks/", "/^@table-library/", "/^@/styles/", "/^@/components/", "/^@/lib/", "/^@/features/", ["parent", "sibling", "index"]],
           "alphabetize": {
             "order": "asc",
             "ignoreCase": true
           }
         }
       ],
-      semi: "error"
+      "@next/next/no-html-link-for-pages": ["error", "packages/my-app/pages/"],
+      "@next/next/no-async-client-component": "error",
+      "@next/next/no-sync-scripts": "error",
+      semi: "error",
+
     },
-  }),
+  },
+  ),
 
 ];
 
