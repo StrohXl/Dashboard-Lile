@@ -1,3 +1,4 @@
+import { CreateClient } from "@/models/client";
 import { z } from "zod";
 
 export const createClientSchema = z
@@ -12,8 +13,6 @@ export const createClientSchema = z
       .positive(),
   })
   .strict();
-
-export type CreateClient = z.infer<typeof createClientSchema>;
 
 export default function createClientValidator(body: CreateClient) {
   try {

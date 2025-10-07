@@ -1,5 +1,5 @@
 import { ChangeManager } from "../../../../models/change_manager/changeManager.model";
-import { Client } from "../../clients/models/client.model";
+import { Client } from "../../../../models/client/client.model";
 import { ListProduct } from "../../list-products/models";
 import { Payment } from "../../payments/models/payment.model";
 

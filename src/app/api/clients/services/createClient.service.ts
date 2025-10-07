@@ -3,9 +3,8 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
-import createClientValidator, {
-  CreateClient,
-} from "../validators/createClient.validator";
+import createClientValidator from "../validators/createClient.validator";
+import { CreateClient } from "@/models/client";
 
 export const createClient = async ({ body }: { body: CreateClient }) => {
   const zodClient = createClientValidator(body);
@@ -25,8 +24,10 @@ export const createClient = async ({ body }: { body: CreateClient }) => {
   } catch (error) {
     console.log(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if(error.code == "P2002"){
-        return NextResponse.json("Ya existe un cliente con esta cedula", { status: 400 });
+      if (error.code == "P2002") {
+        return NextResponse.json("Ya existe un cliente con esta cedula", {
+          status: 400,
+        });
       }
     }
     return NextResponse.json("Error", { status: 500 });

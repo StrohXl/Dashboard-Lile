@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
-import { UpdateClient } from "../validators";
 import updateClientValidator from "../validators/updateClient.validator";
+import { UpdateClient } from "@/models/client";
 
 export async function updateClient({
   id,

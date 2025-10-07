@@ -1,16 +1,9 @@
-import { z } from "zod";
-
-const UpdateClientSchema = z.object({
-  name: z.string().min(3),
-  last_name: z.string().min(3),
-  ci: z.number().positive(),
-});
-
-export type UpdateClient = z.infer<typeof UpdateClientSchema>;
+import { UpdateClient } from "@/models/client/updateClient.model";
+import { createClientSchema } from "./createClient.validator";
 
 export default function updateClientValidator(body: UpdateClient) {
   try {
-    const valid = UpdateClientSchema.parse(body);
+    const valid = createClientSchema.parse(body);
     return valid;
   } catch (error) {
     console.error(error);

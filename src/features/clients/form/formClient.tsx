@@ -1,5 +1,5 @@
 "use client";
-import { Client } from "@/app/api/clients/models/client.model";
+import { Client } from "@/models/client/client.model";
 import { useForm } from "react-hook-form";
 
 

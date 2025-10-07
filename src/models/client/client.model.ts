@@ -1,5 +1,5 @@
-import { Sale } from "../../sales/models/sale.model";
-import { CreateClient } from "../validators";
+import { Sale } from "../../app/api/sales/models/sale.model";
+import { CreateClient } from "./createClient.model";
 
 export interface Client extends CreateClient {
   id: number;
