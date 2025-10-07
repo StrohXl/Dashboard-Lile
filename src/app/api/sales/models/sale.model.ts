@@ -5,7 +5,7 @@ import { Payment } from "../../payments/models/payment.model";
 
 export interface Sale {
   id: number;
-  list_products: ListProduct[];
+  list_products: ListProduct;
   payments: Payment[];
   change_manager: ChangeManager[];
   total_price: number;
