@@ -1,5 +1,6 @@
-import FormLogin from "@/features/login/forms/formLogin";
 import Image from "next/image";
+
+import FormLogin from "@/features/login/forms/formLogin";
 
 export default function Home() {
   return (

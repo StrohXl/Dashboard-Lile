@@ -1,7 +1,9 @@
-import prisma from "../../../../../libs/prisma";
-import { NextResponse } from "next/server";
 import { getPages } from "@/utils/getPages.utility";
+import { NextResponse } from "next/server";
+
 import { ParamsRequest } from "@/models";
+
+import prisma from "../../../../../libs/prisma";
 
 export async function getBuys({ params }: { params: ParamsRequest }) {
   

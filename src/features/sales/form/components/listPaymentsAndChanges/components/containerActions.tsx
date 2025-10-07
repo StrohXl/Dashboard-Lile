@@ -3,14 +3,18 @@ import {
   UseFormGetValues,
   UseFormWatch,
 } from "react-hook-form";
+import { IoClose } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
+
+import { useContextSale } from "../../../hooks/saleHookContext";
 import { FormSale } from "../../../models";
 import { OptionList } from "../models/optionList.model";
-import { useContextSale } from "../../../hooks/saleHookContext";
-import { updateTotalChanges, updateTotalPayments } from "../utils";
-import { IoClose } from "react-icons/io5";
-import { deletePayment } from "../services/deletePayment.service";
 import { deleteChange } from "../services/deleteChange.service";
-import { MdDelete } from "react-icons/md";
+import { deletePayment } from "../services/deletePayment.service";
+import { updateTotalChanges, updateTotalPayments } from "../utils";
+
+
+
 
 export default function ContainerActions({
   remove,

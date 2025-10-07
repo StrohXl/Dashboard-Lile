@@ -1,22 +1,30 @@
 "use client";
 
-import { HiUsers } from "react-icons/hi";
 import "@/components/dashboard/tables/css/table.css";
 import { Client } from "@/app/api/clients/models/client.model";
-import { useDataContext } from "@/hooks/useContextData";
-import { ResponseData } from "@/models";
-import { Table } from "@table-library/react-table-library/table";
 import { use } from "react";
-import ClientTheme from "./theme";
-import TableBodyClients from "./components/tableBodyClients";
-import TableFooter from "@/components/dashboard/tables/components/tableFooter";
-import { onSelectChange } from "@/components/dashboard/tables/utils";
+import { HiUsers } from "react-icons/hi";
+
+
+import { ResponseData } from "@/models";
+
+import { useDataContext } from "@/hooks/useContextData";
+
 import {
   useRowSelect,
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
-import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { Table } from "@table-library/react-table-library/table";
+
+
 import NotHave from "@/components/dashboard/tables/components/notHave";
+import TableFooter from "@/components/dashboard/tables/components/tableFooter";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { onSelectChange } from "@/components/dashboard/tables/utils";
+
+
+import TableBodyClients from "./components/tableBodyClients";
+import ClientTheme from "./theme";
 
 export default function TableClients({
   data,

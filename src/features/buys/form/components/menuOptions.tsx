@@ -1,21 +1,28 @@
 "use client";
-import { FaEllipsis } from "react-icons/fa6";
+import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
+import axios from "axios";
 import { useState } from "react";
 import {
   UseFieldArrayRemove,
   UseFormGetValues,
   UseFormSetValue,
 } from "react-hook-form";
+import { FaEllipsis } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import { MdCalculate } from "react-icons/md";
+
+
+import { ResponseData } from "@/models";
+
 import Menu from "@/components/dashboard/menu/menu";
 import { OptionList } from "@/components/dashboard/menu/models/optionList.model";
-import { FaEye } from "react-icons/fa6";
-import { FormBuy } from "../models";
-import { MdCalculate } from "react-icons/md";
+
 import { useContextBuy } from "../hooks/useContenxtBuy";
-import axios from "axios";
-import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
-import { ResponseData } from "@/models";
+import { FormBuy } from "../models";
+
+
+
 
 export default function MenuOptions({
   remove,

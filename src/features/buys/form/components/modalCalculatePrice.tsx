@@ -1,6 +1,4 @@
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
-import { useContextBuy } from "../hooks/useContenxtBuy";
 import {
   FieldErrors,
   UseFormGetValues,
@@ -8,13 +6,18 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { FormBuy } from "../models";
 import { HiArchiveBox } from "react-icons/hi2";
-import { changeSellingPrice } from "../utilities";
+import { Modal } from "react-responsive-modal";
+
+import GroupRadio from "@/components/dashboard/form/groupRadio";
 import InputForm from "@/components/dashboard/form/inputForm";
 import SelectForm from "@/components/dashboard/form/selectForm";
 import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
-import GroupRadio from "@/components/dashboard/form/groupRadio";
+
+import { useContextBuy } from "../hooks/useContenxtBuy";
+import { FormBuy } from "../models";
+import { changeSellingPrice } from "../utilities";
+
 
 export default function ModalCalculatePrice({
   register,

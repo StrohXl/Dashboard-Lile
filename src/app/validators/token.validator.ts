@@ -1,5 +1,6 @@
-import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
+import { NextRequest } from "next/server";
+
 import prisma from "../../../libs/prisma";
 
 export async function tokenValidator(request: NextRequest) {

@@ -4,13 +4,15 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { FormProduct } from "../models/form-product.model";
-import LabelPriceAndPriceIva from "@/components/dashboard/form/labelPriceAndPriceIva";
-import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
+
 import GroupRadio from "@/components/dashboard/form/groupRadio";
 import InputForm from "@/components/dashboard/form/inputForm";
+import LabelPriceAndPriceIva from "@/components/dashboard/form/labelPriceAndPriceIva";
 import SelectForm from "@/components/dashboard/form/selectForm";
+import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
 import { changeCurrency } from "@/components/dashboard/form/utils/changeCurrency";
+
+import { FormProduct } from "../models/form-product.model";
 
 export default function BodyFormProduct({
   errors,

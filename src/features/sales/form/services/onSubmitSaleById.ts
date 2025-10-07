@@ -1,8 +1,10 @@
-import { FormSale } from "../models";
-import { toast } from "react-toastify";
+
 import axios from "axios";
 import { ParamValue } from "next/dist/server/request/params";
+import { toast } from "react-toastify";
+
 import { createAddaptedSale } from "../adapters/createAddaptedSale";
+import { FormSale } from "../models";
 
 interface ResponseAxios {
   data: {

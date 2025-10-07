@@ -1,4 +1,5 @@
 import { z, ZodError } from "zod";
+
 import { createProductSchema } from "../../products/validators/product.validator";
 
 export const createListProductSchema = z

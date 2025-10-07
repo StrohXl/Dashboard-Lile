@@ -1,11 +1,13 @@
+import { ParamValue } from "next/dist/server/request/params";
 import {
   UseFormGetValues,
   UseFormSetValue,
   UseFormTrigger,
 } from "react-hook-form";
-import { FormSale } from "../models";
-import { ParamValue } from "next/dist/server/request/params";
 import { toast } from "react-toastify";
+
+
+import { FormSale } from "../models";
 
 export async function validatedStep1({
   formSteps,

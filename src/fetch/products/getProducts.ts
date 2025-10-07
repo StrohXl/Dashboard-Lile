@@ -1,6 +1,8 @@
-import UrlParams from "@/models/url-params.model";
 import axios from "axios";
 import { toast } from "react-toastify";
+
+
+import UrlParams from "@/models/url-params.model";
 
 const getProducts = async (params?: UrlParams) => {
   try {

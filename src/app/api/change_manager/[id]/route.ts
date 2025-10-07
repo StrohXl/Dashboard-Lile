@@ -1,7 +1,8 @@
 import { tokenValidator } from "@/app/validators/token.validator";
 import { NextRequest, NextResponse } from "next/server";
-import { getChangeById } from "../services/getChangeById.service";
+
 import { deleteChangeById } from "../services/deleteChangeById.service";
+import { getChangeById } from "../services/getChangeById.service";
 
 type Params = Promise<{
   id: string;

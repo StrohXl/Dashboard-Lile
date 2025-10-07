@@ -1,14 +1,15 @@
+import { calculateTotalPrice } from "@/utils";
+import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+
 import prisma from "../../../../../libs/prisma";
-import { Prisma } from "@prisma/client/edge";
 import { updateProducts } from "../../products/services";
+import { CreateProduct } from "../../products/validators/product.validator";
 import { createBodyBuy } from "../adapters";
-import { calculateTotalPrice } from "@/utils";
 import createBuyValidator, {
   CreateBuy,
 } from "../validators/createBuy.validator";
-import { CreateProduct } from "../../products/validators/product.validator";
 
 export async function createBuy(body: CreateBuy, id: number) {
   const result = createBuyValidator(body);

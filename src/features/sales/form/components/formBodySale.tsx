@@ -8,11 +8,12 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
+
 import { useContextSale } from "../hooks/saleHookContext";
-import SectionClient from "./client/sectionClient";
 import { FormSale } from "../models";
-import ListProduct from "./listProduct/listProduct";
+import SectionClient from "./client/sectionClient";
 import ListPaymentsAndChanges from "./listPaymentsAndChanges/listPaymentsAndChanges";
+import ListProduct from "./listProduct/listProduct";
 
 export default function FormBodySale({
   register,

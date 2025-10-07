@@ -1,4 +1,5 @@
 import { z, ZodError } from "zod";
+
 import { Product } from "../models";
 
 export const createProductSchema = z

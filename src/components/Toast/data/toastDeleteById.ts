@@ -1,7 +1,9 @@
-import { toast } from "react-toastify";
+
 import axios from "axios";
-import { ReadonlyURLSearchParams } from "next/navigation";
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { ReadonlyURLSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
+
 import { Data } from "@/models";
 
 const toastDeleteById = async ({

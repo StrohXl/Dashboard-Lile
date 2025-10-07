@@ -1,10 +1,12 @@
+
+import { Product } from "@/app/api/products/models";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UseFormGetValues, UseFormReset } from "react-hook-form";
-import { Product } from "@/app/api/products/models";
-import { getProduct } from "./services";
+
 import { FormProduct } from "./models/form-product.model";
+import { getProduct } from "./services";
 
 export default function HooksForm({
   reset,

@@ -7,9 +7,11 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { FormSale } from "../../models";
 import { MdDeleteOutline } from "react-icons/md";
+
 import InputForm from "@/components/dashboard/form/inputForm";
+
+import { FormSale } from "../../models";
 import SelectClient from "./components/selectClient";
 
 export default function SectionClient({

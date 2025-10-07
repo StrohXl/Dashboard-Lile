@@ -1,5 +1,7 @@
-import { UseFormGetValues } from "react-hook-form";
 import { calculateTotalPrice } from "@/utils";
+import { UseFormGetValues } from "react-hook-form";
+
+
 import { FormSale } from "../../../models";
 
 export const updateTotalPriceByListProduct = ({

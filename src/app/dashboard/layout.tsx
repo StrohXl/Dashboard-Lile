@@ -1,5 +1,6 @@
-import LayoutDashboard from "@/components/dashboard/layout";
 import { cookies } from "next/headers";
+
+import LayoutDashboard from "@/components/dashboard/layout";
 
 export default async function Layout({
   children,

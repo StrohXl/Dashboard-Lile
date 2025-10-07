@@ -1,13 +1,17 @@
 "use client";
-import SearchMenu from "@/components/dashboard/searchMenu/searchMenu";
-import MenuHooks from "@/components/dashboard/searchMenu/hooks/searchMenuHooks";
 import { UseFieldArrayPrepend, UseFormGetValues } from "react-hook-form";
-import { FormSale } from "@/features/sales/form/models";
+
+import MenuHooks from "@/components/dashboard/searchMenu/hooks/searchMenuHooks";
+import SearchMenu from "@/components/dashboard/searchMenu/searchMenu";
 import { OptionProducts } from "@/components/dashboard/searchMenu/services/getProducts.service";
 import { searchProduct } from "@/components/dashboard/searchMenu/utils/searchProduct";
-import { addProduct } from "./utils/addProduct.utility";
-import { updateTotalPriceByListProduct } from "../../utils";
+
 import { useContextSale } from "@/features/sales/form/hooks/saleHookContext";
+import { FormSale } from "@/features/sales/form/models";
+
+import { updateTotalPriceByListProduct } from "../../utils";
+import { addProduct } from "./utils/addProduct.utility";
+
 
 export default function SelectProduct({
   placeholder,

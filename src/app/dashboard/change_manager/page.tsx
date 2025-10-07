@@ -1,8 +1,13 @@
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
-import UrlParams from "@/models/url-params.model";
-import { Suspense } from "react";
 import getData from "@/fetch/data/getData";
+import { Suspense } from "react";
+
+
+import UrlParams from "@/models/url-params.model";
+
 import { HookDataContext } from "@/hooks/useContextData";
+
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+
 import TableChangeManager from "@/features/change_manager/table/tableChangeManager";
 
 export default async function ChangeManagers({

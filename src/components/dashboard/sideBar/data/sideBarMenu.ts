@@ -1,11 +1,11 @@
-import { RiDashboardFill } from "react-icons/ri";
+import { FaCashRegister } from "react-icons/fa6";
+import { HiUsers } from "react-icons/hi";
 import { HiArchiveBox } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import { MdShoppingCart } from "react-icons/md";
-import { HiUsers } from "react-icons/hi";
-import { FaCashRegister } from "react-icons/fa6";
 import { MdOutlinePayments } from "react-icons/md";
 import { MdCurrencyExchange } from "react-icons/md";
+import { RiDashboardFill } from "react-icons/ri";
 
 export const sideBarMenu = [
   {

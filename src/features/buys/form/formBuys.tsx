@@ -1,12 +1,13 @@
 "use client";
-import { useForm, useFieldArray } from "react-hook-form";
 import { use } from "react";
+import { useForm, useFieldArray } from "react-hook-form";
+
 import BodyFormBuy from "./components/bodyFormBuy";
 import HeadFormBuy from "./components/headFormBuy/headFormBuy";
-import { HookFormBuy } from "./hooks";
-import { onSubmit } from "./services/onSubmitBuy";
-import type { FormBuy } from "./models";
 import ModalCalculatePrice from "./components/modalCalculatePrice";
+import { HookFormBuy } from "./hooks";
+import type { FormBuy } from "./models";
+import { onSubmit } from "./services/onSubmitBuy";
 
 export default function FormBuy({
   pyDollar,

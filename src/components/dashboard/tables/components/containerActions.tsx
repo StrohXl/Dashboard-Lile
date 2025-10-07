@@ -1,12 +1,18 @@
 import "../css/container-actions.css";
-import { MdDelete } from "react-icons/md";
-import Link from "next/link";
-import toastDeleteById from "@/components/Toast/data/toastDeleteById";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDataContext } from "../../../../hooks/useContextData";
-import { ApiUrl, Data } from "@/models";
-import { FaEye } from "react-icons/fa6";
+
 import { Product } from "@/app/api/products/models";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { FaEye } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
+
+import { ApiUrl, Data } from "@/models";
+
+import toastDeleteById from "@/components/Toast/data/toastDeleteById";
+
+
+import { useDataContext } from "../../../../hooks/useContextData";
+
 
 export default function ContainerActions({
   id,

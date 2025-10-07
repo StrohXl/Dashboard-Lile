@@ -1,6 +1,7 @@
 import { tokenValidator } from "@/app/validators/token.validator";
 import { getParams } from "@/utils/getParams";
 import { NextRequest, NextResponse } from "next/server";
+
 import { getHistoryPrice } from "./services/getHistoryPrice";
 
 export async function GET(request: NextRequest) {

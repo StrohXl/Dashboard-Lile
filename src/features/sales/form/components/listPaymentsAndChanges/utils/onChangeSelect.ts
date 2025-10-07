@@ -1,9 +1,10 @@
 import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
-import { OptionList } from "../models/optionList.model";
-import { updateTotalPayments } from "./updateTotalPayments";
+
 import { FormSale } from "../../../models";
+import { OptionList } from "../models/optionList.model";
 import { getTotalPayments } from "./getTotalPayments.utility";
 import { updateTotalChanges } from "./updateTotalChanges";
+import { updateTotalPayments } from "./updateTotalPayments";
 
 export default function onChangeSelect({
   getValues,

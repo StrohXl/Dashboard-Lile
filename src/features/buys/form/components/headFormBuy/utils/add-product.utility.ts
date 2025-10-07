@@ -1,6 +1,8 @@
 import { UseFieldArrayPrepend } from "react-hook-form";
-import { FormBuy } from "../../../models";
+
 import { OptionProducts } from "@/components/dashboard/searchMenu/services/getProducts.service";
+
+import { FormBuy } from "../../../models";
 
 export function addProduct({
   product,

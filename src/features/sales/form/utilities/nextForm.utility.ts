@@ -1,13 +1,15 @@
+import { ParamValue } from "next/dist/server/request/params";
 import {
   UseFormGetValues,
   UseFormSetValue,
   UseFormTrigger,
 } from "react-hook-form";
+
+
+import { FormSale } from "../models";
 import { validatedStep0 } from "./validatedStep0.utility";
 import { validatedStep1 } from "./validatedStep1.utility";
 import { validatedStep2 } from "./validatedStep2.utility";
-import { FormSale } from "../models";
-import { ParamValue } from "next/dist/server/request/params";
 
 export function nextForm({
   formSteps,

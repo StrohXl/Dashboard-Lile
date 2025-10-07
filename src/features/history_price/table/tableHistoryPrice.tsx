@@ -1,8 +1,12 @@
-import { HookDataContext } from "@/hooks/useContextData";
-import { Suspense } from "react";
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
-import getPyDollar from "@/fetch/pydolar/getPyDolar";
+
 import getData from "@/fetch/data/getData";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
+import { Suspense } from "react";
+
+import { HookDataContext } from "@/hooks/useContextData";
+
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+
 import GetPromise from "./components/getPromise";
 
 export default function TableHistoryPrice() {

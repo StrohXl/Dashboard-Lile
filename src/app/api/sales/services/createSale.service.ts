@@ -1,16 +1,18 @@
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
+import { calculateTotalPrice } from "@/utils";
+import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
+
+import prisma from "../../../../../libs/prisma";
+import { updateStockProducts } from "../../products/services";
+import { calculateTotalPayments, getSaleStatus } from "../utilities";
+import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
+import { getDebt } from "../utilities/getDebt.utility";
 import saleBodyValidator, {
   CreateSale,
 } from "../validators/bodySale.validator";
-import { ZodError } from "zod";
-import { Prisma } from "@prisma/client/edge";
-import { updateStockProducts } from "../../products/services";
-import { calculateTotalPayments, getSaleStatus } from "../utilities";
-import { calculateTotalPrice } from "@/utils";
-import { getDebt } from "../utilities/getDebt.utility";
-import prisma from "../../../../../libs/prisma";
-import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
-import getPyDollar from "@/fetch/pydolar/getPyDolar";
+
 
 export async function createSale(body: CreateSale) {
   const validatorBody = saleBodyValidator(body);

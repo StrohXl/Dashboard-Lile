@@ -1,5 +1,6 @@
-import prisma from "../../../../../libs/prisma";
 import { NextResponse } from "next/server";
+
+import prisma from "../../../../../libs/prisma";
 import { CreateListProduct } from "../../list-products/validators/createListProduct.validator";
 
 export const updateStockProducts = async ({

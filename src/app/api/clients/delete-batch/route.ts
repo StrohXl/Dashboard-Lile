@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { deleteClientByArray } from "../services";
 import { tokenValidator } from "@/app/validators/token.validator";
+import { NextRequest, NextResponse } from "next/server";
+
+import { deleteClientByArray } from "../services";
 
 export async function POST(request: NextRequest) {
   const token = tokenValidator(request);

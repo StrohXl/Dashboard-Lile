@@ -1,5 +1,7 @@
-import { toast } from "react-toastify";
 import axios from "axios";
+import { toast } from "react-toastify";
+
+
 import UrlParams from "@/models/url-params.model";
 
 interface ResponseAxios {

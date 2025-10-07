@@ -1,8 +1,9 @@
 import { tokenValidator } from "@/app/validators/token.validator";
-import { NextRequest, NextResponse } from "next/server";
-import { getChanges } from "./services/getChanges.service";
-import { createChange } from "./services/createChange.service";
 import { getParams } from "@/utils/getParams";
+import { NextRequest, NextResponse } from "next/server";
+
+import { createChange } from "./services/createChange.service";
+import { getChanges } from "./services/getChanges.service";
 
 export async function GET(request: NextRequest) {
   const token = await tokenValidator(request);

@@ -1,8 +1,11 @@
 "use client";
-import { ResponseData } from "@/models";
-import TableBodyHistoryPrice from "./tableBodyHistoryPrice";
-import { use } from "react";
 import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
+import { use } from "react";
+
+
+import { ResponseData } from "@/models";
+
+import TableBodyHistoryPrice from "./tableBodyHistoryPrice";
 
 export default function GetPromise({
   data,

@@ -1,4 +1,5 @@
 import { z, ZodError } from "zod";
+
 import TypeUser from "../type/typeUser";
 
 const UserSchema = z.object({

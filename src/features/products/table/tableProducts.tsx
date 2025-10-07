@@ -1,22 +1,29 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import { HiArchiveBoxXMark } from "react-icons/hi2";
-import { ResponseData } from "@/models";
-import { use } from "react";
 import { Product } from "@/app/api/products/models";
-import { Table } from "@table-library/react-table-library/table";
-import TableBodyProducts from "./components/tableBodyProducts";
-import TableFooter from "@/components/dashboard/tables/components/tableFooter";
+import { use } from "react";
+import { HiArchiveBoxXMark } from "react-icons/hi2";
+
+
+import { ResponseData } from "@/models";
+
 import { useDataContext } from "@/hooks/useContextData";
-import ThemeTableProducts from "./theme";
+
 import {
   useRowSelect,
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
-import { onSelectChange } from "@/components/dashboard/tables/utils";
-import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { Table } from "@table-library/react-table-library/table";
+
+
 import NotHave from "@/components/dashboard/tables/components/notHave";
+import TableFooter from "@/components/dashboard/tables/components/tableFooter";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { onSelectChange } from "@/components/dashboard/tables/utils";
+
+import TableBodyProducts from "./components/tableBodyProducts";
+import ThemeTableProducts from "./theme";
 
 export default function TableProducts({
   data,

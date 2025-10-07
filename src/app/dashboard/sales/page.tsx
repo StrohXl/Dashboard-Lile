@@ -1,11 +1,16 @@
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
-import UrlParams from "@/models/url-params.model";
-import Link from "next/link";
-import { Suspense } from "react";
+
 import getData from "@/fetch/data/getData";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
-import { HookDataContext } from "@/hooks/useContextData";
+import Link from "next/link";
+import { Suspense } from "react";
 import { FaCashRegister } from "react-icons/fa6";
+
+import UrlParams from "@/models/url-params.model";
+
+import { HookDataContext } from "@/hooks/useContextData";
+
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+
 import TableSales from "@/features/sales/table/tableSales";
 
 export default async function Products({

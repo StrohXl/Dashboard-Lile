@@ -1,5 +1,6 @@
-import prisma from "../../libs/prisma";
 import { ApiUrl, ParamsRequest } from "@/models";
+
+import prisma from "../../libs/prisma";
 
 interface Pages {
   pages: number;

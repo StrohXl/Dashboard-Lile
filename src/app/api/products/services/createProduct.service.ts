@@ -1,8 +1,9 @@
-import { ZodError } from "zod";
-import { Product } from "../models";
-import { NextResponse } from "next/server";
-import prisma from "../../../../../libs/prisma";
 import { Prisma } from "@prisma/client/edge";
+import { NextResponse } from "next/server";
+import { ZodError } from "zod";
+
+import prisma from "../../../../../libs/prisma";
+import { Product } from "../models";
 import productValidator from "../validators/product.validator";
 
 export async function createProduct(body: Product, id: number) {

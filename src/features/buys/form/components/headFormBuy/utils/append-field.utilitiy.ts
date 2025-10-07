@@ -1,4 +1,5 @@
 import { UseFieldArrayPrepend } from "react-hook-form";
+
 import { FormBuy } from "../../../models";
 
 export const appendField = ({
@@ -10,7 +11,7 @@ export const appendField = ({
     id: 0,
     name: "",
     stock: 1,
-    sellingPrice: 0,
+    selling_price: 0,
     iva: "false",
     purchase_price: 0,
     unit: "unit",

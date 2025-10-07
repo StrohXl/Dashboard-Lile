@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getHistoryPriceById } from "../services/getHistoryPriceById";
-import { deleteHistoryPriceById } from "../services/deleteHistoryPriceById";
 import { tokenValidator } from "@/app/validators/token.validator";
+import { NextRequest, NextResponse } from "next/server";
+
+import { deleteHistoryPriceById } from "../services/deleteHistoryPriceById";
+import { getHistoryPriceById } from "../services/getHistoryPriceById";
 
 export async function GET(
   request: NextRequest,

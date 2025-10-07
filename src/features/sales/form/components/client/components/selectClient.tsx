@@ -1,11 +1,16 @@
 "use client";
-import SearchMenu from "@/components/dashboard/searchMenu/searchMenu";
-import MenuHooks from "@/components/dashboard/searchMenu/hooks/searchMenuHooks";
-import { searchClients } from "../utils/searchClients";
-import { addClient } from "../utils/addClient";
 import { UseFormSetValue } from "react-hook-form";
-import { FormSale } from "../../../models";
+
+import MenuHooks from "@/components/dashboard/searchMenu/hooks/searchMenuHooks";
+import SearchMenu from "@/components/dashboard/searchMenu/searchMenu";
 import { OptionClients } from "@/components/dashboard/searchMenu/services/getClients.service";
+
+import { FormSale } from "../../../models";
+import { addClient } from "../utils/addClient";
+import { searchClients } from "../utils/searchClients";
+
+
+
 
 export default function SelectClient({
   placeholder,

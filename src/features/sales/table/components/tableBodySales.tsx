@@ -1,8 +1,13 @@
-import { Body, Row, Cell } from "@table-library/react-table-library/table";
-import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-import { CellSelect } from "@table-library/react-table-library/select";
-import { Data } from "@/models";
 import { Sale } from "@/app/api/sales/models";
+
+import { Data } from "@/models";
+
+import { CellSelect } from "@table-library/react-table-library/select";
+import { Body, Row, Cell } from "@table-library/react-table-library/table";
+
+
+
+import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 
 export default function TableBodySales({
   tableList,

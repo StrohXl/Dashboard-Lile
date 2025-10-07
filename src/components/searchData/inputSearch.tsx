@@ -1,12 +1,14 @@
 "use client";
-import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
 import { HTMLInputTypeAttribute, useState } from "react";
+import { useForm } from "react-hook-form";
+import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
+
+
+import { FormSearch } from "./models/formSearch.model";
+import { InputSearchType } from "./models/inputSearch.model";
 import { onSubmitSearch } from "./service/on-submi-search.service";
 import { resetInputSearch } from "./utilities/reset-input-search.utility";
-import { InputSearchType } from "./models/inputSearch.model";
-import { FormSearch } from "./models/formSearch.model";
 
 export default function InputSearch({
   placeholderInput,

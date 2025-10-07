@@ -1,6 +1,7 @@
+import { ApiUrl, ResponseData } from "@/models";
+
 import DeleteSelects from "./deleteSelects";
 import Pagination from "./pagination";
-import { ApiUrl, ResponseData } from "@/models";
 
 export default function TableFooter({
   data,

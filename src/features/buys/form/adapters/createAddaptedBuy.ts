@@ -1,5 +1,6 @@
-import { FormBuy } from "../models";
 import { CreateBuy } from "@/app/api/buys/validators/createBuy.validator";
+
+import { FormBuy } from "../models";
 
 export const createAddaptedBuy = ({
   body,

@@ -1,11 +1,12 @@
+import prisma from "@/../libs/prisma";
+import bcrypt from "bcrypt";
+import { serialize } from "cookie";
+import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
+import { ZodError } from "zod";
+
 import TypeUser from "../users/type/typeUser";
 import validInputs from "../users/utils/validInputs";
-import { ZodError } from "zod";
-import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-import { serialize } from "cookie";
-import bcrypt from "bcrypt";
-import prisma from "@/../libs/prisma";
 
 export async function loginUser(body: TypeUser) {
   const validInputsUser = await validInputs(body);

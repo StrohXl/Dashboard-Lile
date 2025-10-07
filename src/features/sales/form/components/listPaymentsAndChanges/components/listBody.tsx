@@ -6,14 +6,17 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { FormSale } from "../../../models";
-import { OptionList } from "../models/optionList.model";
-import ContainerActions from "./containerActions";
-import { updateTotalChanges, updateTotalPayments } from "../utils";
-import { useContextSale } from "../../../hooks/saleHookContext";
-import onChangeSelect from "../utils/onChangeSelect";
+
 import InputForm from "@/components/dashboard/form/inputForm";
 import SelectForm from "@/components/dashboard/form/selectForm";
+
+import { useContextSale } from "../../../hooks/saleHookContext";
+import { FormSale } from "../../../models";
+import { OptionList } from "../models/optionList.model";
+import { updateTotalChanges, updateTotalPayments } from "../utils";
+import onChangeSelect from "../utils/onChangeSelect";
+import ContainerActions from "./containerActions";
+
 
 export default function ListBody({
   errors,

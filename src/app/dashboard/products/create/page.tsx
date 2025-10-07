@@ -1,9 +1,11 @@
-import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
-import FormProduct from "@/features/products/forms/formProduct";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
+
+
+import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
+import FormProduct from "@/features/products/forms/formProduct";
 export default async function CreateProducts() {
   const pyDollar = getPyDollar();
   return (

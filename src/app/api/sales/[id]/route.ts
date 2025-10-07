@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { deleteSaleById, getSaleById, updateSaleById } from "../services";
 import { tokenValidator } from "@/app/validators/token.validator";
+import { NextRequest, NextResponse } from "next/server";
+
+import { deleteSaleById, getSaleById, updateSaleById } from "../services";
 
 export async function DELETE(
   request: NextRequest,

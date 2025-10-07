@@ -1,4 +1,5 @@
 import { Decimal } from "@prisma/client/runtime/library";
+
 import { CreatePayment } from "../validators/createPayment.validator";
 
 export function paymentsAdapter(

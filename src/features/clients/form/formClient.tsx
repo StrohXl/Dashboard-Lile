@@ -1,10 +1,13 @@
 "use client";
 import { Client } from "@/app/api/clients/models/client.model";
 import { useForm } from "react-hook-form";
-import InputForm from "./components/inputForm";
-import { onSubmitClient } from "./service/onSubmitClient";
-import FormClientHooks from "./hooks/formHooks";
+
+
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
+
+import InputForm from "./components/inputForm";
+import FormClientHooks from "./hooks/formHooks";
+import { onSubmitClient } from "./service/onSubmitClient";
 import { onSubmitClientById } from "./service/onSubmitClientById.service";
 
 export default function FormClient() {

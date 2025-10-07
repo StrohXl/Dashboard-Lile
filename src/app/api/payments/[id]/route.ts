@@ -1,7 +1,8 @@
+import { tokenValidator } from "@/app/validators/token.validator";
 import { NextRequest, NextResponse } from "next/server";
+
 import { deletePaymentById } from "../services";
 import { updatePaymentById } from "../services/updatePaymentById.service";
-import { tokenValidator } from "@/app/validators/token.validator";
 
 export async function DELETE(
   request: NextRequest,

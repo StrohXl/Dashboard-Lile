@@ -1,7 +1,9 @@
-import { UseFieldArrayRemove, UseFormGetValues } from "react-hook-form";
-import { FormSale } from "../../../models";
-import { toast } from "react-toastify";
 import axios from "axios";
+import { UseFieldArrayRemove, UseFormGetValues } from "react-hook-form";
+import { toast } from "react-toastify";
+
+
+import { FormSale } from "../../../models";
 import { updateTotalPayments } from "../utils/updateTotalPayments";
 
 export async function deletePayment({

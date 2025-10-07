@@ -1,4 +1,5 @@
 import { CreateProduct } from "@/app/api/products/validators/product.validator";
+
 import calculatePriceKg from "./calculatePriceKg.utility";
 
 export const calculateTotalPrice = (body: Omit<CreateProduct,"iva">[]) => {

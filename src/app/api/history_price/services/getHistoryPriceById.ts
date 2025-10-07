@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
-import prisma from "../../../../../libs/prisma";
 import { HistoryPrice } from "@prisma/client";
+import { NextResponse } from "next/server";
+
+import prisma from "../../../../../libs/prisma";
 
 export async function getHistoryPriceById({ id }: { id: number }) {
   const prices: number[] = [];

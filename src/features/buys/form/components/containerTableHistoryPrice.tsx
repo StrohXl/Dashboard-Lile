@@ -1,13 +1,16 @@
 "use client";
 
-import { useContextBuy } from "@/features/buys/form/hooks/useContenxtBuy";
-import TableBodyHistoryPrice from "../../../history_price/table/components/tableBodyHistoryPrice";
 import { use } from "react";
-import NotHave from "@/components/dashboard/tables/components/notHave";
-import { MdHistory } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
+import { MdHistory } from "react-icons/md";
 import Modal from "react-responsive-modal";
+
 import SkeletonHistory from "@/components/dashboard/skeleton/skeletonHistory";
+import NotHave from "@/components/dashboard/tables/components/notHave";
+
+import { useContextBuy } from "@/features/buys/form/hooks/useContenxtBuy";
+
+import TableBodyHistoryPrice from "../../../history_price/table/components/tableBodyHistoryPrice";
 const ContainerHistoryPrice = ({
   dollarPy,
 }: {

@@ -1,13 +1,18 @@
-import SearchData from "@/components/searchData/inputSearch";
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
-import TableProducts from "@/features/products/table/tableProducts";
-import UrlParams from "@/models/url-params.model";
+
+import getData from "@/fetch/data/getData";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
 import { HiArchiveBoxArrowDown } from "react-icons/hi2";
-import getData from "@/fetch/data/getData";
-import getPyDollar from "@/fetch/pydolar/getPyDolar";
+
+import UrlParams from "@/models/url-params.model";
+
 import { HookDataContext } from "@/hooks/useContextData";
+
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+import SearchData from "@/components/searchData/inputSearch";
+
+import TableProducts from "@/features/products/table/tableProducts";
 
 export default async function Products({
   searchParams,

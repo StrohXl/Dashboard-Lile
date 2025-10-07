@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { tokenValidator } from "@/app/validators/token.validator";
+import { NextRequest, NextResponse } from "next/server";
+
 import { deleteChanges } from "../services/deleteChanges.service";
 
 export async function POST(request: NextRequest) {

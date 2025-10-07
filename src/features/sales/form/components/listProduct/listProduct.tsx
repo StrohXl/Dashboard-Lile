@@ -1,5 +1,3 @@
-import ListProductBodyFormSale from "./components/listProductBodyFormSale";
-import ListProductHeadFormSale from "./components/listProductHeadFormSale";
 import {
   Control,
   FieldErrors,
@@ -8,7 +6,10 @@ import {
   UseFormRegister,
   UseFormWatch,
 } from "react-hook-form";
+
 import { FormSale } from "../../models";
+import ListProductBodyFormSale from "./components/listProductBodyFormSale";
+import ListProductHeadFormSale from "./components/listProductHeadFormSale";
 
 export default function ListProduct({
   register,

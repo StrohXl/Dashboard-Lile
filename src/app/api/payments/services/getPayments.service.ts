@@ -1,7 +1,9 @@
-import prisma from "../../../../../libs/prisma";
-import { ParamsRequest } from "@/models";
 import { getPages } from "@/utils";
 import { NextResponse } from "next/server";
+
+import { ParamsRequest } from "@/models";
+
+import prisma from "../../../../../libs/prisma";
 
 export async function getPayments({ params }: { params: ParamsRequest }) {
   const { skip, take, pages } = await getPages("/payments", params);

@@ -8,7 +8,12 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
+
+import { useContextSale } from "../../hooks/saleHookContext";
 import { FormSale } from "../../models";
+import FooterChanges from "./components/footerChanges";
+import FooterPayments from "./components/footerPayments";
+import ListBody from "./components/listBody";
 import { OptionList } from "./models/optionList.model";
 import {
   prependChange,
@@ -16,10 +21,6 @@ import {
   updateTotalChanges,
   updateTotalPayments,
 } from "./utils";
-import FooterPayments from "./components/footerPayments";
-import FooterChanges from "./components/footerChanges";
-import ListBody from "./components/listBody";
-import { useContextSale } from "../../hooks/saleHookContext";
 
 export default function ListPaymentsAndChanges({
   errors,

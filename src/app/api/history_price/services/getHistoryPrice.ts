@@ -1,7 +1,10 @@
-import { ParamsRequest } from "@/models";
-import prisma from "../../../../../libs/prisma";
-import { NextResponse } from "next/server";
 import { getPages } from "@/utils";
+import { NextResponse } from "next/server";
+
+import { ParamsRequest } from "@/models";
+
+import prisma from "../../../../../libs/prisma";
+
 
 export async function getHistoryPrice({ params }: { params: ParamsRequest }) {
   try {

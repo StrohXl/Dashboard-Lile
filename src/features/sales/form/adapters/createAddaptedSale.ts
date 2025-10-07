@@ -1,7 +1,8 @@
-import { CreateListProduct } from "@/app/api/list-products/validators/createListProduct.validator";
-import { FormSale } from "../models";
-import { CreatePaymentOfSale } from "@/app/api/sales/models";
 import { ChangeManagerUpdate } from "@/app/api/change_manager/models/changeManagerUpdate.model";
+import { CreateListProduct } from "@/app/api/list-products/validators/createListProduct.validator";
+import { CreatePaymentOfSale } from "@/app/api/sales/models";
+
+import { FormSale } from "../models";
 
 export const createAddaptedSale = (body: FormSale) => {
   const newBody: {

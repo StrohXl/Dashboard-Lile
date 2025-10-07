@@ -2,19 +2,26 @@
 
 import "@/components/dashboard/tables/css/table.css";
 import { Payment } from "@/app/api/payments/models/payment.model";
-import NotHave from "@/components/dashboard/tables/components/notHave";
-import { useDataContext } from "@/hooks/useContextData";
-import { ResponseData } from "@/models";
 import { use } from "react";
 import { MdOutlinePayments } from "react-icons/md";
+
+
+import { ResponseData } from "@/models";
+
+import { useDataContext } from "@/hooks/useContextData";
+
 import {
   useRowSelect,
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
-import { onSelectChange } from "@/components/dashboard/tables/utils";
-import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import { Table } from "@table-library/react-table-library/table";
+
+
+import NotHave from "@/components/dashboard/tables/components/notHave";
+import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { onSelectChange } from "@/components/dashboard/tables/utils";
+
 import TableBodyPayments from "./components/tableBodyPayments";
 import PaymentsTheme from "./theme";
 

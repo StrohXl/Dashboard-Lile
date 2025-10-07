@@ -1,5 +1,6 @@
 import { tokenValidator } from "@/app/validators/token.validator";
 import { NextRequest, NextResponse } from "next/server";
+
 import { deleteClientById, getClientById, updateClient } from "../services";
 
 export async function GET(

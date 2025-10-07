@@ -1,7 +1,9 @@
-import prisma from "../../../../../libs/prisma";
-import { ParamsRequest } from "@/models";
 import { getPages } from "@/utils/getPages.utility";
 import { NextResponse } from "next/server";
+
+import { ParamsRequest } from "@/models";
+
+import prisma from "../../../../../libs/prisma";
 
 export const getClients = async ({ params }: { params: ParamsRequest }) => {
   const { ci, name } = params;

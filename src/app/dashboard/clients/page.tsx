@@ -1,12 +1,17 @@
-import { FaUserPlus } from "react-icons/fa6";
-import SearchData from "@/components/searchData/inputSearch";
-import { HookDataContext } from "@/hooks/useContextData";
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
-import TableClients from "@/features/clients/table/tableClients";
 import getData from "@/fetch/data/getData";
-import UrlParams from "@/models/url-params.model";
 import Link from "next/link";
 import { Suspense } from "react";
+import { FaUserPlus } from "react-icons/fa6";
+
+
+import UrlParams from "@/models/url-params.model";
+
+import { HookDataContext } from "@/hooks/useContextData";
+
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+import SearchData from "@/components/searchData/inputSearch";
+
+import TableClients from "@/features/clients/table/tableClients";
 
 export default async function Clients({
   searchParams,

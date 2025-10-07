@@ -1,14 +1,16 @@
 "use client";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import TypeUser from "@/app/api/users/type/typeUser";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { TbLock } from "react-icons/tb";
-import { useForm } from "react-hook-form";
-import { FaUser } from "react-icons/fa";
-import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaUser } from "react-icons/fa";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { TbLock } from "react-icons/tb";
 import { toast } from "react-toastify";
+
+
 import InputFormLogin from "./components/inputFormLogin";
 
 export default function FormLogin() {

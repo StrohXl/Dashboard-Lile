@@ -1,6 +1,8 @@
-import MessageError from "@/components/dashboard/form/message-error/messageError";
-import { InputFormType } from "./models";
 import { FieldValues } from "react-hook-form";
+
+import MessageError from "@/components/dashboard/form/message-error/messageError";
+
+import { InputFormType } from "./models";
 
 export default function InputForm<T extends FieldValues>({
   label,

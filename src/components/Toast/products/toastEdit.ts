@@ -1,7 +1,8 @@
-import { toast } from "react-toastify";
+
+import { CreateProduct } from "@/app/api/products/validators/product.validator";
 import axios from "axios";
 import { ParamValue } from "next/dist/server/request/params";
-import { CreateProduct } from "@/app/api/products/validators/product.validator";
+import { toast } from "react-toastify";
 interface ResponseAxios {
   data: {
     status: number;

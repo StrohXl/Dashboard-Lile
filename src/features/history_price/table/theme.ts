@@ -1,5 +1,5 @@
-import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/material-ui";
+import { useTheme } from "@table-library/react-table-library/theme";
 
 export default function ThemeTableHistory() {
   const materialTheme = getTheme();

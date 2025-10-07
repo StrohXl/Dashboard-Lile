@@ -1,11 +1,15 @@
-import TableBuy from "@/features/buys/table/tableBuy";
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+
+import getData from "@/fetch/data/getData";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
+
 import { HookDataContext } from "@/hooks/useContextData";
-import getData from "@/fetch/data/getData";
-import getPyDollar from "@/fetch/pydolar/getPyDolar";
+
+import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
+
+import TableBuy from "@/features/buys/table/tableBuy";
 
 export default async function Buys({
   searchParams,

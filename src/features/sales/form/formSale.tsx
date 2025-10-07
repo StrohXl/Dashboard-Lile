@@ -1,4 +1,5 @@
 "use client";
+import { use } from "react";
 import {
   Control,
   FieldErrors,
@@ -12,15 +13,15 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 
-import { use } from "react";
-import { onSubmitSale } from "./services/onSubmitSale";
-import SaleHookContext, { useContextSale } from "./hooks/saleHookContext";
-import FormHeaderSale from "./components/formHeaderSale";
-import FormBodySale from "./components/formBodySale";
-import type { FormSale } from "./models";
-import { nextForm } from "./utilities";
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
+
+import FormBodySale from "./components/formBodySale";
+import FormHeaderSale from "./components/formHeaderSale";
+import SaleHookContext, { useContextSale } from "./hooks/saleHookContext";
+import type { FormSale } from "./models";
+import { onSubmitSale } from "./services/onSubmitSale";
 import { onSubmitSaleById } from "./services/onSubmitSaleById";
+import { nextForm } from "./utilities";
 
 export default function FormSale({
   pyDollar,

@@ -1,14 +1,17 @@
 "use client";
 import "@/components/dashboard/tables/css/table.css";
+import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
+
 import {
   Body,
   Row,
   Cell,
   Table,
 } from "@table-library/react-table-library/table";
+
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+
 import ThemeTableHistory from "../theme";
-import { HistoryPrice } from "@/app/api/history_price/models/historyPrice.model";
 
 export default function TableBodyHistoryPrice({
   data,

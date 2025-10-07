@@ -1,5 +1,6 @@
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
+
 import { InputSearchType } from "../models/inputSearch.model";
 export async function onSubmitSearch({
   replace,

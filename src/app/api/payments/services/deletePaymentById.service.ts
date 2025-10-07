@@ -1,6 +1,7 @@
-import prisma from "../../../../../libs/prisma";
 import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
+
+import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 
 export async function deletePaymentById(id: number) {

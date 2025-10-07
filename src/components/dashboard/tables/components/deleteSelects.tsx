@@ -1,10 +1,14 @@
 "use client";
 
-import { MdDelete } from "react-icons/md";
-import { useDataContext } from "../../../../hooks/useContextData";
-import toastDelete from "@/components/Toast/data/toastDelete";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { MdDelete } from "react-icons/md";
+
+
 import { ApiUrl, Data } from "@/models";
+
+import toastDelete from "@/components/Toast/data/toastDelete";
+
+import { useDataContext } from "../../../../hooks/useContextData";
 
 export default function DeleteSelects({
   apiUrl,

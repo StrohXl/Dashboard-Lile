@@ -1,5 +1,3 @@
-import { HiArchiveBox } from "react-icons/hi2";
-import NotHaveProducts from "./notHaveProducts";
 import {
   FieldArrayWithId,
   FieldErrors,
@@ -9,14 +7,18 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { FormBuy } from "../models";
-import MenuOptions from "./menuOptions";
-import InputForm from "@/components/dashboard/form/inputForm";
-import SelectForm from "@/components/dashboard/form/selectForm";
+import { HiArchiveBox } from "react-icons/hi2";
+
 import GroupRadio from "@/components/dashboard/form/groupRadio";
+import InputForm from "@/components/dashboard/form/inputForm";
 import LabelPriceAndPriceIva from "@/components/dashboard/form/labelPriceAndPriceIva";
+import SelectForm from "@/components/dashboard/form/selectForm";
 import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
 import { changeCurrency } from "@/components/dashboard/form/utils/changeCurrency";
+
+import { FormBuy } from "../models";
+import MenuOptions from "./menuOptions";
+import NotHaveProducts from "./notHaveProducts";
 
 export default function BodyFormBuy({
   fields,

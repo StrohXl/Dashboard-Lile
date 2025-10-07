@@ -1,21 +1,28 @@
 "use client";
-import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { Buy } from "@/app/api/buys/models/buy.model";
+import { use } from "react";
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
+
+
 import "@/components/dashboard/tables/css/table.css";
 import { ResponseData } from "@/models";
-import { Table } from "@table-library/react-table-library/table";
-import { use } from "react";
-import TableFooter from "@/components/dashboard/tables/components/tableFooter";
+
 import { useDataContext } from "@/hooks/useContextData";
+
 import {
   useRowSelect,
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
-import { onSelectChange } from "@/components/dashboard/tables/utils";
-import { ThemeMaterialBuy } from "./theme";
+import { Table } from "@table-library/react-table-library/table";
+
 import NotHave from "@/components/dashboard/tables/components/notHave";
+import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { onSelectChange } from "@/components/dashboard/tables/utils";
+
 import TableBodyBuy from "@/features/buys/table/components/TableBodyBuy";
+
+import { ThemeMaterialBuy } from "./theme";
 
 export default function TableBuy({
   data,

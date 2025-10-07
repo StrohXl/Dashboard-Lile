@@ -1,12 +1,15 @@
-import prisma from "../../../../../libs/prisma";
+import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
+
+import prisma from "../../../../../libs/prisma";
+import { updateSaleStatus } from "../../sales/services";
 import {
   CreatePayment,
   createPaymentValidator,
 } from "../validators/createPayment.validator";
-import { ZodError } from "zod";
-import { Prisma } from "@prisma/client/edge";
-import { updateSaleStatus } from "../../sales/services";
+
+
 
 export async function createPayment(body: CreatePayment) {
   const bodyValidator = createPaymentValidator(body);

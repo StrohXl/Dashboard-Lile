@@ -1,9 +1,12 @@
 "use client";
-import { Tooltip } from "react-tooltip";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Tooltip } from "react-tooltip";
+
+
 import SideBarNav from "@/components/dashboard/sideBar";
 import { sideBarMenu } from "@/components/dashboard/sideBar/data/sideBarMenu";
-import { useState } from "react";
+
 export default function LayoutDashboard({
   children,
   openSideBar,

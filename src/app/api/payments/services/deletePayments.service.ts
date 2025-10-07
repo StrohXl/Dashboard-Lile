@@ -1,6 +1,7 @@
+import { NextResponse } from "next/server";
+
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
-import { NextResponse } from "next/server";
 
 export async function deletePayments({ ids }: { ids: number[] }) {
   const saleIds: number[] = [];

@@ -1,5 +1,3 @@
-import { IoClose } from "react-icons/io5";
-import NotHaveProducts from "./notHaveProducts";
 import {
   FieldArrayWithId,
   FieldErrors,
@@ -8,10 +6,13 @@ import {
   UseFormRegister,
   UseFormWatch,
 } from "react-hook-form";
+import { IoClose } from "react-icons/io5";
+
 import { useContextSale } from "../../../hooks/saleHookContext";
-import { changeStock } from "../../../utilities/changeStock.utility";
 import { FormSale } from "../../../models";
+import { changeStock } from "../../../utilities/changeStock.utility";
 import { removeProduct } from "../utils";
+import NotHaveProducts from "./notHaveProducts";
 
 export default function ListProductBodyFormSale({
   fields,

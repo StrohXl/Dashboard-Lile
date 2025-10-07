@@ -1,8 +1,9 @@
+import UrlParams from "@/models/url-params.model";
+
 import {
   getClients,
   OptionClients,
 } from "@/components/dashboard/searchMenu/services/getClients.service";
-import UrlParams from "@/models/url-params.model";
 
 let timeout: ReturnType<typeof setTimeout> = setTimeout(() => {});
 

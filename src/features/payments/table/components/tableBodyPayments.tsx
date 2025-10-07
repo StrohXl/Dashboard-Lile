@@ -1,7 +1,10 @@
 import { Payment } from "@/app/api/payments/models/payment.model";
-import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-import { Body, Cell, Row } from "@table-library/react-table-library/table";
+
 import { CellSelect } from "@table-library/react-table-library/select";
+import { Body, Cell, Row } from "@table-library/react-table-library/table";
+
+import ContainerActions from "@/components/dashboard/tables/components/containerActions";
+
 
 export default function TableBodyPayments({
   tableList,

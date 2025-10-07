@@ -1,21 +1,31 @@
 "use client";
 import { FaCashRegister } from "react-icons/fa6";
+
 import "@/components/dashboard/tables/css/table.css";
+import { Sale } from "@/app/api/sales/models";
+
 import { ResponseData } from "@/models";
-import { Table } from "@table-library/react-table-library/table";
-import { use } from "react";
-import TableBodySales from "./components/tableBodySales";
-import TableFooter from "@/components/dashboard/tables/components/tableFooter";
+
 import { useDataContext } from "@/hooks/useContextData";
+
 import {
   useRowSelect,
   SelectClickTypes,
 } from "@table-library/react-table-library/select";
-import { onSelectChange } from "@/components/dashboard/tables/utils";
-import { ThemeMaterialSales } from "./theme";
-import { Sale } from "@/app/api/sales/models";
-import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { Table } from "@table-library/react-table-library/table";
+
+import { use } from "react";
+
+
 import NotHave from "@/components/dashboard/tables/components/notHave";
+import TableFooter from "@/components/dashboard/tables/components/tableFooter";
+import TableHeader from "@/components/dashboard/tables/components/tableHeader";
+import { onSelectChange } from "@/components/dashboard/tables/utils";
+
+import TableBodySales from "./components/tableBodySales";
+import { ThemeMaterialSales } from "./theme";
+
+
 
 export default function TableSales({
   data,

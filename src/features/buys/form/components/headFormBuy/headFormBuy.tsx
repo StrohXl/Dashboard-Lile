@@ -1,12 +1,15 @@
 "use client";
 import { UseFieldArrayPrepend, UseFormGetValues } from "react-hook-form";
-import { FormBuy } from "../../models";
-import SearchMenu from "@/components/dashboard/searchMenu/searchMenu";
+
 import SearchMenuHooks from "@/components/dashboard/searchMenu/hooks/searchMenuHooks";
-import { addProduct } from "./utils/add-product.utility";
-import { appendField } from "./utils/append-field.utilitiy";
+import SearchMenu from "@/components/dashboard/searchMenu/searchMenu";
 import { OptionProducts } from "@/components/dashboard/searchMenu/services/getProducts.service";
 import { searchProduct } from "@/components/dashboard/searchMenu/utils/searchProduct";
+
+import { FormBuy } from "../../models";
+import { addProduct } from "./utils/add-product.utility";
+import { appendField } from "./utils/append-field.utilitiy";
+
 
 export default function HeadFormBuy({
   prepend,

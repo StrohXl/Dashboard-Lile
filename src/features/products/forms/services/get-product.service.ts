@@ -1,6 +1,8 @@
-import { UseFormReset } from "react-hook-form";
+
 import { Product } from "@/app/api/products/models";
 import getProductId from "@/fetch/products/getProductId";
+import { UseFormReset } from "react-hook-form";
+
 import { FormProduct } from "../models/form-product.model";
 
 export const getProduct = async ({

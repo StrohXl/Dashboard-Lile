@@ -1,5 +1,4 @@
 import { Client } from "@/app/api/clients/models/client.model";
-import MessageError from "@/components/dashboard/form/message-error/messageError";
 import { HTMLInputTypeAttribute, ReactNode } from "react";
 import {
   FieldError,
@@ -7,6 +6,9 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
+
+
+import MessageError from "@/components/dashboard/form/message-error/messageError";
 
 interface InputForm {
   label: string;

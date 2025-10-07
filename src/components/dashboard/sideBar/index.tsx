@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { sideBarMenu, sideBarMenuSecond } from "./data/sideBarMenu";
 import { BsPcDisplayHorizontal } from "react-icons/bs";
 import { FaChevronLeft } from "react-icons/fa";
-import { closeSideBar, openSideBar } from "./utils";
 import { Tooltip } from "react-tooltip";
+
+
+import { sideBarMenu, sideBarMenuSecond } from "./data/sideBarMenu";
 import { logoutUser } from "./service/logout-user.service";
+import { closeSideBar, openSideBar } from "./utils";
 
 const SideBarNav = ({
   open,

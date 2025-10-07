@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
+
 import prisma from "../../../../../libs/prisma";
 
 export async function deleteHistoryPriceById({ id }: { id: number }) {

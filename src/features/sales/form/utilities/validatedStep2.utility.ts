@@ -1,6 +1,7 @@
 import { UseFormTrigger } from "react-hook-form";
-import { FormSale } from "../models";
 import { toast } from "react-toastify";
+
+import { FormSale } from "../models";
 
 export async function validatedStep2({
   formSteps,

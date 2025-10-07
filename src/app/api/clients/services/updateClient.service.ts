@@ -1,7 +1,8 @@
+import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+
 import prisma from "../../../../../libs/prisma";
-import { Prisma } from "@prisma/client/edge";
 import { UpdateClient } from "../validators";
 import updateClientValidator from "../validators/updateClient.validator";
 

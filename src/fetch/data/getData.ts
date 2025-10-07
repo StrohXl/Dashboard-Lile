@@ -1,9 +1,10 @@
 "use server";
-import { ApiUrl } from "@/models";
-import UrlParams from "@/models/url-params.model";
 import axios from "axios";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies, headers } from "next/headers";
+
+import { ApiUrl } from "@/models";
+import UrlParams from "@/models/url-params.model";
 
 const getData = async ({
   url,

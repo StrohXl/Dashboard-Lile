@@ -1,12 +1,15 @@
+import TypeUser from "@/app/api/users/type/typeUser";
+import { ReactNode } from "react";
 import {
   FieldError,
   Path,
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
-import { ReactNode } from "react";
+
+
 import MessageError from "@/components/dashboard/form/message-error/messageError";
-import TypeUser from "@/app/api/users/type/typeUser";
+
 
 export default function InputFormLogin({
   label,
