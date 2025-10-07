@@ -11,7 +11,7 @@ export const editBodyProductAdapter = ({
   const product: Product = {
     id: body.id,
     name: body.name.toLocaleLowerCase(),
-    price: body.iva
+    price: body.iva == "true"
       ? Number(
           (
             Number(body.price) * Number(`0.${iva}`) +
