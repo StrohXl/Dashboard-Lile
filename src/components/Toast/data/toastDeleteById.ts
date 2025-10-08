@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
@@ -24,12 +23,8 @@ const toastDeleteById = async ({
   try {
     await toast.promise(axios.delete(`/api${apiUrl}/${id}`), {
       pending: "Eliminando...",
-      success: {
-        render() {
-          return "Eliminado";
-        },
-      },
-      error: "Hubo un error",
+      success: "Eliminado",
+      error: "Error",
     });
 
     const params = new URLSearchParams(searchParams);

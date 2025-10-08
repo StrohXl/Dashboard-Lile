@@ -1,4 +1,3 @@
-
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { FaChevronLeft } from "react-icons/fa6";

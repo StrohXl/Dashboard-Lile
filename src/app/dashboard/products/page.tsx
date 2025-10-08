@@ -1,4 +1,3 @@
-
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import getAllData from "@/services/get/all/getAllData";
 import Link from "next/link";

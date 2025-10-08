@@ -1,4 +1,3 @@
-import getData from "@/fetch/data/getData";
 import Link from "next/link";
 import { Suspense } from "react";
 import { FaUserPlus } from "react-icons/fa6";
@@ -12,6 +11,8 @@ import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import SearchData from "@/components/searchData/inputSearch";
 
 import TableClients from "@/features/clients/table/tableClients";
+import getAllData from "@/services/get/all/getAllData";
+import { Client } from "@/models/api/client";
 
 export default async function Clients({
   searchParams,
@@ -20,7 +21,7 @@ export default async function Clients({
 }) {
   const params = await searchParams;
   const { deleteId, ci, page } = params;
-  const clients = getData({ url: "/clients", params });
+  const clients = getAllData<Client>({ apiUrl: "/clients", params });
 
   return (
     <section className="container-table max-w-[800px] overflow-hidden relative">

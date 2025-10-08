@@ -1,8 +1,10 @@
-import getData from "@/fetch/data/getData";
 import axios from "axios";
 
 import { Product } from "@/models/api/product";
 import UrlParams from "@/models/url-params.model";
+import getAllData from "@/services/get/all/getAllData";
+import { ResponseData } from "@/models/response/responseData.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export interface OptionProducts extends Product {
   label: string;
@@ -29,15 +31,17 @@ export async function getProducts({
       return [];
     }
   } else {
-    const { data: products }: { data: Product[] } = await getData({
-      url: "/products",
+    const data: ResponseData<ResponseGet<Product>> = await getAllData({
+      apiUrl: "/products",
       params,
     });
 
-    const optionProducts: OptionProducts[] = products.map((item) => ({
-      ...item,
-      label: `${item.name}`,
-    }));
+    const optionProducts: OptionProducts[] = data.data
+      ? data.data.data.map((item) => ({
+          ...item,
+          label: `${item.name}`,
+        }))
+      : [];
     return optionProducts;
   }
 }

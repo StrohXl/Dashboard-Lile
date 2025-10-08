@@ -1,7 +1,8 @@
-import getData from "@/fetch/data/getData";
-
 import { Client } from "@/models/api/client/client.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
 import UrlParams from "@/models/url-params.model";
+import getAllData from "@/services/get/all/getAllData";
 
 export interface OptionClients extends Client {
   label: string;
@@ -12,14 +13,16 @@ export async function getClients({
 }: {
   params: UrlParams;
 }): Promise<OptionClients[]> {
-  const { data: clients }: { data: Client[] } = await getData({
-    url: "/clients",
+  const data: ResponseData<ResponseGet<Client>> = await getAllData<Client>({
+    apiUrl: "/clients",
     params,
   });
 
-  const optionClients: OptionClients[] = clients.map((item) => ({
-    ...item,
-    label: `${item.name} ${item.last_name}`,
-  }));
+  const optionClients: OptionClients[] = data.data
+    ? data.data.data.map((item) => ({
+        ...item,
+        label: `${item.name} ${item.last_name}`,
+      }))
+    : [];
   return optionClients;
 }

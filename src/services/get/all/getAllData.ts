@@ -15,7 +15,7 @@ export default async function getAllData<T>({
   params,
 }: {
   apiUrl: ApiUrl;
-  params: UrlParams;
+  params?: UrlParams;
 }): Promise<ResponseData<ResponseGet<T>>> {
   const cookieStore = await cookies();
   const myToken: RequestCookie | undefined = cookieStore.get("myToken");

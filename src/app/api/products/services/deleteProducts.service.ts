@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 
 import prisma from "../../../../../libs/prisma";
+import { ResponseService } from "@/models/response/responseService.model";
+import { Products } from "@prisma/client";
 
-export async function deleteProducts(products: number[]) {
+export async function deleteProducts(
+  products: number[]
+): ResponseService<Products> {
   try {
     await prisma.products.deleteMany({
       where: {
@@ -12,9 +16,12 @@ export async function deleteProducts(products: number[]) {
       },
     });
 
-    return NextResponse.json({ message: "Productos Eliminados" });
+    return NextResponse.json({ message: "Productos Eliminados", status: 200 });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json("Error", { status: 500 });
+    console.error(error);
+    return NextResponse.json(
+      { message: "Error", status: 500 },
+      { status: 500 }
+    );
   }
 }

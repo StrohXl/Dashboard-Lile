@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { ApiUrl } from "@/models";
 import { ResponseGetById } from "@/models/response/get/responseGetById.model";
@@ -20,10 +20,9 @@ export default async function getDataById<T>({
     );
     return data;
   } catch (error) {
-    console.error(error);
-    return {
-      message: "error",
-      status: 400,
-    };
+    if (error instanceof AxiosError) {
+      throw error;
+    }
+    throw error;
   }
 }

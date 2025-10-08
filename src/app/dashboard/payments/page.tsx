@@ -1,12 +1,12 @@
-import getData from "@/fetch/data/getData";
 import { Suspense } from "react";
-
 
 import UrlParams from "@/models/url-params.model";
 
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TablePayments from "@/features/payments/table/tablePayments";
+import getAllData from "@/services/get/all/getAllData";
+import { Payment } from "@/models/api/payment/payment.model";
 
 export default async function Payments({
   searchParams,
@@ -16,7 +16,7 @@ export default async function Payments({
   const params = await searchParams;
   const { name, deleteId, page } = params;
 
-  const payments = getData({ url: "/payments", params });
+  const payments = getAllData<Payment>({ apiUrl: "/payments", params });
 
   return (
     <section className="container-table max-w-[800px] overflow-hidden relative">

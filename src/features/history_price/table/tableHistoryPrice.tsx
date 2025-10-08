@@ -1,5 +1,3 @@
-
-import getData from "@/fetch/data/getData";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import { Suspense } from "react";
 
@@ -8,10 +6,12 @@ import { HookDataContext } from "@/hooks/useContextData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import GetPromise from "./components/getPromise";
+import getAllData from "@/services/get/all/getAllData";
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 
 export default function TableHistoryPrice() {
   const dollarPy = getPyDollar();
-  const data = getData({ url: "/history_price" });
+  const data = getAllData<HistoryPrice>({ apiUrl: "/history_price" });
 
   return (
     <section className="container-table max-w-[1200px] overflow-hidden relative">

@@ -1,5 +1,3 @@
-
-import getData from "@/fetch/data/getData";
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -10,6 +8,8 @@ import { HookDataContext } from "@/hooks/useContextData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TableBuy from "@/features/buys/table/tableBuy";
+import getAllData from "@/services/get/all/getAllData";
+import { Buy } from "@/models/api/buy";
 
 export default async function Buys({
   searchParams,
@@ -19,7 +19,7 @@ export default async function Buys({
   const params = await searchParams;
   const { name, page, deleteId } = params;
 
-  const buys = getData({ url: "/buys", params });
+  const buys = getAllData<Buy>({ apiUrl: "/buys", params });
   const pyDollar = getPyDollar();
   return (
     <section className="container-table max-w-[1200px] overflow-hidden relative">
