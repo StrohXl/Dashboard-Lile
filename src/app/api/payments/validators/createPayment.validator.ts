@@ -1,3 +1,4 @@
+import { CreatePayment } from "@/models/payment/createPayment.model";
 import z from "zod";
 
 export const createPaymentSchema = z
@@ -19,7 +20,6 @@ export const createPaymentSchema = z
   })
   .strict();
 
-export type CreatePayment = z.infer<typeof createPaymentSchema>;
 
 export function createPaymentValidator(body: CreatePayment) {
   try {

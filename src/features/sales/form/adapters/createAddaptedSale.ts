@@ -1,8 +1,8 @@
-import { CreateListProduct } from "@/app/api/list-products/validators/createListProduct.validator";
 import { CreatePaymentOfSale } from "@/app/api/sales/models";
 
 import { FormSale } from "../models";
 import { UpdateChangeManager } from "@/models/change_manager";
+import { CreateListProduct } from "@/models/list_products";
 
 export const createAddaptedSale = (body: FormSale) => {
   const newBody: {
@@ -36,17 +36,14 @@ export const createAddaptedSale = (body: FormSale) => {
     });
   });
 
-  if(body.change_manager){
+  if (body.change_manager) {
     body.change_manager.forEach((item) => {
       newBody.change_manager.push({
         id: Number(item.id),
         change_amount: Number(item.change_amount),
         change_method: item.change_method,
         operation:
-          item.change_method == "transferencia"
-            ? Number(item.operation)
-            : 0,
-
+          item.change_method == "transferencia" ? Number(item.operation) : 0,
       });
     });
   }

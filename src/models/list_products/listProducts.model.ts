@@ -1,4 +1,4 @@
-import { CreateListProduct } from "../validators/createListProduct.validator";
+import { CreateListProduct } from "./createListProducts.model";
 
 export interface ListProduct extends CreateListProduct {
   createdAt: string;

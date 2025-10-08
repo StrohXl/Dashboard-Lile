@@ -1,7 +1,7 @@
+import { ListProduct } from "@/models/list_products";
 import { ChangeManager } from "../../../../models/change_manager/changeManager.model";
 import { Client } from "../../../../models/client/client.model";
-import { ListProduct } from "../../list-products/models";
-import { Payment } from "../../payments/models/payment.model";
+import { Payment } from "@/models/payment/payment.model";
 
 export interface Sale {
   id: number;

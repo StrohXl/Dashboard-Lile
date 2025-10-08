@@ -5,9 +5,9 @@ import { ZodError } from "zod";
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 import {
-  CreatePayment,
   createPaymentValidator,
 } from "../validators/createPayment.validator";
+import { CreatePayment } from "@/models/payment/createPayment.model";
 
 export function updatePaymentById({
   id,

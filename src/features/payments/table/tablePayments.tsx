@@ -1,7 +1,6 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import { Payment } from "@/app/api/payments/models/payment.model";
 import { use } from "react";
 import { MdOutlinePayments } from "react-icons/md";
 
@@ -22,6 +21,7 @@ import TableBodyPayments from "./components/tableBodyPayments";
 import PaymentsTheme from "./theme";
 import { ResponseData } from "@/models/response/responseData.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { Payment } from "@/models/payment/payment.model";
 
 export default function TablePayments({
   data,

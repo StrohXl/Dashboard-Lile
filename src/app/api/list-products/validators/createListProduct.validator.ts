@@ -1,6 +1,6 @@
 import { z, ZodError } from "zod";
-
 import { createProductSchema } from "../../products/validators/product.validator";
+import { CreateListProduct } from "@/models/list_products";
 
 export const createListProductSchema = z
   .array(
@@ -12,7 +12,6 @@ export const createListProductSchema = z
   )
   .nonempty();
 
-export type CreateListProduct = z.infer<typeof createListProductSchema>;
 
 export default function createListProductValidator(
   body: CreateListProduct
