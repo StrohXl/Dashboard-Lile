@@ -2,9 +2,10 @@ import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { UpdateClient } from "@/models/api/client";
+
 import prisma from "../../../../../libs/prisma";
 import updateClientValidator from "../validators/updateClient.validator";
-import { UpdateClient } from "@/models/api/client";
 
 export async function updateClient({
   id,

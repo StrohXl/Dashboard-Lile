@@ -1,12 +1,13 @@
 import { getPages } from "@/utils/getPages.utility";
+import { Products } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { ParamsRequest } from "@/models";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
-import { ResponseService } from "@/models/response/responseService.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
-import { Products } from "@prisma/client";
+
 
 export async function getProducts({
   params,

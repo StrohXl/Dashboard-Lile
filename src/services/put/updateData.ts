@@ -1,6 +1,7 @@
+import axios, { AxiosError } from "axios";
+
 import { ApiUrl } from "@/models";
 import { ResponseData } from "@/models/response/responseData.model";
-import axios, { AxiosError } from "axios";
 
 export async function updateData<Body, Data>({
   apiUrl,

@@ -1,9 +1,12 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import { ChangeManager } from "@/models/api/change_manager/changeManager.model";
 import { use } from "react";
 import { MdCurrencyExchange } from "react-icons/md";
+
+import { ChangeManager } from "@/models/api/change_manager/changeManager.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
 
 import { useDataContext } from "@/hooks/useContextData";
 
@@ -21,8 +24,6 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 import PaymentsTheme from "@/features/payments/table/theme";
 
 import TableBodyChangeManager from "./components/tableBodyChangeManager";
-import { ResponseData } from "@/models/response/responseData.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableChangeManager({
   data,

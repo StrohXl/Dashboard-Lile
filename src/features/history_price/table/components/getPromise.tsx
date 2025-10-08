@@ -1,10 +1,12 @@
 "use client";
-import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 import { use } from "react";
 
-import TableBodyHistoryPrice from "./tableBodyHistoryPrice";
-import { ResponseData } from "@/models/response/responseData.model";
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
+
+import TableBodyHistoryPrice from "./tableBodyHistoryPrice";
+
 
 export default function GetPromise({
   data,

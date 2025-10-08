@@ -2,10 +2,11 @@ import { Prisma, Products } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { CreateProduct } from "@/models/api/product";
+import { ResponseService } from "@/models/response/responseService.model";
+
 import prisma from "../../../../../libs/prisma";
 import productValidator from "../validators/product.validator";
-import { ResponseService } from "@/models/response/responseService.model";
-import { CreateProduct } from "@/models/api/product";
 
 export async function updateProductById(
   body: CreateProduct,

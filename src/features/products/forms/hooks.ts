@@ -4,9 +4,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UseFormGetValues, UseFormReset } from "react-hook-form";
 
+import { Product } from "@/models/api/product";
+
 import { FormProduct } from "./models/form-product.model";
 import { getProduct } from "./services";
-import { Product } from "@/models/api/product";
 
 export default function HooksForm({
   reset,

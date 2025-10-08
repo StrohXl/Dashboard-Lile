@@ -1,4 +1,5 @@
 import { Data } from "@/models";
+import { Product } from "@/models/api/product";
 
 import { useDataContext } from "@/hooks/useContextData";
 
@@ -11,7 +12,6 @@ import { Body, Row, Cell } from "@table-library/react-table-library/table";
 
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-import { Product } from "@/models/api/product";
 
 function TableBodyProducts({
   tableList,

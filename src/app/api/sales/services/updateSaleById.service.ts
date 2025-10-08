@@ -2,10 +2,11 @@ import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { UpdateSale } from "@/models/api/sale";
+
 import prisma from "../../../../../libs/prisma";
 import { updateBodySaleValidator } from "../validators";
 import { updateSaleStatus } from "./updateSaleStatus.service";
-import { UpdateSale } from "@/models/api/sale";
 
 export async function updateSaleById({
   id,

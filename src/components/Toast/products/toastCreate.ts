@@ -1,8 +1,9 @@
 
-import { CreateProduct } from "@/models/api/product";
 import axios from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { toast } from "react-toastify";
+
+import { CreateProduct } from "@/models/api/product";
 interface ResponseAxios {
   data: {
     status: number;

@@ -1,10 +1,11 @@
 "use client";
-import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 import axios from "axios";
 import { use, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { MdHistory } from "react-icons/md";
+
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 
 
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";

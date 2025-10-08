@@ -2,12 +2,13 @@ import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { CreatePayment } from "@/models/api/payment/createPayment.model";
+
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 import {
   createPaymentValidator,
 } from "../validators/createPayment.validator";
-import { CreatePayment } from "@/models/api/payment/createPayment.model";
 
 export function updatePaymentById({
   id,

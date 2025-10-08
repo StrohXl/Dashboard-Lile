@@ -1,8 +1,9 @@
 import { UseFieldArrayPrepend } from "react-hook-form";
 
 
-import { FormSale } from "../../../../../models";
 import { Product } from "@/models/api/product";
+
+import { FormSale } from "../../../../../models";
 
 export function addProduct({
   product,

@@ -1,8 +1,9 @@
 
-import { Client } from "@/models/api/client/client.model";
 import axios from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { toast } from "react-toastify";
+
+import { Client } from "@/models/api/client/client.model";
 
 interface ResponseAxios {
   data: {

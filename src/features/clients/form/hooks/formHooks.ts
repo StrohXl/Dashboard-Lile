@@ -1,9 +1,10 @@
 
-import { Client } from "@/models/api/client/client.model";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UseFormGetValues, UseFormReset } from "react-hook-form";
+
+import { Client } from "@/models/api/client/client.model";
 
 export default function FormClientHooks({
   reset,

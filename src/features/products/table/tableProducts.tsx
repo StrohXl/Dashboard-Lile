@@ -4,6 +4,10 @@ import "@/components/dashboard/tables/css/table.css";
 import { use } from "react";
 import { HiArchiveBoxXMark } from "react-icons/hi2";
 
+import { Product } from "@/models/api/product";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
+
 import { useDataContext } from "@/hooks/useContextData";
 
 import {
@@ -19,9 +23,6 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import TableBodyProducts from "./components/tableBodyProducts";
 import ThemeTableProducts from "./theme";
-import { ResponseData } from "@/models/response/responseData.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
-import { Product } from "@/models/api/product";
 
 export default function TableProducts({
   data,

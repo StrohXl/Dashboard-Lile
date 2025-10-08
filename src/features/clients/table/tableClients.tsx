@@ -1,9 +1,12 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import { Client } from "@/models/api/client/client.model";
 import { use } from "react";
 import { HiUsers } from "react-icons/hi";
+
+import { Client } from "@/models/api/client/client.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
 
 import { useDataContext } from "@/hooks/useContextData";
 
@@ -20,8 +23,6 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import TableBodyClients from "./components/tableBodyClients";
 import ClientTheme from "./theme";
-import { ResponseData } from "@/models/response/responseData.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableClients({
   data,

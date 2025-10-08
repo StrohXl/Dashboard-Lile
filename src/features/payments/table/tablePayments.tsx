@@ -4,6 +4,10 @@ import "@/components/dashboard/tables/css/table.css";
 import { use } from "react";
 import { MdOutlinePayments } from "react-icons/md";
 
+import { Payment } from "@/models/api/payment/payment.model";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
+
 import { useDataContext } from "@/hooks/useContextData";
 
 import {
@@ -19,9 +23,6 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import TableBodyPayments from "./components/tableBodyPayments";
 import PaymentsTheme from "./theme";
-import { ResponseData } from "@/models/response/responseData.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
-import { Payment } from "@/models/api/payment/payment.model";
 
 export default function TablePayments({
   data,

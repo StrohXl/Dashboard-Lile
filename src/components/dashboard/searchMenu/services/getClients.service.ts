@@ -1,6 +1,6 @@
-import { Client } from "@/models/api/client/client.model";
 import getData from "@/fetch/data/getData";
 
+import { Client } from "@/models/api/client/client.model";
 import UrlParams from "@/models/url-params.model";
 
 export interface OptionClients extends Client {

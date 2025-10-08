@@ -1,5 +1,5 @@
 "use client";
-import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
+import getDataById from "@/services/get/byId/getDataById";
 import { useState } from "react";
 import {
   UseFieldArrayRemove,
@@ -11,12 +11,14 @@ import { FaEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { MdCalculate } from "react-icons/md";
 
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
+
 import Menu from "@/components/dashboard/menu/menu";
 import { OptionList } from "@/components/dashboard/menu/models/optionList.model";
 
 import { useContextBuy } from "../hooks/useContenxtBuy";
 import { FormBuy } from "../models";
-import getDataById from "@/services/get/byId/getDataById";
+
 
 export default function MenuOptions({
   remove,

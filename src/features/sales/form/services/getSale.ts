@@ -5,8 +5,9 @@ import { ParamValue } from "next/dist/server/request/params";
 import { UseFormReset } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { FormSale } from "../models";
 import { Sale } from "@/models/api/sale";
+
+import { FormSale } from "../models";
 
 export async function getSale({
   id,

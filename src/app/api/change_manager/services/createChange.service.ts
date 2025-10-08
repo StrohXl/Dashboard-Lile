@@ -2,9 +2,10 @@ import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { CreateChangeManager } from "@/models/api/change_manager/createChangeManager.model";
+
 import prisma from "../../../../../libs/prisma";
 import validatedChangeManager from "../validators/createChange.validator";
-import { CreateChangeManager } from "@/models/api/change_manager/createChangeManager.model";
 
 export async function createChange({ body }: { body: CreateChangeManager }) {
   const validatedBody = validatedChangeManager(body);

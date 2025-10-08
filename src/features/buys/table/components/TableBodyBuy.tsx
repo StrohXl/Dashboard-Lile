@@ -1,6 +1,6 @@
+import { Data } from "@/models";
 import { Buy } from "@/models/api/buy/buy.model";
 
-import { Data } from "@/models";
 
 import { useDataContext } from "@/hooks/useContextData";
 

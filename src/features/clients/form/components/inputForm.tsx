@@ -1,4 +1,3 @@
-import { Client } from "@/models/api/client/client.model";
 import { HTMLInputTypeAttribute, ReactNode } from "react";
 import {
   FieldError,
@@ -6,6 +5,8 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
+
+import { Client } from "@/models/api/client/client.model";
 
 
 import MessageError from "@/components/dashboard/form/message-error/messageError";

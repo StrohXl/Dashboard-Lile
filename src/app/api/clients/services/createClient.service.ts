@@ -2,9 +2,10 @@ import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { CreateClient } from "@/models/api/client";
+
 import prisma from "../../../../../libs/prisma";
 import createClientValidator from "../validators/createClient.validator";
-import { CreateClient } from "@/models/api/client";
 
 export const createClient = async ({ body }: { body: CreateClient }) => {
   const zodClient = createClientValidator(body);

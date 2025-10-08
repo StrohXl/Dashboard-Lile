@@ -1,5 +1,6 @@
-import { CreatePayment } from "@/models/api/payment/createPayment.model";
 import { Decimal } from "@prisma/client/runtime/library";
+
+import { CreatePayment } from "@/models/api/payment/createPayment.model";
 
 export function paymentsAdapter(
   sale: {

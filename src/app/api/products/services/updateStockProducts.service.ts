@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 
-import prisma from "../../../../../libs/prisma";
 import { CreateListProduct } from "@/models/api/list_products";
+
+import prisma from "../../../../../libs/prisma";
 
 export const updateStockProducts = async ({
   action,

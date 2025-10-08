@@ -1,8 +1,9 @@
+import getDataById from "@/services/get/byId/getDataById";
 import { UseFormReset } from "react-hook-form";
 
-import { FormProduct } from "../models/form-product.model";
 import { Product } from "@/models/api/product";
-import getDataById from "@/services/get/byId/getDataById";
+
+import { FormProduct } from "../models/form-product.model";
 
 export const getProduct = async ({
   id,

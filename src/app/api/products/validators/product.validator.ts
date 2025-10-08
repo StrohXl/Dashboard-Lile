@@ -1,5 +1,6 @@
-import { CreateProduct } from "@/models/api/product";
 import { z, ZodError } from "zod";
+
+import { CreateProduct } from "@/models/api/product";
 
 export const createProductSchema = z
   .object({

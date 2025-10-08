@@ -1,5 +1,6 @@
-import { CreateChangeManager } from "@/models/api/change_manager";
 import z, { ZodError } from "zod";
+
+import { CreateChangeManager } from "@/models/api/change_manager";
 
 export const createChangeSchema = z
   .object({

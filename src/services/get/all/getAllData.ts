@@ -1,14 +1,14 @@
 "use server";
 
+import { getUrl } from "@/utils/getUrl";
 import axios from "axios";
-
-import { ApiUrl } from "@/models";
-import UrlParams from "@/models/url-params.model";
-import { ResponseData } from "@/models/response/responseData.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
-import { getUrl } from "@/utils/getUrl";
+
+import { ApiUrl } from "@/models";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
+import UrlParams from "@/models/url-params.model";
 
 export default async function getAllData<T>({
   apiUrl,

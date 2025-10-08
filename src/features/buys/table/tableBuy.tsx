@@ -1,9 +1,13 @@
 "use client";
-import { Buy } from "@/models/api/buy/buy.model";
 import { use } from "react";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 
+import { Buy } from "@/models/api/buy/buy.model";
+
 import "@/components/dashboard/tables/css/table.css";
+
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
 
 import { useDataContext } from "@/hooks/useContextData";
 
@@ -21,8 +25,6 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 import TableBodyBuy from "@/features/buys/table/components/TableBodyBuy";
 
 import { ThemeMaterialBuy } from "./theme";
-import { ResponseData } from "@/models/response/responseData.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
 
 export default function TableBuy({
   data,

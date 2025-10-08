@@ -1,7 +1,8 @@
-import { FormSale } from "../models";
 import { UpdateChangeManager } from "@/models/api/change_manager";
 import { CreateListProduct } from "@/models/api/list_products";
 import { CreatePaymentOfSale } from "@/models/api/sale";
+
+import { FormSale } from "../models";
 
 export const createAddaptedSale = (body: FormSale) => {
   const newBody: {

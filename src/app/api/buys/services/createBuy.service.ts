@@ -3,11 +3,12 @@ import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { CreateBuy } from "@/models/api/buy";
+import { CreateProduct } from "@/models/api/product";
+
 import prisma from "../../../../../libs/prisma";
 import { updateProducts } from "../../products/services";
 import { createBodyBuy } from "../adapters";
-import { CreateBuy } from "@/models/api/buy";
-import { CreateProduct } from "@/models/api/product";
 import createBuyValidator from "../validators/createBuy.validator";
 
 

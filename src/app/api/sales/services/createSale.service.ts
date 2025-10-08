@@ -4,13 +4,14 @@ import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+import { CreateSale } from "@/models/api/sale";
+
 import prisma from "../../../../../libs/prisma";
 import { updateStockProducts } from "../../products/services";
 import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import { getDebt } from "../utilities/getDebt.utility";
 import saleBodyValidator from "../validators/bodySale.validator";
-import { CreateSale } from "@/models/api/sale";
 
 export async function createSale(body: CreateSale) {
   const validatorBody = saleBodyValidator(body);

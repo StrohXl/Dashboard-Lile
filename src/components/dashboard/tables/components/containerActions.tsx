@@ -6,12 +6,12 @@ import { FaEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 
 import { ApiUrl, Data } from "@/models";
+import { Product } from "@/models/api/product";
 
 import toastDeleteById from "@/components/Toast/data/toastDeleteById";
 
 
 import { useDataContext } from "../../../../hooks/useContextData";
-import { Product } from "@/models/api/product";
 
 
 export default function ContainerActions({

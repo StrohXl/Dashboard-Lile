@@ -1,8 +1,10 @@
 import z from "zod";
-import { createSaleSchema } from ".";
+
 import { UpdateSale } from "@/models/api/sale/updateSale.model";
-import { createPaymentSchema } from "../../payments/validators/createPayment.validator";
+
+import { createSaleSchema } from ".";
 import { createChangeSchema } from "../../change_manager/validators/createChange.validator";
+import { createPaymentSchema } from "../../payments/validators/createPayment.validator";
 
 export const updateSaleSchema = createSaleSchema
   .omit({

@@ -1,9 +1,10 @@
 import { ApiUrl } from "@/models";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
 
 import DeleteSelects from "./deleteSelects";
 import Pagination from "./pagination";
-import { ResponseData } from "@/models/response/responseData.model";
-import { ResponseGet } from "@/models/response/get/responseGet.model";
+
 
 export default function TableFooter<T>({
   data,

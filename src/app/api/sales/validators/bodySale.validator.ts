@@ -1,10 +1,11 @@
 import { z, ZodError } from "zod";
 
+import { CreateSale } from "@/models/api/sale/createSale.model";
+
 import { createChangeSchema } from "../../change_manager/validators/createChange.validator";
 import { createClientSchema } from "../../clients/validators";
 import { createListProductSchema } from "../../list-products/validators/createListProduct.validator";
 import { createPaymentSchema } from "../../payments/validators/createPayment.validator";
-import { CreateSale } from "@/models/api/sale/createSale.model";
 
 export const createSaleSchema = z
   .object({

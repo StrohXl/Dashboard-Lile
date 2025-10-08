@@ -1,6 +1,7 @@
 "use client";
-import { Client } from "@/models/api/client/client.model";
 import { useForm } from "react-hook-form";
+
+import { Client } from "@/models/api/client/client.model";
 
 
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";

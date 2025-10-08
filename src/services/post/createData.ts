@@ -1,6 +1,7 @@
+import axios from "axios";
+
 import { ApiUrl } from "@/models";
 import { ResponseData } from "@/models/response/responseData.model";
-import axios from "axios";
 
 export default async function createData<CreateData, Data>({
   apiUrl,
