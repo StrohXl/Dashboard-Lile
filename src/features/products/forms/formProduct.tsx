@@ -1,14 +1,9 @@
 "use client";
-import axios from "axios";
-import { use, useState } from "react";
+import { use } from "react";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { MdHistory } from "react-icons/md";
 
-import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
-
-
-import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 
 import TableBodyHistoryPrice from "@/features/history_price/table/components/tableBodyHistoryPrice";
@@ -18,6 +13,9 @@ import SkeletonFormProduct from "./components/skeletonFormProduct";
 import HooksForm from "./hooks";
 import type { FormProduct } from "./models/form-product.model";
 import { onSubmit } from "./services/on-submit-product.service";
+import SkeletonHistory from "@/components/dashboard/skeleton/skeletonHistory";
+import { getHistory } from "./services/getHistory.service";
+import { HookHistory } from "./hooks/hookHistory.hook";
 
 export default function FormProduct({
   pyDollar,
@@ -42,7 +40,7 @@ export default function FormProduct({
   } = useForm<FormProduct>({
     defaultValues: {
       price: 0,
-      type_of_currency: 'dollar',
+      type_of_currency: "dollar",
       iva: "false",
     },
   });
@@ -53,31 +51,22 @@ export default function FormProduct({
     isDirty,
     getValues,
     IVA,
+    watch,
   });
 
-  const [historyPrice, setHistoryPrice] = useState<HistoryPrice[]>([]);
-
-  const [showHistory, setShowHistory] = useState<boolean>(false);
-  const [loadingHistory, setLoadingHistory] = useState<boolean>(true);
+  const {
+    historyPrice,
+    loadingHistory,
+    setHistoryPrice,
+    setLoadingHistory,
+    setShowHistory,
+    showHistory,
+  } = HookHistory();
 
   // Obtener el producto mediante el id de la pagina
 
-  const getHistory = async () => {
-    setLoadingHistory(true);
-    try {
-      const { data }: { data: { data: HistoryPrice[] } } = await axios.get(
-        `/api/history_price/${id}`
-      );
-      setHistoryPrice(data.data);
-    } catch (error) {
-      console.log(error);
-      setHistoryPrice([]);
-    }
-    setLoadingHistory(false);
-  };
-
   const openHistory = () => {
-    getHistory();
+    getHistory({ id: Number(id), setHistoryPrice, setLoadingHistory });
     setShowHistory(true);
   };
 
@@ -144,7 +133,7 @@ export default function FormProduct({
               </div>
             </div>
             {loadingHistory ? (
-              <SkeletonTable />
+              <SkeletonHistory />
             ) : historyPrice.length == 0 ? (
               <NotHave
                 size={100}

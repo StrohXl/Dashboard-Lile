@@ -1,8 +1,7 @@
-
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { UseFormGetValues, UseFormReset } from "react-hook-form";
+import { UseFormGetValues, UseFormReset, UseFormWatch } from "react-hook-form";
 
 import { Product } from "@/models/api/product";
 
@@ -14,11 +13,13 @@ export default function HooksForm({
   getValues,
   isDirty,
   IVA,
+  watch,
 }: {
   reset: UseFormReset<FormProduct>;
   getValues: UseFormGetValues<FormProduct>;
   isDirty: boolean;
   IVA: number;
+  watch: UseFormWatch<FormProduct>;
 }) {
   const { id } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
@@ -44,8 +45,9 @@ export default function HooksForm({
   }, [id]);
 
   useEffect(() => {
+    const productIva = product?.iva ? "true" : "false";
     if (id) {
-      if (isDirty) {
+      if (isDirty || productIva !== watch("iva")) {
         setDisabled(false);
       } else if (
         product?.name === getValues("name") &&
@@ -55,7 +57,7 @@ export default function HooksForm({
         setDisabled(true);
       }
     }
-  }, [isDirty]);
+  }, [isDirty, watch("iva")]);
 
   return {
     id,
