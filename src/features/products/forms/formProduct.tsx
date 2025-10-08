@@ -1,5 +1,5 @@
 "use client";
-import { HistoryPrice } from "@/models/history_price/historyPrice.model";
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 import axios from "axios";
 import { use, useState } from "react";
 import { useForm } from "react-hook-form";

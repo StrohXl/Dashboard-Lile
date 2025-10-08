@@ -4,8 +4,9 @@ import { createChangeSchema } from "../../change_manager/validators/createChange
 import { createClientSchema } from "../../clients/validators";
 import { createListProductSchema } from "../../list-products/validators/createListProduct.validator";
 import { createPaymentSchema } from "../../payments/validators/createPayment.validator";
+import { CreateSale } from "@/models/api/sale/createSale.model";
 
-const createSaleSchema = z
+export const createSaleSchema = z
   .object({
     client: createClientSchema.extend({
       id: z.number().min(0),
@@ -13,12 +14,10 @@ const createSaleSchema = z
     list_products: createListProductSchema,
     payments: z.array(createPaymentSchema.omit({ sales_id: true })).optional(),
     change_manager: z
-      .array(createChangeSchema.omit({ sale_id:true }))
+      .array(createChangeSchema.omit({ sale_id: true }))
       .optional(),
   })
   .strict();
-
-export type CreateSale = z.infer<typeof createSaleSchema>;
 
 export default function saleBodyValidator(
   body: CreateSale

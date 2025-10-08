@@ -1,4 +1,4 @@
-import { CreateProduct } from "@/models/product";
+import { CreateProduct } from "@/models/api/product";
 import calculatePriceKg from "./calculatePriceKg.utility";
 
 export const calculateTotalPrice = (body: Omit<CreateProduct,"iva">[]) => {

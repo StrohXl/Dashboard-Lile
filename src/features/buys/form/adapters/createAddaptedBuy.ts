@@ -1,5 +1,5 @@
 
-import { CreateBuy } from "@/models/buy";
+import { CreateBuy } from "@/models/api/buy";
 import { FormBuy } from "../models";
 
 export const createAddaptedBuy = ({

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import prisma from "../../../../../libs/prisma";
-import { CreateListProduct } from "@/models/list_products";
+import { CreateListProduct } from "@/models/api/list_products";
 
 export const updateProducts = async ({
   action,

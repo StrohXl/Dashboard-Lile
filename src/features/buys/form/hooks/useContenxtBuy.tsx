@@ -1,7 +1,7 @@
 "use client";
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import { HistoryPrice } from "../../../../models/history_price/historyPrice.model";
+import { HistoryPrice } from "../../../../models/api/history_price/historyPrice.model";
 
 export type BuyContextType = {
   showHistory: boolean;

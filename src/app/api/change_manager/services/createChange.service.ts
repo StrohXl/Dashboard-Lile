@@ -4,7 +4,7 @@ import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
 import validatedChangeManager from "../validators/createChange.validator";
-import { CreateChangeManager } from "@/models/change_manager/createChangeManager.model";
+import { CreateChangeManager } from "@/models/api/change_manager/createChangeManager.model";
 
 export async function createChange({ body }: { body: CreateChangeManager }) {
   const validatedBody = validatedChangeManager(body);

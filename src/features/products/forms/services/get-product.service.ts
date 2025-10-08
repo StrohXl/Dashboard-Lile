@@ -1,7 +1,7 @@
 import { UseFormReset } from "react-hook-form";
 
 import { FormProduct } from "../models/form-product.model";
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 import getDataById from "@/services/get/byId/getDataById";
 
 export const getProduct = async ({

@@ -1,5 +1,5 @@
 
-import { Client } from "@/models/client/client.model";
+import { Client } from "@/models/api/client/client.model";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

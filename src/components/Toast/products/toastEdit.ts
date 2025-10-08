@@ -1,5 +1,5 @@
 
-import { CreateProduct } from "@/models/product";
+import { CreateProduct } from "@/models/api/product";
 import axios from "axios";
 import { ParamValue } from "next/dist/server/request/params";
 import { toast } from "react-toastify";

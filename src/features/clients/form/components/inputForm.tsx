@@ -1,4 +1,4 @@
-import { Client } from "@/models/client/client.model";
+import { Client } from "@/models/api/client/client.model";
 import { HTMLInputTypeAttribute, ReactNode } from "react";
 import {
   FieldError,

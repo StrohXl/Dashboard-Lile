@@ -1,7 +1,7 @@
 import { z, ZodError } from "zod";
 
 import { createProductSchema } from "../../products/validators/product.validator";
-import { CreateBuy } from "@/models/buy";
+import { CreateBuy } from "@/models/api/buy";
 
 export const createBuyProductsSchema = createProductSchema
   .extend({

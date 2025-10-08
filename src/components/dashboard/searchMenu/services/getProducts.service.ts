@@ -2,7 +2,7 @@ import getData from "@/fetch/data/getData";
 import axios from "axios";
 
 import UrlParams from "@/models/url-params.model";
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 
 export interface OptionProducts extends Product {
   label: string;

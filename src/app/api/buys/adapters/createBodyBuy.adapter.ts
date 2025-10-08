@@ -1,5 +1,5 @@
-import { CreateBuy } from "@/models/buy";
-import { CreateProduct } from "@/models/product";
+import { CreateBuy } from "@/models/api/buy";
+import { CreateProduct } from "@/models/api/product";
 
 interface ProductConnect extends CreateProduct {
   id: number;

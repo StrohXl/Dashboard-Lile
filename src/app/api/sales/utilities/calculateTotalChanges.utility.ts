@@ -1,4 +1,4 @@
-import { UpdateChangeManager } from "@/models/change_manager";
+import { UpdateChangeManager } from "@/models/api/change_manager";
 
 export function calculateTotalChanges({
   dollar,

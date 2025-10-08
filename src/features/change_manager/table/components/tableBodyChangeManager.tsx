@@ -1,4 +1,4 @@
-import { ChangeManager } from "@/models/change_manager/changeManager.model";
+import { ChangeManager } from "@/models/api/change_manager/changeManager.model";
 
 import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Cell, Row } from "@table-library/react-table-library/table";

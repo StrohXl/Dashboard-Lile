@@ -1,7 +1,7 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import { Client } from "@/models/client/client.model";
+import { Client } from "@/models/api/client/client.model";
 import { use } from "react";
 import { HiUsers } from "react-icons/hi";
 

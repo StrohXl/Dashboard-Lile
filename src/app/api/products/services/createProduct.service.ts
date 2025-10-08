@@ -5,7 +5,7 @@ import { ZodError } from "zod";
 import prisma from "../../../../../libs/prisma";
 import productValidator from "../validators/product.validator";
 import { ResponseService } from "@/models/response/responseService.model";
-import { CreateProduct } from "@/models/product";
+import { CreateProduct } from "@/models/api/product";
 
 export async function createProduct(
   body: CreateProduct,

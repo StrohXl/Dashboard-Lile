@@ -6,7 +6,7 @@ import { UseFormGetValues, UseFormReset } from "react-hook-form";
 
 import { FormProduct } from "./models/form-product.model";
 import { getProduct } from "./services";
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 
 export default function HooksForm({
   reset,

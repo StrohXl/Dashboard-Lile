@@ -6,7 +6,7 @@ import {
   getProductById,
   updateProductById,
 } from "../services";
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 
 type Params = {
   id: string;

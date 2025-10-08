@@ -1,42 +1,14 @@
-import z from "zod";
+import { createSaleSchema } from ".";
+import { UpdateSale } from "@/models/api/sale/updateSale.model";
 
-const UpdateSaleSchema = z
-  .object({
-    payments: z.array(
-      z.object({
-        id: z.number(),
-        payment_method: z.union([
-          z.literal("efectivo Bs"),
-          z.literal("divisa"),
-          z.literal("biopago"),
-          z.literal("transferencia"),
-        ]),
-        payment_amount: z.number().positive().min(0.1),
-        operation: z.number().optional(),
-      })
-    ),
-    change_manager: z
-      .array(
-        z.object({
-          id: z.number().optional(),
-          change_method: z.union([
-            z.literal("efectivo Bs"),
-            z.literal("divisa"),
-            z.literal("transferencia"),
-          ]),
-          change_amount: z.number().positive().min(0.1),
-          operation: z.number().optional(),
-        })
-      )
-      .optional(),
-  })
-  .strict();
-
-export type UpdateSale = z.infer<typeof UpdateSaleSchema>;
+export const updateSaleSchema = createSaleSchema.omit({
+  client: true,
+  list_products: true,
+});
 
 export function updateBodySaleValidator(body: UpdateSale) {
   try {
-    const validBody = UpdateSaleSchema.parse(body);
+    const validBody = updateSaleSchema.parse(body);
     return validBody;
   } catch (error) {
     return error;

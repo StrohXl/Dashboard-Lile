@@ -7,7 +7,7 @@ import { updateSaleStatus } from "../../sales/services";
 import {
   createPaymentValidator,
 } from "../validators/createPayment.validator";
-import { CreatePayment } from "@/models/payment/createPayment.model";
+import { CreatePayment } from "@/models/api/payment/createPayment.model";
 
 export function updatePaymentById({
   id,

@@ -1,4 +1,4 @@
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 
 export interface Buy  {
   id: number;

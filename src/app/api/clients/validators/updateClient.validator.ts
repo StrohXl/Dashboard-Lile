@@ -1,4 +1,4 @@
-import { UpdateClient } from "@/models/client/updateClient.model";
+import { UpdateClient } from "@/models/api/client/updateClient.model";
 import { createClientSchema } from "./createClient.validator";
 
 export default function updateClientValidator(body: UpdateClient) {

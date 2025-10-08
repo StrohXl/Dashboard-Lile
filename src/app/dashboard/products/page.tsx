@@ -13,7 +13,7 @@ import SearchData from "@/components/searchData/inputSearch";
 
 import TableProducts from "@/features/products/table/tableProducts";
 import getAllData from "@/services/get/all/getAllData";
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 
 export default async function Products({
   searchParams,

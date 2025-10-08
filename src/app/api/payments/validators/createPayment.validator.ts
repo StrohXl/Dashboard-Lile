@@ -1,4 +1,4 @@
-import { CreatePayment } from "@/models/payment/createPayment.model";
+import { CreatePayment } from "@/models/api/payment/createPayment.model";
 import z from "zod";
 
 export const createPaymentSchema = z

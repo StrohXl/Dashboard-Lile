@@ -21,7 +21,7 @@ import TableBodyPayments from "./components/tableBodyPayments";
 import PaymentsTheme from "./theme";
 import { ResponseData } from "@/models/response/responseData.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
-import { Payment } from "@/models/payment/payment.model";
+import { Payment } from "@/models/api/payment/payment.model";
 
 export default function TablePayments({
   data,

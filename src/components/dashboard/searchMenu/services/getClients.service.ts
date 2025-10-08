@@ -1,4 +1,4 @@
-import { Client } from "@/models/client/client.model";
+import { Client } from "@/models/api/client/client.model";
 import getData from "@/fetch/data/getData";
 
 import UrlParams from "@/models/url-params.model";

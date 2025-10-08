@@ -1,4 +1,4 @@
-import { CreateClient } from "@/models/client";
+import { CreateClient } from "@/models/api/client";
 import { z } from "zod";
 
 export const createClientSchema = z

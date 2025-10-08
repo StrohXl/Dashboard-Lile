@@ -1,6 +1,6 @@
 "use client";
 import "@/components/dashboard/tables/css/table.css";
-import { HistoryPrice } from "@/models/history_price/historyPrice.model";
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 
 import {
   Body,

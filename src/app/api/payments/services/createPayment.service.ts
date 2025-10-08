@@ -5,7 +5,7 @@ import { ZodError } from "zod";
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 import { createPaymentValidator } from "../validators/createPayment.validator";
-import { CreatePayment } from "@/models/payment/createPayment.model";
+import { CreatePayment } from "@/models/api/payment/createPayment.model";
 
 export async function createPayment(body: CreatePayment) {
   const bodyValidator = createPaymentValidator(body);

@@ -1,6 +1,6 @@
 import { z, ZodError } from "zod";
 import { createProductSchema } from "../../products/validators/product.validator";
-import { CreateListProduct } from "@/models/list_products";
+import { CreateListProduct } from "@/models/api/list_products";
 
 export const createListProductSchema = z
   .array(

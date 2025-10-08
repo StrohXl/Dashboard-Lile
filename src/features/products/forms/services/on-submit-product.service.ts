@@ -8,7 +8,7 @@ import { updateData } from "@/services/put/updateData";
 import createData from "@/services/post/createData";
 import { Product } from "../models/product.model";
 import { ResponseData } from "@/models/response/responseData.model";
-import { CreateProduct } from "@/models/product";
+import { CreateProduct } from "@/models/api/product";
 
 export const onSubmit = async ({
   body,

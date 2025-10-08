@@ -6,8 +6,8 @@ import { ZodError } from "zod";
 import prisma from "../../../../../libs/prisma";
 import { updateProducts } from "../../products/services";
 import { createBodyBuy } from "../adapters";
-import { CreateBuy } from "@/models/buy";
-import { CreateProduct } from "@/models/product";
+import { CreateBuy } from "@/models/api/buy";
+import { CreateProduct } from "@/models/api/product";
 import createBuyValidator from "../validators/createBuy.validator";
 
 

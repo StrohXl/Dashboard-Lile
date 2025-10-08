@@ -4,7 +4,7 @@ import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
 import createClientValidator from "../validators/createClient.validator";
-import { CreateClient } from "@/models/client";
+import { CreateClient } from "@/models/api/client";
 
 export const createClient = async ({ body }: { body: CreateClient }) => {
   const zodClient = createClientValidator(body);

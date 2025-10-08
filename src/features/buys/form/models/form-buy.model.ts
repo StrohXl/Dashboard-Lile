@@ -1,4 +1,4 @@
-import { CreateBuyProduct } from "@/models/buy";
+import { CreateBuyProduct } from "@/models/api/buy";
 
 interface Products extends Omit<CreateBuyProduct, "iva"> {
   type_of_currency_of_the_purchase: "dollar" | "bs";

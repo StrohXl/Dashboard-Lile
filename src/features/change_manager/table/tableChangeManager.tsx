@@ -1,7 +1,7 @@
 "use client";
 
 import "@/components/dashboard/tables/css/table.css";
-import { ChangeManager } from "@/models/change_manager/changeManager.model";
+import { ChangeManager } from "@/models/api/change_manager/changeManager.model";
 import { use } from "react";
 import { MdCurrencyExchange } from "react-icons/md";
 

@@ -1,4 +1,4 @@
-import { CreateProduct } from "@/models/product";
+import { CreateProduct } from "@/models/api/product";
 import { z, ZodError } from "zod";
 
 export const createProductSchema = z

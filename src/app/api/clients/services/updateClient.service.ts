@@ -4,7 +4,7 @@ import { ZodError } from "zod";
 
 import prisma from "../../../../../libs/prisma";
 import updateClientValidator from "../validators/updateClient.validator";
-import { UpdateClient } from "@/models/client";
+import { UpdateClient } from "@/models/api/client";
 
 export async function updateClient({
   id,

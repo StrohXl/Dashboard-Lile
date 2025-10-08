@@ -1,4 +1,4 @@
-import { Client } from "@/models/client/client.model";
+import { Client } from "@/models/api/client/client.model";
 
 import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Cell, Row } from "@table-library/react-table-library/table";

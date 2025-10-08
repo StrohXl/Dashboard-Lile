@@ -2,7 +2,7 @@ import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Cell, Row } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-import { Payment } from "@/models/payment/payment.model";
+import { Payment } from "@/models/api/payment/payment.model";
 
 
 export default function TableBodyPayments({

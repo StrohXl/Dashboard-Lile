@@ -11,7 +11,7 @@ import toastDeleteById from "@/components/Toast/data/toastDeleteById";
 
 
 import { useDataContext } from "../../../../hooks/useContextData";
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 
 
 export default function ContainerActions({

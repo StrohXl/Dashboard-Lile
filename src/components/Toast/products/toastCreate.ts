@@ -1,5 +1,5 @@
 
-import { CreateProduct } from "@/models/product";
+import { CreateProduct } from "@/models/api/product";
 import axios from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { toast } from "react-toastify";

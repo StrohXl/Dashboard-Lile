@@ -1,4 +1,4 @@
-import { CreateChangeManager } from "@/models/change_manager";
+import { CreateChangeManager } from "@/models/api/change_manager";
 import z, { ZodError } from "zod";
 
 export const createChangeSchema = z

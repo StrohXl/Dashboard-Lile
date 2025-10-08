@@ -21,7 +21,7 @@ import TableBodyProducts from "./components/tableBodyProducts";
 import ThemeTableProducts from "./theme";
 import { ResponseData } from "@/models/response/responseData.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
-import { Product } from "@/models/product";
+import { Product } from "@/models/api/product";
 
 export default function TableProducts({
   data,
