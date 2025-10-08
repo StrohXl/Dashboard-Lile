@@ -1,6 +1,6 @@
-import { CreatePaymentOfSale } from "@/app/api/sales/models";
 import { UpdateChangeManager } from "@/models/api/change_manager";
 import { CreateListProduct } from "@/models/api/list_products";
+import { CreatePaymentOfSale } from "@/models/api/sale";
 
 export interface FormSale {
   client: {

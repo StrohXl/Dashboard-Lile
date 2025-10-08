@@ -2,7 +2,6 @@
 import { FaCashRegister } from "react-icons/fa6";
 
 import "@/components/dashboard/tables/css/table.css";
-import { Sale } from "@/app/api/sales/models";
 
 import { useDataContext } from "@/hooks/useContextData";
 
@@ -23,6 +22,7 @@ import TableBodySales from "./components/tableBodySales";
 import { ThemeMaterialSales } from "./theme";
 import { ResponseData } from "@/models/response/responseData.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { Sale } from "@/models/api/sale";
 
 export default function TableSales({
   data,

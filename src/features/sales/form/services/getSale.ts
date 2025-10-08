@@ -1,5 +1,3 @@
-
-import { Sale } from "@/app/api/sales/models";
 import { calculateTotalPayments } from "@/app/api/sales/utilities";
 import { calculateTotalChanges } from "@/app/api/sales/utilities/calculateTotalChanges.utility";
 import axios from "axios";
@@ -8,6 +6,7 @@ import { UseFormReset } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { FormSale } from "../models";
+import { Sale } from "@/models/api/sale";
 
 export async function getSale({
   id,

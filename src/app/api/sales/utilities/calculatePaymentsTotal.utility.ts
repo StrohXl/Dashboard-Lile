@@ -1,10 +1,10 @@
-import { CreatePaymentOfSale } from "../models";
+import { CreatePayment } from "@/models/api/payment/createPayment.model";
 
 export function calculateTotalPayments({
   payments,
   dollar,
 }: {
-  payments: CreatePaymentOfSale[] | undefined;
+  payments: Omit<CreatePayment, "sales_id">[] | undefined;
   dollar: number;
 }): number {
   if (payments) {

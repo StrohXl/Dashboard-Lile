@@ -1,4 +1,4 @@
-import { Sale } from "../../app/api/sales/models/sale.model";
+import { Sale } from "../sale";
 import { CreateClient } from "./createClient.model";
 
 export interface Client extends CreateClient {

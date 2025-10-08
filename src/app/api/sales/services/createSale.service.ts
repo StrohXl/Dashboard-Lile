@@ -9,9 +9,8 @@ import { updateStockProducts } from "../../products/services";
 import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import { getDebt } from "../utilities/getDebt.utility";
-import saleBodyValidator, {
-  CreateSale,
-} from "../validators/bodySale.validator";
+import saleBodyValidator from "../validators/bodySale.validator";
+import { CreateSale } from "@/models/api/sale";
 
 export async function createSale(body: CreateSale) {
   const validatorBody = saleBodyValidator(body);
