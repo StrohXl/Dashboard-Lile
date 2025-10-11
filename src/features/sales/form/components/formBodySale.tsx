@@ -1,12 +1,13 @@
+import Invoice from "@/documents/invoice";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
+
+import { CreateClient } from "@/models/api/client";
 
 import { useContextSale } from "../hooks/saleHookContext";
 import { FormSale } from "../models";
 import SectionClient from "./client/sectionClient";
 import ListPaymentsAndChanges from "./listPaymentsAndChanges/listPaymentsAndChanges";
 import ListProduct from "./listProduct/listProduct";
-import Invoice from "@/documents/invoice";
-import { CreateClient } from "@/models/api/client";
 
 export default function FormBodySale({
   useFormSale,

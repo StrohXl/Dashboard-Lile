@@ -1,8 +1,8 @@
+import { updateData } from "@/services/put/updateData";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { toast } from "react-toastify";
 
 import { Client } from "@/models/api/client/client.model";
-import { updateData } from "@/services/put/updateData";
 import { ResponseData } from "@/models/response/responseData.model";
 
 interface ResponseAxios {

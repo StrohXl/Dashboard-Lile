@@ -1,14 +1,14 @@
 import { calculateTotalPayments } from "@/app/api/sales/utilities";
 import { calculateTotalChanges } from "@/app/api/sales/utilities/calculateTotalChanges.utility";
+import getDataById from "@/services/get/byId/getDataById";
 import { ParamValue } from "next/dist/server/request/params";
 import { UseFormReset } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { Sale } from "@/models/api/sale";
+import { ResponseData } from "@/models/response/responseData.model";
 
 import { FormSale } from "../models";
-import getDataById from "@/services/get/byId/getDataById";
-import { ResponseData } from "@/models/response/responseData.model";
 
 export async function getSale({
   id,

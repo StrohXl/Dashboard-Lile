@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { UpdateSale } from "@/models/api/sale";
+import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import { updateBodySaleValidator } from "../validators";
 import { updateSaleStatus } from "./updateSaleStatus.service";
-import { ResponseService } from "@/models/response/responseService.model";
 
 export async function updateSaleById({
   id,

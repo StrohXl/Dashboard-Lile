@@ -1,4 +1,5 @@
 import { Product } from "@/models/api/product";
+
 import { User } from "../user/user.model";
 
 export interface Buy  {

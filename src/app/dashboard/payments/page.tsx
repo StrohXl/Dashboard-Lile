@@ -1,13 +1,15 @@
+import getAllData from "@/services/get/all/getAllData";
 import { Suspense } from "react";
 
+import { Payment } from "@/models/api/payment/payment.model";
 import UrlParams from "@/models/url-params.model";
+
+import { HookDataContext } from "@/hooks/useContextData";
 
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TablePayments from "@/features/payments/table/tablePayments";
-import getAllData from "@/services/get/all/getAllData";
-import { Payment } from "@/models/api/payment/payment.model";
-import { HookDataContext } from "@/hooks/useContextData";
+
 
 export default async function Payments({
   searchParams,

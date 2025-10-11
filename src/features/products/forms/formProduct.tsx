@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { MdHistory } from "react-icons/md";
 
+import SkeletonHistory from "@/components/dashboard/skeleton/skeletonHistory";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 
 import TableBodyHistoryPrice from "@/features/history_price/table/components/tableBodyHistoryPrice";
@@ -11,11 +12,10 @@ import TableBodyHistoryPrice from "@/features/history_price/table/components/tab
 import BodyFormProduct from "./components/bodyFormProduct";
 import SkeletonFormProduct from "./components/skeletonFormProduct";
 import HooksForm from "./hooks";
-import type { FormProduct } from "./models/form-product.model";
-import { onSubmit } from "./services/on-submit-product.service";
-import SkeletonHistory from "@/components/dashboard/skeleton/skeletonHistory";
-import { getHistory } from "./services/getHistory.service";
 import { HookHistory } from "./hooks/hookHistory.hook";
+import type { FormProduct } from "./models/form-product.model";
+import { getHistory } from "./services/getHistory.service";
+import { onSubmit } from "./services/on-submit-product.service";
 
 export default function FormProduct({
   pyDollar,

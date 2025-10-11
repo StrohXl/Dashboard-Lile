@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { CreateSale } from "@/models/api/sale";
+import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import { updateStockProducts } from "../../products/services";
@@ -12,7 +13,6 @@ import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import { getDebt } from "../utilities/getDebt.utility";
 import saleBodyValidator from "../validators/bodySale.validator";
-import { ResponseService } from "@/models/response/responseService.model";
 
 export async function createSale(body: CreateSale): ResponseService<Sales> {
   const validatorBody = saleBodyValidator(body);

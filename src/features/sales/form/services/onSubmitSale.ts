@@ -1,16 +1,18 @@
+import createData from "@/services/post/createData";
+import { RefObject } from "react";
 import { UseFormReset } from "react-hook-form";
 import { toast } from "react-toastify";
+
+import { Sale } from "@/models/api/sale";
+import { ResponseData } from "@/models/response/responseData.model";
 
 import { createAddaptedSale } from "../adapters/createAddaptedSale";
 import { FormSale } from "../models";
 import { resetAll } from "../utilities/resetAll";
-import createData from "@/services/post/createData";
-import { ResponseData } from "@/models/response/responseData.model";
-import { Sale } from "@/models/api/sale";
+
 /*
 import { downloadPdf } from "@/documents/utils/downloadPdf";
 */
-import { RefObject } from "react";
 interface ResponseAxios {
   data: {
     status: number;

@@ -1,11 +1,12 @@
+import { updateData } from "@/services/put/updateData";
 import { ParamValue } from "next/dist/server/request/params";
 import { toast } from "react-toastify";
 
+import { Sale } from "@/models/api/sale";
+import { ResponseData } from "@/models/response/responseData.model";
+
 import { createAddaptedSale } from "../adapters/createAddaptedSale";
 import { FormSale } from "../models";
-import { ResponseData } from "@/models/response/responseData.model";
-import { Sale } from "@/models/api/sale";
-import { updateData } from "@/services/put/updateData";
 
 interface ResponseAxios {
   data: {

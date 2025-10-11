@@ -1,6 +1,4 @@
 "use client";
-import { Buy } from "@/models/api/buy";
-import { Sale } from "@/models/api/sale";
 import {
   createContext,
   ReactNode,
@@ -9,6 +7,9 @@ import {
   useRef,
   useState,
 } from "react";
+
+import { Buy } from "@/models/api/buy";
+import { Sale } from "@/models/api/sale";
 
 export type DataContextType = {
   disabled: boolean;

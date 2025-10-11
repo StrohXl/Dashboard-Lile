@@ -1,8 +1,9 @@
-import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
-import { ResponseData } from "@/models/response/responseData.model";
 import getDataById from "@/services/get/byId/getDataById";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
+import { ResponseData } from "@/models/response/responseData.model";
 
 export async function getHistory({
   id,

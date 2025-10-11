@@ -1,3 +1,6 @@
+import getDataById from "@/services/get/byId/getDataById";
+import { toast } from "react-toastify";
+
 import { Data } from "@/models";
 import { Buy } from "@/models/api/buy/buy.model";
 
@@ -7,8 +10,6 @@ import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-import getDataById from "@/services/get/byId/getDataById";
-import { toast } from "react-toastify";
 
 export default function TableBodyBuy({
   tableList,

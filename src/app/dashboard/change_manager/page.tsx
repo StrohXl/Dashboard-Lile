@@ -1,5 +1,7 @@
+import getAllData from "@/services/get/all/getAllData";
 import { Suspense } from "react";
 
+import { ChangeManager } from "@/models/api/change_manager";
 import UrlParams from "@/models/url-params.model";
 
 import { HookDataContext } from "@/hooks/useContextData";
@@ -7,8 +9,6 @@ import { HookDataContext } from "@/hooks/useContextData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TableChangeManager from "@/features/change_manager/table/tableChangeManager";
-import getAllData from "@/services/get/all/getAllData";
-import { ChangeManager } from "@/models/api/change_manager";
 
 export default async function ChangeManagers({
   searchParams,

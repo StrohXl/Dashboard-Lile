@@ -1,5 +1,6 @@
-import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 import { useState } from "react";
+
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 
 export function HookHistory() {
 

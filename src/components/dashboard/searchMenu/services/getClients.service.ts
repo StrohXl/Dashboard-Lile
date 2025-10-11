@@ -1,8 +1,9 @@
+import getAllData from "@/services/get/all/getAllData";
+
 import { Client } from "@/models/api/client/client.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseData } from "@/models/response/responseData.model";
 import UrlParams from "@/models/url-params.model";
-import getAllData from "@/services/get/all/getAllData";
 
 export interface OptionClients extends Client {
   label: string;

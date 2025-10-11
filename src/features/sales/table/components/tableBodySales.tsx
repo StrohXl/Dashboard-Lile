@@ -1,13 +1,15 @@
+import getDataById from "@/services/get/byId/getDataById";
+import { toast } from "react-toastify";
+
 import { Data } from "@/models";
 import { Sale } from "@/models/api/sale";
+
+import { useDataContext } from "@/hooks/useContextData";
 
 import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-import { useDataContext } from "@/hooks/useContextData";
-import getDataById from "@/services/get/byId/getDataById";
-import { toast } from "react-toastify";
 
 export default function TableBodySales({
   tableList,

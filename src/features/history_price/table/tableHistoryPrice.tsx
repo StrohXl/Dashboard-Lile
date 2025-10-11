@@ -1,13 +1,14 @@
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
+import getAllData from "@/services/get/all/getAllData";
 import { Suspense } from "react";
+
+import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 
 import { HookDataContext } from "@/hooks/useContextData";
 
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import GetPromise from "./components/getPromise";
-import getAllData from "@/services/get/all/getAllData";
-import { HistoryPrice } from "@/models/api/history_price/historyPrice.model";
 
 export default function TableHistoryPrice() {
   const dollarPy = getPyDollar();

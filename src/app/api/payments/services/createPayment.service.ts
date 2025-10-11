@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { CreatePayment } from "@/models/api/payment/createPayment.model";
+import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 import { createPaymentValidator } from "../validators/createPayment.validator";
-import { ResponseService } from "@/models/response/responseService.model";
 
 export async function createPayment(
   body: CreatePayment

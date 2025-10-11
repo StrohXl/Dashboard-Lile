@@ -2,9 +2,9 @@ import "../css/container-actions.css";
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { FaRegEdit } from "react-icons/fa";
 import { FaEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
 
 import { ApiUrl, Data } from "@/models";
 import { Product } from "@/models/api/product";

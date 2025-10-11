@@ -1,15 +1,16 @@
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
+import getAllData from "@/services/get/all/getAllData";
 import Link from "next/link";
 import { Suspense } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
+
+import { Buy } from "@/models/api/buy";
 
 import { HookDataContext } from "@/hooks/useContextData";
 
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TableBuy from "@/features/buys/table/tableBuy";
-import getAllData from "@/services/get/all/getAllData";
-import { Buy } from "@/models/api/buy";
 
 export default async function Buys({
   searchParams,

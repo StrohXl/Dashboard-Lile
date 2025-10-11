@@ -1,8 +1,9 @@
 import { Clients, Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 
-import prisma from "../../../../../libs/prisma";
 import { ResponseService } from "@/models/response/responseService.model";
+
+import prisma from "../../../../../libs/prisma";
 
 export const getClientById = async (id: number): ResponseService<Clients> => {
   try {

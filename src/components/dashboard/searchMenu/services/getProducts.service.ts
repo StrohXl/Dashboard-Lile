@@ -1,10 +1,10 @@
+import getAllData from "@/services/get/all/getAllData";
 import axios from "axios";
 
 import { Product } from "@/models/api/product";
-import UrlParams from "@/models/url-params.model";
-import getAllData from "@/services/get/all/getAllData";
-import { ResponseData } from "@/models/response/responseData.model";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
+import { ResponseData } from "@/models/response/responseData.model";
+import UrlParams from "@/models/url-params.model";
 
 export interface OptionProducts extends Product {
   label: string;

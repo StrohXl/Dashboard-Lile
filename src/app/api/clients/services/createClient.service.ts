@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 import { CreateClient } from "@/models/api/client";
+import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import createClientValidator from "../validators/createClient.validator";
-import { ResponseService } from "@/models/response/responseService.model";
 
 export const createClient = async ({
   body,

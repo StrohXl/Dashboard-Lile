@@ -24,9 +24,10 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import TableBodyBuy from "@/features/buys/table/components/TableBodyBuy";
 
-import { ThemeMaterialBuy } from "./theme";
-import { Drawer } from "antd";
 import ContainerBuy from "./components/containerBuy";
+import { ThemeMaterialBuy } from "./theme";
+
+import { Drawer } from "antd";
 
 export default function TableBuy({
   data,

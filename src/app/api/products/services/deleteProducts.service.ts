@@ -1,8 +1,9 @@
+import { Products } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-import prisma from "../../../../../libs/prisma";
 import { ResponseService } from "@/models/response/responseService.model";
-import { Products } from "@prisma/client";
+
+import prisma from "../../../../../libs/prisma";
 
 export async function deleteProducts(
   products: number[]

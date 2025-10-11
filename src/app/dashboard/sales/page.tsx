@@ -1,8 +1,10 @@
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
+import getAllData from "@/services/get/all/getAllData";
 import Link from "next/link";
 import { Suspense } from "react";
 import { FaCashRegister } from "react-icons/fa6";
 
+import { Sale } from "@/models/api/sale";
 import UrlParams from "@/models/url-params.model";
 
 import { HookDataContext } from "@/hooks/useContextData";
@@ -10,8 +12,6 @@ import { HookDataContext } from "@/hooks/useContextData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TableSales from "@/features/sales/table/tableSales";
-import getAllData from "@/services/get/all/getAllData";
-import { Sale } from "@/models/api/sale";
 
 export default async function Products({
   searchParams,
