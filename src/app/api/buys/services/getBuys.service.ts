@@ -4,9 +4,15 @@ import { NextResponse } from "next/server";
 import { ParamsRequest } from "@/models";
 
 import prisma from "../../../../../libs/prisma";
+import { ResponseService } from "@/models/response/responseService.model";
+import { Buys } from "@prisma/client";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
-export async function getBuys({ params }: { params: ParamsRequest }) {
-  
+export async function getBuys({
+  params,
+}: {
+  params: ParamsRequest;
+}): ResponseService<ResponseGet<Buys>> {
   const { skip, take, pages } = await getPages("/buys", params);
 
   try {
@@ -21,9 +27,16 @@ export async function getBuys({ params }: { params: ParamsRequest }) {
       orderBy: { id: "desc" },
       cacheStrategy: { ttl: 2, tags: ["findBuys"] },
     });
-    return NextResponse.json({ data: buys, pages });
+    return NextResponse.json({
+      message: "Compras encontradas",
+      status: 200,
+      data: { data: buys, pages },
+    });
   } catch (error) {
     console.log(error);
-    return NextResponse.json(error, { status: 500 });
+    return NextResponse.json(
+      { message: "Error", status: 500 },
+      { status: 500 }
+    );
   }
 }
