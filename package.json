@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prettier/prettier": "error",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "postinstall": "prisma generate --no-engine"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
