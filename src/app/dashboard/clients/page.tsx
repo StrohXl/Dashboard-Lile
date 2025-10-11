@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 
-
 import UrlParams from "@/models/url-params.model";
 
 import { HookDataContext } from "@/hooks/useContextData";

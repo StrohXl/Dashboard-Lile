@@ -16,14 +16,14 @@ export function arrayPrepend({
     paymentPrepend({
       id: 0,
       payment_amount: 0,
-      payment_method: "efectivo Bs",
+      payment_method: "efectivoBs",
       operation: 0,
     });
   } else {
     changePrepend({
       id: 0,
       change_amount: 0,
-      change_method: "efectivo Bs",
+      change_method: "efectivoBs",
       operation: 0,
     });
   }

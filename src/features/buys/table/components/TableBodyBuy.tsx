@@ -1,18 +1,14 @@
 import { Data } from "@/models";
 import { Buy } from "@/models/api/buy/buy.model";
 
-
 import { useDataContext } from "@/hooks/useContextData";
 
 import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 
-
-
-
-
-
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
+import getDataById from "@/services/get/byId/getDataById";
+import { toast } from "react-toastify";
 
 export default function TableBodyBuy({
   tableList,
@@ -23,7 +19,20 @@ export default function TableBodyBuy({
   pyDollar: number | undefined;
   data: Data;
 }) {
-  const { ids } = useDataContext();
+  const { ids, setBuy, setLoadingDrawer, setOpenDrawer } = useDataContext();
+
+  const getBuyById = async (id: number) => {
+    setOpenDrawer(true);
+    setLoadingDrawer(true);
+    try {
+      const buy = await getDataById<Buy>({ apiUrl: "/buys", id });
+      setBuy(buy.data);
+    } catch {
+      setBuy(undefined);
+      toast.error("No se encontro ninguna compra");
+    }
+    setLoadingDrawer(false);
+  };
 
   return (
     <Body>
@@ -39,7 +48,7 @@ export default function TableBodyBuy({
                 >
                   <div className={`font-semibold`}>Producto</div>
                   <div className={`font-semibold`}>Cantidad</div>
-                  <div className={`font-semibold`}>Precio</div>
+                  <div className={`font-semibold`}>Total</div>
                 </div>
               </li>
               {item.list_products.map((product, index) => (
@@ -62,9 +71,7 @@ export default function TableBodyBuy({
                     </div>
                     <div>{`${
                       product.unit == "kg"
-                        ? product.stock >= 1000
-                          ? `${product.stock / 1000} kg`
-                          : `${product.stock} gr`
+                        ? `${product.stock} kg`
                         : product.stock
                     }`}</div>
                     <div>{Number(product.price).toFixed(2)}$</div>
@@ -86,10 +93,11 @@ export default function TableBodyBuy({
           </Cell>
           <Cell pinRight>
             <ContainerActions
-              includeActions={{ delete: true, edit: true }}
+              includeActions={{ delete: true, see: true }}
               data={data}
               apiUrl="/buys"
               id={item.id}
+              setOpenDrawer={getBuyById}
             />
           </Cell>
         </Row>
@@ -97,5 +105,3 @@ export default function TableBodyBuy({
     </Body>
   );
 }
-
-

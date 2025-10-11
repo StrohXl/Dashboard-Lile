@@ -1,6 +1,5 @@
 import { calculateTotalPayments } from "@/app/api/sales/utilities";
 import { calculateTotalChanges } from "@/app/api/sales/utilities/calculateTotalChanges.utility";
-import axios from "axios";
 import { ParamValue } from "next/dist/server/request/params";
 import { UseFormReset } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -8,6 +7,8 @@ import { toast } from "react-toastify";
 import { Sale } from "@/models/api/sale";
 
 import { FormSale } from "../models";
+import getDataById from "@/services/get/byId/getDataById";
+import { ResponseData } from "@/models/response/responseData.model";
 
 export async function getSale({
   id,
@@ -27,28 +28,32 @@ export async function getSale({
   reset: UseFormReset<FormSale>;
 }) {
   try {
-    const { data }: { data: Sale } = await axios.get(`/api/sales/${id}`);
-    setTotalPrice(Number(data.total_price));
+    const data: ResponseData<Sale> = await getDataById({
+      apiUrl: "/sales",
+      id: Number(id),
+    });
+    const sale = data.data;
+    setTotalPrice(Number(sale?.total_price));
     const totalPayments = calculateTotalPayments({
       dollar,
-      payments: data.payments,
+      payments: sale?.payments,
     });
     const totalChanges = calculateTotalChanges({
-      changes: data.change_manager,
+      changes: sale ? sale.change_manager : [],
       dollar,
     });
     setTotalPayments(totalPayments);
     setTotalChanges(totalChanges);
     reset({
       client: {
-        id: data.client.id,
-        ci: `${data.client.ci}`,
-        last_name: data.client.last_name,
-        name: data.client.name,
+        id: sale?.client.id,
+        ci: `${sale?.client.ci}`,
+        last_name: sale?.client.last_name,
+        name: sale?.client.name,
       },
-      list_products: data.list_products,
-      payments: data.payments,
-      change_manager: data.change_manager,
+      list_products: sale?.list_products,
+      payments: sale?.payments,
+      change_manager: sale?.change_manager,
     });
     setLoadingSale(false);
   } catch (error) {

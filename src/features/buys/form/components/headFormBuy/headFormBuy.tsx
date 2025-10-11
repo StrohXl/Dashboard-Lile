@@ -34,7 +34,7 @@ export default function HeadFormBuy({
       <h4 className="mb-2 font-open_sans text-gray-800 font-semibold text-2xl">
         Compra
       </h4>
-      <div className="flex flex-col-reverse md:flex-row md:items-center gap-3">
+      <div className="grid md:grid-cols-2 items-center gap-3">
         <SearchMenu<OptionProducts>
           closeMenu={() => setOpen(false)}
           loading={loading}

@@ -7,6 +7,7 @@ import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import TablePayments from "@/features/payments/table/tablePayments";
 import getAllData from "@/services/get/all/getAllData";
 import { Payment } from "@/models/api/payment/payment.model";
+import { HookDataContext } from "@/hooks/useContextData";
 
 export default async function Payments({
   searchParams,
@@ -27,7 +28,9 @@ export default async function Payments({
         <div className="flex items-center gap-6"></div>
       </div>
       <Suspense key={name ?? "" + deleteId + page} fallback={<SkeletonTable />}>
-        <TablePayments data={payments} />
+        <HookDataContext>
+          <TablePayments data={payments} />
+        </HookDataContext>
       </Suspense>
     </section>
   );

@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client/edge";
+import { Prisma, Sales } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
@@ -7,6 +7,7 @@ import { UpdateSale } from "@/models/api/sale";
 import prisma from "../../../../../libs/prisma";
 import { updateBodySaleValidator } from "../validators";
 import { updateSaleStatus } from "./updateSaleStatus.service";
+import { ResponseService } from "@/models/response/responseService.model";
 
 export async function updateSaleById({
   id,
@@ -14,13 +15,16 @@ export async function updateSaleById({
 }: {
   body: UpdateSale;
   id: number;
-}) {
+}): ResponseService<Sales> {
   const validBody = updateBodySaleValidator(body);
   if (validBody instanceof ZodError) {
     console.error(validBody);
-    return NextResponse.json("Error en el cuerpo de la solicitud", {
-      status: 400,
-    });
+    return NextResponse.json(
+      { message: "Error en el cuerpo de la solicitud", status: 400 },
+      {
+        status: 400,
+      }
+    );
   }
 
   //Payments
@@ -32,8 +36,8 @@ export async function updateSaleById({
     body.change_manager?.filter((item) => item.id == 0) ?? [];
 
   try {
-    await prisma.$transaction(async (tx) => {
-      await tx.sales.update({
+    const sale = await prisma.$transaction(async (tx) => {
+      const sale = await tx.sales.update({
         where: {
           id,
         },
@@ -64,15 +68,26 @@ export async function updateSaleById({
         },
       });
       await updateSaleStatus({ id, tx });
+      return sale;
     });
-    return NextResponse.json("Venta actualizada");
+    return NextResponse.json({
+      message: "Venta actualizada",
+      data: sale,
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2003") {
-        return NextResponse.json("El cliente no existe", { status: 404 });
+        return NextResponse.json(
+          { message: "El cliente no existe", status: 404 },
+          { status: 404 }
+        );
       }
     }
-    return NextResponse.json("Error", { status: 400 });
+    return NextResponse.json(
+      { message: "Error", status: 400 },
+      { status: 400 }
+    );
   }
 }

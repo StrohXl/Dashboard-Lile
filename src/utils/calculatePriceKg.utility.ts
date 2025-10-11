@@ -5,6 +5,6 @@ export default function calculatePriceKg({
   price: number;
   weight: number;
 }): number {
-  const priceKg = (weight * price) / 1000;
+  const priceKg = (weight * price);
   return priceKg;
 }

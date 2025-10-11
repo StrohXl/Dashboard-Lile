@@ -25,6 +25,8 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 import TableBodyBuy from "@/features/buys/table/components/TableBodyBuy";
 
 import { ThemeMaterialBuy } from "./theme";
+import { Drawer } from "antd";
+import ContainerBuy from "./components/containerBuy";
 
 export default function TableBuy({
   data,
@@ -36,7 +38,13 @@ export default function TableBuy({
   const dollar = use(pyDollar) ?? 1;
   const buys = use(data);
 
-  const { setSelects } = useDataContext();
+  const {
+    setSelects,
+    loadingDrawer,
+    buy,
+    openDrawer,
+    setOpenDrawer,
+  } = useDataContext();
 
   const select = useRowSelect(
     { nodes: buys.data ? buys.data.data : [] },
@@ -48,7 +56,7 @@ export default function TableBuy({
     }
   );
 
-  const nodes = { nodes: buys.data };
+  const nodes = { nodes: buys.data ? buys.data.data : [] };
 
   const theme = ThemeMaterialBuy();
 
@@ -56,7 +64,7 @@ export default function TableBuy({
     "Fecha de Compra",
     "Productos",
     <div key={3} className="text-center">
-      Precio
+      Total
     </div>,
   ];
 
@@ -83,6 +91,19 @@ export default function TableBuy({
           </Table>
         </div>
         <TableFooter apiUrl="/buys" data={buys} />
+        <Drawer
+          placement="right"
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          loading={loadingDrawer}
+          width={500}
+        >
+          {buy ? (
+            <ContainerBuy buy={buy} dollar={dollar} />
+          ) : (
+            <span>No se encontro ninguna venta</span>
+          )}
+        </Drawer>
       </>
     );
   } else {

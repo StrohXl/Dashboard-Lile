@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client/edge";
+import { Clients, Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
@@ -6,6 +6,7 @@ import { UpdateClient } from "@/models/api/client";
 
 import prisma from "../../../../../libs/prisma";
 import updateClientValidator from "../validators/updateClient.validator";
+import { ResponseService } from "@/models/response/responseService.model";
 
 export async function updateClient({
   id,
@@ -13,12 +14,15 @@ export async function updateClient({
 }: {
   id: number;
   body: UpdateClient;
-}) {
+}): ResponseService<Clients> {
   const bodyValidator = updateClientValidator(body);
   if (bodyValidator instanceof ZodError) {
-    return NextResponse.json("Error en el cuerpo de la solicitud", {
-      status: 400,
-    });
+    return NextResponse.json(
+      { message: "Error en el cuerpo de la solicitud", status: 400 },
+      {
+        status: 400,
+      }
+    );
   }
   body.name = body.name.toLocaleLowerCase();
   body.last_name = body.last_name.toLocaleLowerCase();
@@ -29,14 +33,24 @@ export async function updateClient({
         id: id,
       },
     });
-    return NextResponse.json(client);
+    return NextResponse.json({
+      data: client,
+      message: "Cliente editado",
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {
-        return NextResponse.json("Cliente no encontrado", { status: 404 });
+        return NextResponse.json(
+          { message: "Cliente no encontrado", status: 404 },
+          { status: 404 }
+        );
       }
     }
-    return NextResponse.json("Error", { status: 500 });
+    return NextResponse.json(
+      { message: "Error", status: 500 },
+      { status: 500 }
+    );
   }
 }

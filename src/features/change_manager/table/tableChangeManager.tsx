@@ -34,7 +34,7 @@ export default function TableChangeManager({
 
   const { setSelects } = useDataContext();
 
-  const nodes = { nodes: changes.data };
+  const nodes = { nodes: changes.data ? changes.data.data : [] };
 
   const select = useRowSelect(
     { nodes: changes.data ? changes.data.data : [] },

@@ -33,6 +33,7 @@ export default function BodyFormProduct({
   const price = Number(watch("price"));
   const priceIva = Number((price * Number(`0.${iva}`) + price).toFixed(2));
   const typeOfCurrency = watch("type_of_currency");
+  const unit = watch("unit");
 
   return (
     <div className="body-form flex flex-col gap-4">
@@ -50,7 +51,7 @@ export default function BodyFormProduct({
             },
           }}
         />
-        
+
         <div className="grid md:grid-cols-2 gap-4  2xl:grid-cols-1">
           <SelectForm<FormProduct>
             error={errors.unit}
@@ -73,11 +74,18 @@ export default function BodyFormProduct({
             type="number"
             options={{
               required: "Este campo es requerido",
-              min: {
-                value: 1,
-                message: "La cantidad debe de ser  minimo 1",
-              },
+              min:
+                unit == "kg"
+                  ? {
+                      value: 0,
+                      message: "La cantidad debe de ser  minimo 0",
+                    }
+                  : {
+                      value: 1,
+                      message: "La cantidad debe de ser  minimo 1",
+                    },
             }}
+            step={unit == "kg" ? "any" : "1"}
           />
         </div>
         <GroupRadio<FormProduct>

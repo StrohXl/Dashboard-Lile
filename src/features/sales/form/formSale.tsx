@@ -1,17 +1,6 @@
 "use client";
 import { use } from "react";
-import {
-  Control,
-  FieldErrors,
-  useForm,
-  UseFormGetValues,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormReset,
-  UseFormSetValue,
-  UseFormTrigger,
-  UseFormWatch,
-} from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
 
@@ -20,7 +9,6 @@ import FormHeaderSale from "./components/formHeaderSale";
 import SaleHookContext, { useContextSale } from "./hooks/saleHookContext";
 import type { FormSale } from "./models";
 import { onSubmitSale } from "./services/onSubmitSale";
-import { onSubmitSaleById } from "./services/onSubmitSaleById";
 import { nextForm } from "./utilities";
 
 export default function FormSale({
@@ -30,17 +18,7 @@ export default function FormSale({
 }) {
   const dollar = use(pyDollar) ?? 1;
 
-  const {
-    handleSubmit,
-    control,
-    register,
-    getValues,
-    watch,
-    setValue,
-    reset,
-    trigger,
-    formState: { errors, isDirty },
-  } = useForm<FormSale>({
+  const useFormSale = useForm<FormSale>({
     defaultValues: {
       payments: [
         {
@@ -49,55 +27,30 @@ export default function FormSale({
           id: 0,
         },
       ],
-      client:{
-        id:0
-      }
+      client: {
+        id: 0,
+      },
     },
     mode: "onChange",
   });
 
   return (
-    <SaleHookContext reset={reset} pyDollar={dollar}>
-      <SaleForm
-        isDirty={isDirty}
-        errors={errors}
-        control={control}
-        setValue={setValue}
-        getValues={getValues}
-        handleSubmit={handleSubmit}
-        register={register}
-        reset={reset}
-        trigger={trigger}
-        watch={watch}
-      />
+    <SaleHookContext reset={useFormSale.reset} pyDollar={dollar}>
+      <SaleForm useFormSale={useFormSale} />
     </SaleHookContext>
   );
 }
 
 const SaleForm = ({
-  control,
-  getValues,
-  handleSubmit,
-  register,
-  reset,
-  setValue,
-  trigger,
-  watch,
-  isDirty,
-  errors,
+  useFormSale,
 }: {
-  handleSubmit: UseFormHandleSubmit<FormSale>;
-  control: Control<FormSale>;
-  isDirty: boolean;
-  register: UseFormRegister<FormSale>;
-  getValues: UseFormGetValues<FormSale>;
-  watch: UseFormWatch<FormSale>;
-  reset: UseFormReset<FormSale>;
-  trigger: UseFormTrigger<FormSale>;
-  setValue: UseFormSetValue<FormSale>;
-  errors: FieldErrors<FormSale>;
+  useFormSale: UseFormReturn<FormSale>;
 }) => {
+  // Context Sale
+
   const {
+    setIdSale,
+    containerInvoice,
     disabled,
     setDisabled,
     formSteps,
@@ -111,9 +64,18 @@ const SaleForm = ({
     setTotalPrice,
     setTotalPayments,
     id,
-    reload,
-    setReload,
   } = useContextSale();
+
+  // Form Sale
+
+  const {
+    getValues,
+    handleSubmit,
+    reset,
+    setValue,
+    trigger,
+    formState: { isDirty },
+  } = useFormSale;
 
   if (loadingSale) {
     return <SkeletonFormProduct />;
@@ -121,41 +83,24 @@ const SaleForm = ({
     return (
       <form
         className="grid container-table  max-w-[1200px]"
-        onSubmit={handleSubmit((body) => {
-          if (id) {
-            onSubmitSaleById({
-              body,
-              id,
-              setDisabled,
-              setFormSteps,
-              reload,
-              setReload,
-            });
-          } else {
-            onSubmitSale({
-              body,
-              reset,
-              setDisabled,
-              setFormSteps,
-              setTotalChanges,
-              setTotalPayments,
-              setTotalPrice,
-            });
-          }
-        })}
+        onSubmit={handleSubmit((body) =>
+          onSubmitSale({
+            body,
+            document: containerInvoice,
+            reset,
+            setDisabled,
+            setFormSteps,
+            setIdSale,
+            setTotalChanges,
+            setTotalPayments,
+            setTotalPrice,
+          })
+        )}
       >
         <FormHeaderSale />
 
-        <div className="max-h-[300px] xl:max-h-full pe-4 xl:pe-0  overflow-auto" >
-          <FormBodySale
-            control={control}
-            errors={errors}
-            getValues={getValues}
-            register={register}
-            reset={reset}
-            watch={watch}
-            setValue={setValue}
-          />
+        <div className="max-h-[300px] xl:max-h-full pe-4 xl:pe-0  overflow-auto">
+          <FormBodySale useFormSale={useFormSale} />
         </div>
 
         <div className="flex justify-between mt-6">
@@ -192,8 +137,8 @@ const SaleForm = ({
             {formSteps !== 3
               ? "Siguiente"
               : id
-              ? "Actualizar Venta"
-              : "Crear Venta"}
+                ? "Actualizar Venta"
+                : "Crear Venta"}
           </button>
         </div>
       </form>

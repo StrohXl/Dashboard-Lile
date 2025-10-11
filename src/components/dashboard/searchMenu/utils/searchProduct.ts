@@ -25,8 +25,7 @@ export function searchProduct({
   setOpen(true);
   setTextSearch(text);
   clearTimeout(timeout);
-  console.log(text);
-
+  
   if (text == "") {
     setOpen(false);
     setOptions([]);

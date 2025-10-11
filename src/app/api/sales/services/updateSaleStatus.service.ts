@@ -7,8 +7,6 @@ import { paymentsAdapter } from "../../payments/adapters/payments.adapter";
 import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { getDebt } from "../utilities/getDebt.utility";
 
-
-
 type PrismaTransaction = Parameters<
   Parameters<typeof prisma.$transaction>[0]
 >[0];
@@ -28,6 +26,7 @@ export async function updateSaleStatus({
       include: {
         payments: true,
         list_products: true,
+        change_manager: true,
       },
     });
 
@@ -35,7 +34,15 @@ export async function updateSaleStatus({
       throw new Error("Venta no encontrada");
     }
 
-    const payments = paymentsAdapter(sale);
+    const payments = paymentsAdapter(
+      sale.payments.map((item) => ({
+        id: item.id,
+        created_at: `${item.created_at}`,
+        payment_amount: Number(item.payment_amount),
+        payment_method: item.payment_method,
+        sales_id: item.id,
+      }))
+    );
     const totalPayments = calculateTotalPayments({ dollar, payments });
     const totalPrice = Number(sale.total_price);
     const status = getSaleStatus({ totalPayments, totalPrice });

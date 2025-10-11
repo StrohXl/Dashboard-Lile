@@ -1,6 +1,6 @@
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import { calculateTotalPrice } from "@/utils";
-import { Prisma } from "@prisma/client/edge";
+import { Prisma, Sales } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
@@ -12,15 +12,20 @@ import { calculateTotalPayments, getSaleStatus } from "../utilities";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import { getDebt } from "../utilities/getDebt.utility";
 import saleBodyValidator from "../validators/bodySale.validator";
+import { ResponseService } from "@/models/response/responseService.model";
 
-export async function createSale(body: CreateSale) {
+export async function createSale(body: CreateSale): ResponseService<Sales> {
   const validatorBody = saleBodyValidator(body);
+  console.log(body);
 
   if (validatorBody instanceof ZodError) {
     console.error(validatorBody);
-    return NextResponse.json("Hubo un error en el cuerpo de la solicitud", {
-      status: 400,
-    });
+    return NextResponse.json(
+      { message: "Hubo un error en el cuerpo de la solicitud", status: 400 },
+      {
+        status: 400,
+      }
+    );
   }
 
   const dollar = (await getPyDollar()) ?? 0;
@@ -52,77 +57,88 @@ export async function createSale(body: CreateSale) {
     const listProducts = body.list_products;
 
     if (totalPayments > totalPrice && turned !== totalChanges) {
-      console.log({ turned, totalChanges });
-      return NextResponse.json("Error en el cambio entregado", { status: 400 });
+      return NextResponse.json(
+        { message: "Error en el cambio entregado", status: 400 },
+        { status: 400 }
+      );
     }
 
-    if (body.client.id == 0) {
-      await prisma.sales.create({
-        data: {
-          status,
-          debt,
-          total_price: totalPrice,
-          list_products: {
-            create: listProducts,
-          },
-          payments: {
-            create: body.payments,
-          },
-          client: {
-            create: {
-              name: body.client.name,
-              last_name: body.client.last_name,
-              ci: body.client.ci,
-            },
-          },
-          change_manager: {
-            create: body.change_manager,
-          },
-          products: {
-            connect: body.list_products.map((item) => ({ id: item.id })),
-          },
+    const sale = await prisma.sales.create({
+      data: {
+        status,
+        debt,
+        total_price: totalPrice,
+        list_products: {
+          create: listProducts.map((item) => ({
+            name: item.name,
+            stock: item.stock,
+            price: item.price,
+            unit: item.unit,
+          })),
         },
-      });
-    } else if (body.client.id !== 0) {
-      await prisma.sales.create({
-        data: {
-          status,
-          debt,
-          total_price: totalPrice,
-          list_products: {
-            create: listProducts,
-          },
-          payments: {
-            create: body.payments,
-          },
-          client: {
-            connect: { id: body.client.id },
-          },
-          change_manager: {
-            create: body.change_manager,
-          },
-          products: {
-            connect: body.list_products.map((item) => ({ id: item.id })),
-          },
+        payments: {
+          create: body.payments?.map((item) => ({
+            payment_amount: item.payment_amount,
+            payment_method: item.payment_method,
+            operation: item.operation,
+          })),
         },
-      });
-    }
-
+        client:
+          body.client.id == 0
+            ? {
+                create: {
+                  name: body.client.name,
+                  last_name: body.client.last_name,
+                  ci: body.client.ci,
+                },
+              }
+            : {
+                connect: { id: body.client.id },
+              },
+        change_manager: {
+          create: body.change_manager?.map((item) => ({
+            change_amount: item.change_amount,
+            change_method: item.change_method,
+            operation: item.operation,
+          })),
+        },
+        products: {
+          connect: body.list_products.map((item) => ({ id: item.id })),
+        },
+      },
+    });
+    
     await updateStockProducts({
       action: "decrement",
       products: body.list_products,
     });
-
-    return NextResponse.json("Venta creada");
+    return NextResponse.json({
+      message: "Venta creada",
+      status: 200,
+      data: sale,
+    });
   } catch (error) {
     console.error(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {
-        return NextResponse.json("Uno de los productos no existe", {
-          status: 404,
-        });
+        return NextResponse.json(
+          { message: "Uno de los productos no existe", status: 404 },
+          {
+            status: 404,
+          }
+        );
+      } else if (error.code === "P2002") {
+        return NextResponse.json(
+          { message: "Ya existe un Cliente con esa Cedula", status: 404 },
+          {
+            status: 404,
+          }
+        );
       }
     }
-    return NextResponse.json("Error", { status: 500 });
+    return NextResponse.json(
+      { message: "Error", status: 500 },
+      { status: 500 }
+    );
   }
 }

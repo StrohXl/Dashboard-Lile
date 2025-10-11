@@ -1,14 +1,14 @@
-
-import axios from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { toast } from "react-toastify";
 
 import { Client } from "@/models/api/client/client.model";
+import { updateData } from "@/services/put/updateData";
+import { ResponseData } from "@/models/response/responseData.model";
 
 interface ResponseAxios {
   data: {
     status: number;
-    response: { data: string };
+    response: { data: ResponseData<Client> };
     message: string;
   };
 }
@@ -27,19 +27,22 @@ export async function onSubmitClientById({
   body.ci = Number(body.ci);
 
   try {
-    await toast.promise(axios.put(`/api/clients/${id}`, body), {
-      pending: "Guardando...",
-      success: "Cliente actualizado",
-      error: {
-        render({ data }: ResponseAxios) {
-          if (data.response.data) {
-            return data.response.data;
-          } else {
-            return data.message;
-          }
+    await toast.promise(
+      updateData({ apiUrl: "/clients", id: Number(id), body }),
+      {
+        pending: "Guardando...",
+        success: "Cliente actualizado",
+        error: {
+          render({ data }: ResponseAxios) {
+            if (data.response.data) {
+              return data.response.data.message;
+            } else {
+              return data.message;
+            }
+          },
         },
-      },
-    });
+      }
+    );
     router.push("/dashboard/clients");
   } catch (error) {
     console.error(error);

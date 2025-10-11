@@ -5,7 +5,7 @@ import { CreatePayment } from "@/models/api/payment/createPayment.model";
 export const createPaymentSchema = z
   .object({
     payment_method: z.union([
-      z.literal("efectivo Bs"),
+      z.literal("efectivoBs"),
       z.literal("divisa"),
       z.literal("transferencia"),
       z.literal("biopago"),

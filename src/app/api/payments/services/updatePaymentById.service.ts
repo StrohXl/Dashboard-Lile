@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client/edge";
+import { Payments, Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
@@ -6,26 +6,28 @@ import { CreatePayment } from "@/models/api/payment/createPayment.model";
 
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
-import {
-  createPaymentValidator,
-} from "../validators/createPayment.validator";
+import { createPaymentValidator } from "../validators/createPayment.validator";
+import { ResponseService } from "@/models/response/responseService.model";
 
-export function updatePaymentById({
+export async function updatePaymentById({
   id,
   body,
 }: {
   id: number;
   body: CreatePayment;
-}) {
+}): ResponseService<Payments> {
   const bodyValidator = createPaymentValidator(body);
   if (bodyValidator instanceof ZodError) {
-    return NextResponse.json("Error en el cuerpo de la solicitud", {
-      status: 400,
-    });
+    return NextResponse.json(
+      { message: "Error en el cuerpo de la solicitud", status: 400 },
+      {
+        status: 400,
+      }
+    );
   }
 
   try {
-    prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx) => {
       // Update payment
       await tx.payments.update({
         where: {
@@ -41,10 +43,17 @@ export function updatePaymentById({
 
       await updateSaleStatus({ id: body.sales_id, tx });
     });
+    return NextResponse.json({ message: "Pagos actualizados", status: 200 });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      return NextResponse.json(error, { status: 400 });
+      return NextResponse.json(
+        { message: `${error}`, status: 400 },
+        { status: 400 }
+      );
     }
-    return NextResponse.json(error, { status: 500 });
+    return NextResponse.json(
+      { message: `${error}`, status: 400 },
+      { status: 500 }
+    );
   }
 }

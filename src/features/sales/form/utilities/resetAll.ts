@@ -23,6 +23,9 @@ export function resetAll({
       last_name: "",
       name: "",
     },
+    payments: [{ id: 0, payment_amount: 0, payment_method: "transferencia" }],
+    change_manager: [],
+    list_products: [],
   });
   setTotalPayments(0);
   setTotalChanges(0);

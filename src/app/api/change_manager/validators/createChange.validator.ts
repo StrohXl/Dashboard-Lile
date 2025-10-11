@@ -5,7 +5,7 @@ import { CreateChangeManager } from "@/models/api/change_manager";
 export const createChangeSchema = z
   .object({
     change_method: z.union([
-      z.literal("efectivo Bs"),
+      z.literal("efectivoBs"),
       z.literal("divisa"),
       z.literal("transferencia"),
     ]),

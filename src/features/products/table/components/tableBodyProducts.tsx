@@ -6,11 +6,6 @@ import { useDataContext } from "@/hooks/useContextData";
 import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 
-
-
-
-
-
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
 
 function TableBodyProducts({
@@ -29,9 +24,10 @@ function TableBodyProducts({
       {tableList.map((item: Product) => (
         <Row
           className={`${
-            !selects.includes(item.id) &&
-            item.stock <= 10 &&
-            "!bg-red-500 text-white stock-red font-medium"
+            !selects.includes(item.id) && item.unit == "kg"
+              ? item.stock <= 10000 &&
+                "!bg-red-500 text-white stock-red font-medium"
+              : item.stock < 5 && "!bg-red-500 text-white stock-red font-medium"
           }`}
           key={item.id}
           item={item}
@@ -48,13 +44,7 @@ function TableBodyProducts({
             </div>
           </Cell>
           <Cell>
-            {`${
-              item.unit == "kg"
-                ? item.stock >= 1000
-                  ? `${item.stock / 1000} kg`
-                  : `${item.stock} gr`
-                : item.stock
-            }`}
+            {`${item.unit == "kg" ? `${item.stock} Kg` : item.stock}`}
           </Cell>
           <Cell>{new Date(item.createdAT).toLocaleDateString("es-ES")}</Cell>
           <Cell>{new Date(item.updatedAT).toLocaleDateString("es-ES")}</Cell>

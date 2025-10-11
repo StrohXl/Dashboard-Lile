@@ -4,9 +4,10 @@ import { Sale } from "@/models/api/sale";
 import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Row, Cell } from "@table-library/react-table-library/table";
 
-
-
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
+import { useDataContext } from "@/hooks/useContextData";
+import getDataById from "@/services/get/byId/getDataById";
+import { toast } from "react-toastify";
 
 export default function TableBodySales({
   tableList,
@@ -17,6 +18,20 @@ export default function TableBodySales({
   pyDollar: number | undefined;
   data: Data;
 }) {
+  const { setOpenDrawer, setSale, setLoadingDrawer } = useDataContext();
+
+  const getSaleById = async (id: number) => {
+    setLoadingDrawer(true);
+    setOpenDrawer(true);
+    try {
+      const sale = await getDataById<Sale>({ apiUrl: "/sales", id });
+      setSale(sale.data);
+      setLoadingDrawer(false);
+    } catch {
+      setSale(undefined);
+      toast.error("Hubo un error");
+    }
+  };
 
   return (
     <Body>
@@ -46,7 +61,8 @@ export default function TableBodySales({
           <Cell>{Number(item.debt).toFixed(2)}$</Cell>
           <Cell pinRight>
             <ContainerActions
-              includeActions={{ delete: true, edit: true }}
+              setOpenDrawer={getSaleById}
+              includeActions={{ delete: true, edit: true, see: true }}
               data={data}
               apiUrl="/sales"
               id={item.id}

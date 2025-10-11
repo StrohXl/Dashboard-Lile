@@ -1,10 +1,12 @@
-
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { toast } from "react-toastify";
 
 import { createAddaptedBuy } from "../adapters/createAddaptedBuy";
 import { FormBuy } from "../models";
+import createData from "@/services/post/createData";
+import { ResponseData } from "@/models/response/responseData.model";
+import { Buy } from "@/models/api/buy";
 
 export const onSubmit = async ({
   body,
@@ -20,16 +22,17 @@ export const onSubmit = async ({
   setDisabled(true);
   const data = createAddaptedBuy({ body, iva });
   try {
-    await toast.promise(axios.post("/api/buys", data), {
+    await toast.promise(createData({ apiUrl: "/buys", body: data }), {
       pending: "Creando compra...",
       success: "Compra creada",
       error: {
         render: (error) => {
-          console.log(error);
-          if (error.data instanceof AxiosError) {
-            return `${error.data.response?.data}`;
+          if (error instanceof AxiosError) {
+            console.error("error");
+            const newError: ResponseData<Buy> = error.response?.data;
+            return newError.message;
           }
-          return `Error`;
+          return "Error";
         },
       },
     });

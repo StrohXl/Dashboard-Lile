@@ -179,7 +179,7 @@ export default function BodyFormBuy({
                     message: "Cantidad minima  de 1",
                   },
                 }}
-                step={unit == "kg" ? "0.1" : "1"}
+                step={unit == "kg" ? "any" : "1"}
                 error={errors.products && errors.products[index]?.stock}
               />
               <InputForm<FormBuy>

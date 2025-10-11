@@ -1,11 +1,12 @@
 "use client";
 import { FaCashRegister } from "react-icons/fa6";
-
 import "@/components/dashboard/tables/css/table.css";
 
 import { Sale } from "@/models/api/sale";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseData } from "@/models/response/responseData.model";
+
+import { Drawer } from "antd";
 
 import { useDataContext } from "@/hooks/useContextData";
 
@@ -24,6 +25,8 @@ import { onSelectChange } from "@/components/dashboard/tables/utils";
 
 import TableBodySales from "./components/tableBodySales";
 import { ThemeMaterialSales } from "./theme";
+import Invoice from "@/documents/invoice";
+import { downloadPdf } from "@/documents/utils/downloadPdf";
 
 export default function TableSales({
   data,
@@ -35,7 +38,14 @@ export default function TableSales({
   const dollar = use(pyDollar) ?? 1;
   const sales = use(data);
 
-  const { setSelects } = useDataContext();
+  const {
+    setSelects,
+    openDrawer,
+    setOpenDrawer,
+    loadingDrawer,
+    sale,
+    containerInvoice,
+  } = useDataContext();
 
   const select = useRowSelect(
     { nodes: sales.data ? sales.data.data : [] },
@@ -47,7 +57,7 @@ export default function TableSales({
     }
   );
 
-  const nodes = { nodes: sales.data };
+  const nodes = { nodes: sales.data ? sales.data.data : [] };
 
   const tableHeader = [
     "Fecha de Venta",
@@ -83,6 +93,47 @@ export default function TableSales({
           </Table>
         </div>
         <TableFooter apiUrl="/sales" data={sales} />
+        <Drawer
+          placement="right"
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          loading={loadingDrawer}
+          styles={{
+            body: { padding: loadingDrawer ? 24 : 0 },
+          }}
+          title={
+            !loadingDrawer &&
+            sale && (
+              <button
+                className="btn-primary ms-auto"
+                onClick={() =>
+                  sale &&
+                  downloadPdf({
+                    documentId: sale.id,
+                    refElement: containerInvoice,
+                  })
+                }
+              >
+                Descargar PDF
+              </button>
+            )
+          }
+        >
+          {sale ? (
+            <Invoice
+              client={sale.client}
+              dollar={dollar}
+              idDocument={sale.id}
+              products={sale.list_products}
+              totalPrice={sale.total_price}
+              containerInvoice={containerInvoice}
+              created_at={sale.created_at}
+              payments={sale.payments}
+            />
+          ) : (
+            <span>No se encontro ninguna venta</span>
+          )}
+        </Drawer>
       </>
     );
   } else {

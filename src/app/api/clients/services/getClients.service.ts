@@ -4,24 +4,30 @@ import { NextResponse } from "next/server";
 import { ParamsRequest } from "@/models";
 
 import prisma from "../../../../../libs/prisma";
+import { ResponseService } from "@/models/response/responseService.model";
+import { Clients } from "@prisma/client";
+import { ResponseGet } from "@/models/response/get/responseGet.model";
 
-export const getClients = async ({ params }: { params: ParamsRequest }) => {
+export const getClients = async ({
+  params,
+}: {
+  params: ParamsRequest;
+}): ResponseService<ResponseGet<Clients>> => {
   const { ci, name } = params;
 
   if (ci) {
-
     const clients = await prisma.clients.findMany({
-      include: {
-        sales: true,
-      },
       where: {
         ci: {
           equals: Number(ci),
         },
       },
     });
-    return NextResponse.json({ data: clients, pages: 0 });
-    
+    return NextResponse.json({
+      message: "Clientes encontrados",
+      data: { data: clients, pages: 0 },
+      status: 200,
+    });
   }
 
   const { skip, take, pages } = await getPages("/clients", params);
@@ -34,9 +40,13 @@ export const getClients = async ({ params }: { params: ParamsRequest }) => {
     },
     skip,
     take,
-    orderBy:{
-      id:'desc'
-    }
+    orderBy: {
+      id: "desc",
+    },
   });
-  return NextResponse.json({ data: clients, pages });
+  return NextResponse.json({
+    message: "Clientes econtrados",
+    status: 200,
+    data: { data: clients, pages },
+  });
 };

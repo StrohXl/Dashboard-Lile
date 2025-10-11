@@ -1,4 +1,3 @@
-
 import { CreateBuy } from "@/models/api/buy";
 
 import { FormBuy } from "../models";
@@ -13,10 +12,7 @@ export const createAddaptedBuy = ({
   const newBody: CreateBuy = { products: [] };
 
   body.products.forEach((item) => {
-    const price =
-      item.unit == "kg"
-        ? item.purchase_price
-        : item.purchase_price / item.stock;
+    const price = item.purchase_price;
     const selling_price = Number(item.selling_price);
     newBody.products.push({
       id: item.id,

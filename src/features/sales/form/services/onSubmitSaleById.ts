@@ -1,15 +1,16 @@
-
-import axios from "axios";
 import { ParamValue } from "next/dist/server/request/params";
 import { toast } from "react-toastify";
 
 import { createAddaptedSale } from "../adapters/createAddaptedSale";
 import { FormSale } from "../models";
+import { ResponseData } from "@/models/response/responseData.model";
+import { Sale } from "@/models/api/sale";
+import { updateData } from "@/services/put/updateData";
 
 interface ResponseAxios {
   data: {
     status: number;
-    response: { data: string };
+    response: { data: ResponseData<Sale> };
     message: string;
   };
 }
@@ -33,12 +34,19 @@ export const onSubmitSaleById = async ({
   try {
     setDisabled(true);
     await toast.promise(
-      axios.put(`/api/sales/${id}`, { payments: newBody.payments }),
+      updateData({
+        apiUrl: "/sales",
+        id: Number(id),
+        body: {
+          payments: newBody.payments,
+          change_manager: newBody.change_manager,
+        },
+      }),
       {
         error: {
           render({ data }: ResponseAxios) {
             if (data.response.data) {
-              return data.response.data;
+              return data.response.data.message;
             }
             return data.message;
           },

@@ -5,10 +5,10 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { UseFormReset } from "react-hook-form";
-
 
 import { FormSale, SaleSchemaHook } from "../models";
 import { getSale } from "../services/getSale";
@@ -36,6 +36,8 @@ export default function SaleHookContext({
   const [disabled, setDisabled] = useState<boolean>(false);
   const [formSteps, setFormSteps] = useState<number>(0);
   const [reload, setReload] = useState<boolean>(true);
+  const [idSale, setIdSale] = useState<number>(0);
+  const containerInvoice = useRef(null);
 
   useEffect(() => {
     if (id) {
@@ -56,6 +58,9 @@ export default function SaleHookContext({
   return (
     <UseSaleContext.Provider
       value={{
+        idSale,
+        setIdSale,
+        containerInvoice,
         disabled,
         setDisabled,
         dollar,

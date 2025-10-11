@@ -53,9 +53,7 @@ export default function ListProductBodyFormSale({
           const stock = watch(`list_products.${index}.stock`);
           const unit = watch(`list_products.${index}.unit`);
           const totalPriceProduct = Number((stock * item.price).toFixed(2));
-          const totalPriceProductKg = Number(
-            ((stock * item.price) / 1000).toFixed(2)
-          );
+          const totalPriceProductKg = Number((stock * item.price).toFixed(2));
           return (
             <div
               key={item.id}
@@ -80,28 +78,35 @@ export default function ListProductBodyFormSale({
                 </h6>
               </div>
 
-              <input
-                type="number"
-                {...register(`list_products.${index}.stock`, {
-                  required: {
-                    value: true,
-                    message: "Este campo  es  requerido",
-                  },
-                  min: {
-                    value: 1,
-                    message: "Valor minimo es de 1",
-                  },
-                  onChange: () => changeStock({ getValues, setTotalPrice }),
-                })}
-                className={`outline-none ${
-                  errors.list_products &&
-                  errors.list_products[index]?.stock &&
-                  "!border-1 !border-red-500"
-                }`}
-              />
+              <div className="grid grid-cols-[1fr_auto] items-center gap-1">
+                <input
+                  type="number"
+                  {...register(`list_products.${index}.stock`, {
+                    required: {
+                      value: true,
+                      message: "Este campo  es  requerido",
+                    },
+                    min: {
+                      value: unit == "kg" ? 0 : 1,
+                      message: `Valor minimo es de ${unit == "kg" ? "0" : 1}`,
+                    },
+                    onChange: () => changeStock({ getValues, setTotalPrice }),
+                  })}
+                  step={unit == "kg" ? "any" : "1"}
+                  className={`outline-none w-full ${
+                    errors.list_products &&
+                    errors.list_products[index]?.stock &&
+                    "!border-1 !border-red-500"
+                  }`}
+                />
+                {unit == "kg" && <span>Kg</span>}
+              </div>
               <div className="grid grid-cols-[45%_55%]">
                 <h6 className="font-roboto text-gray-700 font-semibold">
-                  {unit == "unit" ? totalPriceProduct.toFixed(2) : totalPriceProductKg.toFixed(2)}$
+                  {unit == "unit"
+                    ? totalPriceProduct.toFixed(2)
+                    : totalPriceProductKg.toFixed(2)}
+                  $
                 </h6>
                 <h6 className="font-roboto border-s-1 text-end border-gray-700 text-gray-700 font-semibold">
                   {unit == "unit"

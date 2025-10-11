@@ -20,6 +20,6 @@ export function prependPayment({
   prepend({
     id: 0,
     payment_amount: amount,
-    payment_method: "efectivo Bs",
+    payment_method: "transferencia",
   });
 }

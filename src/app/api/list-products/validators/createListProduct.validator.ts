@@ -6,14 +6,12 @@ import { createProductSchema } from "../../products/validators/product.validator
 
 export const createListProductSchema = z
   .array(
-    createProductSchema
-      .extend({
-        id: z.number(),
-      })
-      .omit({ iva: true })
+    createProductSchema.omit({ iva: true }).extend({
+      id: z.number(),
+      iva: z.boolean().optional(),
+    })
   )
   .nonempty();
-
 
 export default function createListProductValidator(
   body: CreateListProduct

@@ -6,7 +6,6 @@ import {
 } from "react-hook-form";
 import { toast } from "react-toastify";
 
-
 import { FormSale } from "../models";
 
 export async function validatedStep1({
@@ -32,8 +31,9 @@ export async function validatedStep1({
 }) {
   const listProducts = getValues("list_products");
   const listProductValidate = await trigger("list_products");
+  const payments = await getValues("payments");
   if (listProducts.length != 0 && listProductValidate) {
-    if (!id) {
+    if (!id && payments.length == 1) {
       setValue(
         `payments.0.payment_amount`,
         Number((totalPrice * dollar).toFixed(2))
@@ -42,8 +42,7 @@ export async function validatedStep1({
     }
 
     setFormSteps(formSteps + 1);
-  }
-  else if(listProducts.length == 0){
-    toast.error('Agregue un producto');
+  } else if (listProducts.length == 0) {
+    toast.error("Agregue un producto");
   }
 }

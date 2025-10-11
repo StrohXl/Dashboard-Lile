@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { ApiUrl } from "@/models";
 import { ResponseData } from "@/models/response/responseData.model";
@@ -18,6 +18,9 @@ export default async function createData<CreateData, Data>({
     return data;
   } catch (error) {
     console.error(error);
-    return { message: "Error", status: 400 };
+    if (error instanceof AxiosError) {
+      throw error;
+    }
+    throw error;
   }
 }

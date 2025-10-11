@@ -33,7 +33,7 @@ export default function TablePayments({
 
   const { setSelects } = useDataContext();
 
-  const nodes = { nodes: payments.data };
+  const nodes = { nodes: payments.data ? payments.data.data : [] };
 
   const select = useRowSelect(
     { nodes: payments.data ? payments.data.data : [] },

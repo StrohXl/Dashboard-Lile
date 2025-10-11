@@ -23,7 +23,7 @@ export default function onChangeSelect({
   index: number;
   totalPrice: number;
   dollar: number;
-  value: "divisa" | "transferencia" | "efectivo Bs";
+  value: "divisa" | "transferencia" | "efectivoBs";
   setTotalPayments: (value: number) => void;
   setTotalChanges: (value: number) => void;
 }) {

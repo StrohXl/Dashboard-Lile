@@ -17,7 +17,6 @@ import { updateTotalChanges, updateTotalPayments } from "../utils";
 import onChangeSelect from "../utils/onChangeSelect";
 import ContainerActions from "./containerActions";
 
-
 export default function ListBody({
   errors,
   getValues,
@@ -43,7 +42,8 @@ export default function ListBody({
 
   const errorPayments = errors.payments && errors.payments[index];
   const errorChanges = errors.change_manager && errors.change_manager[index];
-
+  const paymentMethod = watch(`payments.${index}.payment_method`);
+  const changeMethod = watch(`change_manager.${index}.change_method`);
   const { dollar, setTotalPayments, setTotalChanges, totalPrice } =
     useContextSale();
 
@@ -52,13 +52,13 @@ export default function ListBody({
       ? [
           { title: "Transferencia", value: "transferencia" },
           { title: "Divisa", value: "divisa" },
-          { title: "Efectivo Bs", value: "efectivo Bs" },
+          { title: "Efectivo Bs", value: "efectivoBs" },
           { title: "Biopago", value: "biopago" },
         ]
       : [
           { title: "Transferencia", value: "transferencia" },
           { title: "Divisa", value: "divisa" },
-          { title: "Efectivo Bs", value: "efectivo Bs" },
+          { title: "Efectivo Bs", value: "efectivoBs" },
         ];
 
   return (
@@ -79,7 +79,15 @@ export default function ListBody({
         }
         selectOptions={selectOptions}
         options={{
-          onChange: (event) =>
+          onChange: (event) => {
+            if (event.target.value != "transferencia" && option == "payments") {
+              setValue(`payments.${index}.operation`, Number(`0000`));
+            } else if (
+              event.target.value != "transferencia" &&
+              option == "changes"
+            ) {
+              setValue(`change_manager.${index}.operation`, undefined);
+            }
             onChangeSelect({
               dollar,
               getValues,
@@ -90,7 +98,8 @@ export default function ListBody({
               totalPrice,
               value: event.target.value,
               setTotalChanges,
-            }),
+            });
+          },
         }}
       />
 
@@ -101,7 +110,7 @@ export default function ListBody({
             : `change_manager.${index}.change_amount`
         }
         register={register}
-        type={'number'}
+        type={"number"}
         error={
           option == "payments"
             ? errorPayments?.payment_amount
@@ -115,6 +124,10 @@ export default function ListBody({
           min: {
             value: 0,
             message: "",
+          },
+          pattern: {
+            value: /\d+/,
+            message: "Solo numeros",
           },
           onChange: () => {
             if (option == "payments") {
@@ -141,32 +154,36 @@ export default function ListBody({
         register={register}
         type={
           option == "payments"
-            ? watch(`payments.${index}.payment_method`) == "transferencia"
+            ? paymentMethod == "transferencia"
               ? "number"
               : "hidden"
-            : watch(`change_manager.${index}.change_method`) == "transferencia"
-            ? "number"
-            : "hidden"
+            : changeMethod == "transferencia"
+              ? "number"
+              : "hidden"
         }
         error={
           option == "payments"
             ? errorPayments?.operation
             : errorChanges?.operation
         }
-        options={{
-          required: {
-            message: "requerido",
-            value: true,
-          },
-          minLength: {
-            value: 4,
-            message: "minimo 4",
-          },
-          maxLength: {
-            value: 4,
-            message: "maximo 4",
-          },
-        }}
+        options={
+          paymentMethod == "transferencia"
+            ? {
+                required: {
+                  message: "requerido",
+                  value: true,
+                },
+                minLength: {
+                  value: 4,
+                  message: "minimo 4",
+                },
+                pattern: {
+                  value: /\d+/,
+                  message: "Solo numeros",
+                },
+              }
+            : undefined
+        }
         messageError={false}
       />
 

@@ -1,4 +1,5 @@
 import { Product } from "@/models/api/product";
+import { User } from "../user/user.model";
 
 export interface Buy  {
   id: number;
@@ -8,4 +9,5 @@ export interface Buy  {
   createdAT: string;
   updatedAT: string;
   userId: number;
+  User: User
 }

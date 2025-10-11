@@ -1,21 +1,9 @@
-import { UpdateChangeManager } from "@/models/api/change_manager";
-import { CreateListProduct } from "@/models/api/list_products";
-import { CreatePaymentOfSale } from "@/models/api/sale";
+import { CreateSale } from "@/models/api/sale";
 
 import { FormSale } from "../models";
 
 export const createAddaptedSale = (body: FormSale) => {
-  const newBody: {
-    client: {
-      id: number;
-      ci: number;
-      name: string;
-      last_name: string;
-    };
-    list_products: CreateListProduct;
-    payments: CreatePaymentOfSale[];
-    change_manager: UpdateChangeManager[];
-  } = {
+  const newBody: CreateSale = {
     client: {
       id: Number(body.client.id),
       ci: Number(body.client.ci),
@@ -37,24 +25,30 @@ export const createAddaptedSale = (body: FormSale) => {
   });
 
   if (body.change_manager) {
-    body.change_manager.forEach((item) => {
-      newBody.change_manager.push({
-        id: Number(item.id),
-        change_amount: Number(item.change_amount),
-        change_method: item.change_method,
-        operation:
-          item.change_method == "transferencia" ? Number(item.operation) : 0,
-      });
+    body.change_manager.forEach((item, index) => {
+      if (newBody.change_manager) {
+        newBody.change_manager.push({
+          id: Number(item.id),
+          change_amount: Number(item.change_amount),
+          change_method: item.change_method,
+        });
+        if (item.change_method == "transferencia") {
+          newBody.change_manager[index].operation = Number(item.operation);
+        }
+      }
     });
   }
-  body.payments.forEach((item) => {
-    newBody.payments.push({
-      id: Number(item.id),
-      payment_amount: Number(item.payment_amount),
-      payment_method: item.payment_method,
-      operation:
-        item.payment_method == "transferencia" ? Number(item.operation) : 0,
-    });
+  body.payments.forEach((item, index) => {
+    if (newBody.payments) {
+      newBody.payments.push({
+        id: Number(item.id),
+        payment_amount: Number(item.payment_amount),
+        payment_method: item.payment_method,
+      });
+      if (item.payment_method == "transferencia") {
+        newBody.payments[index].operation = Number(item.operation);
+      }
+    }
   });
 
   return newBody;

@@ -13,9 +13,15 @@ export const createSaleSchema = z
       id: z.number().min(0),
     }),
     list_products: createListProductSchema,
-    payments: z.array(createPaymentSchema.omit({ sales_id: true })).optional(),
+    payments: z
+      .array(
+        createPaymentSchema.omit({ sales_id: true }).extend({ id: z.number() })
+      )
+      .optional(),
     change_manager: z
-      .array(createChangeSchema.omit({ sale_id: true }))
+      .array(
+        createChangeSchema.omit({ sale_id: true }).extend({ id: z.number() })
+      )
       .optional(),
   })
   .strict();

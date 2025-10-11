@@ -31,7 +31,8 @@ export default function TableClients({
 }) {
   const { setSelects } = useDataContext();
   const clients = use(data);
-  const nodes = { nodes: clients.data };
+  console.log(clients);
+  const nodes = { nodes: clients.data ? clients.data.data : [] };
   const theme = ClientTheme();
   const select = useRowSelect(
     { nodes: clients.data ? clients.data.data : [] },

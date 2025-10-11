@@ -1,15 +1,20 @@
-import axios from "axios";
 import { UseFormReset } from "react-hook-form";
 import { toast } from "react-toastify";
-
 
 import { createAddaptedSale } from "../adapters/createAddaptedSale";
 import { FormSale } from "../models";
 import { resetAll } from "../utilities/resetAll";
+import createData from "@/services/post/createData";
+import { ResponseData } from "@/models/response/responseData.model";
+import { Sale } from "@/models/api/sale";
+/*
+import { downloadPdf } from "@/documents/utils/downloadPdf";
+*/
+import { RefObject } from "react";
 interface ResponseAxios {
   data: {
     status: number;
-    response: { data: string };
+    response: { data: ResponseData<Sale> };
     message: string;
   };
 }
@@ -21,6 +26,7 @@ export const onSubmitSale = async ({
   setTotalChanges,
   setTotalPayments,
   setTotalPrice,
+  setIdSale,
 }: {
   body: FormSale;
   setDisabled: (value: boolean) => void;
@@ -29,31 +35,48 @@ export const onSubmitSale = async ({
   setTotalPrice: (value: number) => void;
   setTotalPayments: (value: number) => void;
   setTotalChanges: (value: number) => void;
+  setIdSale: (value: number) => void;
+  document: RefObject<null>;
 }) => {
   const newBody = createAddaptedSale(body);
   try {
     setDisabled(true);
-    await toast.promise(axios.post("/api/sales", newBody), {
-      error: {
-        render({ data }: ResponseAxios) {
-          if (data.response.data) {
-            return data.response.data;
-          }
-          return data.message;
+    const toastify: ResponseData<Sale> = await toast.promise(
+      createData({ apiUrl: "/sales", body: newBody }),
+      {
+        error: {
+          render({ data }: ResponseAxios) {
+            if (data.response.data) {
+              return data.response.data.message;
+            }
+            return data.message;
+          },
         },
-      },
-      pending: "Guardando....",
-      success: "Venta concretada",
-    });
-    resetAll({
-      reset,
-      setFormSteps,
-      setTotalChanges,
-      setTotalPayments,
-      setTotalPrice,
-    });
+        pending: "Guardando....",
+        success: "Venta concretada",
+      }
+    );
+    if (toastify.data) {
+      setIdSale(toastify.data.id);
+      setTimeout(async () => {
+        /*
+        await downloadPdf({
+          documentId: toastify.data ? toastify.data.id : 0,
+          refElement: document,
+        });
+        */
 
-    setDisabled(false);
+        resetAll({
+          reset,
+          setFormSteps,
+          setTotalChanges,
+          setTotalPayments,
+          setTotalPrice,
+        });
+        setIdSale(0);
+        setDisabled(false);
+      }, 300);
+    }
   } catch (error) {
     console.error(error);
     setDisabled(false);
