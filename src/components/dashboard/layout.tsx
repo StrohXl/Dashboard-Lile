@@ -3,7 +3,6 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
 
-
 import SideBarNav from "@/components/dashboard/sideBar";
 import { sideBarMenu } from "@/components/dashboard/sideBar/data/sideBarMenu";
 
@@ -17,8 +16,13 @@ export default function LayoutDashboard({
   const pathname = usePathname();
   const [open, setOpen] = useState<boolean>(openSideBar);
   const [showLogo, setShowLogo] = useState<boolean>(openSideBar);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
   return (
-    <div className="flex p-6 gap-6 flex-col md:flex-row min-h-dvh">
+    <main
+      data-theme={theme}
+      className="flex p-6 gap-6 flex-col md:flex-row min-h-dvh bg-light dark:bg-dark"
+    >
       <div
         className={`w-full h-auto transition-all duration-300 ${
           open ? "md:w-64" : "md:w-[70px]"
@@ -47,7 +51,7 @@ export default function LayoutDashboard({
             return (
               <h2
                 key={index}
-                className="text-5xl font-semibold mb-10 text-gray-800 font-open_sans"
+                className="text-5xl font-semibold mb-10 text-gray-800 dark:text-white font-open_sans"
               >
                 {item.title}
               </h2>
@@ -57,6 +61,6 @@ export default function LayoutDashboard({
         {children}
         <Tooltip id="my-tooltip" />
       </div>
-    </div>
+    </main>
   );
 }

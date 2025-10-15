@@ -20,44 +20,43 @@ export default function InputForm<T extends FieldValues>({
   labelTheLast,
   messageError = true,
 }: InputFormType<T>) {
-
-    return (
-      <label
-        className={`font-roboto  ${error ? "text-red-500" : "text-gray-700"}`}
+  return (
+    <label
+      className={`font-roboto  ${error ? "text-red-500" : "text-gray-700 dark:text-white"}`}
+    >
+      {label && (
+        <span className="flex mb-2  items-center gap-2">
+          {label}:{labelTheLast}
+        </span>
+      )}
+      <div
+        className={`${type !== "hidden" && "border-1"}
+                   ${error ? "!border-red-500" : "border-gray-400 dark:border-border-light"}
+                   ${disabled && "opacity-50 cursor-not-allowed"}
+                  focus-within:border-primary flex items-center bg-gray-50 dark:bg-gray-800/80 px-3 py-3 gap-2 text-foreground dark:text-white   w-full rounded-lg `}
       >
-        {label && (
-          <span className="flex mb-2  items-center gap-2">
-            {label}:{labelTheLast}
+        {iconStart && (
+          <span className={`text-gray-700 dark:text-white ${error && "text-red-500"}`}>
+            {iconStart}
           </span>
         )}
-        <div
-          className={`${type  !== 'hidden' && 'border-1'}
-                   ${error ? "!border-red-500" : "border-gray-700"}
-                   ${disabled && "opacity-50 cursor-not-allowed"}
-                  focus-within:border-primary flex items-center px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
-        >
-          {iconStart && (
-            <span className={`text-gray-700 ${error && "text-red-500"}`}>
-              {iconStart}
-            </span>
-          )}
-          <input
-            disabled={disabled}
-            className="w-full bg-transparent autofill:bg-transparent outline-none"
-            autoComplete="off"
-            type={type}
-            step={step}
-            defaultValue={defaultValue}
-            placeholder={placeholder}
-            {...register(nameField, options)}
-          />
-          {iconEnd && (
-            <span className={`text-gray-700 ${error && "text-red-500"}`}>
-              {iconEnd}
-            </span>
-          )}
-        </div>
-        {messageError && <MessageError error={error} />}
-      </label>
-    );
+        <input
+          disabled={disabled}
+          className="w-full bg-transparent autofill:bg-transparent outline-none"
+          autoComplete="off"
+          type={type}
+          step={step}
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          {...register(nameField, options)}
+        />
+        {iconEnd && (
+          <span className={`text-gray-700 dark:text-white ${error && "text-red-500"}`}>
+            {iconEnd}
+          </span>
+        )}
+      </div>
+      {messageError && <MessageError error={error} />}
+    </label>
+  );
 }

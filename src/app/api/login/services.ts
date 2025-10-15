@@ -24,15 +24,21 @@ export async function loginUser(body: TypeUser) {
     });
 
     if (!findUser) {
-      return NextResponse.json("Usuario o contraseña incorrectos", {
-        status: 404,
-      });
+      return NextResponse.json(
+        { message: "Usuario o contraseña incorrectos" },
+        {
+          status: 404,
+        }
+      );
     } else {
       const verifyPassword = await bcrypt.compare(password, findUser?.password);
       if (!verifyPassword) {
-        return NextResponse.json("Usuario o contraseña incorrectos", {
-          status: 404,
-        });
+        return NextResponse.json(
+          { message: "Usuario o contraseña incorrectos" },
+          {
+            status: 404,
+          }
+        );
       }
       const key = process.env.JWT_KEY;
       const token = jwt.sign(

@@ -3,7 +3,7 @@ import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseData } from "@/models/response/responseData.model";
 
 import DeleteSelects from "./deleteSelects";
-import Pagination from "./pagination";
+import Pagination from "./pagination/pagination";
 
 
 export default function TableFooter<T>({

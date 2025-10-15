@@ -1,13 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #eaeaead9;
-  --foreground: #171717;
-  --color-primary: #be4499;
-  --color-primary-dark: #a4327e;
-  --color-primary-ligth: #ecb5e1;
-  --heigth-dynamic: calc(100dvh - 48px);
-}
 #my-tooltip {
   z-index: 100;
   background: var(--color-primary) !important;
@@ -21,19 +13,6 @@
 .td,
 .th {
   padding: 10px 16px !important;
-}
-
-@theme inline {
-  --heigth-dynamic: var(--heigth-dynamic);
-  --color-primary: var(--color-primary);
-  --color-primary-dark: var(--color-primary-dark);
-  --color-primary-ligth: var(--color-primary-ligth);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-roboto: var(--font-roboto);
-  --font-open_sans: var(--font-open_sans);
-  --width-sidebar-open: calc(100% - 256px - 24px);
-  --width-sidebar-close: calc(100% - 70px - 24px);
 }
 
 .btn-primary {
@@ -56,6 +35,7 @@
     cursor: pointer;
   }
 }
+
 .btn-outlined-primary {
   width: fit-content;
   padding: 7px 20px;
@@ -75,17 +55,51 @@
     color: white;
   }
 }
+
 .container-table-scroll {
   scrollbar-width: thin;
 }
+
 .container-table {
   background: #fff;
   padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 20px;
 }
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+:root {
+  --color-primary: #be4499;
+  --color-primary-dark: #a4327e;
+  --color-primary-ligth: #ecb5e1;
+  --color-light: #eaeaead9;
+  --border-light: #e2e8f0;
+  --border-dark: #4a5568;
+  --heigth-dynamic: calc(100dvh - 48px);
+  --color-dark: #1a202c;
+}
+
+@theme inline {
+  --heigth-dynamic: var(--heigth-dynamic);
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-ligth: var(--color-primary-ligth);
+  --color-dark: var(--color-dark);
+  --color-background: var(--color-light);
+  --color-foreground: var(--color-dark);
+  --color-border-dark: var(--border-dark);
+  --color-border-light: var(--border-light);
+  --color-light: var(--color-light);
+  --color-dark: var(--color-dark);
+  --font-roboto: var(--font-roboto);
+  --font-open_sans: var(--font-open_sans);
+  --width-sidebar-open: calc(100% - 256px - 24px);
+  --width-sidebar-close: calc(100% - 70px - 24px);
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

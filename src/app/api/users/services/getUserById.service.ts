@@ -1,14 +1,8 @@
-import { Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
+import prisma from "../../../../../libs/prisma";
+import { Prisma } from "@prisma/client/edge";
 
-import prisma from "../../../../libs/prisma";
-
-export async function getUser() {
-  const users = await prisma.user.findMany({ omit: { password: true } });
-  return NextResponse.json(users);
-}
-
-export async function getUserId(id: number) {
+export async function getUserById(id: number) {
   try {
     const userId = await prisma.user.findUnique({ where: { id } });
     if (!userId) {

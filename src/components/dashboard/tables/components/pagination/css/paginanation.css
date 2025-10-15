@@ -1,0 +1,11 @@
+.ant-pagination {
+  li {
+    border: 0 !important;
+  }
+
+  .ant-pagination-item-active .container-page{
+    border-color: var(--color-primary) !important;
+    background: var(--color-primary)  !important;
+    color: #fff !important;
+  }
+}

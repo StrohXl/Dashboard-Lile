@@ -5,4 +5,6 @@ export type ApiUrl =
   | "/sales"
   | "/payments"
   | "/change_manager"
+  | "/users"
+  | "/login"
   | "/history_price";

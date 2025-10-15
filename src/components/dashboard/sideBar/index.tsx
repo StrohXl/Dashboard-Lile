@@ -25,11 +25,11 @@ const SideBarNav = ({
   const links = pathname.split("/");
 
   return (
-    <div className="bg-white p-3 h-full rounded-2xl hidden md:block">
+    <div className="bg-white dark:bg-gray-700 p-3 h-full rounded-2xl hidden md:block">
       <div className="logo  h-10 flex items-center justify-between gap-3 mt-6 px-2">
         {showLogo && (
           <>
-            <span className="flex gap-2 items-center absolute  font-roboto text-3xl text-gray-800 font-semibold">
+            <span className="flex gap-2 items-center absolute  font-roboto text-3xl text-gray-800 dark:text-white font-semibold">
               <BsPcDisplayHorizontal size={40} />
               Lile
             </span>
@@ -38,7 +38,7 @@ const SideBarNav = ({
 
         <button
           onClick={() => openSideBar({ setOpen, open, setShowLogo, showLogo })}
-          className="close-sidebar border-2 relative  ms-auto border-gray-700 text-gray-700 transition-colors duration-300 hover:text-primary hover:border-primary cursor-pointer h-[30px] w-[30px] flex justify-center items-center rounded-full"
+          className="close-sidebar border-2 relative  ms-auto border-gray-700 text-gray-700 dark:text-white dark:border-border-dark transition-colors duration-300 hover:text-primary hover:border-primary cursor-pointer h-[30px] w-[30px] flex justify-center items-center rounded-full"
         >
           <FaChevronLeft
             size={13}
@@ -56,13 +56,13 @@ const SideBarNav = ({
               <li key={index}>
                 <Link
                   onClick={() => closeSideBar({ setOpen, setShowLogo })}
-                  className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 hover:text-primary-ligth text-gray-400 text-lg ${
+                  className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 hover:text-gray-700 text-gray-400 dark:hover:text-gray-200 text-lg ${
                     links.length >= 3
                       ? item.link.includes(links[2])
-                        ? "!text-primary"
+                        ? "!text-primary  dark:!text-white"
                         : ""
                       : pathname == item.link
-                      ? "!text-primary"
+                      ? "!text-primary  dark:!text-white"
                       : ""
                   }`}
                   href={item.link}
@@ -73,13 +73,13 @@ const SideBarNav = ({
               </li>
             );
           })}
-          <hr className="my-3 mx-3 text-gray-500" />
+          <hr className="my-3 mx-3 text-gray-500 dark:text-gray-400" />
           {sideBarMenuSecond.map((item, index) => {
             const Icon = item.icon;
             return (
               <li key={index}>
                 <span
-                  className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 cursor-pointer hover:text-primary-ligth text-gray-600 text-lg `}
+                  className={`font-open_sans flex items-center gap-4 w-full  font-medium px-2 rounded-md transition-colors duration-300 cursor-pointer hover:text-gray-700 text-gray-400 dark:hover:text-gray-200  text-lg `}
                   onClick={() => item.link === "/" && logoutUser()}
                 >
                   <Icon size={30} />

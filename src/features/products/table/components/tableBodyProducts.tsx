@@ -19,16 +19,17 @@ function TableBodyProducts({
 }) {
   const { selects } = useDataContext();
 
+  const bgRed = "!bg-red-500 text-white stock-red font-medium";
+
   return (
     <Body>
       {tableList.map((item: Product) => (
         <Row
           className={`${
             !selects.includes(item.id) && item.unit == "kg"
-              ? item.stock <= 10000 &&
-                "!bg-red-500 text-white stock-red font-medium"
-              : item.stock < 5 && "!bg-red-500 text-white stock-red font-medium"
-          }`}
+              ? item.stock <= 10000 && bgRed
+              : item.stock < 5 && bgRed
+          } dark:!bg-gray-700 dark:!text-white` }
           key={item.id}
           item={item}
         >
@@ -48,7 +49,10 @@ function TableBodyProducts({
           </Cell>
           <Cell>{new Date(item.createdAT).toLocaleDateString("es-ES")}</Cell>
           <Cell>{new Date(item.updatedAT).toLocaleDateString("es-ES")}</Cell>
-          <Cell pinRight>
+          <Cell
+            pinRight
+            className="right-0 border-l-1 border-[#f0f0f0] dark:!border-gray-400 "
+          >
             <ContainerActions
               item={item}
               includeActions={{ delete: true, edit: true }}

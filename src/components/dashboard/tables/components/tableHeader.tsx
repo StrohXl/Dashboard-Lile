@@ -1,4 +1,3 @@
-
 import { ReactNode } from "react";
 
 import { HeaderCellSelect } from "@table-library/react-table-library/select";
@@ -19,13 +18,16 @@ export default function TableHeader({
 }) {
   return (
     <Header>
-      <HeaderRow>
+      <HeaderRow className="!bg-white dark:!bg-gray-700">
         {select == true && <HeaderCellSelect />}
         {options?.map((item, index) => (
           <HeaderCell key={index}>{item}</HeaderCell>
         ))}
         {actions == true && (
-          <HeaderCell pinRight>
+          <HeaderCell
+            pinRight
+            className={`border-l-1 border-[#f0f0f0] dark:!border-gray-400 right-0`}
+          >
             <div className="text-center">Acciones</div>
           </HeaderCell>
         )}
