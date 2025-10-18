@@ -22,7 +22,7 @@ export async function confirmEmail({ body }: { body: SendEmail }) {
     },
   };
   const emailData = {
-    from: "xavier_dashboard@carhood.com",
+    from: "dashboardlile@gmail.com",
     to: body.email,
     subject: "Confirmar correo",
     html: ConfirmToken(token),
