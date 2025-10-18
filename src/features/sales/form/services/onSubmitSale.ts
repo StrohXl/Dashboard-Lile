@@ -1,4 +1,5 @@
 import createData from "@/services/post/createData";
+import { UseFormReset } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { Sale } from "@/models/api/sale";
@@ -7,7 +8,6 @@ import { ResponseData } from "@/models/response/responseData.model";
 import { createAddaptedSale } from "../adapters/createAddaptedSale";
 import { FormSale, SaleSchemaHook } from "../models";
 import { resetAll } from "../utilities/resetAll";
-import { UseFormReset } from "react-hook-form";
 
 /*
 import { downloadPdf } from "@/documents/utils/downloadPdf";

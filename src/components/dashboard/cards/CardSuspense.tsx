@@ -1,5 +1,6 @@
-import { ResponseData } from "@/models/response/responseData.model";
 import { ReactNode, use } from "react";
+
+import { ResponseData } from "@/models/response/responseData.model";
 
 export default function CardSuspense({
   title,

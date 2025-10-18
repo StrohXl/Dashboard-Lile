@@ -2,9 +2,9 @@ import { Clients, Prisma } from "@prisma/client/edge";
 import { NextResponse } from "next/server";
 
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
-import { Token } from "@/models/token";
 
 export const getClientById = async ({
   id,

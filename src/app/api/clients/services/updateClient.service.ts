@@ -4,10 +4,10 @@ import { ZodError } from "zod";
 
 import { UpdateClient } from "@/models/api/client";
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
 import updateClientValidator from "../validators/updateClient.validator";
-import { Token } from "@/models/token";
 
 export async function updateClient({
   id,

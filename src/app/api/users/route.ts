@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+
 import { getUsers } from "./services";
 import { createUser } from "./services/createUser.service";
 

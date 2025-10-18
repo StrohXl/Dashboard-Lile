@@ -1,8 +1,9 @@
 import { tokenValidator } from "@/app/validators/token.validator";
+import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import { NextRequest, NextResponse } from "next/server";
+
 import prisma from "../../../../../libs/prisma";
 import { calculateTotalPayments } from "../../sales/utilities";
-import getPyDollar from "@/fetch/pydolar/getPyDolar";
 
 export async function GET(request: NextRequest) {
   const token = await tokenValidator(request);

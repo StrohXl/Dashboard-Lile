@@ -1,7 +1,7 @@
+import { cookies } from "next/headers";
 import Image from "next/image";
 
 import FormLogin from "@/features/login/forms/formLogin";
-import { cookies } from "next/headers";
 
 export default async function Home() {
   const cookieStore = await cookies();

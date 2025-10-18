@@ -4,10 +4,10 @@ import { ZodError } from "zod";
 
 import { CreateProduct } from "@/models/api/product";
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
 import productValidator from "../validators/product.validator";
-import { Token } from "@/models/token";
 
 export async function createProduct(
   body: CreateProduct,

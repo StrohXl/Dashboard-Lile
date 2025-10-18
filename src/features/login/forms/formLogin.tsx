@@ -1,5 +1,6 @@
 "use client";
 import TypeUser from "@/app/api/users/type/typeUser";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -7,7 +8,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { TbLock } from "react-icons/tb";
 
 import InputForm from "@/components/dashboard/form/inputForm";
-import Link from "next/link";
+
 import { onSubmitLogin } from "../services/onSubmitLogin.service";
 
 export default function FormLogin() {

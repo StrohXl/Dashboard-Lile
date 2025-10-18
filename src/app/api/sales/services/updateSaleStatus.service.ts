@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 import prisma from "../../../../../libs/prisma";
 import { paymentsAdapter } from "../../payments/adapters/payments.adapter";
 import { calculateTotalPayments } from "../utilities";
-import { getDebt } from "../utilities/getDebt.utility";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
+import { getDebt } from "../utilities/getDebt.utility";
 
 type PrismaTransaction = Parameters<
   Parameters<typeof prisma.$transaction>[0]

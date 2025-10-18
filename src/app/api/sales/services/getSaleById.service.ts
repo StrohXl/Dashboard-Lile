@@ -2,9 +2,9 @@ import { Sales } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
-import { Token } from "@/models/token";
 
 export async function getSaleById({
   id,

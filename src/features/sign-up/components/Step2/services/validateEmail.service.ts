@@ -1,7 +1,8 @@
-import { FormSignUpModel } from "@/features/sign-up/models/formSignUp.model";
 import axios from "axios";
 import { UseFormGetValues } from "react-hook-form";
 import { toast } from "react-toastify";
+
+import { FormSignUpModel } from "@/features/sign-up/models/formSignUp.model";
 
 export async function validateEmail({
   setLoading,

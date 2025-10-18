@@ -1,8 +1,8 @@
 import { UseFormReturn } from "react-hook-form";
 
-import ListPayments from "./features/listPayments";
-import ListChanges from "./features/listChanges";
 import { FormSale } from "../../models";
+import ListChanges from "./features/listChanges";
+import ListPayments from "./features/listPayments";
 
 export default function ListPaymentsAndChanges({
   useFormSale,

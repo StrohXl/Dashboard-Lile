@@ -1,8 +1,9 @@
+import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+
+import prisma from "../../../../../libs/prisma";
 import { ValidateUserModel } from "../model/validateUser.model";
 import { validateUserValidator } from "../validators/validateUser.validator";
-import { NextResponse } from "next/server";
-import prisma from "../../../../../libs/prisma";
 
 export async function validateUser(body: ValidateUserModel) {
   const validateBody = validateUserValidator(body);

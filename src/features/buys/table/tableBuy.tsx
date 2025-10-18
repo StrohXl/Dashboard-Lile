@@ -17,6 +17,7 @@ import {
 } from "@table-library/react-table-library/select";
 import { Table } from "@table-library/react-table-library/table";
 
+import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
@@ -29,7 +30,6 @@ import { ThemeMaterialBuy } from "./theme";
 
 import { Drawer } from "antd";
 import { IoClose } from "react-icons/io5";
-import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 
 export default function TableBuy({
   data,

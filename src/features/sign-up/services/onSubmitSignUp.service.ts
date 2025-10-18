@@ -1,9 +1,11 @@
 "use server";
 
-import { CreateUser } from "@/models/api/user/createUser.model";
-import { FormSignUpModel } from "../models/formSignUp.model";
-import bcrypt from "bcrypt";
 import createData from "@/services/post/createData";
+import bcrypt from "bcrypt";
+
+import { CreateUser } from "@/models/api/user/createUser.model";
+
+import { FormSignUpModel } from "../models/formSignUp.model";
 
 export async function onSubmitSignUp({
   salt,

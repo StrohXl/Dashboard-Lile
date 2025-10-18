@@ -1,7 +1,9 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import InputToken from "../../InputToken";
-import { FormSignUpModel } from "@/features/sign-up/models/formSignUp.model";
 import { ChangeEvent, ClipboardEvent } from "react";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
+
+import { FormSignUpModel } from "@/features/sign-up/models/formSignUp.model";
+
+import InputToken from "../../InputToken";
 import { DataFields } from "../models/dataFields.model";
 
 export default function RepeatInputToken({

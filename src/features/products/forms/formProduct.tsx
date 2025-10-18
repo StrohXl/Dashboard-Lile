@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { MdHistory } from "react-icons/md";
 
+import Container from "@/components/dashboard/Container";
 import SkeletonHistory from "@/components/dashboard/skeleton/skeletonHistory";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 
@@ -16,7 +17,6 @@ import { HookHistory } from "./hooks/hookHistory.hook";
 import type { FormProduct } from "./models/form-product.model";
 import { getHistory } from "./services/getHistory.service";
 import { onSubmit } from "./services/on-submit-product.service";
-import Container from "@/components/dashboard/Container";
 
 export default function FormProduct({
   pyDollar,

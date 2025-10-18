@@ -1,7 +1,8 @@
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 
-import FormProduct from "@/features/products/forms/formProduct";
 import LinkArrowLeft from "@/components/dashboard/LinkArrowLeft";
+
+import FormProduct from "@/features/products/forms/formProduct";
 export default function ProductId() {
   const pyDollar = getPyDollar();
 

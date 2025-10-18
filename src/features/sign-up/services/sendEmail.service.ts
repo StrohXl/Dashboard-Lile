@@ -1,7 +1,8 @@
-import { UseFormReturn } from "react-hook-form";
-import { FormSignUpModel } from "../models/formSignUp.model";
-import { toast } from "react-toastify";
 import axios from "axios";
+import { UseFormReturn } from "react-hook-form";
+import { toast } from "react-toastify";
+
+import { FormSignUpModel } from "../models/formSignUp.model";
 
 interface AxiosResponse {
   response: {

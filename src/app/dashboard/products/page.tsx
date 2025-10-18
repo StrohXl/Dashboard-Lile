@@ -9,11 +9,11 @@ import UrlParams from "@/models/url-params.model";
 
 import { HookDataContext } from "@/hooks/useContextData";
 
+import Container from "@/components/dashboard/Container";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 import SearchData from "@/components/searchData/inputSearch";
 
 import TableProducts from "@/features/products/table/tableProducts";
-import Container from "@/components/dashboard/Container";
 
 export default async function Products({
   searchParams,

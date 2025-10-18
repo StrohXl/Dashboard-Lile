@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+
 import { validateUser } from "./services/validateUser.service";
 
 export async function POST(request: NextRequest) {

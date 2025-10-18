@@ -1,13 +1,14 @@
 "use server";
+import { getUrl } from "@/utils/getUrl";
 import axios, { AxiosError } from "axios";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from "next/headers";
 
 import { ApiUrl } from "@/models";
 import { ResponseGetById } from "@/models/response/get/responseGetById.model";
 import { Response } from "@/models/response/response.model";
 import { ResponseData } from "@/models/response/responseData.model";
-import { getUrl } from "@/utils/getUrl";
-import { cookies } from "next/headers";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+
 
 export default async function getDataById<T>({
   apiUrl,

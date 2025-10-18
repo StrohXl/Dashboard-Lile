@@ -1,6 +1,7 @@
 import { FaCloudMoon, FaCloudSun } from "react-icons/fa6";
-import switchThemeCookie from "./utils/switchThemeCookie";
+
 import { useContextLayout } from "../hooks/ContextLayout";
+import switchThemeCookie from "./utils/switchThemeCookie";
 
 export default function SwitchTheme() {
   const { setTheme, theme } = useContextLayout();

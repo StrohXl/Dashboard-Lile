@@ -1,13 +1,15 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { FormSignUpModel } from "./models/formSignUp.model";
 import { useState } from "react";
-import Step2 from "./components/Step2/Step2";
-import Step1 from "./components/Step1/Step1";
-import Step3 from "./components/Step3/Step3";
-import { onSubmitSignUp } from "./services/onSubmitSignUp.service";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
+import Step1 from "./components/Step1/Step1";
+import Step2 from "./components/Step2/Step2";
+import Step3 from "./components/Step3/Step3";
+import { FormSignUpModel } from "./models/formSignUp.model";
+import { onSubmitSignUp } from "./services/onSubmitSignUp.service";
+
 
 export default function FormSignUp({
   step,

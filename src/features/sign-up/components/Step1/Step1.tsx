@@ -1,9 +1,11 @@
-import InputForm from "@/components/dashboard/form/inputForm";
+import { UseFormReturn } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { HiOutlineArrowSmallRight } from "react-icons/hi2";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
+import InputForm from "@/components/dashboard/form/inputForm";
+
 import { FormSignUpModel } from "../../models/formSignUp.model";
-import { UseFormReturn } from "react-hook-form";
 import { sendEmail } from "../../services";
 
 export default function Step1({

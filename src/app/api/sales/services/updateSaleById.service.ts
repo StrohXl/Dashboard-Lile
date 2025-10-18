@@ -4,11 +4,11 @@ import { ZodError } from "zod";
 
 import { UpdateSale } from "@/models/api/sale";
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
 import { updateBodySaleValidator } from "../validators";
 import { updateSaleStatus } from "./updateSaleStatus.service";
-import { Token } from "@/models/token";
 
 export async function updateSaleById({
   id,

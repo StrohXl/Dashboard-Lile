@@ -1,6 +1,10 @@
 "use client";
 import { use } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
+import {
+  HiOutlineArrowSmallLeft,
+  HiOutlineArrowSmallRight,
+} from "react-icons/hi2";
 
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
 
@@ -8,12 +12,8 @@ import FormBodySale from "./components/formBodySale";
 import FormHeaderSale from "./components/formHeaderSale";
 import SaleHookContext, { useContextSale } from "./hooks/saleHookContext";
 import type { FormSale } from "./models";
-import { nextForm } from "./utilities";
-import {
-  HiOutlineArrowSmallLeft,
-  HiOutlineArrowSmallRight,
-} from "react-icons/hi2";
 import { onSubmit } from "./services/onSubmit";
+import { nextForm } from "./utilities";
 
 export default function FormSale({
   pyDollar,

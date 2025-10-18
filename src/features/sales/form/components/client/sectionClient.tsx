@@ -5,9 +5,9 @@ import { MdDeleteOutline } from "react-icons/md";
 
 import InputForm from "@/components/dashboard/form/inputForm";
 
+import { useContextSale } from "../../hooks/saleHookContext";
 import { FormSale } from "../../models";
 import SelectClient from "./components/selectClient";
-import { useContextSale } from "../../hooks/saleHookContext";
 
 export default function SectionClient({
   useFormSale,

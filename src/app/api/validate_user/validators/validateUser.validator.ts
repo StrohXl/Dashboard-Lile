@@ -1,4 +1,5 @@
 import z, { ZodError } from "zod";
+
 import { ValidateUserModel } from "../model/validateUser.model";
 
 export const validateUserSchema = z.object({

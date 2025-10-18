@@ -1,10 +1,11 @@
-import InputForm from "@/components/dashboard/form/inputForm";
-import { FormSignUpModel } from "../../models/formSignUp.model";
+import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useState } from "react";
-
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import InputForm from "@/components/dashboard/form/inputForm";
+
+import { FormSignUpModel } from "../../models/formSignUp.model";
 
 export default function Step3({
   useFormSignUp,

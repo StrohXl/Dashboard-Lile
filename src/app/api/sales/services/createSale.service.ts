@@ -6,6 +6,7 @@ import { ZodError } from "zod";
 
 import { CreateSale } from "@/models/api/sale";
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
 import { updateStockProducts } from "../../products/services";
@@ -13,7 +14,6 @@ import { calculateTotalPayments } from "../utilities";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import { getDebt } from "../utilities/getDebt.utility";
 import saleBodyValidator from "../validators/bodySale.validator";
-import { Token } from "@/models/token";
 
 export async function createSale({
   body,

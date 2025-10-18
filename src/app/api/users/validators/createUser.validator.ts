@@ -1,5 +1,6 @@
-import { CreateUser } from "@/models/api/user/createUser.model";
 import z, { ZodError } from "zod";
+
+import { CreateUser } from "@/models/api/user/createUser.model";
 
 export const createUserSchema = z
   .object({

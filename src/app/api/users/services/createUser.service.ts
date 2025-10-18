@@ -1,10 +1,12 @@
-import { CreateUser } from "@/models/api/user/createUser.model";
-import { createUserValidator } from "../validators/createUser.validator";
-import { ZodError } from "zod";
-import { ResponseService } from "@/models/response/responseService.model";
 import { User } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
+
+import { CreateUser } from "@/models/api/user/createUser.model";
+import { ResponseService } from "@/models/response/responseService.model";
+
 import prisma from "../../../../../libs/prisma";
+import { createUserValidator } from "../validators/createUser.validator";
 
 export async function createUser({
   body,

@@ -1,4 +1,3 @@
-import { IoClose } from "react-icons/io5";
 
 import "react-responsive-modal/styles.css";
 import {
@@ -9,17 +8,18 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { HiArchiveBox } from "react-icons/hi2";
+import { IoClose } from "react-icons/io5";
 import { Modal } from "react-responsive-modal";
 
 import GroupRadio from "@/components/dashboard/form/groupRadio";
 import InputForm from "@/components/dashboard/form/inputForm";
 import SelectForm from "@/components/dashboard/form/selectForm";
 import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
+import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 
 import { useContextBuy } from "../hooks/useContenxtBuy";
 import { FormBuy } from "../models";
 import { changeSellingPrice } from "../utilities";
-import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 
 export default function ModalCalculatePrice({
   register,

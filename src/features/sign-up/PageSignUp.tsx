@@ -1,9 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import FormSignUp from "@/features/sign-up/FormSignUp";
+import Link from "next/link";
 import { useState } from "react";
+
+import FormSignUp from "@/features/sign-up/FormSignUp";
+
 
 export default function PageSignUp({ theme }: { theme: "dark" | "light" }) {
   const [step, setStep] = useState<number>(1);

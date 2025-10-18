@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { deleteUserById, getUserById } from "../services";
 import { tokenValidator } from "@/app/validators/token.validator";
+import { NextRequest, NextResponse } from "next/server";
+
+import { deleteUserById, getUserById } from "../services";
 
 type Params = {
   id: string;

@@ -1,8 +1,8 @@
+import { getUrl } from "@/utils/getUrl";
 import axios, { AxiosError } from "axios";
 
 import { ApiUrl } from "@/models";
 import { ResponseData } from "@/models/response/responseData.model";
-import { getUrl } from "@/utils/getUrl";
 
 export default async function createData<CreateData, Data>({
   apiUrl,

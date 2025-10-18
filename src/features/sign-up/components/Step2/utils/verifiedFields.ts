@@ -1,5 +1,6 @@
-import { FormSignUpModel } from "@/features/sign-up/models/formSignUp.model";
 import { UseFormGetValues, UseFormSetError } from "react-hook-form";
+
+import { FormSignUpModel } from "@/features/sign-up/models/formSignUp.model";
 
 export function verifiedFields({
   getValues,

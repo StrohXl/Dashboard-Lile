@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
 
-import prisma from "../../../libs/prisma";
 import { Token } from "@/models/token";
+
+import prisma from "../../../libs/prisma";
 
 export async function tokenValidator(request: NextRequest) {
   const token = request.cookies.get("myToken");

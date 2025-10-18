@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 
 import { Client } from "@/models/api/client/client.model";
 
+import InputForm from "@/components/dashboard/form/inputForm";
+
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
 
 import FormClientHooks from "./hooks/formHooks";
 import { onSubmitClient } from "./service/onSubmitClient";
 import { onSubmitClientById } from "./service/onSubmitClientById.service";
-import InputForm from "@/components/dashboard/form/inputForm";
 
 export default function FormClient() {
   const {

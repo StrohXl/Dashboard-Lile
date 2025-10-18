@@ -1,9 +1,10 @@
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import { Suspense } from "react";
 
+import LinkArrowLeft from "@/components/dashboard/LinkArrowLeft";
+
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
 import FormSale from "@/features/sales/form/formSale";
-import LinkArrowLeft from "@/components/dashboard/LinkArrowLeft";
 export default async function CreateSale() {
   const pyDollar = getPyDollar();
 

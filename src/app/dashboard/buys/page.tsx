@@ -8,10 +8,10 @@ import { Buy } from "@/models/api/buy";
 
 import { HookDataContext } from "@/hooks/useContextData";
 
+import Container from "@/components/dashboard/Container";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TableBuy from "@/features/buys/table/tableBuy";
-import Container from "@/components/dashboard/Container";
 
 export default async function Buys({
   searchParams,

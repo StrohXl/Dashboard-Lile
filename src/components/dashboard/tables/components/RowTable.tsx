@@ -1,5 +1,6 @@
-import { Row, TableNode } from "@table-library/react-table-library/table";
 import { ReactNode } from "react";
+
+import { Row, TableNode } from "@table-library/react-table-library/table";
 
 export default function RowTable({
   id,

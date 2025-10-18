@@ -4,12 +4,12 @@ import { ZodError } from "zod";
 
 import { CreateBuy } from "@/models/api/buy";
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
 import { updateProducts } from "../../products/services";
 import { createBodyBuy } from "../adapters";
 import createBuyValidator from "../validators/createBuy.validator";
-import { Token } from "@/models/token";
 
 export async function createBuy(
   body: CreateBuy,

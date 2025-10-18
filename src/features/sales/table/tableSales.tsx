@@ -2,6 +2,8 @@
 import { FaCashRegister } from "react-icons/fa6";
 import "@/components/dashboard/tables/css/table.css";
 
+import { IoClose } from "react-icons/io5";
+
 import { Sale } from "@/models/api/sale";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseData } from "@/models/response/responseData.model";
@@ -18,6 +20,7 @@ import { Table } from "@table-library/react-table-library/table";
 
 import { use } from "react";
 
+import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 import NotHave from "@/components/dashboard/tables/components/notHave";
 import TableFooter from "@/components/dashboard/tables/components/tableFooter";
 import TableHeader from "@/components/dashboard/tables/components/tableHeader";
@@ -28,8 +31,6 @@ import { ThemeMaterialSales } from "./theme";
 
 import Invoice from "@/documents/invoice";
 import { downloadPdf } from "@/documents/utils/downloadPdf";
-import { IoClose } from "react-icons/io5";
-import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 
 export default function TableSales({
   data,

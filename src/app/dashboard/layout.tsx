@@ -1,12 +1,13 @@
+import getDataById from "@/services/get/byId/getDataById";
 import jwt from "jsonwebtoken";
-
 import { cookies } from "next/headers";
 
-import LayoutDashboard from "@/components/dashboard/layout";
-import { Token } from "@/models/token";
-import { ContextLayout } from "@/components/dashboard/hooks/ContextLayout";
-import getDataById from "@/services/get/byId/getDataById";
 import { User } from "@/models/api/user/user.model";
+import { Token } from "@/models/token";
+
+import { ContextLayout } from "@/components/dashboard/hooks/ContextLayout";
+import LayoutDashboard from "@/components/dashboard/layout";
+
 
 export default async function Layout({
   children,

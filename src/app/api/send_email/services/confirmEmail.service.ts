@@ -1,8 +1,9 @@
-import { SendEmail } from "../validators/sendEmail.validator";
-import { customAlphabet } from "nanoid";
-import * as nodemailer from "nodemailer";
 import { ConfirmToken } from "@/documents/emails/confirmToken";
+import { customAlphabet } from "nanoid";
 import { NextResponse } from "next/server";
+import * as nodemailer from "nodemailer";
+
+import { SendEmail } from "../validators/sendEmail.validator";
 import { createUnverifiedUser } from "./createUnverifiedUser.service";
 
 export async function confirmEmail({ body }: { body: SendEmail }) {

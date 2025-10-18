@@ -1,8 +1,9 @@
 "use client";
 
+import { use } from "react";
+
 import { User } from "@/models/api/user/user.model";
 import { ResponseData } from "@/models/response/responseData.model";
-import { use } from "react";
 
 export default function Avatar({
   user,

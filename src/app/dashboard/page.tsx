@@ -1,6 +1,7 @@
-import { Suspense } from "react";
-import CardSuspense from "../../components/dashboard/cards/CardSuspense";
 import getCountData from "@/services/get/count/getCountData";
+import { Suspense } from "react";
+
+import CardSuspense from "../../components/dashboard/cards/CardSuspense";
 import CardSuspenseLoading from "../../components/dashboard/cards/CardSuspenseLoading";
 
 export default async function Dashboard() {

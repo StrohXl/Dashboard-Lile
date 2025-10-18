@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ZodError } from "zod";
+
+import prisma from "../../../../libs/prisma";
+import { confirmEmail } from "./services/confirmEmail.service";
 import {
   SendEmail,
   SendEmailValidator,
 } from "./validators/sendEmail.validator";
-import { ZodError } from "zod";
-import { confirmEmail } from "./services/confirmEmail.service";
-import prisma from "../../../../libs/prisma";
 
 export async function POST(request: NextRequest) {
   const body: SendEmail = await request.json();

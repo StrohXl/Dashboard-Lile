@@ -1,10 +1,11 @@
 import { Client } from "@/models/api/client/client.model";
 
+import { useDataContext } from "@/hooks/useContextData";
+
 import { CellSelect } from "@table-library/react-table-library/select";
 import { Body, Cell } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-import { useDataContext } from "@/hooks/useContextData";
 import RowTable from "@/components/dashboard/tables/components/RowTable";
 
 export default function TableBodyClients({

@@ -1,11 +1,12 @@
+import { ClipboardEvent } from "react";
 import {
   FieldError,
   Path,
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
+
 import { FormSignUpModel } from "../models/formSignUp.model";
-import { ClipboardEvent } from "react";
 
 export default function InputToken({
   register,

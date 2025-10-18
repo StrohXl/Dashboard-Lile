@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 
-import prisma from "../../../../../libs/prisma";
 import { Token } from "@/models/token";
+
+import prisma from "../../../../../libs/prisma";
 
 export async function getChangeById({
   id,

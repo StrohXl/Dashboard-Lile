@@ -1,15 +1,17 @@
 import { useFieldArray, UseFormReturn } from "react-hook-form";
-import HeaderList from "../components/HeaderList";
-import { OptionList } from "../models/optionList.model";
-import { prependPayment, updateTotalPayments } from "../utils";
-import { FormSale } from "../../../models";
-import { useContextSale } from "../../../hooks/saleHookContext";
-import FooterPayments from "../components/footerPayments";
-import HeaderListBody from "../components/HeaderListBody";
+
 import InputForm from "@/components/dashboard/form/inputForm";
 import SelectForm from "@/components/dashboard/form/selectForm";
-import onChangeSelect from "../utils/onChangeSelect";
+
+import { useContextSale } from "../../../hooks/saleHookContext";
+import { FormSale } from "../../../models";
 import ContainerActions from "../components/containerActions";
+import FooterPayments from "../components/footerPayments";
+import HeaderList from "../components/HeaderList";
+import HeaderListBody from "../components/HeaderListBody";
+import { OptionList } from "../models/optionList.model";
+import { prependPayment, updateTotalPayments } from "../utils";
+import onChangeSelect from "../utils/onChangeSelect";
 
 export default function ListPayments({
   option,

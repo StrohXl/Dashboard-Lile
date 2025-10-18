@@ -1,11 +1,12 @@
 import getPyDollar from "@/fetch/pydolar/getPyDolar";
 import { Suspense } from "react";
 
+import LinkArrowLeft from "@/components/dashboard/LinkArrowLeft";
+
 import ContainerHistoryPrice from "@/features/buys/form/components/containerTableHistoryPrice";
 import SkeletonFormBuy from "@/features/buys/form/components/skeletonFormBuy";
 import FormBuy from "@/features/buys/form/formBuys";
 import { HookBuyContext } from "@/features/buys/form/hooks/useContenxtBuy";
-import LinkArrowLeft from "@/components/dashboard/LinkArrowLeft";
 
 export default function CreateBuy() {
   const pyDollar = getPyDollar();

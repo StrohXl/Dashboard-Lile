@@ -4,14 +4,17 @@ import { usePathname } from "next/navigation";
 import { Suspense, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
+import { User } from "@/models/api/user/user.model";
+import { ResponseData } from "@/models/response/responseData.model";
+
 import SideBarNav from "@/components/dashboard/sideBar";
 import { sideBarMenu } from "@/components/dashboard/sideBar/data/sideBarMenu";
+
 import Avatar from "./Avatar";
-import SwitchTheme from "./SwitchTheme/SwitchTheme";
-import { useContextLayout } from "./hooks/ContextLayout";
-import { ResponseData } from "@/models/response/responseData.model";
-import { User } from "@/models/api/user/user.model";
 import AvatarLoading from "./AvatarLoading";
+import { useContextLayout } from "./hooks/ContextLayout";
+import SwitchTheme from "./SwitchTheme/SwitchTheme";
+
 
 export default function LayoutDashboard({
   children,

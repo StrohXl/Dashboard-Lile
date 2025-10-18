@@ -1,21 +1,22 @@
+import { ChangeEvent } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { HiOutlineMail } from "react-icons/hi";
 import {
   HiOutlineArrowSmallLeft,
   HiOutlineArrowSmallRight,
 } from "react-icons/hi2";
 
-import { HiOutlineMail } from "react-icons/hi";
 
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { UseFormReturn } from "react-hook-form";
+
 import { FormSignUpModel } from "../../models/formSignUp.model";
-import { ChangeEvent } from "react";
+import { sendEmail } from "../../services";
+import RepeatInputToken from "./components/RepeatInputTokent";
+import useResendTimer from "./hook/useResendTimer";
+import { validateEmail } from "./services/validateEmail.service";
 import { onChangeInput } from "./utils/onChangeInput";
 import { onPaste } from "./utils/onPaste";
-import RepeatInputToken from "./components/RepeatInputTokent";
 import { verifiedFields } from "./utils/verifiedFields";
-import { validateEmail } from "./services/validateEmail.service";
-import { sendEmail } from "../../services";
-import useResendTimer from "./hook/useResendTimer";
 
 export default function Step2({
   loading,

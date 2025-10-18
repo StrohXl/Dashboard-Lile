@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 import { ParamsRequest } from "@/models";
 import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
-import { Token } from "@/models/token";
 
 export async function getBuys({
   token,

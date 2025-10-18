@@ -4,11 +4,11 @@ import { ZodError } from "zod";
 
 import { CreatePayment } from "@/models/api/payment/createPayment.model";
 import { ResponseService } from "@/models/response/responseService.model";
+import { Token } from "@/models/token";
 
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 import { createPaymentValidator } from "../validators/createPayment.validator";
-import { Token } from "@/models/token";
 
 export async function createPayment({
   body,

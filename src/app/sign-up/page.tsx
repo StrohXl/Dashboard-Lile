@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+
 import PageSignUp from "@/features/sign-up/PageSignUp";
 
 export default async function SignUp() {
