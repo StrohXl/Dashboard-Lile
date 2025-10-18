@@ -16,6 +16,7 @@ import { HookHistory } from "./hooks/hookHistory.hook";
 import type { FormProduct } from "./models/form-product.model";
 import { getHistory } from "./services/getHistory.service";
 import { onSubmit } from "./services/on-submit-product.service";
+import Container from "@/components/dashboard/Container";
 
 export default function FormProduct({
   pyDollar,
@@ -73,58 +74,61 @@ export default function FormProduct({
   return (
     <div className="grid gap-6 lg:grid-cols-[600px_400px]">
       {loading ? (
-        <SkeletonFormProduct />
+        <div className="max-w-[600px]">
+          <SkeletonFormProduct />
+        </div>
       ) : (
-        <form
-          className="max-w-[600px] !px-5 container-table"
-          onSubmit={handleSubmit((body) =>
-            onSubmit({ body, id, router, setDisabled, iva: IVA })
-          )}
-        >
-          <div className="flex justify-between items-center gap-4">
-            <h4 className="font-open_sans mb-4 text-gray-800 font-semibold text-2xl">
-              Producto
-            </h4>
-          </div>
-          <div className="flex items-center mb-4 gap-4">
-            {id && (
-              <button
-                type="button"
-                onClick={openHistory}
-                className={`text-sm !px-2 ${"btn-outlined-primary hover:!text-primary-ligth hover:!bg-white hover:!border-primary-ligth"}`}
-              >
-                Historial de Precio
-              </button>
+        <Container className="max-w-[600px]">
+          <form
+            onSubmit={handleSubmit((body) =>
+              onSubmit({ body, id, router, setDisabled, iva: IVA })
             )}
-          </div>
-          <BodyFormProduct
-            dollar={dollar}
-            errors={errors}
-            setValue={setValue}
-            watch={watch}
-            register={register}
-            iva={IVA}
-          />
-
-          <button
-            type="submit"
-            disabled={disabled}
-            className="btn-primary mt-6 !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
           >
-            {product ? "Guardar cambios" : `Agregar Producto`}
-          </button>
-        </form>
+            <div className="flex justify-between items-center gap-4">
+              <h4 className="font-open_sans mb-4 text-gray-800 dark:text-white font-semibold text-2xl">
+                Producto
+              </h4>
+            </div>
+            <div className="flex items-center mb-4 gap-4">
+              {id && (
+                <button
+                  type="button"
+                  onClick={openHistory}
+                  className={`text-sm !px-2 ${"btn-outlined-primary"}`}
+                >
+                  Historial de Precio
+                </button>
+              )}
+            </div>
+            <BodyFormProduct
+              dollar={dollar}
+              errors={errors}
+              setValue={setValue}
+              watch={watch}
+              register={register}
+              iva={IVA}
+            />
+
+            <button
+              type="submit"
+              disabled={disabled}
+              className="btn-primary mt-6 !px-8 disabled:opacity-50 disabled:!cursor-not-allowed"
+            >
+              {product ? "Guardar cambios" : `Agregar Producto`}
+            </button>
+          </form>
+        </Container>
       )}
       {showHistory && (
         <div>
           <section className="container-table max-w-[1200px] h-fi overflow-hidden relative">
             <div className="flex justify-between items-centerF mb-6 ">
-              <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
+              <h4 className="font-open_sans text-2xl font-semibold text-gray-800 dark:text-white">
                 Historial de Precios
               </h4>
               <div className="flex items-center gap-6">
                 <button
-                  className="transition-colors hover:text-primary cursor-pointer  duration-300 text-gray-400"
+                  className="transition-colors hover:text-primary cursor-pointer  duration-300 text-gray-400 dark:text-white"
                   type="button"
                   onClick={() => setShowHistory(false)}
                 >

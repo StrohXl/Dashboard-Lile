@@ -7,13 +7,16 @@ import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import updateClientValidator from "../validators/updateClient.validator";
+import { Token } from "@/models/token";
 
 export async function updateClient({
   id,
   body,
+  token,
 }: {
   id: number;
   body: UpdateClient;
+  token: Token;
 }): ResponseService<Clients> {
   const bodyValidator = updateClientValidator(body);
   if (bodyValidator instanceof ZodError) {
@@ -28,7 +31,7 @@ export async function updateClient({
   body.last_name = body.last_name.toLocaleLowerCase();
   try {
     const client = await prisma.clients.update({
-      data: body,
+      data: { ...body, user: { connect: { id: token.id } } },
       where: {
         id: id,
       },

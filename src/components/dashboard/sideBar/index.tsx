@@ -5,7 +5,6 @@ import { BsPcDisplayHorizontal } from "react-icons/bs";
 import { FaChevronLeft } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
 
-
 import { sideBarMenu, sideBarMenuSecond } from "./data/sideBarMenu";
 import { logoutUser } from "./service/logout-user.service";
 import { closeSideBar, openSideBar } from "./utils";
@@ -25,7 +24,7 @@ const SideBarNav = ({
   const links = pathname.split("/");
 
   return (
-    <div className="bg-white dark:bg-gray-700 p-3 h-full rounded-2xl hidden md:block">
+    <div className="bg-white dark:bg-gray-800 p-3 h-full rounded-2xl hidden md:block">
       <div className="logo  h-10 flex items-center justify-between gap-3 mt-6 px-2">
         {showLogo && (
           <>
@@ -38,7 +37,7 @@ const SideBarNav = ({
 
         <button
           onClick={() => openSideBar({ setOpen, open, setShowLogo, showLogo })}
-          className="close-sidebar border-2 relative  ms-auto border-gray-700 text-gray-700 dark:text-white dark:border-border-dark transition-colors duration-300 hover:text-primary hover:border-primary cursor-pointer h-[30px] w-[30px] flex justify-center items-center rounded-full"
+          className="close-sidebar border-2 relative  ms-auto border-gray-700 text-gray-700 dark:text-white dark:border-white transition-colors hover:text-primary hover:border-primary cursor-pointer h-[30px] w-[30px] flex justify-center items-center rounded-full"
         >
           <FaChevronLeft
             size={13}
@@ -62,8 +61,8 @@ const SideBarNav = ({
                         ? "!text-primary  dark:!text-white"
                         : ""
                       : pathname == item.link
-                      ? "!text-primary  dark:!text-white"
-                      : ""
+                        ? "!text-primary  dark:!text-white"
+                        : ""
                   }`}
                   href={item.link}
                 >

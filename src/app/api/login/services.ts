@@ -41,14 +41,17 @@ export async function loginUser(body: TypeUser) {
         );
       }
       const key = process.env.JWT_KEY;
+
       const token = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 1,
           email: body.email,
           id: findUser.id,
+          role: findUser.role,
         },
         key || ""
       );
+
       const serialized = serialize("myToken", token, {
         httpOnly: true,
         sameSite: "strict",
@@ -58,6 +61,7 @@ export async function loginUser(body: TypeUser) {
       return NextResponse.json("Usuario encontrado", {
         headers: {
           "Set-Cookie": serialized,
+        
         },
       });
     }

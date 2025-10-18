@@ -1,37 +1,24 @@
-import { ParamValue } from "next/dist/server/request/params";
-import {
-  UseFormGetValues,
-  UseFormSetValue,
-  UseFormTrigger,
-} from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { FormSale } from "../models";
+import { FormSale, SaleSchemaHook } from "../models";
 
 export async function validatedStep1({
-  formSteps,
-  setFormSteps,
-  getValues,
-  trigger,
-  totalPrice,
-  setValue,
-  dollar,
-  setTotalPayments,
-  id,
+  contextSale,
+  useFormSale,
 }: {
-  totalPrice: number;
-  getValues: UseFormGetValues<FormSale>;
-  trigger: UseFormTrigger<FormSale>;
-  formSteps: number;
-  setValue: UseFormSetValue<FormSale>;
-  dollar: number;
-  setFormSteps: (value: number) => void;
-  id: ParamValue;
-  setTotalPayments: (value: number) => void;
+  useFormSale: UseFormReturn<FormSale>;
+  contextSale: SaleSchemaHook;
 }) {
+  const { id, setFormSteps, setTotalPayments, formSteps, dollar, totalPrice } =
+    contextSale;
+
+  const { trigger, getValues, setValue } = useFormSale;
+
   const listProducts = getValues("list_products");
   const listProductValidate = await trigger("list_products");
   const payments = await getValues("payments");
+
   if (listProducts.length != 0 && listProductValidate) {
     if (!id && payments.length == 1) {
       setValue(

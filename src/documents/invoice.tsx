@@ -43,7 +43,7 @@ export default function Invoice({
   const nameDocument = aproapprovedByTheSENIAT ? "FACTURA" : "DOCUMENTO";
 
   return (
-    <div ref={containerInvoice} className="font-roboto text-sm p-6 text-black">
+    <div ref={containerInvoice} className="font-roboto text-sm p-6 text-gray-700 dark:text-white">
       <div className="mb-6">
         <div className="uppercase">
           <h4>Cliente: {`${client.name} ${client.last_name}`}</h4>

@@ -13,7 +13,8 @@ export async function onSubmitLogin({
 }) {
   try {
     setLoading(true);
-    await axios.post("/api/login", data);
+    const login = await axios.post("/api/login", data);
+    console.log(login);
     setError("");
     toast.success("Iniciando Sesión");
     setTimeout(() => window.location.assign("/dashboard"), 1000);

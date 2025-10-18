@@ -49,6 +49,7 @@ export default function SaleHookContext({
         setTotalPayments,
         setTotalPrice,
         setTotalChanges,
+        setIdSale,
       });
     } else {
       setLoadingSale(false);

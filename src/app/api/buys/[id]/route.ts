@@ -9,11 +9,14 @@ export async function GET(
 ) {
   const token = await tokenValidator(request);
   if (!token) {
-    return NextResponse.json("Solicitud no permitida", { status: 400 });
+    return NextResponse.json(
+      { message: "Solicitud no permitida" },
+      { status: 400 }
+    );
   }
 
   const { id } = await params;
-  return await getBuyById(Number(id));
+  return await getBuyById({ id: Number(id), token });
 }
 
 export async function DELETE(
@@ -21,8 +24,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
-    return NextResponse.json("Solicitud no permitida", { status: 400 });
+  if (!token || token.role == "CASHIER") {
+    return NextResponse.json(
+      { message: "Solicitud no permitida" },
+      { status: 400 }
+    );
   }
   const { id } = await params;
 

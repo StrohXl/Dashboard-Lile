@@ -7,12 +7,14 @@ import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
-
+import { Token } from "@/models/token";
 
 export async function getBuys({
+  token,
   params,
 }: {
   params: ParamsRequest;
+  token: Token;
 }): ResponseService<ResponseGet<Buys>> {
   const { skip, take, pages } = await getPages("/buys", params);
 
@@ -27,6 +29,9 @@ export async function getBuys({
       take,
       orderBy: { id: "desc" },
       cacheStrategy: { ttl: 2, tags: ["findBuys"] },
+      where: {
+        userId: token.id,
+      },
     });
     return NextResponse.json({
       message: "Compras encontradas",

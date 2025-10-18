@@ -5,6 +5,6 @@ export function getSaleStatus({
   totalPayments: number;
   totalPrice: number;
 }): "completed" | "pending" {
-  const status = totalPayments < totalPrice ? "pending" : "completed";
+  const status = totalPayments != totalPrice ? "pending" : "completed";
   return status;
 }

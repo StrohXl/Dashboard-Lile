@@ -14,8 +14,8 @@ export default function NotHave({
   const Icon = icon;
   return (
     <div className={`pb-3 h-[${height}px]  my-auto flex flex-col justify-center items-center`}>
-      <Icon size={size} className="text-gray-500" />
-      <h4 className="font-open_sans text-lg mt-3  text-gray-700">{message}</h4>
+      <Icon size={size} className="text-gray-500  dark:text-gray-200" />
+      <h4 className="font-open_sans text-lg mt-3  text-gray-700  dark:text-gray-200">{message}</h4>
     </div>
   );
 }

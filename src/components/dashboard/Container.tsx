@@ -9,9 +9,8 @@ export default function Container({
 }) {
   return (
     <div
-      className={`rounded-[20px] p-6 relative dark:bg-gray-700 bg-white text-gray-800 dark:text-white  dark:shadow-gray-700 ${className}`}
+      className={`rounded-[20px] p-6 relative dark:bg-gray-800 bg-white  container-shadow ${className}`}
     >
-      {" "}
       {children}
     </div>
   );

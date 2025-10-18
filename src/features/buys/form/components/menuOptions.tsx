@@ -115,7 +115,7 @@ export default function MenuOptions({
       onClickItem={onClickItem}
     >
       <button
-        className="transition-colors cursor-pointer duration-300 hover:text-primary hover:border-primary text-gray-500 rounded-[5px]"
+        className="transition-colors cursor-pointer duration-300 hover:text-primary hover:border-primary text-gray-500 dark:text-gray-200 rounded-[5px]"
         type="button"
         onClick={() => setOpen((prev) => !prev)}
       >

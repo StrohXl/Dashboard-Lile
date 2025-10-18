@@ -1,52 +1,49 @@
 "use client";
 
-import {
-  FieldErrors,
-  UseFormRegister,
-  UseFormReset,
-  UseFormSetValue,
-  UseFormWatch,
-} from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { MdDeleteOutline } from "react-icons/md";
 
 import InputForm from "@/components/dashboard/form/inputForm";
 
 import { FormSale } from "../../models";
 import SelectClient from "./components/selectClient";
+import { useContextSale } from "../../hooks/saleHookContext";
 
 export default function SectionClient({
-  register,
-  errors,
-  reset,
-  watch,
-  setValue,
+  useFormSale,
 }: {
-  register: UseFormRegister<FormSale>;
-  errors: FieldErrors<FormSale>;
-  reset: UseFormReset<FormSale>;
-  watch: UseFormWatch<FormSale>;
-  setValue: UseFormSetValue<FormSale>;
+  useFormSale: UseFormReturn<FormSale>;
 }) {
+  const {
+    watch,
+    formState: { errors },
+    register,
+    reset,
+    setValue,
+  } = useFormSale;
+
+  const { idSale } = useContextSale();
+
   const idClient = watch("client.id");
   return (
     <div className="flex flex-col gap-4 w-full mt-6 pb-6  ">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <h4 className="font-roboto text-gray-800 font-semibold text-lg">
-          Cliente
-        </h4>
+        <h4 className="font-roboto font-semibold text-lg">Cliente</h4>
 
-        <div className="grid md:grid-cols-[250px_250px] gap-4 items-center">
-          <SelectClient
-            setValue={setValue}
-            params={"name"}
-            placeholder="Nombre del cliente"
-          />
-          <SelectClient
-            params={"ci"}
-            setValue={setValue}
-            placeholder="Cedula del cliente"
-          />
-        </div>
+        {idSale == 0 && (
+          <div className="grid md:grid-cols-[250px_250px] gap-4 items-center">
+            <SelectClient
+              setValue={setValue}
+              params={"name"}
+              placeholder="Nombre del cliente"
+            />
+            <SelectClient
+              params={"ci"}
+              setValue={setValue}
+              placeholder="Cedula del cliente"
+            />
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-[1fr_1fr_1fr_42px] items-end gap-4 mt-4">
         <input type="hidden" {...register("client.id")} defaultValue={0} />
@@ -108,17 +105,19 @@ export default function SectionClient({
           }}
           disabled={idClient != 0 ? true : false}
         />
-        <div className="flex mt-auto h-[42px] items-center justify-center">
-          <MdDeleteOutline
-            onClick={() =>
-              reset({
-                client: { id: 0, ci: "", last_name: "", name: "" },
-              })
-            }
-            size={30}
-            className="text-gray-500 hover:text-red-500 cursor-pointer transition-colors duration-300 "
-          />
-        </div>
+        {idSale == 0 && (
+          <div className="flex mt-auto h-[42px] items-center justify-center">
+            <MdDeleteOutline
+              onClick={() =>
+                reset({
+                  client: { id: 0, ci: "", last_name: "", name: "" },
+                })
+              }
+              size={30}
+              className="text-gray-500 hover:text-red-500 cursor-pointer transition-colors duration-300 "
+            />
+          </div>
+        )}
       </div>
     </div>
   );

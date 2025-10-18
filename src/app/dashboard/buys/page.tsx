@@ -11,6 +11,7 @@ import { HookDataContext } from "@/hooks/useContextData";
 import SkeletonTable from "@/components/dashboard/skeleton/skeletonTable";
 
 import TableBuy from "@/features/buys/table/tableBuy";
+import Container from "@/components/dashboard/Container";
 
 export default async function Buys({
   searchParams,
@@ -23,9 +24,9 @@ export default async function Buys({
   const buys = getAllData<Buy>({ apiUrl: "/buys", params });
   const pyDollar = getPyDollar();
   return (
-    <section className="container-table max-w-[1200px] overflow-hidden relative">
+    <Container className="max-w-[1200px] overflow-hidden relative">
       <div className="flex justify-between items-centerF mb-6 ">
-        <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
+        <h4 className="font-open_sans text-2xl font-semibold text-gray-800 dark:text-white">
           Lista de Compras
         </h4>
         <div className="flex items-center gap-6">
@@ -40,6 +41,6 @@ export default async function Buys({
           <TableBuy data={buys} pyDollar={pyDollar} />
         </HookDataContext>
       </Suspense>
-    </section>
+    </Container>
   );
 }

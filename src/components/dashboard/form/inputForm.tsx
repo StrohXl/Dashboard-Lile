@@ -33,7 +33,7 @@ export default function InputForm<T extends FieldValues>({
         className={`${type !== "hidden" && "border-1"}
                    ${error ? "!border-red-500" : "border-gray-400 dark:border-border-light"}
                    ${disabled && "opacity-50 cursor-not-allowed"}
-                  focus-within:border-primary flex items-center bg-gray-50 dark:bg-gray-800/80 px-3 py-3 gap-2 text-foreground dark:text-white   w-full rounded-lg `}
+                  focus-within:border-primary flex items-center bg-gray-100 dark:bg-gray-800 px-3 py-[10px] gap-2 text-foreground dark:text-white   w-full rounded-lg `}
       >
         {iconStart && (
           <span className={`text-gray-700 dark:text-white ${error && "text-red-500"}`}>

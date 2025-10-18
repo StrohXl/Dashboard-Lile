@@ -16,14 +16,13 @@ export function prependChange({
   totalChanges: number;
 }) {
   const rest = Math.abs(totalPayments - totalPrice);
-  const amount =
-    totalChanges >= rest
-      ? 0
-      : Number(Math.abs((rest - totalChanges) * dollar).toFixed(2));
+  const amount = Number(Math.abs((rest - totalChanges) * dollar).toFixed(2));
+  console.log({ totalChanges, amount,rest });
 
   prepend({
     id: 0,
     change_amount: amount,
     change_method: "efectivoBs",
+    operation: 2131,
   });
 }

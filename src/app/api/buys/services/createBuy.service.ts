@@ -9,10 +9,11 @@ import prisma from "../../../../../libs/prisma";
 import { updateProducts } from "../../products/services";
 import { createBodyBuy } from "../adapters";
 import createBuyValidator from "../validators/createBuy.validator";
+import { Token } from "@/models/token";
 
 export async function createBuy(
   body: CreateBuy,
-  id: number
+  token: Token
 ): ResponseService<Buys> {
   const result = createBuyValidator(body);
   if (result instanceof ZodError) {
@@ -34,7 +35,9 @@ export async function createBuy(
   try {
     await prisma.buys.create({
       data: {
-        userId: id,
+        User: {
+          connect: { id: token.id },
+        },
         products: {
           connect: productsConnect.map((item) => ({ id: item.id })),
           create: productsCreate,

@@ -18,6 +18,7 @@ export async function getSale({
   setTotalPrice,
   dollar,
   setTotalChanges,
+  setIdSale,
 }: {
   dollar: number;
   id: ParamValue;
@@ -26,6 +27,7 @@ export async function getSale({
   setTotalChanges: (value: number) => void;
   setLoadingSale: (value: boolean) => void;
   reset: UseFormReset<FormSale>;
+  setIdSale: (value: number) => void;
 }) {
   try {
     const data: ResponseData<Sale> = await getDataById({
@@ -33,29 +35,32 @@ export async function getSale({
       id: Number(id),
     });
     const sale = data.data;
-    setTotalPrice(Number(sale?.total_price));
-    const totalPayments = calculateTotalPayments({
-      dollar,
-      payments: sale?.payments,
-    });
-    const totalChanges = calculateTotalChanges({
-      changes: sale ? sale.change_manager : [],
-      dollar,
-    });
-    setTotalPayments(totalPayments);
-    setTotalChanges(totalChanges);
-    reset({
-      client: {
-        id: sale?.client.id,
-        ci: `${sale?.client.ci}`,
-        last_name: sale?.client.last_name,
-        name: sale?.client.name,
-      },
-      list_products: sale?.list_products,
-      payments: sale?.payments,
-      change_manager: sale?.change_manager,
-    });
-    setLoadingSale(false);
+    if (sale) {
+      setTotalPrice(Number(sale?.total_price));
+      const totalPayments = calculateTotalPayments({
+        dollar,
+        payments: sale?.payments,
+      });
+      const totalChanges = calculateTotalChanges({
+        changes: sale ? sale.change_manager : [],
+        dollar,
+      });
+      setTotalPayments(totalPayments);
+      setTotalChanges(totalChanges);
+      setIdSale(sale.id);
+      reset({
+        client: {
+          id: sale?.client.id,
+          ci: `${sale?.client.ci}`,
+          last_name: sale?.client.last_name,
+          name: sale?.client.name,
+        },
+        list_products: sale?.list_products,
+        payments: sale?.payments,
+        change_manager: sale?.change_manager,
+      });
+      setLoadingSale(false);
+    }
   } catch (error) {
     console.error(error);
     toast.error("Hubo  un error");

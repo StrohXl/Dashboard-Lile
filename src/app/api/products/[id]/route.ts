@@ -23,7 +23,7 @@ export async function GET(
   }
 
   const { id } = await params;
-  return await getProductById(Number(id));
+  return await getProductById({ id: Number(id), token });
 }
 
 export async function DELETE(
@@ -31,7 +31,7 @@ export async function DELETE(
   { params }: { params: Promise<Params> }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
@@ -44,7 +44,7 @@ export async function PUT(
   { params }: { params: Promise<Params> }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
 
@@ -53,5 +53,5 @@ export async function PUT(
   body.price = Number(body.price);
   body.stock = Number(body.stock);
 
-  return await updateProductById(body, Number(id));
+  return await updateProductById({ body, id: Number(id), token });
 }

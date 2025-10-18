@@ -8,7 +8,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
@@ -24,7 +24,7 @@ export async function GET(
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
-  return await getSaleById(Number(id));
+  return await getSaleById({ id: Number(id), token });
 }
 
 export async function PUT(
@@ -32,10 +32,10 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
   const body = await request.json();
-  return await updateSaleById({ id: Number(id), body });
+  return await updateSaleById({ id: Number(id), body, token });
 }

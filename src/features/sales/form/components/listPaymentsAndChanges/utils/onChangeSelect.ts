@@ -1,32 +1,27 @@
-import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 
-import { FormSale } from "../../../models";
+import { FormSale, SaleSchemaHook } from "../../../models";
 import { OptionList } from "../models/optionList.model";
 import { getTotalPayments } from "./getTotalPayments.utility";
 import { updateTotalChanges } from "./updateTotalChanges";
 import { updateTotalPayments } from "./updateTotalPayments";
 
 export default function onChangeSelect({
-  getValues,
   option,
   index,
-  setValue,
-  dollar,
-  totalPrice,
   value,
-  setTotalPayments,
-  setTotalChanges,
+  contextSale,
+  useFormSale,
 }: {
   option: OptionList;
-  getValues: UseFormGetValues<FormSale>;
-  setValue: UseFormSetValue<FormSale>;
   index: number;
-  totalPrice: number;
-  dollar: number;
   value: "divisa" | "transferencia" | "efectivoBs";
-  setTotalPayments: (value: number) => void;
-  setTotalChanges: (value: number) => void;
+  contextSale: SaleSchemaHook;
+  useFormSale: UseFormReturn<FormSale>;
 }) {
+  const { setValue, getValues } = useFormSale;
+
+  const { dollar, totalPrice, setTotalChanges, setTotalPayments } = contextSale;
   if (option == "payments") {
     const payments = getValues("payments");
     payments[index].payment_amount = 0;
@@ -57,11 +52,7 @@ export default function onChangeSelect({
       } else {
         setValue(
           `payments.${index}.payment_amount`,
-          Number(
-            Math.abs(
-              Math.abs(restantePayments * dollar)
-            ).toFixed(2)
-          )
+          Number(Math.abs(Math.abs(restantePayments * dollar)).toFixed(2))
         );
         updateTotalPayments({ dollar, getValues, setTotalPayments });
       }

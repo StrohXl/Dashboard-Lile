@@ -29,7 +29,7 @@ export default async function Products({
   return (
     <Container className="max-w-[1200px] overflow-hidden">
       <div className="flex justify-between items-centerF mb-6 ">
-        <h4 className="font-open_sans text-2xl font-semibold ">
+        <h4 className="font-open_sans text-2xl dark:text-white font-semibold ">
           Lista de Productos
         </h4>
         <div className="flex items-center gap-6">

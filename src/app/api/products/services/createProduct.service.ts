@@ -7,10 +7,11 @@ import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import productValidator from "../validators/product.validator";
+import { Token } from "@/models/token";
 
 export async function createProduct(
   body: CreateProduct,
-  id: number
+  token: Token
 ): ResponseService<Products> {
   const result = productValidator(body);
 
@@ -33,12 +34,14 @@ export async function createProduct(
         stock,
         price: price,
         unit,
-        userId: id,
         iva,
         history_price: {
           create: {
             price: price,
           },
+        },
+        User: {
+          connect: { id: token.id },
         },
       },
     });

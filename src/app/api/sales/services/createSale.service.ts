@@ -9,14 +9,20 @@ import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import { updateStockProducts } from "../../products/services";
-import { calculateTotalPayments, getSaleStatus } from "../utilities";
+import { calculateTotalPayments } from "../utilities";
 import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 import { getDebt } from "../utilities/getDebt.utility";
 import saleBodyValidator from "../validators/bodySale.validator";
+import { Token } from "@/models/token";
 
-export async function createSale(body: CreateSale): ResponseService<Sales> {
+export async function createSale({
+  body,
+  token,
+}: {
+  body: CreateSale;
+  token: Token;
+}): ResponseService<Sales> {
   const validatorBody = saleBodyValidator(body);
-  console.log(body);
 
   if (validatorBody instanceof ZodError) {
     console.error(validatorBody);
@@ -49,12 +55,17 @@ export async function createSale(body: CreateSale): ResponseService<Sales> {
       calculateTotalPrice(body.list_products).toFixed(2)
     );
 
-    const status = getSaleStatus({ totalPayments, totalPrice });
     const debt = getDebt({ totalPayments, totalPrice });
     const turned =
       totalPayments > totalPrice &&
       Number((totalPayments - totalPrice).toFixed(2));
     const listProducts = body.list_products;
+
+    const math = Number(
+      Math.abs(totalChanges - totalPayments).toExponential(2)
+    );
+
+    const status = math - totalPrice == 0 ? "completed" : "pending";
 
     if (totalPayments > totalPrice && turned !== totalChanges) {
       return NextResponse.json(
@@ -81,6 +92,9 @@ export async function createSale(body: CreateSale): ResponseService<Sales> {
             payment_amount: item.payment_amount,
             payment_method: item.payment_method,
             operation: item.operation,
+            User: {
+              connect: { id: token.id },
+            },
           })),
         },
         client:
@@ -100,14 +114,20 @@ export async function createSale(body: CreateSale): ResponseService<Sales> {
             change_amount: item.change_amount,
             change_method: item.change_method,
             operation: item.operation,
+            User: {
+              connect: { id: token.id },
+            },
           })),
         },
         products: {
           connect: body.list_products.map((item) => ({ id: item.id })),
         },
+        User: {
+          connect: { id: token.id },
+        },
       },
     });
-    
+
     await updateStockProducts({
       action: "decrement",
       products: body.list_products,

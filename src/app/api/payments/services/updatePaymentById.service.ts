@@ -8,13 +8,16 @@ import { ResponseService } from "@/models/response/responseService.model";
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 import { createPaymentValidator } from "../validators/createPayment.validator";
+import { Token } from "@/models/token";
 
 export async function updatePaymentById({
   id,
   body,
+  token,
 }: {
   id: number;
   body: CreatePayment;
+  token: Token;
 }): ResponseService<Payments> {
   const bodyValidator = createPaymentValidator(body);
   if (bodyValidator instanceof ZodError) {
@@ -38,6 +41,7 @@ export async function updatePaymentById({
           operation: body.operation,
           payment_method: body.payment_method,
           sales_id: body.sales_id,
+          userId: token.id,
         },
       });
 

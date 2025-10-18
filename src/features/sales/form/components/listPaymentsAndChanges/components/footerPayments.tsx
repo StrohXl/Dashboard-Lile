@@ -5,12 +5,12 @@ export default function FooterPayments() {
   const { totalPayments, dollar, totalPrice } = useContextSale();
 
   return (
-    <div className="mt-auto">
+    <div className="mt-auto text-gray-700 dark:text-white">
       <div className="grid mt-4 grid-cols-[130px_1fr] items-center gap-4">
-        <h6 className="font-roboto text-gray-600 font-semibold">
+        <h6 className="font-roboto font-semibold">
           Pagos totales:
         </h6>
-        <div className="font-roboto text-gray-700 font-semibold grid grid-cols-2 items-center">
+        <div className="font-roboto  font-semibold grid grid-cols-2 items-center">
           <span className="ms-auto pe-4 block">
             {totalPayments.toFixed(2)}$
           </span>
@@ -20,7 +20,7 @@ export default function FooterPayments() {
         </div>
       </div>
       <div className="grid mt-2 grid-cols-[130px_1fr] items-center gap-4">
-        <h6 className="font-roboto text-gray-600 font-semibold">
+        <h6 className="font-roboto font-semibold">
           Monto Faltante:
         </h6>
         <div

@@ -29,7 +29,7 @@ export default function GroupRadio<T extends FieldValues>({
 }: GroupRadioProps<T>) {
   return (
     <div className={`font-roboto`}>
-      {<span className="block mb-2">{label}:</span>}
+      {<span className="block mb-2 text-gray-700 dark:text-white">{label}:</span>}
       <div
         className={`container-group grid grid-cols-${options.length} items-center gap-2`}
       >
@@ -40,7 +40,7 @@ export default function GroupRadio<T extends FieldValues>({
               !disabled &&
               setValue(nameField, item.value as PathValue<T, Path<T>>)
             }
-            className={`border-1 border-gray-700 flex items-center px-3 py-2 gap-2 text-foreground  rounded-sm    ${
+            className={`border-1 border-gray-400 dark:border-white  dark:text-white flex items-center px-3 bg-gray-100 dark:bg-transparent py-2 gap-2 text-foreground  rounded-sm    ${
               disabled && "opacity-50 cursor-not-allowed"
             }`}
           >

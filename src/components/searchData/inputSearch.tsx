@@ -31,12 +31,12 @@ export default function InputSearch({
       className={`grid grid-cols-[20px_150px_20px] gap-3 group items-center border-1  border-gray-400 px-4 rounded-[50rem] `}
     >
       <div className="">
-        <IoSearchOutline size={20} />
+        <IoSearchOutline className='text-gray-800 dark:text-white' size={20} />
       </div>
       <input
         {...register("search")}
         type={type}
-        className="outline-none py-2 "
+        className="outline-none py-2 w-full text-gray-800 dark:text-white placeholder:text-gray-400"
         defaultValue={search || ""}
         placeholder={placeholderInput}
         onChange={({ target }) =>
@@ -62,7 +62,7 @@ export default function InputSearch({
               inputSearchType,
             })
           }
-          className="cursor-pointer transition-colors focus:group- duration-300 hover:text-primary "
+          className="cursor-pointer text-gray-800 dark:text-white transition-colors focus:group- duration-300 hover:text-primary "
         >
           <IoCloseOutline size={20} />
         </div>

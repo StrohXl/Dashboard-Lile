@@ -6,7 +6,7 @@ export default function ThemeTableHistory() {
   const theme = useTheme([
     materialTheme,
     {
-      Table: `grid-template-columns: 100px 250px !important;`,
+      Table: `grid-template-columns: 1fr 200px !important;`,
     },
   ]);
   return theme;

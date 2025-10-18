@@ -48,7 +48,7 @@ export default function TableBodyHistoryPrice({
               />
               <Body>
                 {tableList.map((item: HistoryPrice) => (
-                  <Row item={item} key={item.id}>
+                  <Row className="dark:!bg-gray-800" item={item} key={item.id}>
                     <Cell>
                       {new Date(item.created_at).toLocaleDateString("es-ES")}
                     </Cell>

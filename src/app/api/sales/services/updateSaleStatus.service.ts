@@ -4,8 +4,9 @@ import { NextResponse } from "next/server";
 
 import prisma from "../../../../../libs/prisma";
 import { paymentsAdapter } from "../../payments/adapters/payments.adapter";
-import { calculateTotalPayments, getSaleStatus } from "../utilities";
+import { calculateTotalPayments } from "../utilities";
 import { getDebt } from "../utilities/getDebt.utility";
+import { calculateTotalChanges } from "../utilities/calculateTotalChanges.utility";
 
 type PrismaTransaction = Parameters<
   Parameters<typeof prisma.$transaction>[0]
@@ -43,9 +44,25 @@ export async function updateSaleStatus({
         sales_id: item.id,
       }))
     );
-    const totalPayments = calculateTotalPayments({ dollar, payments });
+
+    const changes = sale.change_manager.map((item) => ({
+      change_method: item.change_method,
+      change_amount: Number(item.change_amount),
+      operation: item.operation,
+    }));
+
+    const totalChanges = Number(
+      calculateTotalChanges({ changes, dollar }).toFixed(2)
+    );
+    const totalPayments = Number(
+      calculateTotalPayments({ dollar, payments }).toFixed(2)
+    );
+
     const totalPrice = Number(sale.total_price);
-    const status = getSaleStatus({ totalPayments, totalPrice });
+    const match = Number(Math.abs(totalChanges - totalPayments).toFixed(2));
+
+    const status = match - totalPrice == 0 ? "completed" : "pending";
+
     const debt = getDebt({ totalPayments, totalPrice });
 
     const saleUpdate = await tx.sales.update({

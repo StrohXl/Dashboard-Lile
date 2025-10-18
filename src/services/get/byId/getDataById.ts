@@ -1,9 +1,13 @@
+"use server";
 import axios, { AxiosError } from "axios";
 
 import { ApiUrl } from "@/models";
 import { ResponseGetById } from "@/models/response/get/responseGetById.model";
 import { Response } from "@/models/response/response.model";
 import { ResponseData } from "@/models/response/responseData.model";
+import { getUrl } from "@/utils/getUrl";
+import { cookies } from "next/headers";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 export default async function getDataById<T>({
   apiUrl,
@@ -14,9 +18,18 @@ export default async function getDataById<T>({
 }): Promise<
   Omit<ResponseData<ResponseGetById<T>>, "data"> & { data?: ResponseGetById<T> }
 > {
+  const cookieStore = await cookies();
+  const myToken: RequestCookie | undefined = cookieStore.get("myToken");
+  const siteUrl = await getUrl();
+
   try {
     const { data }: { data: Response<ResponseGetById<T>> } = await axios.get(
-      `/api${apiUrl}/${id}`
+      `${siteUrl}/api${apiUrl}/${id}`,
+      {
+        headers: {
+          Cookie: `${myToken?.name}=${myToken?.value}`,
+        },
+      }
     );
     return data;
   } catch (error) {

@@ -3,13 +3,12 @@ import { useForm } from "react-hook-form";
 
 import { Client } from "@/models/api/client/client.model";
 
-
 import SkeletonFormProduct from "@/features/products/forms/components/skeletonFormProduct";
 
-import InputForm from "./components/inputForm";
 import FormClientHooks from "./hooks/formHooks";
 import { onSubmitClient } from "./service/onSubmitClient";
 import { onSubmitClientById } from "./service/onSubmitClientById.service";
+import InputForm from "@/components/dashboard/form/inputForm";
 
 export default function FormClient() {
   const {
@@ -39,11 +38,11 @@ export default function FormClient() {
           )}
           className="container-table max-w-[800px]"
         >
-          <h4 className="font-open_sans text-gray-800 font-semibold text-2xl">
+          <h4 className="font-open_sans text-gray-800 dark:text-white font-semibold text-2xl">
             Cliente
           </h4>
           <div className="grid sm:grid-cols-3 mt-6 mb-10 gap-4">
-            <InputForm
+            <InputForm<Client>
               error={errors.name}
               label="Nombre"
               nameField="name"
@@ -61,7 +60,7 @@ export default function FormClient() {
                 onChange: () => id && setDisabled(false),
               }}
             />
-            <InputForm
+            <InputForm<Client>
               error={errors.last_name}
               label="Apellido"
               nameField="last_name"
@@ -79,7 +78,7 @@ export default function FormClient() {
                 onChange: () => id && setDisabled(false),
               }}
             />
-            <InputForm
+            <InputForm<Client>
               error={errors.ci}
               label="C.I"
               nameField="ci"

@@ -11,7 +11,6 @@ import { createBodyProduct, editBodyProductAdapter } from "../adapters";
 import { FormProduct } from "../models/form-product.model";
 import { Product } from "../models/product.model";
 
-
 export const onSubmit = async ({
   body,
   setDisabled,
@@ -51,7 +50,15 @@ export const onSubmit = async ({
           },
         },
         error: {
-          render({ data }: { data: ResponseData<Product> }) {
+          render({
+            data,
+          }: {
+            data: {
+              response: { data: ResponseData<Product> };
+              message: string;
+            };
+          }) {
+            if (data.response) return data.response.data.message;
             return data.message;
           },
         },

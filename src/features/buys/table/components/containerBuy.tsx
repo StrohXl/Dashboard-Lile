@@ -8,7 +8,7 @@ export default function ContainerBuy({
   dollar: number;
 }) {
   return (
-    <div>
+    <div className="text-gray-800 dark:text-white">
       <div className="grid font-roboto grid-cols-[1fr_1fr] gap-3 mb-4 pb-4 border-b-1 border-gray-400">
         <h5 className="">Total:</h5>
         <h5 className="text-end">
@@ -29,10 +29,10 @@ export default function ContainerBuy({
           <div key={item.id} className="grid grid-cols-[1fr_100px_150px] gap-4">
             <div
               className={`
-                 border-gray-700 border-1 flex items-center px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
+                 border-gray-400 dark:border-white border-1 flex items-center px-3 py-2 gap-2   w-full rounded-sm `}
             >
               <input
-                className="w-full bg-transparent autofill:bg-transparent outline-none"
+                className="w-full bg-transparent autofill:bg-transparent outline-none text-gray-800 dark:text-white"
                 autoComplete="off"
                 disabled
                 value={item.name}
@@ -40,10 +40,11 @@ export default function ContainerBuy({
             </div>
             <div
               className={`
-                 border-gray-700 border-1 flex items-center px-3 py-2 gap-2 text-foreground   w-full rounded-sm `}
+                 border-gray-400 dark:border-white border-1 flex items-center px-3 py-2 gap-2   w-full rounded-sm `}
             >
               <input
-                className="w-full bg-transparent autofill:bg-transparent outline-none"
+              
+                className="w-full bg-transparent autofill:bg-transparent outline-none text-gray-800 dark:text-white"
                 autoComplete="off"
                 disabled
                 value={item.stock}
@@ -52,7 +53,7 @@ export default function ContainerBuy({
             </div>
             <div
               className={`
-                 border-1 border-white flex items-center py-1  text-foreground   w-full rounded-sm `}
+                 border-1 border-transparent flex items-center py-1    w-full rounded-sm text-gray-800 dark:text-white `}
             >
               <span className="pe-3">{item.price}$</span>
               <span className=" ps-3 border-gray-400 border-l-1">

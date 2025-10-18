@@ -45,11 +45,11 @@ export default function SearchMenu<T extends Object>({
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-[1fr_auto] relative z-30 items-center gap-2 px-4 border-1 border-gray-700 rounded-md">
+      <div className="grid grid-cols-[1fr_auto] relative z-30 items-center gap-2 px-4 border-1 border-gray-700 dark:border-white rounded-md">
         <input
           value={textSearch}
           type={type}
-          className="py-2  outline-none text-gray-700 placeholder:text-gray-600 w-full"
+          className="py-[10px] outline-none placeholder:text-gray-600 dark:placeholder:text-gray-300 w-full text-gray-800  dark:text-white "
           placeholder={placeholder}
           onChange={(event) => onChangeInput(event)}
         />
@@ -59,18 +59,18 @@ export default function SearchMenu<T extends Object>({
           boxShadow:
             "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
         }}
-        className={`flex left-0 mt-3 top-full w-full py-2 z-30 flex-col  rounded-md bg-white absolute h-fit max-h-[150px] overflow-auto  ${
+        className={`flex left-0 mt-3 top-full w-full py-2 z-30 flex-col  rounded-md bg-white dark:bg-gray-700 absolute h-fit max-h-[150px] overflow-auto  ${
           !open && "hidden"
         }`}
       >
         {loading ? (
-          <li className="!px-4 font-roboto">{loadingMessage}</li>
+          <li className="!px-4 font-roboto text-gray-800 dark:text-white">{loadingMessage}</li>
         ) : options.length == 0 ? (
-          <li className="!px-4 font-roboto">{notFoundMessage}</li>
+          <li className="!px-4 font-roboto text-gray-800 dark:text-white">{notFoundMessage}</li>
         ) : (
           options.map((item, index) => (
             <li
-              className="!px-4 transition-colors duration-300 font-roboto hover:bg-primary hover:text-white cursor-pointer py-1"
+              className="!px-4 transition-colors duration-300 font-roboto hover:bg-primary hover:text-white dark:text-white cursor-pointer text-gray-800 py-1"
               onClick={() => onClickSelect(item)}
               key={index}
             >

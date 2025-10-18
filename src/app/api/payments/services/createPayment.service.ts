@@ -8,10 +8,15 @@ import { ResponseService } from "@/models/response/responseService.model";
 import prisma from "../../../../../libs/prisma";
 import { updateSaleStatus } from "../../sales/services";
 import { createPaymentValidator } from "../validators/createPayment.validator";
+import { Token } from "@/models/token";
 
-export async function createPayment(
-  body: CreatePayment
-): ResponseService<Payments> {
+export async function createPayment({
+  body,
+  token,
+}: {
+  body: CreatePayment;
+  token: Token;
+}): ResponseService<Payments> {
   const bodyValidator = createPaymentValidator(body);
   if (bodyValidator instanceof ZodError) {
     return NextResponse.json(
@@ -33,7 +38,7 @@ export async function createPayment(
   try {
     await prisma.$transaction(async (tx) => {
       const payment = await tx.payments.create({
-        data: body,
+        data: { ...body, userId: token.id },
       });
       await updateSaleStatus({ id: body.sales_id, tx });
       return NextResponse.json(payment);

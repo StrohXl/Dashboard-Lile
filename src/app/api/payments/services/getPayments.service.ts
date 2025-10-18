@@ -7,12 +7,14 @@ import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
-
+import { Token } from "@/models/token";
 
 export async function getPayments({
   params,
+  token,
 }: {
   params: ParamsRequest;
+  token: Token;
 }): ResponseService<ResponseGet<Payments>> {
   const { skip, take, pages } = await getPages("/payments", params);
 
@@ -25,6 +27,9 @@ export async function getPayments({
       },
       cacheStrategy: {
         ttl: 3,
+      },
+      where: {
+        userId: token.id,
       },
     });
     return NextResponse.json({

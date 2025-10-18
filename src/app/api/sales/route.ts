@@ -13,12 +13,12 @@ export async function GET(request: NextRequest) {
     );
   }
   const params = getParams({ request });
-  return await getSales({ params });
+  return await getSales({ params, token });
 }
 
 export async function POST(request: NextRequest) {
-  const token = tokenValidator(request);
-  if (!token) {
+  const token = await tokenValidator(request);
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json(
       { error: "Solicitud no permitida" },
       { status: 400 }
@@ -26,5 +26,5 @@ export async function POST(request: NextRequest) {
   }
   const body = await request.json();
 
-  return await createSale(body);
+  return await createSale({ body, token });
 }

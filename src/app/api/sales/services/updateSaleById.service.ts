@@ -8,13 +8,16 @@ import { ResponseService } from "@/models/response/responseService.model";
 import prisma from "../../../../../libs/prisma";
 import { updateBodySaleValidator } from "../validators";
 import { updateSaleStatus } from "./updateSaleStatus.service";
+import { Token } from "@/models/token";
 
 export async function updateSaleById({
   id,
   body,
+  token,
 }: {
   body: UpdateSale;
   id: number;
+  token: Token;
 }): ResponseService<Sales> {
   const validBody = updateBodySaleValidator(body);
   if (validBody instanceof ZodError) {
@@ -64,6 +67,11 @@ export async function updateSaleById({
             connect: changesConnect.map((item) => ({
               id: item.id,
             })),
+          },
+          User: {
+            connect: {
+              id: token.id,
+            },
           },
         },
       });

@@ -19,17 +19,26 @@ function TableBodyProducts({
 }) {
   const { selects } = useDataContext();
 
-  const bgRed = "!bg-red-500 text-white stock-red font-medium";
+  const bgRed = "!bg-red-500 dark:!bg-red-500 text-white stock-red font-medium";
 
   return (
     <Body>
       {tableList.map((item: Product) => (
         <Row
-          className={`${
-            !selects.includes(item.id) && item.unit == "kg"
-              ? item.stock <= 10000 && bgRed
-              : item.stock < 5 && bgRed
-          } dark:!bg-gray-700 dark:!text-white` }
+          className={`
+             dark:!text-white
+            ${
+              selects.includes(item.id)
+                ? "dark:!bg-gray-700"
+                : item.unit == "unit"
+                  ? item.stock < 5
+                    ? bgRed
+                    : "dark:!bg-gray-800 "
+                  : item.unit == "kg" && item.stock <= 10000
+                    ? bgRed
+                    : "dark:!bg-gray-800 "
+            }
+            `}
           key={item.id}
           item={item}
         >

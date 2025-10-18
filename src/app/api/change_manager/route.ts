@@ -11,12 +11,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const params = getParams({ request });
-  return await getChanges({ params: params });
+  return await getChanges({ params: params, token });
 }
 
 export async function POST(request: NextRequest) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const body = await request.json();

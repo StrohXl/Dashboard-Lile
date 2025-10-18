@@ -1,3 +1,5 @@
+import { IoClose } from "react-icons/io5";
+
 import "react-responsive-modal/styles.css";
 import {
   FieldErrors,
@@ -17,7 +19,7 @@ import TypeOfCurrency from "@/components/dashboard/form/typeOfCurrency";
 import { useContextBuy } from "../hooks/useContenxtBuy";
 import { FormBuy } from "../models";
 import { changeSellingPrice } from "../utilities";
-
+import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 
 export default function ModalCalculatePrice({
   register,
@@ -69,194 +71,218 @@ export default function ModalCalculatePrice({
     setValue("selling_price", 0);
   };
 
+  
   const unit = watch(`method`);
+  
+  const { theme } = useContextLayout();
 
   return (
     <Modal
-      styles={{ modal: { borderRadius: "8px" } }}
+      styles={{
+        modal: {
+          borderRadius: "10px",
+          padding: 0,
+        },
+      }}
       center
       open={openModal}
       onClose={() => setOpenModal(false)}
+      closeIcon={
+        <IoClose
+          data-theme={theme}
+          className="text-gray-800 dark:text-white transition-colors hover:text-primary"
+          size={25}
+        />
+      }
     >
-      <h2 className="font-roboto font-semibold mb-4 text-lg">
-        Calcular Precio
-      </h2>
-      <div>
-        <div className="grid items-center mb-4 gap-4 md:grid-cols-[200px_200px]">
-          <SelectForm<FormBuy>
-            selectOptions={[
-              { title: "Unidad", value: "unit" },
-              { title: "Paquete", value: "package" },
-              { title: "Kg", value: "kg" },
-            ]}
-            register={register}
-            label="Metodo"
-            nameField={`method`}
-            options={{
-              onChange: () =>
-                changeSellingPrice({
-                  getValues,
-                  index: indexFields,
-                  pyDollar,
-                  setValue,
-                }),
-            }}
-            error={errors.method}
-          />
-          <InputForm<FormBuy>
-            register={register}
-            label="Precio de compra"
-            nameField={`products.${indexFields}.purchase_price`}
-            type="number"
-            step="any"
-            iconEnd={
-              <TypeOfCurrency
-                typeOfCurrency={typeOfCurrencyOfThePurchase}
-                onClickIcon={() => {
-                  if (typeOfCurrencyOfThePurchase == "bs") {
-                    setValue(
-                      `products.${indexFields}.type_of_currency_of_the_purchase`,
-                      "dollar"
-                    );
-                  } else {
-                    setValue(
-                      `products.${indexFields}.type_of_currency_of_the_purchase`,
-                      "bs"
-                    );
-                  }
+      <div
+        data-theme={theme}
+        className="p-[1.2rem] bg-white dark:bg-gray-800 overflow-hidden rounded-lg"
+      >
+        <h2 className="font-roboto font-semibold mb-4 text-lg text-gray-800 dark:text-white">
+          Calcular Precio
+        </h2>
+        <div>
+          <div className="grid items-center mb-4 gap-4 md:grid-cols-[200px_200px]">
+            <SelectForm<FormBuy>
+              selectOptions={[
+                { title: "Unidad", value: "unit" },
+                { title: "Paquete", value: "package" },
+                { title: "Kg", value: "kg" },
+              ]}
+              register={register}
+              label="Metodo"
+              nameField={`method`}
+              options={{
+                onChange: () =>
                   changeSellingPrice({
                     getValues,
                     index: indexFields,
                     pyDollar,
                     setValue,
-                  });
-                }}
-              />
-            }
-            options={{
-              required: {
-                value: true,
-                message: "Este campo es requerido",
-              },
-              min: {
-                value: 0.1,
-                message: "Precio minimo 0.1",
-              },
-              onChange: () =>
-                changeSellingPrice({
-                  getValues,
-                  index: indexFields,
-                  pyDollar,
-                  setValue,
-                }),
-            }}
-            error={errors.purchase_price}
-          />
+                  }),
+              }}
+              error={errors.method}
+            />
+            <InputForm<FormBuy>
+              register={register}
+              label="Precio de compra"
+              nameField={`products.${indexFields}.purchase_price`}
+              type="number"
+              step="any"
+              iconEnd={
+                <TypeOfCurrency
+                  typeOfCurrency={typeOfCurrencyOfThePurchase}
+                  onClickIcon={() => {
+                    if (typeOfCurrencyOfThePurchase == "bs") {
+                      setValue(
+                        `products.${indexFields}.type_of_currency_of_the_purchase`,
+                        "dollar"
+                      );
+                    } else {
+                      setValue(
+                        `products.${indexFields}.type_of_currency_of_the_purchase`,
+                        "bs"
+                      );
+                    }
+                    changeSellingPrice({
+                      getValues,
+                      index: indexFields,
+                      pyDollar,
+                      setValue,
+                    });
+                  }}
+                />
+              }
+              options={{
+                required: {
+                  value: true,
+                  message: "Este campo es requerido",
+                },
+                min: {
+                  value: 0.1,
+                  message: "Precio minimo 0.1",
+                },
+                onChange: () =>
+                  changeSellingPrice({
+                    getValues,
+                    index: indexFields,
+                    pyDollar,
+                    setValue,
+                  }),
+              }}
+              error={errors.purchase_price}
+            />
 
-          <InputForm<FormBuy>
+            <InputForm<FormBuy>
+              register={register}
+              label="Cantidad"
+              nameField={`products.${indexFields}.stock`}
+              type="number"
+              iconEnd={unit == "kg" ? "Kg" : <HiArchiveBox />}
+              options={{
+                required: {
+                  value: true,
+                  message: "Este campo es requerido",
+                },
+                min: {
+                  value: unit == "kg" ? 0 : 1,
+                  message: "Cantidad minima  de 1",
+                },
+                onChange: () =>
+                  changeSellingPrice({
+                    index: indexFields,
+                    getValues,
+                    setValue,
+                    pyDollar,
+                  }),
+              }}
+              step={unit == "kg" ? "0.1" : "1"}
+              error={errors.products && errors.products[indexFields]?.stock}
+            />
+            <SelectForm<FormBuy>
+              selectOptions={selectOptions}
+              register={register}
+              label="Margen de Ganancia"
+              nameField={`markup`}
+              error={errors.markup}
+              options={{
+                onChange: () =>
+                  changeSellingPrice({
+                    getValues,
+                    index: indexFields,
+                    pyDollar,
+                    setValue,
+                  }),
+              }}
+            />
+          </div>
+          <GroupRadio<FormBuy>
+            label="Incluir IVA de 16%"
+            nameField={`products.${indexFields}.iva`}
+            options={[
+              { title: "Si", value: "true" },
+              { title: "No", value: "false" },
+            ]}
             register={register}
-            label="Cantidad"
-            nameField={`products.${indexFields}.stock`}
-            type="number"
-            iconEnd={unit == "kg" ? "Kg" : <HiArchiveBox />}
-            options={{
-              required: {
-                value: true,
-                message: "Este campo es requerido",
-              },
-              min: {
-                value: unit == "kg" ? 0 : 1,
-                message: "Cantidad minima  de 1",
-              },
-              onChange: () =>
-                changeSellingPrice({
-                  index: indexFields,
-                  getValues,
-                  setValue,
-                  pyDollar,
-                }),
-            }}
-            step={unit == "kg" ? "0.1" : "1"}
-            error={errors.products && errors.products[indexFields]?.stock}
+            setValue={setValue}
+            disabled={idProduct == 0 ? false : true}
           />
-          <SelectForm<FormBuy>
-            selectOptions={selectOptions}
-            register={register}
-            label="Margen de Ganancia"
-            nameField={`markup`}
-            error={errors.markup}
-            options={{
-              onChange: () =>
-                changeSellingPrice({
-                  getValues,
-                  index: indexFields,
-                  pyDollar,
-                  setValue,
-                }),
-            }}
-          />
+          <label
+            className={`font-roboto relative text-gray-700 dark:text-white block mt-4`}
+          >
+            <span className="flex items-center gap-2">
+              Precio de venta en $:
+              {iva == "true" ? (
+                <span className="flex items-center gap-2">
+                  <span className="line-through text-red-500 flex items-center">
+                    {sellingPrice}$
+                  </span>
+                  <span className="flex items-center">
+                    {(sellingPrice * Number(`0.${IVA}`) + sellingPrice).toFixed(
+                      2
+                    )}
+                    $
+                  </span>
+                </span>
+              ) : (
+                `${sellingPrice}$`
+              )}
+            </span>
+          </label>
+          <label
+            className={`font-roboto relative text-gray-700 dark:text-white block mt-2`}
+          >
+            <span className="flex items-center gap-2">
+              Precio de venta en Bs:
+              {iva == "true" ? (
+                <span className="flex items-center gap-2">
+                  <span className="line-through text-red-500 flex items-center">
+                    {(sellingPrice * pyDollar).toFixed(2)}Bs
+                  </span>
+                  <span className="flex items-center">
+                    {(
+                      (sellingPrice * Number(`0.${IVA}`) + sellingPrice) *
+                      pyDollar
+                    ).toFixed(2)}
+                    Bs
+                  </span>
+                </span>
+              ) : (
+                ` ${(sellingPrice * pyDollar).toFixed(2)}Bs`
+              )}
+            </span>
+          </label>
         </div>
-        <GroupRadio<FormBuy>
-          label="Incluir IVA de 16%"
-          nameField={`products.${indexFields}.iva`}
-          options={[
-            { title: "Si", value: "true" },
-            { title: "No", value: "false" },
-          ]}
-          register={register}
-          setValue={setValue}
-          disabled={idProduct == 0 ? false : true}
-        />
-        <label className={`font-roboto relative text-gray-700 block mt-4`}>
-          <span className="flex items-center gap-2">
-            Precio de venta en $:
-            {iva == "true" ? (
-              <span className="flex items-center gap-2">
-                <span className="line-through text-red-500 flex items-center">
-                  {sellingPrice}$
-                </span>
-                <span className="flex items-center">
-                  {(sellingPrice * Number(`0.${IVA}`) + sellingPrice).toFixed(
-                    2
-                  )}
-                  $
-                </span>
-              </span>
-            ) : (
-              `${sellingPrice}$`
-            )}
-          </span>
-        </label>
-        <label className={`font-roboto relative text-gray-700 block mt-2`}>
-          <span className="flex items-center gap-2">
-            Precio de venta en Bs:
-            {iva == "true" ? (
-              <span className="flex items-center gap-2">
-                <span className="line-through text-red-500 flex items-center">
-                  {(sellingPrice * pyDollar).toFixed(2)}Bs
-                </span>
-                <span className="flex items-center">
-                  {(
-                    (sellingPrice * Number(`0.${IVA}`) + sellingPrice) *
-                    pyDollar
-                  ).toFixed(2)}
-                  Bs
-                </span>
-              </span>
-            ) : (
-              ` ${(sellingPrice * pyDollar).toFixed(2)}Bs`
-            )}
-          </span>
-        </label>
-      </div>
-      <div className="mt-6 flex ">
-        <button
-          type="button"
-          className="btn-primary  ms-auto"
-          onClick={addPrice}
-        >
-          Agregar Precio
-        </button>
+        <div className="mt-6 flex ">
+          <button
+            type="button"
+            className="btn-primary  ms-auto"
+            onClick={addPrice}
+          >
+            Agregar Precio
+          </button>
+        </div>
       </div>
     </Modal>
   );

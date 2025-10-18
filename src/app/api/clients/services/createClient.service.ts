@@ -7,11 +7,14 @@ import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import createClientValidator from "../validators/createClient.validator";
+import { Token } from "@/models/token";
 
 export const createClient = async ({
   body,
+  token,
 }: {
   body: CreateClient;
+  token: Token;
 }): ResponseService<Clients> => {
   const zodClient = createClientValidator(body);
   if (zodClient instanceof ZodError) {
@@ -23,11 +26,12 @@ export const createClient = async ({
       }
     );
   }
+
   body.name = body.name.toLocaleLowerCase();
   body.last_name = body.last_name.toLocaleLowerCase();
   try {
     const sale = await prisma.clients.create({
-      data: body,
+      data: { ...body, user: { connect: { id: token.id } } },
     });
     return NextResponse.json({
       message: "Cliente creado",

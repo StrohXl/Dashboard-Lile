@@ -1,12 +1,11 @@
 import { updateData } from "@/services/put/updateData";
-import { ParamValue } from "next/dist/server/request/params";
 import { toast } from "react-toastify";
 
 import { Sale } from "@/models/api/sale";
 import { ResponseData } from "@/models/response/responseData.model";
 
 import { createAddaptedSale } from "../adapters/createAddaptedSale";
-import { FormSale } from "../models";
+import { FormSale, SaleSchemaHook } from "../models";
 
 interface ResponseAxios {
   data: {
@@ -18,20 +17,14 @@ interface ResponseAxios {
 
 export const onSubmitSaleById = async ({
   body,
-  setDisabled,
-  setFormSteps,
-  id,
-  setReload,
-  reload,
+  contextSale,
 }: {
   body: FormSale;
-  setDisabled: (value: boolean) => void;
-  setFormSteps: (value: number) => void;
-  reload: boolean;
-  setReload: (value: boolean) => void;
-  id: ParamValue;
+  contextSale: SaleSchemaHook;
 }) => {
   const newBody = createAddaptedSale(body);
+  const { setDisabled, id, setReload, setFormSteps, reload } = contextSale;
+
   try {
     setDisabled(true);
     await toast.promise(

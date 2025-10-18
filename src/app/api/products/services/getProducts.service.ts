@@ -7,12 +7,14 @@ import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
-
+import { Token } from "@/models/token";
 
 export async function getProducts({
   params,
+  token,
 }: {
   params: ParamsRequest;
+  token: Token;
 }): ResponseService<ResponseGet<Products>> {
   const { name } = params;
   const { skip, take, pages } = await getPages("/products", params);
@@ -26,6 +28,7 @@ export async function getProducts({
         name: {
           contains: name,
         },
+        userId: token.id,
       },
       cacheStrategy: {
         ttl: 2,

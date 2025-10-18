@@ -8,8 +8,12 @@ import FormBodySale from "./components/formBodySale";
 import FormHeaderSale from "./components/formHeaderSale";
 import SaleHookContext, { useContextSale } from "./hooks/saleHookContext";
 import type { FormSale } from "./models";
-import { onSubmitSale } from "./services/onSubmitSale";
 import { nextForm } from "./utilities";
+import {
+  HiOutlineArrowSmallLeft,
+  HiOutlineArrowSmallRight,
+} from "react-icons/hi2";
+import { onSubmit } from "./services/onSubmit";
 
 export default function FormSale({
   pyDollar,
@@ -48,52 +52,28 @@ const SaleForm = ({
 }) => {
   // Context Sale
 
-  const {
-    setIdSale,
-    containerInvoice,
-    disabled,
-    setDisabled,
-    formSteps,
-    setFormSteps,
-    totalChanges,
-    totalPayments,
-    dollar,
-    totalPrice,
-    loadingSale,
-    setTotalChanges,
-    setTotalPrice,
-    setTotalPayments,
-    id,
-  } = useContextSale();
+  const contextSale = useContextSale();
+
+  const { loadingSale, id, formSteps, setFormSteps, disabled } = contextSale;
 
   // Form Sale
 
   const {
-    getValues,
     handleSubmit,
     reset,
-    setValue,
-    trigger,
     formState: { isDirty },
   } = useFormSale;
 
-  if (loadingSale) {
-    return <SkeletonFormProduct />;
-  } else {
+  if (loadingSale) return <SkeletonFormProduct />;
+  else {
     return (
       <form
         className="grid container-table  max-w-[1200px]"
         onSubmit={handleSubmit((body) =>
-          onSubmitSale({
+          onSubmit({
             body,
-            document: containerInvoice,
             reset,
-            setDisabled,
-            setFormSteps,
-            setIdSale,
-            setTotalChanges,
-            setTotalPayments,
-            setTotalPrice,
+            contextSale,
           })
         )}
       >
@@ -107,9 +87,10 @@ const SaleForm = ({
           {formSteps !== 0 && (
             <button
               type="button"
-              onClick={() => setFormSteps(formSteps - 1)}
+              onClick={() => setFormSteps((value) => value - 1)}
               className="btn-outlined-primary"
             >
+              <HiOutlineArrowSmallLeft size={20} />
               Regresar
             </button>
           )}
@@ -120,25 +101,20 @@ const SaleForm = ({
             className={`btn-primary ms-auto disabled:opacity-50 disabled:cursor-not-allowed`}
             onClick={() =>
               nextForm({
-                formSteps,
-                getValues,
-                setFormSteps,
-                trigger,
-                setValue,
-                dollar,
-                totalChanges,
-                totalPayments,
-                totalPrice,
-                id,
-                setTotalPayments,
+                contextSale,
+                useFormSale,
               })
             }
           >
-            {formSteps !== 3
-              ? "Siguiente"
-              : id
-                ? "Actualizar Venta"
-                : "Crear Venta"}
+            {formSteps !== 3 ? (
+              <>
+                Siguiente <HiOutlineArrowSmallRight size={20} />
+              </>
+            ) : id ? (
+              "Actualizar Venta"
+            ) : (
+              "Crear Venta"
+            )}
           </button>
         </div>
       </form>

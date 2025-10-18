@@ -28,6 +28,8 @@ import { ThemeMaterialSales } from "./theme";
 
 import Invoice from "@/documents/invoice";
 import { downloadPdf } from "@/documents/utils/downloadPdf";
+import { IoClose } from "react-icons/io5";
+import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 
 export default function TableSales({
   data,
@@ -70,7 +72,9 @@ export default function TableSales({
     "Deuda",
   ];
 
-  const theme = ThemeMaterialSales();
+  const themeSale = ThemeMaterialSales();
+  const { theme } = useContextLayout();
+
   if (sales.data && sales.data.data.length !== 0) {
     return (
       <>
@@ -79,7 +83,7 @@ export default function TableSales({
             layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
             data={nodes}
             select={select}
-            theme={theme}
+            theme={themeSale}
           >
             {(tableList: Sale[]) => (
               <>
@@ -119,6 +123,14 @@ export default function TableSales({
               </button>
             )
           }
+          className="bg-white dark:!bg-gray-800"
+          closeIcon={
+            <IoClose
+              className="text-gray-800 dark:text-white transition-colors hover:text-primary"
+              size={25}
+            />
+          }
+          data-theme={theme}
         >
           {sale ? (
             <Invoice

@@ -7,14 +7,17 @@ import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
-
+import { Token } from "@/models/token";
 
 export async function getChanges({
   params,
+  token,
 }: {
   params: ParamsRequest;
+  token: Token;
 }): ResponseService<ResponseGet<ChangeManager>> {
   const { take, pages, skip } = await getPages("/change_manager", params);
+
   try {
     const changes = await prisma.changeManager.findMany({
       take,
@@ -24,6 +27,9 @@ export async function getChanges({
       },
       cacheStrategy: {
         ttl: 3,
+      },
+      where: {
+        userId: token.id,
       },
     });
     return NextResponse.json({

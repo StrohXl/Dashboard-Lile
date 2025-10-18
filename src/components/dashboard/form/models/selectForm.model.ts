@@ -10,7 +10,7 @@ import {
 export type SelectFormType<T extends FieldValues> = {
   label?: string;
   labelTheLast?: string | ReactNode;
-  error: FieldError | undefined;
+  error?: FieldError | undefined;
   register: UseFormRegister<T>;
   options?: RegisterOptions<T>;
   disabled?: boolean;

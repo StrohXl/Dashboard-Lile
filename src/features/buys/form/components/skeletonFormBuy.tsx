@@ -2,7 +2,7 @@ import Skeleton from "@/components/dashboard/skeleton/skeleton";
 
 export default function SkeletonFormBuy() {
   return (
-    <div className="flex flex-col gap-4 max-w-[750px] mt-12 !px-5 container-table">
+    <div className="flex flex-col gap-4 max-w-[750px] mt-12 !px-5 dark:!bg-gray-800 container-table">
       <div className="flex items-center justify-between gap-3">
         <Skeleton className="h-8 w-24" />
         <div className="flex items-center gap-3">

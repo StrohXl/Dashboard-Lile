@@ -7,9 +7,10 @@ import { Sale } from "@/models/api/sale";
 import { useDataContext } from "@/hooks/useContextData";
 
 import { CellSelect } from "@table-library/react-table-library/select";
-import { Body, Row, Cell } from "@table-library/react-table-library/table";
+import { Body, Cell } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
+import RowTable from "@/components/dashboard/tables/components/RowTable";
 
 export default function TableBodySales({
   tableList,
@@ -20,7 +21,8 @@ export default function TableBodySales({
   pyDollar: number | undefined;
   data: Data;
 }) {
-  const { setOpenDrawer, setSale, setLoadingDrawer } = useDataContext();
+  const { setOpenDrawer, setSale, setLoadingDrawer, selects } =
+    useDataContext();
 
   const getSaleById = async (id: number) => {
     setLoadingDrawer(true);
@@ -38,7 +40,7 @@ export default function TableBodySales({
   return (
     <Body>
       {tableList.map((item: Sale) => (
-        <Row key={item.id} item={item}>
+        <RowTable key={item.id} item={item} selects={selects} id={item.id}>
           <CellSelect item={item} />
           <Cell>{new Date(item.created_at).toLocaleDateString("es-Es")}</Cell>
           <Cell>{`${item.client.name} ${item.client.last_name}`}</Cell>
@@ -70,7 +72,7 @@ export default function TableBodySales({
               id={item.id}
             />
           </Cell>
-        </Row>
+        </RowTable>
       ))}
     </Body>
   );

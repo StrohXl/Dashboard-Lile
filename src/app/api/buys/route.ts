@@ -11,12 +11,12 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const page = searchParams.get("page") ?? 1;
 
-  return await getBuys({ params: { page: Number(page) } });
+  return await getBuys({ params: { page: Number(page) }, token });
 }
 
 export async function POST(request: NextRequest) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const body = await request.json();

@@ -1,6 +1,8 @@
 "use client";
 import { UseFieldArrayPrepend, UseFormGetValues } from "react-hook-form";
 
+import { FaPlus } from "react-icons/fa";
+
 import SearchMenuHooks from "@/components/dashboard/searchMenu/hooks/searchMenuHooks";
 import SearchMenu from "@/components/dashboard/searchMenu/searchMenu";
 import { OptionProducts } from "@/components/dashboard/searchMenu/services/getProducts.service";
@@ -9,7 +11,6 @@ import { searchProduct } from "@/components/dashboard/searchMenu/utils/searchPro
 import { FormBuy } from "../../models";
 import { addProduct } from "./utils/add-product.utility";
 import { appendField } from "./utils/append-field.utilitiy";
-
 
 export default function HeadFormBuy({
   prepend,
@@ -31,10 +32,10 @@ export default function HeadFormBuy({
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      <h4 className="mb-2 font-open_sans text-gray-800 font-semibold text-2xl">
+      <h4 className="mb-2 font-open_sans text-gray-800  dark:text-white font-semibold text-2xl">
         Compra
       </h4>
-      <div className="grid md:grid-cols-2 items-center gap-3">
+      <div className="grid md:grid-cols-[1fr_200px] items-center gap-3">
         <SearchMenu<OptionProducts>
           closeMenu={() => setOpen(false)}
           loading={loading}
@@ -64,6 +65,7 @@ export default function HeadFormBuy({
           onClick={() => appendField({ prepend })}
         >
           Agregar Producto
+          <FaPlus />
         </button>
       </div>
     </div>

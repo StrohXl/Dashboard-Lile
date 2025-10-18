@@ -6,7 +6,7 @@ import { createProduct, getProducts } from "./services";
 
 export async function GET(request: NextRequest) {
   const token = await tokenValidator(request);
-  
+
   if (!token) {
     return NextResponse.json(
       { error: "Solicitud no permitida" },
@@ -15,11 +15,12 @@ export async function GET(request: NextRequest) {
   }
   const params = getParams({ request });
 
-  return await getProducts({ params });
+  return await getProducts({ params, token });
 }
+
 export async function POST(request: NextRequest) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
 

@@ -7,12 +7,14 @@ import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
-
+import { Token } from "@/models/token";
 
 export async function getSales({
   params,
+  token,
 }: {
   params: ParamsRequest;
+  token: Token;
 }): ResponseService<ResponseGet<Sales>> {
   const { skip, take, pages } = await getPages("/sales", params);
   try {
@@ -25,6 +27,9 @@ export async function getSales({
       take: take,
       orderBy: {
         id: "desc",
+      },
+      where: {
+        userId: token.id,
       },
     });
     return NextResponse.json({

@@ -1,5 +1,5 @@
 import { ParamValue } from "next/dist/server/request/params";
-import { RefObject } from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 
 export type SaleSchemaHook = {
   idSale: number;
@@ -18,7 +18,7 @@ export type SaleSchemaHook = {
   totalChanges: number;
   setTotalChanges: (value: number) => void;
   formSteps: number;
-  setFormSteps: (value: number) => void;
+  setFormSteps: Dispatch<SetStateAction<number>>;
   reload: boolean;
   setReload: (value: boolean) => void;
   containerInvoice: RefObject<null>;

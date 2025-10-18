@@ -7,12 +7,14 @@ import { ResponseGet } from "@/models/response/get/responseGet.model";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
-
+import { Token } from "@/models/token";
 
 export const getClients = async ({
   params,
+  token,
 }: {
   params: ParamsRequest;
+  token: Token;
 }): ResponseService<ResponseGet<Clients>> => {
   const { ci, name } = params;
 
@@ -22,6 +24,7 @@ export const getClients = async ({
         ci: {
           equals: Number(ci),
         },
+        userId: token.id,
       },
     });
     return NextResponse.json({
@@ -38,6 +41,7 @@ export const getClients = async ({
       name: {
         contains: name,
       },
+      userId: token.id,
     },
     skip,
     take,

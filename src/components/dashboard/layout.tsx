@@ -1,27 +1,36 @@
 "use client";
+
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
 import SideBarNav from "@/components/dashboard/sideBar";
 import { sideBarMenu } from "@/components/dashboard/sideBar/data/sideBarMenu";
+import Avatar from "./Avatar";
+import SwitchTheme from "./SwitchTheme/SwitchTheme";
+import { useContextLayout } from "./hooks/ContextLayout";
+import { ResponseData } from "@/models/response/responseData.model";
+import { User } from "@/models/api/user/user.model";
+import AvatarLoading from "./AvatarLoading";
 
 export default function LayoutDashboard({
   children,
   openSideBar,
+  user,
 }: {
   children: React.ReactNode;
   openSideBar: boolean;
+  user: Promise<ResponseData<User>>;
 }) {
   const pathname = usePathname();
   const [open, setOpen] = useState<boolean>(openSideBar);
   const [showLogo, setShowLogo] = useState<boolean>(openSideBar);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const { theme } = useContextLayout();
 
   return (
     <main
       data-theme={theme}
-      className="flex p-6 gap-6 flex-col md:flex-row min-h-dvh bg-light dark:bg-dark"
+      className="flex p-6 gap-6 text-gray-800 dark:text-white flex-col md:flex-row min-h-dvh bg-light dark:bg-dark"
     >
       <div
         className={`w-full h-auto transition-all duration-300 ${
@@ -46,6 +55,12 @@ export default function LayoutDashboard({
           open ? "md:w-(--width-sidebar-open)" : "md:w-(--width-sidebar-close)"
         }`}
       >
+        <div className="flex items-center justify-end mb-4 gap-4">
+          <SwitchTheme />
+          <Suspense fallback={<AvatarLoading />}>
+            <Avatar user={user} />
+          </Suspense>
+        </div>
         {sideBarMenu.map((item, index) => {
           if (item.link === pathname) {
             return (

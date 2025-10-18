@@ -45,7 +45,7 @@ export default function Menu({
             return (
               <li
                 key={index}
-                className="!px-4 transition-colors text-gray-700 items-center grid grid-cols-[auto_1fr_auto] gap-2 duration-300 font-roboto hover:bg-primary hover:text-white cursor-pointer py-[6px]"
+                className="!px-4 transition-colors text-gray-700 dark:text-white items-center grid grid-cols-[auto_1fr_auto] gap-2 duration-300 font-roboto hover:bg-primary hover:text-white cursor-pointer py-[6px]"
                 onClick={() => functionOnClick(title)}
               >
                 {IconStart && <IconStart size={sizeIcon} />}

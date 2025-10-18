@@ -98,12 +98,14 @@ model Clients {
   id         Int      @id @default(autoincrement())
   name       String
   last_name  String
-  ci         Int      @unique @default(0)
+  ci         Int      @default(0)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   sales      Sales[]
   user       User?    @relation(fields: [userId], references: [id])
   userId     Int?
+
+  @@unique([ci, userId], name: "client_ci_user_unique")
 }
 
 model Sales {

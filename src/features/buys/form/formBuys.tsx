@@ -44,7 +44,7 @@ export default function FormBuy({
   return (
     <>
       <form
-        className="flex flex-col h-fit  gap-4 w-full max-w-[800px] !px-5 container-table"
+        className="flex flex-col h-fit  gap-4 w-full max-w-[800px] !px-5 container-table dark:!bg-gray-800"
         onSubmit={handleSubmit((body) =>
           onSubmit({ body, setDisabled, router, iva: IVA })
         )}

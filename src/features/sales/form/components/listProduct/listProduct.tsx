@@ -1,30 +1,17 @@
-import {
-  Control,
-  FieldErrors,
-  useFieldArray,
-  UseFormGetValues,
-  UseFormRegister,
-  UseFormWatch,
-} from "react-hook-form";
+import { useFieldArray, UseFormReturn } from "react-hook-form";
 
 import { FormSale } from "../../models";
 import ListProductBodyFormSale from "./components/listProductBodyFormSale";
 import ListProductHeadFormSale from "./components/listProductHeadFormSale";
 
 export default function ListProduct({
-  register,
-  getValues,
-  watch,
-  control,
-  errors,
+  useFormSale,
 }: {
-  control: Control<FormSale>;
-  getValues: UseFormGetValues<FormSale>;
-  register: UseFormRegister<FormSale>;
-  watch: UseFormWatch<FormSale>;
-  errors: FieldErrors<FormSale>;
+  useFormSale: UseFormReturn<FormSale>;
 }) {
-  const { fields, prepend, remove } = useFieldArray({
+  const { control, getValues } = useFormSale;
+
+  const useFieldProducts = useFieldArray({
     name: "list_products",
     control,
     rules: {
@@ -34,14 +21,13 @@ export default function ListProduct({
 
   return (
     <div className="flex flex-col gap-4 w-full mt-6 pb-6">
-      <ListProductHeadFormSale getValues={getValues} prepend={prepend} />
-      <ListProductBodyFormSale
-        errors={errors}
-        watch={watch}
-        fields={fields}
-        register={register}
-        remove={remove}
+      <ListProductHeadFormSale
         getValues={getValues}
+        prepend={useFieldProducts.prepend}
+      />
+      <ListProductBodyFormSale
+        useFieldProducts={useFieldProducts}
+        useFormSale={useFormSale}
       />
     </div>
   );

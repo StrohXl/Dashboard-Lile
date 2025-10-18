@@ -5,7 +5,8 @@
 .container-menu-list {
   position: absolute;
   top: calc(100% + 10px);
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+  box-shadow:
+    rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -14,4 +15,8 @@
   z-index: 30;
   height: fit-content;
   min-width: 200px;
+
+  @variant dark {
+    background: var(--color-gray-700) !important;
+  }
 }

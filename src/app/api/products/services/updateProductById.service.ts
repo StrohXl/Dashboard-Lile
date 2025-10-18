@@ -7,11 +7,17 @@ import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
 import productValidator from "../validators/product.validator";
+import { Token } from "@/models/token";
 
-export async function updateProductById(
-  body: CreateProduct,
-  id: number
-): ResponseService<Products> {
+export async function updateProductById({
+  body,
+  id,
+  token,
+}: {
+  body: CreateProduct;
+  id: number;
+  token: Token;
+}): ResponseService<Products> {
   const result = productValidator(body);
 
   if (result instanceof ZodError) {
@@ -35,6 +41,11 @@ export async function updateProductById(
         history_price: {
           create: {
             price,
+          },
+        },
+        User: {
+          connect: {
+            id: token.id,
           },
         },
       },

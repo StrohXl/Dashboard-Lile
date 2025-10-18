@@ -1,20 +1,23 @@
 import { Payment } from "@/models/api/payment/payment.model";
 
 import { CellSelect } from "@table-library/react-table-library/select";
-import { Body, Cell, Row } from "@table-library/react-table-library/table";
+import { Body, Cell } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-
+import RowTable from "@/components/dashboard/tables/components/RowTable";
+import { useDataContext } from "@/hooks/useContextData";
 
 export default function TableBodyPayments({
   tableList,
 }: {
   tableList: Payment[];
 }) {
+  const { selects } = useDataContext();
+
   return (
     <Body>
       {tableList.map((item: Payment) => (
-        <Row key={item.id} item={item}>
+        <RowTable key={item.id} item={item} id={item.id} selects={selects}>
           <CellSelect item={item} />
           <Cell>{new Date(item.created_at).toLocaleDateString("es-ES")}</Cell>
           <Cell>
@@ -28,10 +31,10 @@ export default function TableBodyPayments({
               apiUrl="/payments"
               data={tableList}
               id={item.id}
-              includeActions={{ delete: true, }}
+              includeActions={{ delete: true }}
             />
           </Cell>
-        </Row>
+        </RowTable>
       ))}
     </Body>
   );

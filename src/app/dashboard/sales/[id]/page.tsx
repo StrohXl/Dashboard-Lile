@@ -13,7 +13,7 @@ export default function SaleById() {
   return (
     <>
       <div className="flex mb-10 items-center gap-12">
-        <h2 className="text-5xl font-semibold  text-gray-800 font-open_sans">
+        <h2 className="text-5xl font-semibold font-open_sans">
           Venta 
         </h2>
         <Link

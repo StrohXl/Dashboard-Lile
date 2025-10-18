@@ -1,25 +1,23 @@
 table tbody {
-  .row-select-single-selected,
-  .row-select-selected {
-    background-color: var(--color-primary-ligth) !important;
+  tr.tr-body.row-select-single-selected,
+  tr.tr-body.row-select-selected {
     font-weight: 600 !important;
-    color: #222;
-
+    color: #fff;
   }
 }
 table {
   input {
     accent-color: var(--color-primary) !important; /* Fondo verde */
   }
-
 }
 table tbody {
   .row-select-single-selected,
   .row-select-selected {
-    font-weight: initial  !important;
+    font-weight: initial !important;
   }
 }
 
-.container-table table{
+.container-table table,
+.container-shadow table {
   grid-template-rows: auto repeat(10, 1fr);
 }

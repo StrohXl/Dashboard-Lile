@@ -27,7 +27,7 @@ export default async function Products({
   return (
     <section className="container-table overflow-hidden max-w-[1200px] relative">
       <div className="flex justify-between items-centerF mb-6 ">
-        <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
+        <h4 className="font-open_sans text-2xl font-semibold">
           Lista de Ventas
         </h4>
         <div className="flex items-center gap-6">

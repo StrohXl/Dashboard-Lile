@@ -9,7 +9,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
@@ -21,10 +21,10 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const body = await request.json();
   const { id } = await params;
-  return await updatePaymentById({ id: Number(id), body });
+  return await updatePaymentById({ id: Number(id), body, token });
 }

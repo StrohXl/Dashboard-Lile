@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPayments, createPayment } from "./services";
 
 export async function GET(request: NextRequest) {
-  const token = tokenValidator(request);
+  const token = await tokenValidator(request);
   if (!token) {
     return NextResponse.json(
       { error: "Solicitud no permitida" },
@@ -13,12 +13,12 @@ export async function GET(request: NextRequest) {
     );
   }
   const params = getParams({ request });
-  return await getPayments({ params });
+  return await getPayments({ params, token });
 }
 
 export async function POST(request: NextRequest) {
-  const token = tokenValidator(request);
-  if (!token) {
+  const token = await tokenValidator(request);
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json(
       { error: "Solicitud no permitida" },
       { status: 400 }
@@ -26,5 +26,5 @@ export async function POST(request: NextRequest) {
   }
   const body = await request.json();
 
-  return await createPayment(body);
+  return await createPayment({ body, token });
 }

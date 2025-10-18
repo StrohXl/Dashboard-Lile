@@ -8,6 +8,7 @@ export const createChangeSchema = z
       z.literal("efectivoBs"),
       z.literal("divisa"),
       z.literal("transferencia"),
+      z.literal("biopago"),
     ]),
     change_amount: z.number().positive().min(0.1),
     operation: z

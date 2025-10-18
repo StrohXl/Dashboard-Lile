@@ -28,6 +28,8 @@ import ContainerBuy from "./components/containerBuy";
 import { ThemeMaterialBuy } from "./theme";
 
 import { Drawer } from "antd";
+import { IoClose } from "react-icons/io5";
+import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
 
 export default function TableBuy({
   data,
@@ -39,13 +41,8 @@ export default function TableBuy({
   const dollar = use(pyDollar) ?? 1;
   const buys = use(data);
 
-  const {
-    setSelects,
-    loadingDrawer,
-    buy,
-    openDrawer,
-    setOpenDrawer,
-  } = useDataContext();
+  const { setSelects, loadingDrawer, buy, openDrawer, setOpenDrawer } =
+    useDataContext();
 
   const select = useRowSelect(
     { nodes: buys.data ? buys.data.data : [] },
@@ -59,7 +56,7 @@ export default function TableBuy({
 
   const nodes = { nodes: buys.data ? buys.data.data : [] };
 
-  const theme = ThemeMaterialBuy();
+  const themeBuy = ThemeMaterialBuy();
 
   const tableHeader = [
     "Fecha de Compra",
@@ -69,6 +66,8 @@ export default function TableBuy({
     </div>,
   ];
 
+  const { theme } = useContextLayout();
+
   if (buys.data && buys.data.data.length !== 0) {
     return (
       <>
@@ -77,7 +76,7 @@ export default function TableBuy({
             layout={{ fixedHeader: true, horizontalScroll: true, custom: true }}
             data={nodes}
             select={select}
-            theme={theme}
+            theme={themeBuy}
           >
             {(tableList: Buy[]) => (
               <>
@@ -98,11 +97,21 @@ export default function TableBuy({
           onClose={() => setOpenDrawer(false)}
           loading={loadingDrawer}
           width={500}
+          className="bg-white dark:!bg-gray-800"
+          closeIcon={
+            <IoClose
+              className="text-gray-800 dark:text-white transition-colors hover:text-primary"
+              size={25}
+            />
+          }
+          data-theme={theme}
         >
           {buy ? (
             <ContainerBuy buy={buy} dollar={dollar} />
           ) : (
-            <span>No se encontro ninguna venta</span>
+            <span className="text-gray-800  dark:text-white">
+              No se encontro ninguna venta
+            </span>
           )}
         </Drawer>
       </>

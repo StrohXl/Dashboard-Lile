@@ -4,11 +4,18 @@ import { NextResponse } from "next/server";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
+import { Token } from "@/models/token";
 
-export async function getProductById(id: number): ResponseService<Products> {
+export async function getProductById({
+  id,
+  token,
+}: {
+  id: number;
+  token: Token;
+}): ResponseService<Products> {
   try {
     const productId = await prisma.products.findUnique({
-      where: { id },
+      where: { id, userId: token.id },
       cacheStrategy: {
         ttl: 3,
         tags: ["findIdProduct"],

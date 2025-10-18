@@ -1,59 +1,30 @@
-import { ParamValue } from "next/dist/server/request/params";
-import { RefObject } from "react";
 import { UseFormReset } from "react-hook-form";
 
-import { FormSale } from "../models";
+import { FormSale, SaleSchemaHook } from "../models";
 import { onSubmitSale } from "./onSubmitSale";
 import { onSubmitSaleById } from "./onSubmitSaleById";
 
-
 export function onSubmit({
-  reload,
-  setDisabled,
-  setFormSteps,
-  setIdSale,
-  setReload,
-  setTotalChanges,
-  setTotalPayments,
-  setTotalPrice,
-  id,
   body,
   reset,
-  containerInvoice,
+  contextSale,
 }: {
   body: FormSale;
-  id: ParamValue;
-  setIdSale: (value: number) => void;
-  setDisabled: (value: boolean) => void;
-  setTotalPrice: (value: number) => void;
-  setTotalPayments: (value: number) => void;
-  setTotalChanges: (value: number) => void;
-  setFormSteps: (value: number) => void;
-  reload: boolean;
-  setReload: (value: boolean) => void;
   reset: UseFormReset<FormSale>;
-  containerInvoice: RefObject<null>;
+  contextSale: SaleSchemaHook;
 }) {
+  const { id } = contextSale;
+
   if (id) {
     onSubmitSaleById({
       body,
-      id,
-      setDisabled,
-      setFormSteps,
-      reload,
-      setReload,
+      contextSale,
     });
   } else {
     onSubmitSale({
       body,
       reset,
-      setDisabled,
-      setFormSteps,
-      setTotalChanges,
-      setTotalPayments,
-      setTotalPrice,
-      document: containerInvoice,
-      setIdSale,
+      contextSale,
     });
   }
 }

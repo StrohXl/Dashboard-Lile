@@ -17,7 +17,7 @@ export async function GET(
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
-  return await getChangeById(Number(id));
+  return await getChangeById({ id: Number(id), token });
 }
 
 export async function DELETE(
@@ -25,10 +25,10 @@ export async function DELETE(
   { params }: { params: Params }
 ) {
   const token = await tokenValidator(request);
-  if (!token) {
+  if (!token || token.role == "CASHIER") {
     return NextResponse.json("Solicitud no permitida", { status: 400 });
   }
   const { id } = await params;
-  
+
   return await deleteChangeById(Number(id));
 }

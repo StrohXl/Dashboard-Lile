@@ -8,7 +8,7 @@ export async function getUserById(id: number) {
     if (!userId) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-    return NextResponse.json(userId);
+    return NextResponse.json({ data: userId, message: "Usuario encontrado" });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return NextResponse.json({ message: error.message }, { status: 500 });

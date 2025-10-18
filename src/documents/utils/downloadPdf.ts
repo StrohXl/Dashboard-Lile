@@ -11,7 +11,6 @@ export async function downloadPdf({
   const element = refElement.current;
 
   if (element) {
-    console.log(refElement);
     const canvas = await html2canvas(element, {
       scale: 3,
     });

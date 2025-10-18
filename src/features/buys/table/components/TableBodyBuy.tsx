@@ -7,9 +7,10 @@ import { Buy } from "@/models/api/buy/buy.model";
 import { useDataContext } from "@/hooks/useContextData";
 
 import { CellSelect } from "@table-library/react-table-library/select";
-import { Body, Row, Cell } from "@table-library/react-table-library/table";
+import { Body, Cell } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
+import RowTable from "@/components/dashboard/tables/components/RowTable";
 
 export default function TableBodyBuy({
   tableList,
@@ -20,7 +21,8 @@ export default function TableBodyBuy({
   pyDollar: number | undefined;
   data: Data;
 }) {
-  const { ids, setBuy, setLoadingDrawer, setOpenDrawer } = useDataContext();
+  const { ids, setBuy, setLoadingDrawer, setOpenDrawer, selects } =
+    useDataContext();
 
   const getBuyById = async (id: number) => {
     setOpenDrawer(true);
@@ -38,7 +40,7 @@ export default function TableBodyBuy({
   return (
     <Body>
       {tableList.map((item: Buy) => (
-        <Row key={item.id} item={item}>
+        <RowTable key={item.id} id={item.id} item={item} selects={selects}>
           <CellSelect item={item} />
           <Cell>{new Date(item.createdAT).toLocaleDateString("es-Es")}</Cell>
           <Cell>
@@ -101,7 +103,7 @@ export default function TableBodyBuy({
               setOpenDrawer={getBuyById}
             />
           </Cell>
-        </Row>
+        </RowTable>
       ))}
     </Body>
   );

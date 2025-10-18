@@ -1,15 +1,13 @@
-"use client";
 import Image from "next/image";
 
 import FormLogin from "@/features/login/forms/formLogin";
-import { useEffect, useState } from "react";
+import { cookies } from "next/headers";
 
-export default function Home() {
-  const [theme, setTheme] = useState("dark");
+export default async function Home() {
+  const cookieStore = await cookies();
+  const themeCookie = cookieStore.get("theme");
+  const theme = themeCookie?.value ?? "dark";
 
-  useEffect(() => {
-    setTheme(window.localStorage.getItem("theme") ?? "dark");
-  }, []);
   return (
     <main data-theme={theme}>
       <section className="h-dvh bg-[#f6f7f8] dark:bg-dark relative flex items-center justify-center">

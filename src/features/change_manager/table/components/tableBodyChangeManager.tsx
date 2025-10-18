@@ -1,21 +1,23 @@
 import { ChangeManager } from "@/models/api/change_manager/changeManager.model";
 
 import { CellSelect } from "@table-library/react-table-library/select";
-import { Body, Cell, Row } from "@table-library/react-table-library/table";
+import { Body, Cell } from "@table-library/react-table-library/table";
 
 import ContainerActions from "@/components/dashboard/tables/components/containerActions";
-
-
+import RowTable from "@/components/dashboard/tables/components/RowTable";
+import { useDataContext } from "@/hooks/useContextData";
 
 export default function TableBodyChangeManager({
   tableList,
 }: {
   tableList: ChangeManager[];
 }) {
+  const { selects } = useDataContext();
+
   return (
     <Body>
       {tableList.map((item: ChangeManager) => (
-        <Row key={item.id} item={item}>
+        <RowTable key={item.id} id={item.id} item={item} selects={selects}>
           <CellSelect item={item} />
           <Cell>{new Date(item.created_at).toLocaleDateString("es-ES")}</Cell>
           <Cell>
@@ -32,7 +34,7 @@ export default function TableBodyChangeManager({
               includeActions={{ delete: true }}
             />
           </Cell>
-        </Row>
+        </RowTable>
       ))}
     </Body>
   );

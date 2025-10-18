@@ -4,12 +4,20 @@ import { NextResponse } from "next/server";
 import { ResponseService } from "@/models/response/responseService.model";
 
 import prisma from "../../../../../libs/prisma";
+import { Token } from "@/models/token";
 
-export const getClientById = async (id: number): ResponseService<Clients> => {
+export const getClientById = async ({
+  id,
+  token,
+}: {
+  id: number;
+  token: Token;
+}): ResponseService<Clients> => {
   try {
     const client = await prisma.clients.findUnique({
       where: {
         id,
+        userId: token.id,
       },
       include: {
         sales: true,

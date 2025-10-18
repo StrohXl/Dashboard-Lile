@@ -25,7 +25,7 @@ export default async function Clients({
   return (
     <section className="container-table max-w-[800px] overflow-hidden relative">
       <div className="flex justify-between items-centerF mb-6 ">
-        <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
+        <h4 className="font-open_sans text-2xl font-semibold">
           Lista de clientes
         </h4>
         <div className="flex items-center gap-6">
