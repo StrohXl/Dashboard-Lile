@@ -104,6 +104,7 @@ export async function createSale({
                   name: body.client.name,
                   last_name: body.client.last_name,
                   ci: body.client.ci,
+                  userId: token.id,
                 },
               }
             : {
