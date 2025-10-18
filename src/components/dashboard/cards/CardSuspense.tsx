@@ -5,13 +5,15 @@ import { ResponseData } from "@/models/response/responseData.model";
 export default function CardSuspense({
   title,
   dataPromise,
-  iconStart
+  iconStart,
+  toFixed,
 }: {
   title: string;
   dataPromise: Promise<
     Omit<ResponseData<{ count: number }>, "data"> & { count?: number }
   >;
   iconStart?: ReactNode;
+  toFixed?: boolean;
 }) {
   const data = use(dataPromise);
   return (
@@ -21,7 +23,7 @@ export default function CardSuspense({
       </p>
       <p className="text-3xl font-bold text-gray-700 dark:text-white">
         {iconStart}
-        {data.count}
+        {toFixed ? data.count?.toFixed(2) : data.count}
       </p>
     </div>
   );

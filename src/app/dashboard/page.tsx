@@ -13,7 +13,7 @@ export default async function Dashboard() {
   const moneyOutflowTotal = getCountData({
     apiUrl: "/change_manager/money_outflow",
   });
-  
+
   return (
     <section id="dashboard">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -25,6 +25,7 @@ export default async function Dashboard() {
             iconStart={"$"}
             title="Dinero Ingresado"
             dataPromise={moneyReceivedTotal}
+            toFixed={true}
           />
         </Suspense>
         <Suspense fallback={<CardSuspenseLoading />}>
@@ -32,6 +33,7 @@ export default async function Dashboard() {
             title="Dinero Egresado"
             iconStart={"$"}
             dataPromise={moneyOutflowTotal}
+            toFixed={true}
           />
         </Suspense>
       </div>
