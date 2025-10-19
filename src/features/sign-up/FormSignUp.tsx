@@ -10,7 +10,6 @@ import Step3 from "./components/Step3/Step3";
 import { FormSignUpModel } from "./models/formSignUp.model";
 import { onSubmitSignUp } from "./services/onSubmitSignUp.service";
 
-
 export default function FormSignUp({
   step,
   setStep,
@@ -48,7 +47,6 @@ export default function FormSignUp({
       await onSubmitSignUp({ body, salt: Number(salt) });
       toast.success("Usuario creado exitosamente");
       setTimeout(() => window.location.assign("/"), 2000);
-      
     } catch {
       setLoading(false);
       toast.error("Error al crear el usuario");
@@ -63,7 +61,17 @@ export default function FormSignUp({
   };
 
   return (
-    <form autoComplete="off" onSubmit={useFormSignUp.handleSubmit(onSubmit)}>
+    <form
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault(); // Previene el submit
+          // Opcional: puedes llamar a tu función de siguiente paso aquí
+          // nextStep();
+        }
+      }}
+      autoComplete="off"
+      onSubmit={useFormSignUp.handleSubmit(onSubmit)}
+    >
       {step == 1 && (
         <Step1
           setLoading={setLoading}

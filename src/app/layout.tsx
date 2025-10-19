@@ -8,6 +8,7 @@ const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
 });
+
 const open_sans = Open_Sans({
   variable: "--font-open_sans",
   subsets: ["latin"],
@@ -25,6 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+      </head>
       <body className={`${roboto.variable} ${open_sans.variable} antialiased`}>
         {children}
         <ToastContainer
