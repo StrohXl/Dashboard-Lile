@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Open_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
 import { ToastContainer, Bounce } from "react-toastify";
@@ -26,9 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-      </head>
+      <head></head>
       <body className={`${roboto.variable} ${open_sans.variable} antialiased`}>
+        <Analytics />
         {children}
         <ToastContainer
           position="bottom-right"

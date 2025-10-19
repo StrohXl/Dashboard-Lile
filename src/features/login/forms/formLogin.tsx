@@ -97,7 +97,7 @@ export default function FormLogin() {
         <div className="text-center mt-6">
           <Link
             href={"/"}
-            className="text-primary text-sm  font-medium  transition-colors hover:text-primary/50"
+            className="text-primary hidden text-sm  font-medium  transition-colors hover:text-primary/50"
           >
             ¿Olvidaste tu contraseña?
           </Link>
