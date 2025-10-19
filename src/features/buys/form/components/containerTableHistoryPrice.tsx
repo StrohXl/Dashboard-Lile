@@ -11,6 +11,8 @@ import NotHave from "@/components/dashboard/tables/components/notHave";
 import { useContextBuy } from "@/features/buys/form/hooks/useContenxtBuy";
 
 import TableBodyHistoryPrice from "../../../history_price/table/components/tableBodyHistoryPrice";
+import { useContextLayout } from "@/components/dashboard/hooks/ContextLayout";
+
 const ContainerHistoryPrice = ({
   dollarPy,
 }: {
@@ -18,71 +20,53 @@ const ContainerHistoryPrice = ({
 }) => {
   const { loading, historyPrice, showHistory, setShowHistory } =
     useContextBuy();
+  const { theme } = useContextLayout();
   const dollar = use(dollarPy) ?? 0;
 
-  if (showHistory) {
-    const windowWidth = window.outerWidth;
-    return (
-      <>
-        <section className="container-table max-w-[1200px] hidden 2xl:flex h-fit  flex-col overflow-hidden relative">
-          <div className="flex justify-between items-centerF mb-6 ">
-            <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
-              Historial de Precios
-            </h4>
-            <div className="flex items-center gap-6">
-              <button
-                className="transition-colors hover:text-primary cursor-pointer  duration-300 text-gray-400"
-                type="button"
-                onClick={() => setShowHistory(false)}
-              >
-                <IoClose size={25} />
-              </button>
-            </div>
-          </div>
-          {loading ? (
-            <SkeletonHistory />
-          ) : historyPrice.length == 0 ? (
-            <NotHave
-              size={100}
-              height={200}
-              message="No se encontro un historial"
-              icon={MdHistory}
-            />
-          ) : (
-            <TableBodyHistoryPrice data={historyPrice} dollarPy={dollar} />
-          )}
-        </section>
-        {windowWidth < 1200 && (
-          <Modal
-            styles={{ modal: { borderRadius: "8px" } }}
-            center
-            open={showHistory}
-            onClose={() => setShowHistory(false)}
-          >
-            <section className="container-table h-fit !p-0 !shadow-none">
-              <div className="flex justify-between items-centerF mb-6 ">
-                <h4 className="font-open_sans text-2xl font-semibold text-gray-800">
-                  Historial de Precios
-                </h4>
-              </div>
-              {loading ? (
-                <SkeletonHistory />
-              ) : historyPrice.length == 0 ? (
-                <NotHave
-                  size={100}
-                  height={200}
-                  message="No se encontro un historial"
-                  icon={MdHistory}
-                />
-              ) : (
-                <TableBodyHistoryPrice data={historyPrice} dollarPy={dollar} />
-              )}
-            </section>
-          </Modal>
+  return (
+    <Modal
+      styles={{
+        modal: {
+          borderRadius: "10px",
+          padding: 0,
+        },
+      }}
+      center
+      open={showHistory}
+      onClose={() => setShowHistory(false)}
+      closeIcon={
+        <IoClose
+          data-theme={theme}
+          className="text-gray-800 dark:text-white transition-colors hover:text-primary"
+          size={25}
+        />
+      }
+      data-theme={theme}
+    >
+      <div
+        data-theme={theme}
+        className="p-[1.2rem] bg-white md:min-w-[400px] container-shadow !shadow-none dark:bg-gray-800 overflow-hidden rounded-lg"
+      >
+        <div className="flex justify-between items-centerF mb-6 ">
+          <h4 className="font-open_sans text-2xl font-semibold text-gray-800 dark:text-white">
+            Historial de Precios
+          </h4>
+        </div>
+        {loading ? (
+          <SkeletonHistory />
+        ) : historyPrice.length == 0 ? (
+          <NotHave
+            size={100}
+            height={200}
+            message="No se encontro un historial"
+            icon={MdHistory}
+          />
+        ) : (
+          <TableBodyHistoryPrice data={historyPrice} dollarPy={dollar} />
         )}
-      </>
-    );
-  }
+      </div>
+    </Modal>
+  );
 };
 
 export default ContainerHistoryPrice;

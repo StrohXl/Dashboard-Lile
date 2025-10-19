@@ -40,7 +40,10 @@ export async function createBuy(
         },
         products: {
           connect: productsConnect.map((item) => ({ id: item.id })),
-          create: productsCreate,
+          create: productsCreate.map((item) => ({
+            ...item,
+            User: { connect: { id: token.id } },
+          })),
         },
         list_products: {
           create: listProducts.map((item) => ({

@@ -1,4 +1,3 @@
-
 import "react-responsive-modal/styles.css";
 import {
   FieldErrors,
@@ -48,6 +47,7 @@ export default function ModalCalculatePrice({
     { title: "45%", value: 0.45 },
     { title: "50%", value: 0.5 },
   ];
+
   const idProduct = watch(`products.${indexFields}.id`);
   const sellingPrice = watch("selling_price");
   const typeOfCurrencyOfThePurchase = watch(
@@ -71,9 +71,8 @@ export default function ModalCalculatePrice({
     setValue("selling_price", 0);
   };
 
-  
   const unit = watch(`method`);
-  
+
   const { theme } = useContextLayout();
 
   return (
